@@ -180,6 +180,7 @@
 
 // private
 - (NSString *)timeForShort:(NSString *)time withFormat:(NSString *)format {
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //[dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
     [dateFormatter setDateFormat:format];
@@ -440,7 +441,7 @@
         IGXMLNode *lastPostTimeNode = [threadNode childAt:6];
         //11. 最后回帖时间
         NSString *lastPostTime = [lastPostTimeNode childAt:0].text.trim;
-        thread.lastPostTime = [self timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        thread.lastPostTime = [self timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
 
         //12. 最后发表的人
         NSString *lastPostAuthorName = [lastPostTimeNode.text componentsSeparatedByString:@"by: "].lastObject;
@@ -512,7 +513,7 @@
 
                     // 5. 时间
                     NSString *time = [node childAt:3].text.trim;
-                    message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                     [messagesList addObject:message];
 
@@ -548,7 +549,7 @@
 
                 // 5. 时间
                 NSString *time = [node childAt:3].text.trim;
-                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                 [messagesList addObject:message];
 
@@ -583,7 +584,7 @@
 
                 // 5. 时间
                 NSString *time = [node childAt:3].text.trim;
-                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                 [messagesList addObject:message];
 
@@ -611,7 +612,7 @@
     privateMessage.pmTitle = pmTitle;
 
     NSString *pmTime = [[[infoBaseNode childAt:0] childAt:2] childAt:1].text.trim;
-    privateMessage.pmTime = [self timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm:ss"];
+    privateMessage.pmTime = [self timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm"];
 
     NSString *pmContent = [[[infoBaseNode childAt:0] childAt:3] childAt:1].html;
     NSString * content = [NSString stringWithFormat:@"<div style=\"overflow-x: hidden;\">%@</div>", pmContent];
