@@ -23,14 +23,13 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="h6s-4j-gBo">
                                 <rect key="frame" x="112" y="258" width="150" height="150"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Fy2-9T-Pcc"/>
                                     <constraint firstAttribute="height" constant="150" id="Jmb-Ph-zkV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.43431052565574646" green="0.5224413275718689" blue="0.62924760580062866" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="h6s-4j-gBo" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4MK-kC-3ex"/>
                             <constraint firstItem="h6s-4j-gBo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aJp-dr-kgm"/>
