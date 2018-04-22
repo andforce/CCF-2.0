@@ -13,7 +13,7 @@ target 'Forum' do
 	pod 'MGSwipeTableCell', '~>1.6.6'		#2018/03/04
 	pod 'AVOSCloud', '~>9.0'			#2018/03/04
 	pod 'NYTPhotoViewer', '~> 2.0.0'		#2018/03/04
+    	pod 'AFNetworking', '~> 3.2.0'
 end
     #pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
-    #pod 'AFNetworking', '~> 3.1.0'
     #pod 'AVOSCloudIM', '~>4.2.0'
