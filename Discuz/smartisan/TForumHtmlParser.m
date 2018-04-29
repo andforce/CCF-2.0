@@ -24,7 +24,96 @@
 }
 
 - (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop {
-    return nil;
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNodeSet *threadNodeSet = [[document queryNodeWithXPath:@"//*[@id=\"moderate\"]/div"] childAt:0].children;
+
+    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
+
+    for (IGXMLNode * threadNode in threadNodeSet) {
+        Thread *thread = [[Thread alloc] init];
+
+        // 1. ID
+        NSString *tID = [threadNode.html stringWithRegular:@"(?<=tid=)\\d+"];
+        thread.threadID = tID;
+
+        // 2. 标题
+        // 分类
+        IGXMLNode *categoryNode = [[[[threadNode childAt:1] childAt:0] childAt:0] childAt:0];
+        // 标题的节点
+        IGXMLNode *titleNode  = [[[[threadNode childAt:1] childAt:0] childAt:0] childAt:1];
+        NSString *title = [categoryNode.text.trim stringByAppendingString:titleNode.text.trim];
+        thread.threadTitle = title;
+
+        NSLog(@"p_title \t%@", title);
+
+        //3 是否是置顶帖子
+        BOOL isTop = [threadNode.html containsString:@"<span class=\"icon icon-arrow-3\">"];
+        thread.isTopThread = isTop;
+
+        //4 是否是精华帖子
+        BOOL isGoodness = [threadNode.html containsString:@"<span title=\"精华  1\" class=\"icon icon-finepick\">"];
+        thread.isGoodNess = isGoodness;
+
+        //5 是否包含图片
+        BOOL isContainsImage = [threadNode.html containsString:@"<span title=\"图片附件\" class=\"icon icon-img\">"];
+        thread.isContainsImage = isContainsImage;
+
+        //6 总回帖页数
+        int totalPage = 1;
+        IGXMLNode *commentNode = [[threadNode childAt:2] childAt:1];
+        int commentCount = [[commentNode.text trim] integerValue];
+        thread.totalPostPageCount = commentCount % 10 == 0 ? commentCount / 10 : commentCount / 10 + 1;
+
+
+        //7. 帖子作者
+        IGXMLNode *authorNode = [[threadNode childAt:1] childAt:1];
+        NSString *authorName = [[[authorNode childAt:0] text] trim];
+        thread.threadAuthorName = authorName;
+
+        //8. 作者ID
+        thread.threadAuthorID = [[authorNode childAt:0].html stringWithRegular:@"(?<=uid=)\\d+"];
+
+        //9. 回复数量
+        thread.postCount = [[commentNode text] trim];
+
+        //10. 查看数量
+        IGXMLNode *viewCountNode = [[threadNode childAt:2] childAt:0];
+        NSString * openCount = [[viewCountNode text] trim];
+        thread.openCount = openCount;
+
+        //11. 最后回帖时间
+        IGXMLNode *lastPostTimeNode = [[threadNode childAt:1] childAt:1];
+        NSString *lastPostTime = [[lastPostTimeNode childAt:0].text.trim stringWithRegular:@"\\d+-\\d+-\\d+ \\d+:\\d+"];
+        thread.lastPostTime = [CommonUtils timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
+
+        //12. 最后发表的人
+        thread.lastPostAuthorName = authorName;
+
+        [threadList addObject:thread];
+    }
+
+    ViewForumPage *threadListPage = [[ViewForumPage alloc] init];
+    threadListPage.dataList = threadList;
+
+    IGXMLNode *locationNode = [document queryNodeWithClassName:@"location"];
+    NSString *fid = [locationNode.html stringWithRegular:@"(?<=forum-)\\d+"];
+    threadListPage.forumId = [fid intValue];
+
+    PageNumber *pageNumber = [[PageNumber alloc] init];
+    IGXMLNode *pgNode = [document queryNodeWithClassName:@"pg"];
+    for (IGXMLNode *node in pgNode.children) {
+        if ([node.html containsString:@"<strong>"]){
+            pageNumber.currentPageNumber = [[node.text trim] intValue];
+            break;
+        }
+    }
+
+    IGXMLNode *totalPageNode = [pgNode childAt:pgNode.childrenCount -3];
+    NSString *totalPage = [totalPageNode.text.trim stringByReplacingOccurrencesOfString:@"... " withString:@""];
+    pageNumber.totalPageNumber = [totalPage intValue];
+    return threadListPage;
 }
 
 - (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html {

@@ -25,7 +25,7 @@
 
 #define LST_FAV BBS_HOST@"u.php?action=favor&uid=%d"
 
-#define FORUM_DIS BBS_HOST@"thread.php?fid=%@&page=%d"
+#define FORUM_DIS BBS_HOST@"forum-%@-%d.html"
 
 #define SEARCH_NEW BBS_HOST@"api/web/index.php?version=5&module=newIndex&action=threadRecommend&page=%d&rand=%ld"
 
