@@ -57,7 +57,8 @@
 
     for (int i = 2; i < postListNode.childrenCount; ++i) {
         IGXMLNode *postNode = [postListNode childAt:i];
-        
+        NSString *postNodeHtml = postNode.html;
+
         Post * post = [[Post alloc] init];
         // 1. postId
         NSString *postIdStr = [postNode attribute:@"id"];
@@ -68,7 +69,7 @@
         post.postID = pid;
 
         //2. 楼层
-        NSString *louceng = [postNode.html stringWithRegular:@"(?<=<em>)\\d+(?=</em>楼</a>)"];
+        NSString *louceng = [postNodeHtml stringWithRegular:@"(?<=<em>)\\d+(?=</em>楼</a>)"];
         post.postLouCeng = louceng;
 
         //3. time
@@ -77,7 +78,7 @@
         post.postTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
 
         //4. content
-        IGHTMLDocument * contentDoc = [[IGHTMLDocument alloc] initWithHTMLString:postNode.html error:nil];
+        IGHTMLDocument * contentDoc = [[IGHTMLDocument alloc] initWithHTMLString:postNodeHtml error:nil];
         IGXMLNode *contentNode = [contentDoc queryNodeWithClassName:@"t_fsz"];
         NSString * contentHtml = [[contentNode childAt:0] html];
         post.postContent = [NSString stringWithFormat:@"<div class=\"tpc_content\">%@</div>", contentHtml];
@@ -133,18 +134,30 @@
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     PageNumber *pageNumber = [[PageNumber alloc] init];
-    IGXMLNode *pgNode = [[document queryNodeWithClassName:@"pgt"] childAt:0];
-    for (IGXMLNode *node in pgNode.children) {
-        if ([node.html containsString:@"<strong>"]){
-            NSString * cPage = [node.text trim];
-            pageNumber.currentPageNumber = [cPage intValue];
-            break;
+
+    IGXMLNode *rootNode = [document queryNodeWithClassName:@"pgt"];
+
+    if (rootNode && rootNode.children != nil && rootNode.childrenCount > 0){
+        IGXMLNode *pgNode = [rootNode childAt:0];
+
+        if (pgNode.childrenCount > 0){
+            for (IGXMLNode *node in pgNode.children) {
+                if ([node.html containsString:@"<strong>"]){
+                    NSString * cPage = [node.text trim];
+                    pageNumber.currentPageNumber = [cPage intValue];
+                    break;
+                }
+            }
+
+            IGXMLNode *totalPageNode = [pgNode childAt:pgNode.childrenCount -3];
+            NSString *totalPage = [totalPageNode.text.trim stringByReplacingOccurrencesOfString:@"... " withString:@""];
+            pageNumber.totalPageNumber = [totalPage intValue];
+
+            return pageNumber;
         }
     }
-
-    IGXMLNode *totalPageNode = [pgNode childAt:pgNode.childrenCount -3];
-    NSString *totalPage = [totalPageNode.text.trim stringByReplacingOccurrencesOfString:@"... " withString:@""];
-    pageNumber.totalPageNumber = [totalPage intValue];
+    pageNumber.totalPageNumber = 1;
+    pageNumber.currentPageNumber = 1;
 
     return pageNumber;
 }
