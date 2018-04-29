@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 - (IBAction)cancelLogin:(id)sender;
-    @property (strong, nonatomic) IBOutlet UIView *maskLoadingView;
+
+@property (strong, nonatomic) IBOutlet UIView *maskLoadingView;
     
 @end

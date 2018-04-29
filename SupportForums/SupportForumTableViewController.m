@@ -148,8 +148,8 @@
 
         if ([self isUserHasLogin:url.host]) {
 
-            UIStoryboard *stortboard = [UIStoryboard mainStoryboard];
-            [stortboard changeRootViewControllerTo:@"ForumTabBarControllerId"];
+            UIStoryboard *mainStoryboard = [UIStoryboard mainStoryboard];
+            [mainStoryboard changeRootViewControllerTo:@"ForumTabBarControllerId"];
 
         } else{
 

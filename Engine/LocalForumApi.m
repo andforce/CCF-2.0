@@ -176,8 +176,8 @@
 }
 
 - (NSString *)currentForumBaseUrl {
-    NSString *urlstr = [self currentForumURL];
-    return urlstr;
+    NSString *urlStr = [self currentForumURL];
+    return urlStr;
 }
 
 - (NSString *)bundleIdentifier {
@@ -186,28 +186,29 @@
 }
 
 - (NSString *)loadCookie {
-    NSData *cookiesdata = [_userDefaults objectForKey:[[self currentForumHost] stringByAppendingString:@"-Cookies"]];
+    NSData *cookiesData = [_userDefaults objectForKey:[[self currentForumHost] stringByAppendingString:@"-Cookies"]];
 
-
-    if ([cookiesdata length]) {
-        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesdata];
+    if ([cookiesData length]) {
+        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
 
         NSHTTPCookie *cookie;
         for (cookie in cookies) {
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         }
+        
+        NSString *result = [cookies componentsJoinedByString:@"|"];//分隔符
+        
+        return result;
     }
 
-
-    NSString *result = [[NSString alloc] initWithData:cookiesdata encoding:NSUTF8StringEncoding];
-
-    return result;
+    return nil;
 }
 
 - (void)saveCookie {
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:cookies];
-    [_userDefaults setObject:data forKey:[[self currentForumHost] stringByAppendingString:@"-Cookies"]];
+    NSString *currentHost = [self currentForumHost];
+    [_userDefaults setObject:data forKey:[currentHost stringByAppendingString:@"-Cookies"]];
 }
 
 - (void)clearCookie {

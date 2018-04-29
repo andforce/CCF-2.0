@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TForumHtmlParser : NSObject
+@interface TForumHtmlParser : NSObject<ForumParserDelegate>
 
 @end

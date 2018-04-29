@@ -16,6 +16,9 @@
 #import "CrskyForumConfig.h"
 #import "CHHForumConfig.h"
 #import "LocalForumApi.h"
+// Smartisan
+#import "TForumApi.h"
+#import "TForumConfig.h"
 
 typedef id (^Runnable)(NSString *bundle, NSString *host);
 
@@ -23,6 +26,8 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 #define DRL_HOST @"dream4ever.org"
 #define CRSKY_HOST @"bbs.crsky.com"
 #define CHIPHELL_HOST @"chiphell.com"
+#define SMARTISAN @"bbs.smartisan.com"
+
 
 @implementation ForumApiHelper
 + (id <ForumBrowserDelegate>)forumApi:(NSString *)host {
@@ -47,6 +52,9 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
         CHHForumApi * chhForumApi = [[CHHForumApi alloc] init];
         return chhForumApi;
 
+    } else if ([host isEqualToString:SMARTISAN]){
+        TForumApi * tForumApi = [[TForumApi alloc] init];
+        return tForumApi;
     }
     return nil;
 }
@@ -72,6 +80,9 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
         CHHForumConfig * chhForumApi = [[CHHForumConfig alloc] init];
         return chhForumApi;
 
+    } else if ([host isEqualToString:SMARTISAN]){
+        TForumConfig * tForumConfig = [[TForumConfig alloc] init];
+        return tForumConfig;
     }
 
     return nil;
@@ -103,7 +114,11 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
         CHHForumConfig * chhForumApi = [[CHHForumConfig alloc] init];
         return chhForumApi;
 
+    } else if ([host isEqualToString:SMARTISAN]){
+        TForumConfig * tForumConfig = [[TForumConfig alloc] init];
+        return tForumConfig;
     }
+
     return nil;
 }
 
@@ -133,7 +148,11 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
         CHHForumApi * chhForumApi = [[CHHForumApi alloc] init];
         return chhForumApi;
 
+    } else if ([host isEqualToString:SMARTISAN]){
+        TForumApi * tForumApi = [[TForumApi alloc] init];
+        return tForumApi;
     }
+
     return nil;
 }
 
