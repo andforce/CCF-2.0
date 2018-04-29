@@ -44,10 +44,14 @@
 
     for (int i = 2; i < postListNode.childrenCount; ++i) {
         IGXMLNode *postNode = [postListNode childAt:i];
-
+        
         Post * post = [[Post alloc] init];
         // 1. postId
-        NSString *pid = [[postNode attribute:@"id"] stringWithRegular:@"\\d+"];
+        NSString *postIdStr = [postNode attribute:@"id"];
+        if (![postIdStr hasPrefix:@"post_"]){
+            continue;
+        }
+        NSString *pid = [postIdStr stringWithRegular:@"\\d+"];
         post.postID = pid;
 
         //2. 楼层
@@ -60,8 +64,10 @@
         post.postTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
 
         //4. content
-        IGXMLNode *contentNode = [postNode queryNodeWithClassName:@"t_fsz"];
-        post.postContent = [NSString stringWithFormat:@"<div class=\"tpc_content\">%@</div>", [contentNode childAt:0].html];
+        IGHTMLDocument * contentDoc = [[IGHTMLDocument alloc] initWithHTMLString:postNode.html error:nil];
+        IGXMLNode *contentNode = [contentDoc queryNodeWithClassName:@"t_fsz"];
+        NSString * contentHtml = [[contentNode childAt:0] html];
+        post.postContent = [NSString stringWithFormat:@"<div class=\"tpc_content\">%@</div>", contentHtml];
 
         //5. user
         User * user = [[User alloc] init];
@@ -71,7 +77,8 @@
         user.userID = [userNode.html stringWithRegular:@"(?<=uid=)\\d+"];
 
         //2. userName
-        IGXMLNode *userNameNode = [userNode queryNodeWithClassName:@"authi"];
+        IGHTMLDocument * userDoc = [[IGHTMLDocument alloc] initWithHTMLString:userNode.html error:nil];
+        IGXMLNode *userNameNode = [userDoc queryNodeWithClassName:@"authi"];
         NSString *uname = userNameNode.text.trim;
         user.userName = uname;
 
