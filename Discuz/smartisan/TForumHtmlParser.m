@@ -288,50 +288,71 @@
 - (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *)host {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    IGXMLNode *fourRowNode = [document queryWithCSS:@"body > div.main.forums-page.clearfix > div > div.section"][0];
+    IGXMLNode *fourRowNode = [document queryNodeWithXPath:@"//*[@id=\"srchfid\"]"];
 
     NSMutableArray<Forum *> *forums = [NSMutableArray array];
+
+    Forum *lastForum = nil;
+    NSMutableArray<Forum *> *childForums = [NSMutableArray array];
     int replaceId = 10000;
     for (IGXMLNode * child in fourRowNode.children) {
 
+        if (child.childrenCount == 0){
+            continue;
+        }
+
+        // 总分类
         Forum *parent = [[Forum alloc] init];
+
+        NSString *pName = [[child attribute:@"label"] stringByReplacingOccurrencesOfString:@"--" withString:@""];
+        parent.forumName = pName;
+        parent.forumId = replaceId ++;
+        parent.forumHost = host;
+        parent.parentForumId = -1;
+
+        [forums addObject:parent];
+
         for (int i = 0; i < child.childrenCount; ++i) {
 
             IGXMLNode *childNode = [child childAt:i];
-            NSLog(@">>>>>>>> %@", childNode.html);
+            //NSLog(@">>>>>>>> %@", childNode.html);
+            Forum *forum = [[Forum alloc] init];
+            forum.forumId = [[childNode attribute:@"value"] intValue];
+            forum.forumHost = host;
 
-            if (i == 0){
-                parent.forumName = [childNode.text trim];
-                parent.forumId = replaceId ++;
-                parent.forumHost = host;
-                parent.parentForumId = -1;
-                [forums addObject:parent];
+            NSString *nameOrg = [childNode text];
+            if ([nameOrg containsString:@"      "]){
+                // 说明是二级子论坛
+                forum.parentForumId = lastForum.forumId;
+                forum.forumName = [nameOrg trim];
+                [childForums addObject:forum];
             } else {
+                childForums = [NSMutableArray array];
 
-                for (int j = 0; j < [childNode childAt:0].childrenCount; ++j) {
+                forum.parentForumId = parent.forumId;
+                forum.forumName = [nameOrg trim];
+                forum.childForums = childForums;
 
-                    IGXMLNode *liNode = [[childNode childAt:0] childAt:j];
-                    NSLog(@">>>>>>>> %@", liNode.html);
-                    IGXMLNode *nameNode = [[liNode childAt:1] childAt:0];
-                    NSString *name = [nameNode.text trim];
-
-                    NSString *forumIdStr = [nameNode.html stringWithRegular:@"(?<=fid=)\\d+"];
-
-                    Forum *childForum = [[Forum alloc] init];
-                    childForum.forumName = name;
-                    childForum.forumId = [forumIdStr integerValue];
-                    childForum.forumHost = host;
-                    childForum.parentForumId = parent.forumId;
-
-                    [forums addObject:childForum];
-                }
-
+                lastForum = forum;
+                [forums addObject:lastForum];
             }
-
         }
     }
+    NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
 
-    return forums;
+    for (Forum *forum in forums) {
+        [needInsert addObjectsFromArray:[self flatForm:forum]];
+    }
+    return [needInsert copy];
+}
+
+- (NSArray *)flatForm:(Forum *)form {
+    NSMutableArray *resultArray = [NSMutableArray array];
+    [resultArray addObject:form];
+    for (Forum *childForm in form.childForums) {
+        [resultArray addObjectsFromArray:[self flatForm:childForm]];
+    }
+    return resultArray;
 }
 
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
