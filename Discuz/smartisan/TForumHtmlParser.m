@@ -21,17 +21,30 @@
 
 @implementation TForumHtmlParser
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    NSString * fixImagesHtml = html;
+    NSString *newImagePattern = @"<img src=\"%@\" />";
+    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"(?is)<img (style=\"cursor:pointer\" )?id=\"aimg_\\w+\" ((?<key>[^=]+)=\"*(?<value>[^\"]+)\")+? (alt=\"\"|inpost=\"\\d+\") />"];
+    for (NSString *img in orgImages) {
+
+        IGXMLDocument *igxmlDocument = [[IGXMLDocument alloc] initWithXMLString:img error:nil];
+        NSString * file = [igxmlDocument attribute:@"file"];
+        NSString * newImage = [NSString stringWithFormat:newImagePattern, file];
+        NSLog(@"parseShowThreadWithHtml orgimage: %@ %@", img, newImage);
+
+        fixImagesHtml = [fixImagesHtml stringByReplacingOccurrencesOfString:img withString:newImage];
+    }
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:fixImagesHtml error:nil];
 
     ViewThreadPage *showThreadPage = [[ViewThreadPage alloc] init];
 
     //1. tid
-    int tid = [[html stringWithRegular:@"(?<=tid=)\\d+"] intValue];
+    int tid = [[fixImagesHtml stringWithRegular:@"(?<=tid=)\\d+"] intValue];
     showThreadPage.threadID = tid;
 
     //2. fid
-    int fid = [[html stringWithRegular:@"(?<=fid=)\\d+"] intValue];
+    int fid = [[fixImagesHtml stringWithRegular:@"(?<=fid=)\\d+"] intValue];
     showThreadPage.forumId = fid;
 
     //3. title
@@ -102,7 +115,7 @@
     showThreadPage.originalHtml = orgHtml;
 
     //6. number
-    PageNumber *pageNumber = [self parserPageNumber:html];
+    PageNumber *pageNumber = [self parserPageNumber:fixImagesHtml];
     showThreadPage.pageNumber = pageNumber;
 
     //7. token
