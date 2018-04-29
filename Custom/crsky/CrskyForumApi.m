@@ -167,9 +167,9 @@
 
         if (images){
             for (int i = 0; i < images.count; ++i) {
-                NSString *type = [self contentTypeForImageData:images[i]];
+                NSString *type = [self contentTypeForImageData:images[(NSUInteger) i]];
                 NSString *extNmae = [type stringByReplacingOccurrencesOfString:@"image/" withString:@""];
-                [formData appendPartWithFileData:images[i] name:[NSString stringWithFormat:@"attachment_%d", i] fileName:[NSString stringWithFormat:@"attachment_%d.%@", i, extNmae] mimeType:type];
+                [formData appendPartWithFileData:images[(NSUInteger) i] name:[NSString stringWithFormat:@"attachment_%d", i] fileName:[NSString stringWithFormat:@"attachment_%d.%@", i, extNmae] mimeType:type];
             }
         } else {
             [formData appendPartWithFormData:[@"" dataForUTF8] name:@"attachment_1"];
@@ -290,9 +290,9 @@
 
         if (images){
             for (int i = 0; i < images.count; ++i) {
-                NSString *type = [self contentTypeForImageData:images[i]];
+                NSString *type = [self contentTypeForImageData:images[(NSUInteger) i]];
                 NSString *extNmae = [type stringByReplacingOccurrencesOfString:@"image/" withString:@""];
-                [formData appendPartWithFileData:images[i] name:[NSString stringWithFormat:@"attachment_%d", i] fileName:[NSString stringWithFormat:@"attachment_%d.%@", i, extNmae] mimeType:type];
+                [formData appendPartWithFileData:images[(NSUInteger) i] name:[NSString stringWithFormat:@"attachment_%d", i] fileName:[NSString stringWithFormat:@"attachment_%d.%@", i, extNmae] mimeType:type];
             }
         } else {
             [formData appendPartWithFormData:[@"" dataForUTF8] name:@"attachment_1"];
@@ -349,6 +349,7 @@
         case 0x49:
         case 0x4D:
             return @"image/tiff";
+        default:break;
     }
     return nil;
 }
@@ -692,9 +693,9 @@
         [scanner scanCharactersFromSet:delimiterSet intoString:NULL];
         NSArray *kvPair = [pairString componentsSeparatedByString:@"="];
         if (kvPair.count == 2) {
-            NSString *key = [[kvPair objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            NSString *value = [[kvPair objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            [pairs setObject:value forKey:key];
+            NSString *key = [kvPair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            NSString *value = [kvPair[1] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            pairs[key] = value;
         }
     }
 

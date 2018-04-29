@@ -162,6 +162,11 @@
     return @"http://bbs.crsky.com/post.php?";
 }
 
+- (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId {
+    return nil;
+}
+
+
 - (NSString *)privateWithType:(int)type withPage:(int)page {
     //  0 receive box
     if (type == 0){
