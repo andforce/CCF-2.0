@@ -479,17 +479,6 @@
 			path = SupportForums;
 			sourceTree = "<group>";
 		};
-		3ACB5C221FDC25F000D5339C /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				3ACB5C261FDC266B00D5339C /* chh */,
-				3ACB5C251FDC265400D5339C /* ccf */,
-				3ACB5C241FDC264100D5339C /* drl */,
-				3ACB5C231FDC262700D5339C /* crsky */,
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
 		3ACB5C231FDC262700D5339C /* crsky */ = {
 			isa = PBXGroup;
 			children = (
@@ -867,6 +856,31 @@
 			path = SupportFiles;
 			sourceTree = "<group>";
 		};
+		3AEDFA5A2095744C00E93BB0 /* vBulletin */ = {
+			isa = PBXGroup;
+			children = (
+				3ACB5C251FDC265400D5339C /* ccf */,
+				3ACB5C241FDC264100D5339C /* drl */,
+			);
+			path = vBulletin;
+			sourceTree = "<group>";
+		};
+		3AEDFA5B2095747100E93BB0 /* Discuz */ = {
+			isa = PBXGroup;
+			children = (
+				3ACB5C261FDC266B00D5339C /* chh */,
+			);
+			path = Discuz;
+			sourceTree = "<group>";
+		};
+		3AEDFA5C2095748100E93BB0 /* PhpWind */ = {
+			isa = PBXGroup;
+			children = (
+				3ACB5C231FDC262700D5339C /* crsky */,
+			);
+			path = PhpWind;
+			sourceTree = "<group>";
+		};
 		4D1B07272046AF030013B6A1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -883,6 +897,9 @@
 		4D339D821C31454A0022A6A4 = {
 			isa = PBXGroup;
 			children = (
+				3AEDFA5C2095748100E93BB0 /* PhpWind */,
+				3AEDFA5B2095747100E93BB0 /* Discuz */,
+				3AEDFA5A2095744C00E93BB0 /* vBulletin */,
 				4D8962BD1FDFE0A30015BD9D /* Payment */,
 				3ACB5C361FDC281000D5339C /* SupportFiles */,
 				3ACB5C351FDC280000D5339C /* PhotoView */,
@@ -896,7 +913,6 @@
 				3ACB5C291FDC26C900D5339C /* Controllers */,
 				3ACB5C281FDC269E00D5339C /* Extension */,
 				3ACB5C271FDC268300D5339C /* ApiTest */,
-				3ACB5C221FDC25F000D5339C /* Custom */,
 				3ACB5C211FDC25BE00D5339C /* SupportForums */,
 				3ACB5C201FDC25A600D5339C /* Utils */,
 				3ACB5C1F1FDBF9F800D5339C /* Push */,

@@ -39,15 +39,15 @@
 }
 
 - (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
-    NSMutableDictionary *defparameters = [NSMutableDictionary dictionary];
-    [defparameters setValue:@"2" forKey:@"styleid"];
-    [defparameters setValue:@"1" forKey:@"langid"];
+    NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
+    [defParameters setValue:@"2" forKey:@"styleid"];
+    [defParameters setValue:@"1" forKey:@"langid"];
 
     if (parameters){
-        [defparameters addEntriesFromDictionary:parameters];
+        [defParameters addEntriesFromDictionary:parameters];
     }
 
-    [self.browser GETWithURLString:url parameters:defparameters charset:GBK requestCallback:callback];
+    [self.browser GETWithURLString:url parameters:defParameters charset:GBK requestCallback:callback];
 }
 
 - (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
