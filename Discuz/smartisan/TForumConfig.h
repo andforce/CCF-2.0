@@ -37,7 +37,7 @@
 
 #define COPY_URL READ@"#%@"
 
-#define MEMBER BBS_HOST@"u.php?action=show&uid=%@"
+#define MEMBER BBS_HOST@"home.php?mod=space&uid=%@"
 
 #define MESSAGE BBS_HOST@"message.php"
 

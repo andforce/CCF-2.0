@@ -16,6 +16,7 @@
 #import "THotPage.h"
 #import "THotList.h"
 #import "CommonUtils.h"
+#import "IGHTMLDocument+QueryNode.h"
 
 @implementation TForumHtmlParser
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
@@ -141,4 +142,30 @@
     return resultPage;
 }
 
+- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    
+    UserProfile *userProfile = [[UserProfile alloc] init];
+    userProfile.profileUserId = userId;
+
+    IGXMLNode *info = [document queryNodeWithXPath:@"//*[@id=\"ct\"]/div/div[2]/div/div[1]/div[3]"];
+    NSString * infoHtml = info.html;
+    
+    userProfile.profileRank = [info.html stringWithRegular:@"(?<=_blank\">)第 \\d+ 级(?=</a>)"];
+
+    IGXMLNode *nameNode = [document queryNodeWithXPath:@"//*[@id=\"uhd\"]/div/h2"];
+    userProfile.profileName = [nameNode.text trim];
+
+
+    //<li><em>注册时间</em>2014-7-24 10:15</li>
+    userProfile.profileRegisterDate = [infoHtml stringWithRegular:@"(?<=注册时间</em>)\\d+-\\d+-\\d+ \\d+:\\d+"];
+    userProfile.profileRecentLoginDate = [infoHtml stringWithRegular:@"(?<=最后访问</em>)\\d+-\\d+-\\d+ \\d+:\\d+"];;
+
+    NSString * replyCount = [html stringWithRegular:@"(?<=回帖数 )\\d+"];
+    NSString * threadCount = [html stringWithRegular:@"(?<=主题数 )\\d+"];
+    int count = [replyCount integerValue] + [threadCount integerValue];
+
+    userProfile.profileTotalPostCount = [NSString stringWithFormat:@"%d", count];
+    return userProfile;
+}
 @end

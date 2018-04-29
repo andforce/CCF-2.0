@@ -53,6 +53,34 @@
     return user;
 }
 
+- (LoginUser *)getLoginUserSmartisan {
+    
+    NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    if (cookies.count == 0){
+        return nil;
+    }
+    
+    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:@"bbs.smartisan.com"];
+    
+    LoginUser *user = [[LoginUser alloc] init];
+    user.userName = [self userName:@"bbs.smartisan.com"];
+    if (user.userName == nil || [user.userName isEqualToString:@""]){
+        //[self logout];
+        return nil;
+    }
+    user.userID = [self userId:@"bbs.smartisan.com"];
+    
+    for (int i = 0; i < cookies.count; i++) {
+        NSHTTPCookie *cookie = cookies[(NSUInteger) i];
+        
+        if ([cookie.name isEqualToString:forumConfig.cookieExpTimeKey]) {
+            user.expireTime = cookie.expiresDate;
+            break;
+        }
+    }
+    return user;
+}
+
 - (LoginUser *)getLoginUser:(NSString *)host {
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     if (cookies.count == 0){
@@ -65,6 +93,8 @@
 
     if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:@"bbs.crsky.com"]){
         return [self getLoginUserCrsky];
+    } else if([host isEqualToString:@"bbs.smartisan.com"]){
+        return [self getLoginUserSmartisan];
     } else {
         LoginUser *user = [[LoginUser alloc] init];
         user.userName = [self userName:host];

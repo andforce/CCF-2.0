@@ -32,11 +32,11 @@
 }
 
 - (NSString *)cookieUserIdKey {
-    return nil;
+    return @"dazE_2132_st_p";
 }
 
 - (NSString *)cookieExpTimeKey {
-    return @"217cd_ol_offset";
+    return @"smart_b_user";
 }
 
 

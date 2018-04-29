@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "ForumBaseStaticTableViewController.h"
 
+// 我的页面
+
 @interface ForumMyProfileTableViewController : ForumBaseStaticTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;

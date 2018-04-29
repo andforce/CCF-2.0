@@ -170,7 +170,15 @@
 }
 
 - (void)showProfileWithUserId:(NSString *)userId handler:(HandlerWithBool)handler {
-
+    NSString *url = [forumConfig memberWithUserId:userId];
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            UserProfile *profile = [forumParser parserProfile:html userId:userId];
+            handler(YES, profile);
+        } else {
+            handler(NO, [forumParser parseErrorMessage:html]);
+        }
+    }];
 }
 
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler {
