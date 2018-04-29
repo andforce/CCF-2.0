@@ -6,9 +6,9 @@
 //  Copyright © 2017年 andforce. All rights reserved.
 //
 
-#import "BaseForumApi.h"
+#import "ForumBrowser.h"
 #import "ForumBrowserDelegate.h"
 
-@interface CrskyForumApi : BaseForumApi<ForumBrowserDelegate>
+@interface CrskyForumApi : ForumBrowser<ForumBrowserDelegate>
 
 @end

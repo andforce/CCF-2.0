@@ -3,9 +3,9 @@
 // Copyright (c) 2017 andforce. All rights reserved.
 //
 
-#import "BaseForumApi.h"
+#import "ForumBrowser.h"
 
-@implementation BaseForumApi
+@implementation ForumBrowser
 
 - (instancetype)init {
     self = [super init];

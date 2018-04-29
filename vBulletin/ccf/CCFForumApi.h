@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseForumApi.h"
+#import "ForumBrowser.h"
 #import "ForumBrowserDelegate.h"
 
 
-@interface CCFForumApi : BaseForumApi<ForumBrowserDelegate>
+@interface CCFForumApi : ForumBrowser<ForumBrowserDelegate>
 @end

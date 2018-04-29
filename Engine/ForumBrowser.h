@@ -11,7 +11,7 @@
 @protocol ForumParserDelegate;
 @class LoginUser;
 
-@interface BaseForumApi : NSObject
+@interface ForumBrowser : NSObject
 
 //@property (nonatomic, strong) id <ForumConfigDelegate> forumConfig;
 //
