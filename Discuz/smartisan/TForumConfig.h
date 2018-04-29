@@ -11,7 +11,7 @@
 
 #define BBS_HOST @"http://bbs.smartisan.com/"
 
-#define ARCHIVE BBS_HOST@"index.php?skinco=wind"
+#define ARCHIVE BBS_HOST@"forum.php?show=list"
 
 #define SEARCH BBS_HOST@"search.php?"
 

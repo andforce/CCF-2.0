@@ -755,7 +755,7 @@
 
     IGXMLNode *topNode = [document queryNodeWithClassName:@"contentwrap z"];
 
-    NSMutableArray<Forum *> *forms = [NSMutableArray array];
+    NSMutableArray<Forum *> *forums = [NSMutableArray array];
 
     int replaceId = 10000;
     for (IGXMLNode *forumP in topNode.children) {
@@ -778,7 +778,7 @@
         parent.forumHost = host;
         parent.parentForumId = -1;
 
-        [forms addObject:parent];
+        [forums addObject:parent];
 
         // 正式论坛
 
@@ -802,7 +802,7 @@
                 forum.forumHost = host;
                 forum.parentForumId = parent.forumId;
 
-                [forms addObject:forum];
+                [forums addObject:forum];
                 // 子论坛
                 int count = [forumNode childAt:1].childrenCount;
                 NSString * childHtml = [[forumNode childAt:1] childAt:count -1].html;
@@ -818,13 +818,13 @@
                     childForum.forumHost = host;
                     childForum.parentForumId = forum.forumId;
 
-                    [forms addObject:childForum];
+                    [forums addObject:childForum];
                 }
             }
         }
     }
 
-    return [forms copy];
+    return [forums copy];
 }
 
 - (NSArray *)flatForm:(Forum *)form {

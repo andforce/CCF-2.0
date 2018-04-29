@@ -11,20 +11,11 @@
 #import "ForumParserDelegate.h"
 #import "TForumHtmlParser.h"
 
-#import "ForumParserDelegate.h"
 #import "AFHTTPSessionManager+SimpleAction.h"
-#import "NSUserDefaults+Setting.h"
 #import "ForumCoreDataManager.h"
 #import "NSString+Extensions.h"
-#import "CharUtils.h"
 #import "IGHTMLDocument.h"
-#import "IGHTMLDocument+QueryNode.h"
-#import "IGXMLNode+Children.h"
-#import "LocalForumApi.h"
-#import "TransBundle.h"
-#import "UIStoryboard+Forum.h"
 #import "ForumWebViewController.h"
-#import "ForumBrowserDelegate.h"
 
 
 @implementation TForumApi{
@@ -59,7 +50,20 @@
 }
 
 - (void)listAllForums:(HandlerWithBool)handler {
-
+    NSString * url = forumConfig.archive;
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            NSString * host = forumConfig.forumURL.host;
+            NSArray<Forum *> *parserForums = [forumParser parserForums:html forumHost:host];
+            if (parserForums != nil && parserForums.count > 0) {
+                handler(YES, parserForums);
+            } else {
+                handler(NO, [forumParser parseErrorMessage:html]);
+            }
+        } else {
+            handler(NO, [forumParser parseErrorMessage:html]);
+        }
+    }];
 }
 
 - (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
