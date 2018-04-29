@@ -9,7 +9,6 @@
 #import <IGHTMLQuery/IGHTMLDocument.h>
 #import "ForumParserDelegate.h"
 #import "TForumHtmlParser.h"
-#import "IGHTMLDocument+QueryNode.h"
 #import "IGXMLNode+Children.h"
 #import "NSString+Extensions.h"
 #import "THotTHotThreadPage.h"

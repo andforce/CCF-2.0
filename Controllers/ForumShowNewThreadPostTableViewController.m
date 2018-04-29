@@ -12,6 +12,7 @@
 #import "ForumTabBarController.h"
 #import "ForumWebViewController.h"
 
+// 查看新帖
 @interface ForumShowNewThreadPostTableViewController () <ThreadListCellDelegate, MGSwipeTableCellDelegate> {
     UIStoryboardSegue *selectSegue;
 }

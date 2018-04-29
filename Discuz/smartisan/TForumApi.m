@@ -162,7 +162,7 @@
 }
 
 - (void)getAvatarWithUserId:(NSString *)userId handler:(HandlerWithBool)handler {
-
+    handler(YES, [NSString stringWithFormat:@"http://bbs.smartisan.com/uc_server/avatar.php?uid=%@&size=middle", userId]);
 }
 
 - (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type handler:(HandlerWithBool)handler {
