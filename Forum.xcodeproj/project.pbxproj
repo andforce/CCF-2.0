@@ -121,6 +121,10 @@
 		3AEDFA632095790500E93BB0 /* TForumConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA622095790500E93BB0 /* TForumConfig.m */; };
 		3AEDFA662095791B00E93BB0 /* TForumHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA652095791B00E93BB0 /* TForumHtmlParser.m */; };
 		3AEDFA6920957A9700E93BB0 /* TForumLoginWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA6820957A9700E93BB0 /* TForumLoginWebViewController.m */; };
+		3AEDFA802095AE5B00E93BB0 /* THotTHotThreadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */; };
+		3AEDFA812095AE5B00E93BB0 /* THotData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7C2095AE5B00E93BB0 /* THotData.m */; };
+		3AEDFA822095AE5B00E93BB0 /* THotList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7D2095AE5B00E93BB0 /* THotList.m */; };
+		3AEDFA832095AE5B00E93BB0 /* THotPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */; };
 		4D0D87251DE40C7900DA9034 /* ForumNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0D87241DE40C7900DA9034 /* ForumNavigationViewController.m */; };
 		4D1B072120456F1D0013B6A1 /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B072020456F1D0013B6A1 /* privacy.html */; };
 		4D1B0724204572FD0013B6A1 /* ForumShowPrivatePolicyUiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B0723204572FD0013B6A1 /* ForumShowPrivatePolicyUiViewController.m */; };
@@ -374,6 +378,14 @@
 		3AEDFA652095791B00E93BB0 /* TForumHtmlParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TForumHtmlParser.m; sourceTree = "<group>"; };
 		3AEDFA6720957A9700E93BB0 /* TForumLoginWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TForumLoginWebViewController.h; sourceTree = "<group>"; };
 		3AEDFA6820957A9700E93BB0 /* TForumLoginWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TForumLoginWebViewController.m; sourceTree = "<group>"; };
+		3AEDFA772095AE5B00E93BB0 /* THotPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotPage.h; sourceTree = "<group>"; };
+		3AEDFA792095AE5B00E93BB0 /* THotTHotThreadPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotTHotThreadPage.h; sourceTree = "<group>"; };
+		3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotTHotThreadPage.m; sourceTree = "<group>"; };
+		3AEDFA7B2095AE5B00E93BB0 /* THotData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotData.h; sourceTree = "<group>"; };
+		3AEDFA7C2095AE5B00E93BB0 /* THotData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotData.m; sourceTree = "<group>"; };
+		3AEDFA7D2095AE5B00E93BB0 /* THotList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotList.m; sourceTree = "<group>"; };
+		3AEDFA7E2095AE5B00E93BB0 /* THotList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotList.h; sourceTree = "<group>"; };
+		3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotPage.m; sourceTree = "<group>"; };
 		4D0D87231DE40C7900DA9034 /* ForumNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumNavigationViewController.h; sourceTree = "<group>"; };
 		4D0D87241DE40C7900DA9034 /* ForumNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumNavigationViewController.m; sourceTree = "<group>"; };
 		4D1B072020456F1D0013B6A1 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
@@ -456,6 +468,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F34CDC2EC8AA190D43950B0 /* beans */ = {
+			isa = PBXGroup;
+			children = (
+				3AEDFA7B2095AE5B00E93BB0 /* THotData.h */,
+				3AEDFA7C2095AE5B00E93BB0 /* THotData.m */,
+				3AEDFA7E2095AE5B00E93BB0 /* THotList.h */,
+				3AEDFA7D2095AE5B00E93BB0 /* THotList.m */,
+				3AEDFA772095AE5B00E93BB0 /* THotPage.h */,
+				3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */,
+				3AEDFA792095AE5B00E93BB0 /* THotTHotThreadPage.h */,
+				3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */,
+			);
+			path = beans;
+			sourceTree = "<group>";
+		};
 		3ACB5C1F1FDBF9F800D5339C /* Push */ = {
 			isa = PBXGroup;
 			children = (
@@ -905,6 +932,7 @@
 				3AEDFA652095791B00E93BB0 /* TForumHtmlParser.m */,
 				3AEDFA6720957A9700E93BB0 /* TForumLoginWebViewController.h */,
 				3AEDFA6820957A9700E93BB0 /* TForumLoginWebViewController.m */,
+				2F34CDC2EC8AA190D43950B0 /* beans */,
 			);
 			path = smartisan;
 			sourceTree = "<group>";
@@ -1205,6 +1233,7 @@
 				4DA372A41FC2DFD60094E655 /* ZhanNeiSearchViewCell.m in Sources */,
 				3A2C3FEE1DDFE10900576151 /* forum1.xcdatamodeld in Sources */,
 				3A288A641DFD14D8002EBBC2 /* DRLForumHtmlParser.m in Sources */,
+				3AEDFA802095AE5B00E93BB0 /* THotTHotThreadPage.m in Sources */,
 				4DFB34D01DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m in Sources */,
 				4DF737261DDECC9600BF1896 /* Message.m in Sources */,
 				3A2C3F7C1DDFC0CD00576151 /* NSUserDefaults+Setting.m in Sources */,
@@ -1213,6 +1242,7 @@
 				3A2C3FFF1DDFE30300576151 /* TranBundleUITableViewController.m in Sources */,
 				3A2C3FE61DDFE0C900576151 /* ForumThreadListTableViewController.m in Sources */,
 				3A2C3F7D1DDFC0CD00576151 /* UIColor+MyColor.m in Sources */,
+				3AEDFA832095AE5B00E93BB0 /* THotPage.m in Sources */,
 				3A2C3FD61DDFE0C900576151 /* ForumMyThreadPostTableViewController.m in Sources */,
 				3A2C3F5F1DDFBFC500576151 /* XibInflater.m in Sources */,
 				3A2C3F801DDFC0CD00576151 /* UIView+Corner.m in Sources */,
@@ -1232,6 +1262,7 @@
 				3A288A631DFD14D8002EBBC2 /* DRLForumConfig.m in Sources */,
 				4DF7371C1DDECC8D00BF1896 /* Thread.m in Sources */,
 				3A2C3FE81DDFE0C900576151 /* ForumUserThreadTableViewController.m in Sources */,
+				3AEDFA812095AE5B00E93BB0 /* THotData.m in Sources */,
 				3A2C3F501DDFBF5900576151 /* PrivateMessageTableViewCell.m in Sources */,
 				3A2C3FE41DDFE0C900576151 /* ForumTableViewController.m in Sources */,
 				4DF737211DDECC8D00BF1896 /* ViewForumPage.m in Sources */,
@@ -1259,6 +1290,7 @@
 				4DF737271DDECC9600BF1896 /* ViewMessagePage.m in Sources */,
 				3A2C3F4E1DDFBF5900576151 /* ForumThreadListCell.m in Sources */,
 				3A2C3FE71DDFE0C900576151 /* ForumUserProfileTableViewController.m in Sources */,
+				3AEDFA822095AE5B00E93BB0 /* THotList.m in Sources */,
 				3A2C3F5B1DDFBFC500576151 /* ForumListHeaderView.m in Sources */,
 				3AEDFA662095791B00E93BB0 /* TForumHtmlParser.m in Sources */,
 				C7B59D8E9D44A593D270BE03 /* NSData+UTF8.m in Sources */,

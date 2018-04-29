@@ -72,7 +72,9 @@
 }
 
 - (NSString *)searchNewThread:(int)page {
-    return SEARCH_NEW;
+    NSDate *date = [NSDate date];
+    NSInteger timeStamp = (NSInteger) [date timeIntervalSince1970];
+    return [NSString stringWithFormat:SEARCH_NEW, page, (long) timeStamp];
 }
 
 - (NSString *)replyWithThreadId:(int)threadId forForumId:(int)forumId replyPostId:(int)postId {

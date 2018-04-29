@@ -14,7 +14,7 @@
 @property(nonatomic, assign) int forumId;
 @property(nonatomic, strong) NSString *token;
 
-@property(nonatomic, strong) NSMutableArray *dataList;
+@property(nonatomic, strong) NSMutableArray<Thread *> *dataList;
 @property(nonatomic, strong) PageNumber *pageNumber;
 
 @property(nonatomic, assign) BOOL isCanCreateThread;

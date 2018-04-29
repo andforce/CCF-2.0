@@ -27,7 +27,7 @@
 
 #define FORUM_DIS BBS_HOST@"thread.php?fid=%@&page=%d"
 
-#define SEARCH_NEW BBS_HOST@"search.php?sch_time=all&orderway=lastpost&asc=desc&newatc=1"
+#define SEARCH_NEW BBS_HOST@"api/web/index.php?version=5&module=newIndex&action=threadRecommend&page=%d&rand=%ld"
 
 #define REPLY BBS_HOST@"post.php?"
 

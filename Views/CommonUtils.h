@@ -17,5 +17,8 @@
 
 + (void)writeUserData:(NSString *)key withValue:(NSInteger)value;
 
++ (NSString *)timeForShort:(NSString *)time withFormat:(NSString *)format;
+
++ (NSString *)timeForShort:(NSString *)timeStamp;
 
 @end

@@ -131,7 +131,18 @@
 }
 
 - (void)listNewThreadWithPage:(int)page handler:(HandlerWithBool)handler {
+    NSDate *date = [NSDate date];
+    NSInteger timeStamp = (NSInteger) [date timeIntervalSince1970];
 
+    NSString *url = [forumConfig searchNewThread:page];
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            ViewSearchForumPage *sarchPage = [forumParser parseSearchPageFromHtml:html];
+            handler(isSuccess, sarchPage);
+        } else {
+            handler(NO, [forumParser parseErrorMessage:html]);
+        }
+    }];
 }
 
 - (void)listMyAllThreadsWithPage:(int)page handler:(HandlerWithBool)handler {

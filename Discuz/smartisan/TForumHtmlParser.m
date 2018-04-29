@@ -12,6 +12,11 @@
 #import "IGHTMLDocument+QueryNode.h"
 #import "IGXMLNode+Children.h"
 #import "NSString+Extensions.h"
+#import "THotTHotThreadPage.h"
+#import "THotData.h"
+#import "THotPage.h"
+#import "THotList.h"
+#import "CommonUtils.h"
 
 @implementation TForumHtmlParser
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
@@ -97,6 +102,44 @@
     }
 
     return forums;
+}
+
+- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
+    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
+
+    NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions) kNilOptions error:nil];
+
+    THotTHotThreadPage *hotTHotThreadPage = [THotTHotThreadPage modelObjectWithDictionary:dictionary];
+
+    PageNumber * pageNumber = [[PageNumber alloc] init];
+    pageNumber.currentPageNumber = 1;
+    pageNumber.totalPageNumber = (int)hotTHotThreadPage.data.page.pageTotal;
+    NSArray<THotList*> * list = hotTHotThreadPage.data.list;
+
+    NSMutableArray<Thread *> *dataList = [NSMutableArray array];
+    for (THotList * tHotList in list){
+        Thread * thread = [[Thread alloc] init];
+        thread.threadTitle = tHotList.subject;
+        thread.threadAuthorID = tHotList.authorid;
+        thread.threadAuthorName = tHotList.author;
+        thread.threadID = tHotList.tid;
+        thread.fromFormName = @"";
+        thread.isContainsImage = tHotList.attachment != nil && ![tHotList.attachment isEqualToString:@""];
+        thread.isGoodNess = NO;
+        thread.isTopThread = NO;
+        thread.openCount = tHotList.views;
+        thread.postCount = tHotList.replies;
+        thread.lastPostAuthorName = tHotList.author;
+        thread.lastPostTime = [CommonUtils timeForShort:tHotList.dbdateline];
+        [dataList addObject:thread];
+    }
+
+    resultPage.pageNumber = pageNumber;
+    resultPage.dataList = dataList;
+
+    return resultPage;
 }
 
 @end
