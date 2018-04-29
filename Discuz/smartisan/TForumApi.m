@@ -35,8 +35,6 @@
 
 - (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
     NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
-    [defParameters setValue:@"2" forKey:@"styleid"];
-    [defParameters setValue:@"1" forKey:@"langid"];
 
     if (parameters){
         [defParameters addEntriesFromDictionary:parameters];
@@ -154,7 +152,15 @@
 }
 
 - (void)showThreadWithId:(int)threadId andPage:(int)page handler:(HandlerWithBool)handler {
-
+    NSString * url = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page];
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            ViewThreadPage *detail = [forumParser parseShowThreadWithHtml:html];
+            handler(isSuccess, detail);
+        } else {
+            handler(NO, [forumParser parseErrorMessage:html]);
+        }
+    }];
 }
 
 - (void)forumDisplayWithId:(int)forumId andPage:(int)page handler:(HandlerWithBool)handler {

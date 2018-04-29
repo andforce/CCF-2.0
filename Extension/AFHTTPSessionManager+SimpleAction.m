@@ -25,8 +25,11 @@
         } else{
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
-
-            callback(YES, html);
+            if (html == nil) {
+                callback(YES, orgHtml);
+            } else {
+                callback(YES, html);
+            }
         }
 
     } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
@@ -46,7 +49,11 @@
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
 
-            callback(YES, html);
+            if (html == nil) {
+                callback(YES, orgHtml);
+            } else {
+                callback(YES, html);
+            }
         }
 
     }  failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
@@ -70,7 +77,11 @@
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
 
-            callback(YES, html);
+            if (html == nil) {
+                callback(YES, orgHtml);
+            } else {
+                callback(YES, html);
+            }
         }
 
     }  failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {

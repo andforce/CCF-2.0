@@ -33,7 +33,7 @@
 
 #define QUOTE_REPLY BBS_HOST@"post.php?action=quote&fid=%d&tid=%d&pid=%d"
 
-#define SHOW_THREAD READ@"&fpage=0&toread=&page=%d"
+#define SHOW_THREAD BBS_HOST@"thread-%@-%d-1.html"
 
 #define COPY_URL READ@"#%@"
 
