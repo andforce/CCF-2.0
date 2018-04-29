@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--板块列表-->
         <scene sceneID="ZKb-vl-Dqf">
@@ -26,7 +21,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DRLForumCell" textLabel="xyf-mX-GWW" style="IBUITableViewCellStyleDefault" id="ru3-zB-I9X" customClass="MGSwipeTableCellWithIndexPath">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ru3-zB-I9X" id="jMH-j1-isg">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -83,7 +78,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivateMessageTableViewCell" rowHeight="119" id="6dg-Y9-eXc" customClass="PrivateMessageTableViewCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="119"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="119"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6dg-Y9-eXc" id="fzf-9p-l9N">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="118.66666666666667"/>
@@ -269,7 +264,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ThreadListCellShowChildForm" textLabel="JkG-nl-mzU" rowHeight="54" style="IBUITableViewCellStyleDefault" id="TN0-61-EXD" customClass="MGSwipeTableCellWithIndexPath">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="54"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TN0-61-EXD" id="O4O-1v-6IH">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="53.666666666666664"/>
@@ -897,7 +892,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SupportForum" textLabel="664-In-0vL" detailTextLabel="IpX-xD-e6a" rowHeight="44" style="IBUITableViewCellStyleSubtitle" id="uER-j0-07Z">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uER-j0-07Z" id="ndx-96-HRg">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -1015,7 +1010,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SimpleThreadTableViewCell" rowHeight="97" id="kHn-A9-beJ" customClass="ForumSimpleThreadTableViewCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kHn-A9-beJ" id="KGM-dL-D6k">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="96.666666666666671"/>
@@ -1283,7 +1278,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="mlQ-qY-TJZ" customClass="ForumSearchResultCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mlQ-qY-TJZ" id="6DI-YY-teK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="96.666666666666671"/>
@@ -1398,7 +1393,7 @@
                         <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="DVG-eM-DIp" customClass="ForumSearchResultCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DVG-eM-DIp" id="QIY-KP-161">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="96.666666666666671"/>
@@ -1974,7 +1969,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="gVJ-KP-7d3" customClass="ForumThreadListCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVJ-KP-7d3" id="Qii-ZC-fKD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="96.666666666666671"/>
@@ -2416,7 +2411,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="ham-ak-Tdk" customClass="ForumSearchResultCell">
-                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="97"/>
+                                <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ham-ak-Tdk" id="7dG-LT-MH5">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="96.666666666666671"/>
@@ -3075,10 +3070,10 @@
             </objects>
             <point key="canvasLocation" x="-8504" y="-5654"/>
         </scene>
-        <!--登录CHH-->
+        <!--登录霏凡-->
         <scene sceneID="xbh-0q-UHe">
             <objects>
-                <viewController title="登录CHH" id="dHI-rl-x13" customClass="CrskyLoginViewController" sceneMemberID="viewController">
+                <viewController title="登录CHH" id="dHI-rl-x13" userLabel="登录霏凡" customClass="CrskyLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HrD-Hc-Ayu"/>
                         <viewControllerLayoutGuide type="bottom" id="S7z-mu-ISU"/>
@@ -3593,6 +3588,85 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rkj-ld-Nr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6535" y="1445"/>
+        </scene>
+        <!--登录锤子-->
+        <scene sceneID="gcA-Gu-ia2">
+            <objects>
+                <viewController title="登录CHH" id="t3d-LI-J8u" userLabel="登录锤子" customClass="TForumLoginWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M5Z-yv-pDV"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZFT-PX-mQ7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k2k-yD-XSd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-k4-HJy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U34-Qa-4Td">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tVr-dv-6Zx">
+                                        <rect key="frame" x="197" y="326" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="tVr-dv-6Zx" firstAttribute="centerY" secondItem="U34-Qa-4Td" secondAttribute="centerY" id="3Ar-Fl-1l5"/>
+                                    <constraint firstItem="tVr-dv-6Zx" firstAttribute="centerX" secondItem="U34-Qa-4Td" secondAttribute="centerX" id="SqS-qD-5Yi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="width" secondItem="nLi-k4-HJy" secondAttribute="width" id="0YL-oU-kfO"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="height" secondItem="nLi-k4-HJy" secondAttribute="height" id="IaJ-LG-T2m"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="centerX" secondItem="nLi-k4-HJy" secondAttribute="centerX" id="SAL-6B-Hfm"/>
+                            <constraint firstItem="nLi-k4-HJy" firstAttribute="height" secondItem="k2k-yD-XSd" secondAttribute="height" id="cQr-AH-xwf"/>
+                            <constraint firstItem="nLi-k4-HJy" firstAttribute="centerY" secondItem="k2k-yD-XSd" secondAttribute="centerY" id="hu0-KT-yle"/>
+                            <constraint firstItem="nLi-k4-HJy" firstAttribute="centerX" secondItem="k2k-yD-XSd" secondAttribute="centerX" id="tiN-6A-WEc"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="centerY" secondItem="nLi-k4-HJy" secondAttribute="centerY" id="w5U-tk-YvZ"/>
+                            <constraint firstItem="nLi-k4-HJy" firstAttribute="width" secondItem="k2k-yD-XSd" secondAttribute="width" id="x1L-HK-0tx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="登录论坛" id="Odl-iu-cNm">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="alC-V8-Ele">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelLogin:" destination="t3d-LI-J8u" id="GsP-Jm-CSS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="maskLoadingView" destination="U34-Qa-4Td" id="S3k-a0-6DO"/>
+                        <outlet property="webView" destination="nLi-k4-HJy" id="mwM-vP-24g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zIX-K8-QfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-7375" y="-7176"/>
+        </scene>
+        <!--Forum Navigation View Controller-->
+        <scene sceneID="dkL-aN-heY">
+            <objects>
+                <navigationController storyboardIdentifier="CrskyLoginViewController" id="nKG-PC-gnk" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9Uh-xF-fNo">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.182504952" green="0.27161902189999998" blue="0.5104238391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="t3d-LI-J8u" kind="relationship" relationship="rootViewController" id="V5e-jz-CPx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mrz-if-CdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8504" y="-7176"/>
         </scene>
     </scenes>
     <resources>
