@@ -16,6 +16,7 @@
 #import "NSString+Extensions.h"
 #import "IGHTMLDocument.h"
 #import "ForumWebViewController.h"
+#import "LocalForumApi.h"
 
 
 @implementation TForumApi{
@@ -97,11 +98,79 @@
 }
 
 - (void)favoriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
+    NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
+    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+
+    NSString * data = [store stringForKey:key];
+
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+
+    if (data){
+        NSArray * favForumIds = [data componentsSeparatedByString:@","];
+        NSLog(@"favoriteForumsWithId \t%@", favForumIds);
+        if (![favForumIds containsObject:forumId]){
+            NSMutableArray * array = [favForumIds mutableCopy];
+            [array addObject:forumId];
+
+            // 存到云端
+            NSString * newForums = [array componentsJoinedByString:@","];
+            [store setString:newForums forKey:key];
+            [store synchronize];
+
+            // 存到本地
+            NSMutableArray * ids = [NSMutableArray array];
+            for (NSString *fid in favForumIds){
+                [ids addObject:@([fid intValue])];
+            }
+            [localForumApi saveFavFormIds:ids];
+        }
+    } else {
+        NSMutableArray * array = [NSMutableArray array];
+        [array addObject:forumId];
+
+        // 存到云端
+        NSString * newForums = [array componentsJoinedByString:@","];
+        [store setString:newForums forKey:key];
+        [store synchronize];
+
+        // 存到本地
+        NSMutableArray * ids = [NSMutableArray array];
+
+        [ids addObject:@([forumId intValue])];
+        [localForumApi saveFavFormIds:ids];
+    }
+
+    handler(YES, @"SUCCESS");
 }
 
 - (void)unFavouriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
+    NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
+    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+
+    NSString * data = [store stringForKey:key];
+    NSArray * favForumIds = [data componentsSeparatedByString:@","];
+    NSLog(@"favoriteForumsWithId \t%@", favForumIds);
+    if ([favForumIds containsObject:forumId]){
+        NSMutableArray * array = [favForumIds mutableCopy];
+        [array removeObject:forumId];
+
+        // 存到云端
+        NSString * newForums = [array componentsJoinedByString:@","];
+        [store setString:newForums forKey:key];
+        [store synchronize];
+
+        // 存到本地
+        NSMutableArray * ids = [NSMutableArray array];
+        for (NSString *fid in favForumIds){
+            [ids addObject:@([fid intValue])];
+        }
+        LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+        [localForumApi saveFavFormIds:ids];
+    }
+
+    handler(YES, @"SUCCESS");
 }
 
 - (void)favoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
@@ -121,7 +190,33 @@
 }
 
 - (void)listFavoriteForums:(HandlerWithBool)handler {
+    NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
+    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+
+    NSString * data = [store stringForKey:key];
+    NSArray * favForumIds = [data componentsSeparatedByString:@","];
+    NSMutableArray * ids = [NSMutableArray array];
+    for (NSString *forumId in favForumIds){
+        [ids addObject:@([forumId intValue])];
+    }
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    [localForumApi saveFavFormIds:ids];
+
+    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    NSArray *forms = [[manager selectFavForums:ids] mutableCopy];
+
+    handler(YES, forms);
+}
+
+// private
+- (void)listFavoriteForums:(int ) page handler:(HandlerWithBool)handler {
+    NSString * baseUrl = forumConfig.favoriteForums;
+    NSString * favForumsURL = [NSString stringWithFormat:@"%@&page=%d",baseUrl,page];
+
+    [self GET:favForumsURL requestCallback:^(BOOL isSuccess, NSString *html) {
+        handler(isSuccess, html);
+    }];
 }
 
 - (void)listFavoriteThreads:(int)userId withPage:(int)page handler:(HandlerWithBool)handler {

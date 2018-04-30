@@ -12,6 +12,8 @@
 #import "MGSwipeTableCellWithIndexPath.h"
 #import "LocalForumApi.h"
 
+//订阅论坛
+
 @interface ForumFavFormController () <MGSwipeTableCellDelegate> {
 
 }

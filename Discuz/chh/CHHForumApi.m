@@ -276,8 +276,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
         } else{
             handler(NO, m);
         }
-
-        
     }];
 }
 
