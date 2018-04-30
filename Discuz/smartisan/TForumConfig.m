@@ -64,7 +64,7 @@
 }
 
 - (NSString *)listFavorThreads:(int)userId withPage:(int)page {
-    return [NSString stringWithFormat:LST_FAV, userId];
+    return [NSString stringWithFormat:LST_FAV_THREAD, page];
 }
 
 - (NSString *)forumDisplayWithId:(NSString *)forumId withPage:(int)page {

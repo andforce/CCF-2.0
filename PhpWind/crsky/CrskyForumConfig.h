@@ -23,7 +23,7 @@
 
 #define UNFAV BBS_HOST@"u.php?action=favor&"
 
-#define LST_FAV BBS_HOST@"u.php?action=favor&uid=%d"
+#define LST_FAV_THREAD BBS_HOST@"u.php?action=favor&uid=%d"
 
 #define FORUM_DIS BBS_HOST@"thread.php?fid=%@&page=%d"
 

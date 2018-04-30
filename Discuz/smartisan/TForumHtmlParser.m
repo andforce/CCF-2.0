@@ -258,7 +258,56 @@
 }
 
 - (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html {
-    return nil;
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNodeSet *contents = [document queryNodeWithXPath:@"//*[@id=\"favorite_ul\"]"].children;
+
+    for (IGXMLNode *node in contents) {
+        Thread *simpleThread = [[Thread alloc] init];
+
+        //分离出Title
+        simpleThread.threadTitle = [node childAt:2].text.trim;
+
+        // Id
+        simpleThread.threadID = [[node childAt:2].html stringWithRegular:@"(?<=thread-)\\d+"];
+
+        simpleThread.threadAuthorID = @"-1";
+
+        simpleThread.threadAuthorName = @"未知";
+
+        simpleThread.lastPostTime = @"";
+
+        [threadList addObject:simpleThread];
+    }
+
+    PageNumber *pageNumber = [[PageNumber alloc]init];
+    IGXMLNode * pageNode = [document queryNodeWithClassName:@"pg"];
+    if (pageNode != nil && pageNode.childrenCount > 0){
+        for (IGXMLNode *n in pageNode.children) {
+            if ([[n.html trim] hasPrefix:@"<strong>"]){
+                pageNumber.currentPageNumber = [[[n text] trim] intValue];
+                break;
+            }
+        }
+        NSString * pageText = [pageNode.text trim];
+        int max = [[[[pageText componentsSeparatedByString:@"/"][1] trim] componentsSeparatedByString:@" "].firstObject intValue];
+        pageNumber.totalPageNumber = max;
+    } else {
+        pageNumber.currentPageNumber = 1;
+        pageNumber.totalPageNumber = 1;
+    }
+
+
+    
+    
+    page.pageNumber = pageNumber;
+    page.dataList = threadList;
+
+    return page;
 }
 
 - (NSString *)parseErrorMessage:(NSString *)html {
