@@ -48,6 +48,7 @@
     [self GET:url parameters:nil requestCallback:callback];
 }
 
+
 - (void)listAllForums:(HandlerWithBool)handler {
     NSString * url = forumConfig.archive;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
@@ -82,18 +83,6 @@
 }
 
 - (void)searchWithKeyWord:(NSString *)keyWord forType:(int)type handler:(HandlerWithBool)handler {
-
-}
-
-- (void)showPrivateMessageContentWithId:(int)pmId withType:(int)type handler:(HandlerWithBool)handler {
-
-}
-
-- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-
-}
-
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
 }
 
@@ -178,14 +167,6 @@
 }
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
-
-}
-
-- (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler {
-
-}
-
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
 
 }
 

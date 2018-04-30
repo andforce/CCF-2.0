@@ -14,4 +14,6 @@
 
 - (void) bringLeftDrawerToFront;
 
+- (void) changeMessageUITabController:(int) type;
+
 @end

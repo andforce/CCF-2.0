@@ -9,6 +9,8 @@
 #import "ForumTabBarController.h"
 #import "DrawerView.h"
 #import "LocalForumApi.h"
+#import "UIStoryboard+Forum.h"
+#import "ForumNavigationViewController.h"
 
 @interface ForumTabBarController () {
     DrawerView *_leftDrawerView;
@@ -18,15 +20,39 @@
 
 @implementation ForumTabBarController
 
+- (void)changeMessageUITabController:(int)type {
+
+    UIStoryboard * storyboard  = [UIStoryboard mainStoryboard];
+    ForumNavigationViewController * navigationController1 = nil;
+
+    if (type == 0){
+        navigationController1 = (ForumNavigationViewController *) [storyboard finControllerById:@"DiscuzNavID"];
+    } else {
+        navigationController1 = (ForumNavigationViewController *) [storyboard finControllerById:@"vBulletinNavID"];
+    }
+
+    NSMutableArray *withDiscuzControllers = [NSMutableArray new];
+
+    NSArray * currentControllers = self.viewControllers;
+
+    for (int i = 0; i < currentControllers.count; i++){
+        if (i == 3){
+            [withDiscuzControllers addObject:navigationController1];
+        } else {
+            [withDiscuzControllers addObject:currentControllers[i]];
+        }
+    }
+
+    self.viewControllers = [withDiscuzControllers copy];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 
     if (![self isNeedHideLeftMenu]){
         _leftDrawerView = [[DrawerView alloc] initWithDrawerType:DrawerViewTypeLeft andXib:@"DrawerView"];
         [self.view addSubview:_leftDrawerView];
     }
-
 }
 
 - (BOOL)isNeedHideLeftMenu {
@@ -37,7 +63,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)showLeftDrawer{

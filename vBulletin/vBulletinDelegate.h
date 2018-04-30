@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class Message;
+
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
 @protocol vBulletinDelegate <NSObject>
@@ -19,5 +21,22 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 - (void)refreshVCodeToUIImageView:(UIImageView *)vCodeImageView;
 
 - (void)showThreadWithP:(NSString *)p handler:(HandlerWithBool)handler;
+
+#pragma 短消息相关
+@optional
+- (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler;
+
+@optional
+- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
+
+// 根据PM ID 显示一条私信内容
+// 0 系统短信   1 正常私信
+- (void)showPrivateMessageContentWithId:(int)pmId withType:(int ) type handler:(HandlerWithBool)handler;
+
+// 发送站内短信
+- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
+
+// 回复站内短信
+- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
 
 @end
