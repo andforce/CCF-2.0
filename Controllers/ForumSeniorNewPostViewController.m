@@ -271,51 +271,27 @@
         [uploadImages addObject:data];
     }
 
-    if (isQuoteReply){
-        [self.forumApi quoteReplyPostWithMessage:self.replyContent.text withImages:uploadImages toPostId:postId thread:replyThread handler:^(BOOL isSuccess, id message) {
-            if (isSuccess) {
-                [ProgressDialog showSuccess:@"回复成功"];
+    [self.forumApi replyWithMessage:self.replyContent.text withImages:uploadImages toPostId:postId thread:replyThread isQoute:isQuoteReply handler:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
+            [ProgressDialog showSuccess:@"回复成功"];
 
-                ViewThreadPage *thread = message;
+            ViewThreadPage *thread = message;
 
-                TransBundle *bundle = [[TransBundle alloc] init];
-                [bundle putObjectValue:thread forKey:@"Senior_Reply_Callback"];
+            TransBundle *bundle = [[TransBundle alloc] init];
+            [bundle putObjectValue:thread forKey:@"Senior_Reply_Callback"];
 
-                UITabBarController *presenting = (UITabBarController *) self.presentingViewController;
-                UINavigationController *selected = presenting.selectedViewController;
-                UIViewController *detail = selected.topViewController;
+            UITabBarController *presenting = (UITabBarController *) self.presentingViewController;
+            UINavigationController *selected = presenting.selectedViewController;
+            UIViewController *detail = selected.topViewController;
 
-                [self dismissViewControllerAnimated:YES backToViewController:detail withBundle:bundle completion:^{
+            [self dismissViewControllerAnimated:YES backToViewController:detail withBundle:bundle completion:^{
 
-                }];
+            }];
 
-            } else {
-                [ProgressDialog showError:message];
-            }
-        }];
-    } else {
-        [self.forumApi seniorReplyPostWithMessage:self.replyContent.text withImages:uploadImages toPostId:postId thread:replyThread handler:^(BOOL isSuccess, id message) {
-            if (isSuccess) {
-                [ProgressDialog showSuccess:@"回复成功"];
-
-                ViewThreadPage *thread = message;
-
-                TransBundle *bundle = [[TransBundle alloc] init];
-                [bundle putObjectValue:thread forKey:@"Senior_Reply_Callback"];
-
-                UITabBarController *presenting = (UITabBarController *) self.presentingViewController;
-                UINavigationController *selected = presenting.selectedViewController;
-                UIViewController *detail = selected.topViewController;
-
-                [self dismissViewControllerAnimated:YES backToViewController:detail withBundle:bundle completion:^{
-
-                }];
-
-            } else {
-                [ProgressDialog showError:message];
-            }
-        }];
-    }
+        } else {
+            [ProgressDialog showError:message];
+        }
+    }];
 }
 
 @end

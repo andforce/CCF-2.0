@@ -27,12 +27,8 @@ typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
 @protocol ForumBrowserDelegate <ForumCommonDelegate, vBulletinDelegate, DiscuzDelegate, PhpWindDelegate>
 
-// 带有图片回复
-- (void)seniorReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId  thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler;
-
 // 引用回复楼层
-- (void)quoteReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId  thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler;
-
+- (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler;
 
 // 搜索论坛
 // 0.标题 1. 内容 2. 用户

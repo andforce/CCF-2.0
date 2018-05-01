@@ -96,7 +96,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
     }];
 }
 
-- (void)seniorReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
+- (void)reply:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
     NSString *msg = message;
 
     if ([NSUserDefaults standardUserDefaults].isSignatureEnabled) {
@@ -432,9 +432,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
     handler(YES,@"");
 }
 
-- (void)quoteReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage
-                          handler:(HandlerWithBool)handler {
-    [self seniorReplyPostWithMessage:message withImages:images toPostId:postId thread:threadPage handler:handler];
+- (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote
+        handler:(HandlerWithBool)handler {
+    [self reply:message withImages:images toPostId:postId thread:threadPage handler:handler];
 }
 
 // private

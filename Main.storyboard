@@ -771,7 +771,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4C-zz-DaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1378.4000000000001" y="-5948.2758620689656"/>
+            <point key="canvasLocation" x="-1794" y="-6428"/>
         </scene>
         <!--登录论坛-->
         <scene sceneID="v8j-Ti-el8">
@@ -2579,7 +2579,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tig-W1-eHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2084" y="-5948"/>
+            <point key="canvasLocation" x="-2499" y="-6428"/>
         </scene>
         <!--新主题-->
         <scene sceneID="xBQ-EG-vCf">

@@ -498,7 +498,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 
-- (void)seniorReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
+- (void)reply:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
 
     int threadId = threadPage.threadID;
     NSString *token = threadPage.securityToken;
@@ -594,16 +594,21 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)quoteReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
+- (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler {
 
-    NSString *quoteUrl = [forumConfig quoteReply:threadPage.forumId threadId:threadPage.threadID postId:[postId intValue]];
-    [self GET:quoteUrl requestCallback:^(BOOL isSuccess, NSString *html) {
+    NSString *replyUrl = nil;
+    if (quote){
+        replyUrl = [forumConfig quoteReply:threadPage.forumId threadId:threadPage.threadID postId:[postId intValue]];
+    } else {
+        replyUrl = [forumConfig replyWithThreadId:threadPage.threadID forForumId:threadPage.forumId replyPostId:[postId intValue]];
+    }
+    [self GET:replyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             NSString * quoteString = [forumParser parseQuote:html];
 
             NSString * replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
-            [self seniorReplyPostWithMessage:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
+            [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {
             handler(NO, html);
