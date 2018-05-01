@@ -309,7 +309,7 @@
         int row = (int)indexPath.row;
         Forum * forum = childForms[(NSUInteger) row];
         TransBundle * bundle = [[TransBundle alloc] init];
-        [bundle putIntValue:forum.forumId forKey:@"ForumId"];
+        [bundle putObjectValue: forum forKey:@"TransForm"];
         [self transBundle:bundle forController:controller];
 
     } else if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {

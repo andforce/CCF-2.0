@@ -11,10 +11,11 @@
 #import "ForumCreateNewThreadViewController.h"
 #import "ForumUserProfileTableViewController.h"
 #import "ForumWebViewController.h"
+#import "UIStoryboard+Forum.h"
 
 @interface ForumThreadListForChildFormUITableViewController ()<TransBundleDelegate, MGSwipeTableCellDelegate> {
     NSArray *childForms;
-    int forumId;
+    Forum *transForm;
 }
 
 @end
@@ -24,14 +25,14 @@
 }
 
 - (void)transBundle:(TransBundle *)bundle {
-    forumId = [bundle getIntValue:@"ForumId"];
+    transForm = [bundle getObjectValue:@"TransForm"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-    childForms = [[manager selectChildForumsById:forumId] mutableCopy];
+    childForms = [[manager selectChildForumsById:transForm.forumId] mutableCopy];
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 97.0;
@@ -45,7 +46,7 @@
 }
 
 - (void)onPullRefresh {
-    [self.forumApi forumDisplayWithId:forumId andPage:1 handler:^(BOOL isSuccess, ViewForumPage *page) {
+    [self.forumApi forumDisplayWithId:transForm.forumId andPage:1 handler:^(BOOL isSuccess, ViewForumPage *page) {
 
         [self.tableView.mj_header endRefreshing];
 
@@ -76,7 +77,7 @@
 
     int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.totalPageNumber + 1;
 
-    [self.forumApi forumDisplayWithId:forumId andPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *page) {
+    [self.forumApi forumDisplayWithId:transForm.forumId andPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *page) {
 
         [self.tableView.mj_footer endRefreshing];
 
@@ -176,7 +177,7 @@
 
         ForumCreateNewThreadViewController *newPostController = segue.destinationViewController;
         TransBundle * bundle = [[TransBundle alloc] init];
-        [bundle putIntValue:forumId forKey:@"FORM_ID"];
+        [bundle putIntValue:transForm.forumId forKey:@"FORM_ID"];
         [bundle putObjectValue:currentForumPage forKey:@"CREATE_THREAD_IN"];
         [self transBundle:bundle forController:newPostController];
         
@@ -222,6 +223,16 @@
 }
 
 - (IBAction)createThread:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+
+    UINavigationController *createController = (id) [storyboard instantiateViewControllerWithIdentifier:@"CreateNewThread"];
+
+    TransBundle *bundle = [[TransBundle alloc] init];
+    [bundle putIntValue:transForm.forumId forKey:@"FORM_ID"];
+    [bundle putObjectValue:currentForumPage forKey:@"CREATE_THREAD_IN"];
+    [self presentViewController:(id) createController withBundle:bundle forRootController:YES animated:YES completion:^{
+
+    }];
 }
 
 
