@@ -3,6 +3,7 @@
 // Copyright (c) 2016 andforce. All rights reserved.
 //
 
+#import <IGHTMLQuery/IGHTMLDocument.h>
 #import "CCFForumApi.h"
 
 #import "NSString+Extensions.h"
@@ -15,6 +16,9 @@
 #import "LocalForumApi.h"
 #import "ForumWebViewController.h"
 #import "UIStoryboard+Forum.h"
+#import "IGHTMLDocument+QueryNode.h"
+#import "IGXMLNode+Children.h"
+#import "CommonUtils.h"
 
 #define kSecurityToken @"securitytoken"
 
@@ -133,9 +137,40 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
-    NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    handler(YES,categories);
+- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
+    NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        if (isSuccess) {
+
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+
+            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGXMLNodeSet *typeidNodeSet = [document queryWithClassName:@"bginput"];
+
+            NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
+
+            for (IGXMLNode * node in typeidNodeSet) {
+                if ([node.tag isEqualToString:@"select"]){
+
+                    for (int i = 1; i < node.childrenCount; i++) {
+                        IGXMLNode *child = [node childAt:i];
+                        [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
+                    }
+                    break;
+                }
+            }
+
+            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+
+        } else {
+            callback(nil, nil, nil, nil, nil, nil);
+        }
+    }];
 }
 
 - (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title

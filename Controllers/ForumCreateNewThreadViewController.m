@@ -28,12 +28,17 @@
 
     ViewForumPage *currentForumPage;
 
-    NSArray *categorys;
-
     int categoryIndex;
 
     PayManager *_payManager;
     LocalForumApi *_localForumApi;
+
+    NSString *_post_hash;
+    NSString *_forum_hash;
+    NSString *_posttime;
+    NSString *_seccodehash;
+    NSString *_seccodeverify;
+    NSDictionary *_typeidList;
 }
 
 @end
@@ -74,15 +79,24 @@
     images = [NSMutableArray array];
 
     [ProgressDialog showStatus:@"获取分类"];
-    NSString *fId = [NSString stringWithFormat:@"%d", forumId];
-    [_forumApi listThreadCategory:fId handler:^(BOOL isSuccess, id message) {
-        if (isSuccess){
+
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+            NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
+
+        _post_hash = post_hash;
+        _forum_hash = forum_hash;
+        _posttime = posttime;
+        _seccodehash = seccodehash;
+        _seccodeverify = seccodeverify;
+        _typeidList = typeidList;
+
+        if (_typeidList != nil){
             [ProgressDialog dismiss];
-            categorys = message;
         } else {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -190,8 +204,9 @@
         case 0x49:
         case 0x4D:
             return @"image/tiff";
+        default:
+            return nil;
     }
-    return nil;
 }
 
 
@@ -316,11 +331,13 @@
 
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
+    NSArray *types = _typeidList.allKeys;
+
     ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择分类"
-                                                                                rows:categorys
+                                                                                rows:types
                                                                     initialSelection:categoryIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
 
-                self.category.titleLabel.text = categorys[(NSUInteger) selectedIndex];
+                self.category.titleLabel.text = types[(NSUInteger) selectedIndex];
                 categoryIndex = selectedIndex;
 
 

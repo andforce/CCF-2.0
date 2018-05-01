@@ -12,9 +12,6 @@
 // 获取所有的论坛列表
 - (void)listAllForums:(HandlerWithBool)handler;
 
-// 发表新帖子时候，支持的主题分类
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler;
-
 // 收藏这个论坛
 - (void)favoriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler;
 

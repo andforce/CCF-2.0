@@ -13,6 +13,8 @@
 #import "CHHForumConfig.h"
 #import "CHHForumHtmlParser.h"
 #import "LocalForumApi.h"
+#import "NSString+Extensions.h"
+#import "IGXMLNode+Children.h"
 
 typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttime);
 
@@ -61,9 +63,37 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
     }];
 }
 
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
-    NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    handler(YES,categories);
+- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
+    NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        if (isSuccess) {
+
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+
+            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGXMLNode *typeidNode = [document queryNodeWithXPath:@"//*[@id=\"typeid\"]"];
+
+            NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
+
+            for (int i = 0; i < typeidNode.childrenCount; ++i) {
+                IGXMLNode *child = [typeidNode childAt:i];
+                if (![[child attribute:@"value"] isEqualToString:@"0"]){
+                    [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
+                }
+            }
+
+            NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
+            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+
+        } else {
+            callback(nil, nil, nil, nil, nil, nil);
+        }
+    }];
 }
 
 - (void)seniorReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {

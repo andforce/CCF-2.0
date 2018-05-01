@@ -21,6 +21,7 @@
 #import "NSUserDefaults+Setting.h"
 #import "IGHTMLDocument+QueryNode.h"
 #import "IGXMLNode+Children.h"
+#import "CommonUtils.h"
 
 @implementation TForumApi{
     id <ForumConfigDelegate> forumConfig;
@@ -67,11 +68,6 @@
             handler(NO, [forumParser parseErrorMessage:html]);
         }
     }];
-}
-
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
-    NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    handler(YES,categories);
 }
 
 // private 正式开始发送
@@ -185,20 +181,17 @@
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
         if (isSuccess) {
+
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+
             IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-
-            IGXMLNode * postForumNode = [document queryNodeWithXPath:@"//*[@id=\"postform\"]"];
-            NSString * postFormHtml = postForumNode.html;
-
-            NSString * post_hash = [postFormHtml stringWithRegular:@"(?<=name=\"post_hash\" type=\"hidden\" value=\")\\w+(?<\" />)"];
-            NSString * forum_hash = [postFormHtml stringWithRegular:@"(?<=id=\"formhash\" value=\")\\w+(?<\" />)"];
-            NSString * posttime = [postFormHtml stringWithRegular:@"(?<=id=\"posttime\" value=\")\\d+(?<\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?<\">)"];
-
             IGXMLNode *typeidNode = [document queryNodeWithXPath:@"//*[@id=\"typeid\"]"];
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
-            for (int i = 0; i < typeidNode.childrenCount; ++i) {
+            for (int i = 0; i < typeidNode.childrenCount; i++) {
                 IGXMLNode *child = [typeidNode childAt:i];
                 if (![[child attribute:@"value"] isEqualToString:@"0"]){
                     [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
@@ -206,11 +199,12 @@
             }
 
             NSString *secUrlTemple = @"http://bbs.smartisan.com/misc.php?mod=seccode&action=update&idhash=%@&%@&modid=forum::post";
-            NSString *secUrl = [NSString stringWithFormat:secUrlTemple, seccodehash, [TForumApi randomString:17]];
+            NSString *randomStr = [NSString stringWithFormat:@"0.%@", [CommonUtils randomNumber:17]];
+            NSString *secUrl = [NSString stringWithFormat:secUrlTemple, seccodehash, randomStr];
 
-            [self GET:secUrl parameters:nil requestCallback:^(BOOL success, NSString *html) {
+            [self GET:secUrl parameters:nil requestCallback:^(BOOL success, NSString *resultHtml) {
                 if (success){
-                    NSString *update = [html stringWithRegular:@"(?<=update=)\\d+"];
+                    NSString *update = [resultHtml stringWithRegular:@"(?<=update=)\\d+"];
                     NSString * seccodeverify = [NSString stringWithFormat:@"http://bbs.smartisan.com/misc.php?mod=seccode&update=%@&idhash=%@", update, seccodehash];
                     callback(post_hash, forum_hash, posttime, seccodehash, seccodeverify, typeidDic);
                 } else {
@@ -223,19 +217,6 @@
         }
     }];
 }
-
-
-+ (NSString *)randomString:(int)len {
-    //http://bbs.smartisan.com/misc.php?mod=seccode&action=update&idhash=cSFXKB8K&0.22012027874589912&modid=forum::post
-    static const NSString *kRandomAlphabet = @"0123456789";
-
-    NSMutableString *randomString = [NSMutableString stringWithCapacity:(NSUInteger) len];
-    for (int i = 0; i < len; i++) {
-        [randomString appendFormat:@"%C", [kRandomAlphabet characterAtIndex:arc4random_uniform((u_int32_t) [kRandomAlphabet length])]];
-    }
-    return [NSString stringWithFormat:@"0.%@", randomString];
-}
-
 
 // private 进入图片管理页面，准备上传图片
 - (void)uploadImagePrepair:(int)forumId startPostTime:(NSString *)time postHash:(NSString *)hash :(HandlerWithBool)callback {

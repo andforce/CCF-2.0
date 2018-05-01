@@ -21,4 +21,6 @@
 
 + (NSString *)timeForShort:(NSString *)timeStamp;
 
++ (NSString *)randomNumber:(int)len;
+
 @end

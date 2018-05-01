@@ -3,6 +3,7 @@
 // Copyright (c) 2016 andforce. All rights reserved.
 //
 
+#import <IGHTMLQuery/IGHTMLDocument.h>
 #import "DRLForumApi.h"
 
 #import "NSString+Extensions.h"
@@ -16,6 +17,8 @@
 #import "TransBundle.h"
 #import "UIStoryboard+Forum.h"
 #import "ForumWebViewController.h"
+#import "IGHTMLDocument+QueryNode.h"
+#import "IGXMLNode+Children.h"
 
 #define kSecurityToken @"securitytoken"
 
@@ -140,9 +143,32 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
-    NSArray *categorys = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    handler(YES,categorys);
+- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
+    NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        if (isSuccess) {
+
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+
+            NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
+
+            NSArray * array = [html arrayWithRegular:@"(?<=<OPTION value=')\\S+(?='>)"];
+
+            for (NSString *str in array) {
+                [typeidDic setValue:str forKey:str];
+            }
+
+            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+
+        } else {
+            callback(nil, nil, nil, nil, nil, nil);
+        }
+    }];
 }
 
 

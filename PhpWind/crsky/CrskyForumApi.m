@@ -90,29 +90,33 @@
     }];
 }
 
-- (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
+- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
 
-    NSString * url = [NSString stringWithFormat:@"http://bbs.crsky.com/post.php?fid=%@", fid];
+    NSString * url = [NSString stringWithFormat:@"http://bbs.crsky.com/post.php?fid=%d", forumId];
+
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
         if (isSuccess) {
-            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-            IGXMLNode * node = [document queryNodeWithClassName:@"fr gray"];
-            IGXMLNodeSet * cats = [node childAt:0].children;
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
-            NSMutableArray * array = [NSMutableArray array];
+            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGXMLNode *typeidNode = [document queryNodeWithClassName:@"fr gray"].firstChild;
 
-            for (IGXMLNode * c in cats){
-                NSString * value = [c attribute:@"value"];
-                if (![value isEqualToString:@""]){
-                    [array addObject:c.text.trim];
-                }
+            NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
+            for (int i = 1; i < typeidNode.childrenCount; i++) {
+                IGXMLNode *child = [typeidNode childAt:i];
+                [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
             }
 
-            handler(isSuccess, array);
+            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+
         } else {
-            handler(NO, [forumParser parseErrorMessage:html]);
+            callback(nil, nil, nil, nil, nil, nil);
         }
     }];
 }
