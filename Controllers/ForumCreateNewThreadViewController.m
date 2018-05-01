@@ -57,6 +57,55 @@
     currentForumPage = [bundle getObjectValue:@"CREATE_THREAD_IN"];
 }
 
+- (IBAction)refreshSecCode:(id)sender {
+
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+            NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
+
+        _post_hash = post_hash;
+        _forum_hash = forum_hash;
+        _posttime = posttime;
+        _seccodehash = seccodehash;
+        _seccodeverify = seccodeverify;
+        _typeidList = typeidList;
+
+        AFImageDownloader *downloader = [[vCodeImgV class] sharedImageDownloader];
+        id <AFImageRequestCache> imageCache = downloader.imageCache;
+        [imageCache removeImageWithIdentifier:_seccodeverify];
+
+        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
+
+        NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        NSDictionary *dictCookies = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+
+        NSString * object = dictCookies[@"Cookie"];
+        [request setValue:object  forHTTPHeaderField: @"Cookie"];
+
+        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField: @"Host"];
+        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField: @"Accept"];
+        [request setValue:@"1" forHTTPHeaderField: @"DNT"];
+        [request setValue:@"gzip, deflate" forHTTPHeaderField: @"Accept-Encoding"];
+        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
+        NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
+        [request setValue:referer forHTTPHeaderField:@"Referer"];
+        [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
+
+        UIImageView *view = vCodeImgV;
+
+        [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
+            [view setImage:image];
+        }   failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
+            NSLog(@"refreshDoor failed >> >> %@", urlRequest.allHTTPHeaderFields);
+        }];
+
+        if (_typeidList != nil){
+            [ProgressDialog dismiss];
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -116,6 +165,7 @@
         [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
+        [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
 
         UIImageView *view = vCodeImgV;
         

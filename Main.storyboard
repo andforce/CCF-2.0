@@ -549,13 +549,23 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbT-mT-VpX">
+                                                <rect key="frame" x="0.0" y="8" width="100" height="30"/>
+                                                <connections>
+                                                    <action selector="refreshSecCode:" destination="pXN-Qw-w0b" eventType="touchUpInside" id="iKo-Mp-iM1"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="1Zk-cK-P4D" secondAttribute="bottom" constant="8" id="5Xd-d4-3W6"/>
+                                            <constraint firstItem="RbT-mT-VpX" firstAttribute="centerX" secondItem="5iC-bA-ITd" secondAttribute="centerX" id="6Jp-PC-6gg"/>
                                             <constraint firstItem="1Zk-cK-P4D" firstAttribute="top" secondItem="18R-g0-0RX" secondAttribute="top" constant="8" id="E0u-gv-dTw"/>
                                             <constraint firstAttribute="trailing" secondItem="1Zk-cK-P4D" secondAttribute="trailing" id="LCh-pu-EJj"/>
+                                            <constraint firstItem="RbT-mT-VpX" firstAttribute="width" secondItem="5iC-bA-ITd" secondAttribute="width" id="RAf-cP-rWI"/>
+                                            <constraint firstItem="RbT-mT-VpX" firstAttribute="centerY" secondItem="5iC-bA-ITd" secondAttribute="centerY" id="VdA-mG-Yrf"/>
                                             <constraint firstItem="1Zk-cK-P4D" firstAttribute="leading" secondItem="5iC-bA-ITd" secondAttribute="trailing" constant="8" id="aXD-aN-VLt"/>
+                                            <constraint firstItem="RbT-mT-VpX" firstAttribute="height" secondItem="5iC-bA-ITd" secondAttribute="height" id="eRw-dk-epa"/>
                                             <constraint firstAttribute="height" constant="46" id="j1X-22-Cxa"/>
                                             <constraint firstItem="5iC-bA-ITd" firstAttribute="top" secondItem="18R-g0-0RX" secondAttribute="top" constant="8" id="qkc-Iy-k1T"/>
                                             <constraint firstItem="5iC-bA-ITd" firstAttribute="leading" secondItem="18R-g0-0RX" secondAttribute="leading" id="tss-yX-DO0"/>
