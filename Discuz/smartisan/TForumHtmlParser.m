@@ -463,9 +463,61 @@
 
     NSString * replyCount = [html stringWithRegular:@"(?<=回帖数 )\\d+"];
     NSString * threadCount = [html stringWithRegular:@"(?<=主题数 )\\d+"];
-    int count = [replyCount integerValue] + [threadCount integerValue];
+    int count = [replyCount intValue] + [threadCount intValue];
 
     userProfile.profileTotalPostCount = [NSString stringWithFormat:@"%d", count];
     return userProfile;
+}
+
+
+- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html {
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNode *messageNode = [document queryNodeWithXPath:@"//*[@id=\"deletepmform\"]"];
+    if (messageNode == nil || messageNode.childrenCount == 0){
+        return page;
+    }
+
+    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+
+    PageNumber *pageNumber = [self parserPageNumber:html];
+
+    IGXMLNodeSet *messagesNodeSet = [messageNode childAt:0].children;
+
+    for (IGXMLNode *node in messagesNodeSet) {
+
+        Message *message = [[Message alloc] init];
+
+        // 1. 是不是未读短信
+        message.isReaded = ![[node attribute:@"class"] containsString:@"newpm"];
+
+        // Message Id
+        message.pmID = [[node attribute:@"id"] stringWithRegular:@"\\d+"];
+
+        // 2. 标题
+        IGXMLNode *title = [document queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]/text()[5]", message.pmID]];
+        message.pmTitle = title.text.trim;
+
+        // 3. 发送PM作者
+        IGXMLNode *author = [document queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]/a", message.pmID]];
+        message.pmAuthor = author.text.trim;
+
+        // 4. 发送者ID
+        message.pmAuthorId = [[author attribute:@"href"] stringWithRegular:@"\\d+"];
+
+        // 5. 时间
+        IGXMLNode *timeNode = [document queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]/span[2]", message.pmID]];
+        message.pmTime = [CommonUtils timeForShort:[[timeNode text] trim] withFormat:@"yyyy-MM-dd HH:mm"];
+
+        [messagesList addObject:message];
+    }
+
+    page.dataList = [messagesList copy];
+
+    page.pageNumber = pageNumber;
+
+    return page;
 }
 @end

@@ -5,24 +5,21 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ForumCommonConfigDelegate.h"
+#import "DiscuzConfigDelegate.h"
+#import "PhpWindConfigDelegage.h"
+#import "vBulletinConfigDelegate.h"
 
 #define THREAD_PAGE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post_view" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 #define THREAD_PAGE_NOTITLE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post_view_notitle" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 #define POST_MESSAGE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post_message" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 #define PRIVATE_MESSAGE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"private_message" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 
-@protocol ForumConfigDelegate <NSObject>
-
-@required
-- (UIColor *)themeColor;
+@protocol ForumConfigDelegate <ForumCommonConfigDelegate, DiscuzConfigDelegate, PhpWindConfigDelegage, vBulletinConfigDelegate>
 
 - (NSURL *)forumURL;
 
 - (NSString *)archive;
-
-- (NSString *)cookieUserIdKey;
-
-- (NSString *)cookieExpTimeKey;
 
 // 附件相关
 - (NSString *)newattachmentForThread:(int)threadId time:(NSString *)time postHash:(NSString *)postHash;
@@ -76,7 +73,6 @@
 - (NSString *)showThreadWithP:(NSString *)p;
 
 // 复制
-@required
 - (NSString *)copyThreadUrl:(NSString *) threadId withPostId:(NSString *)postId withPostCout:(int)postCount;
 
 // 头像
@@ -89,30 +85,11 @@
 // User Page
 - (NSString *)memberWithUserId:(NSString *)userId;
 
-// 登录
-- (NSString *)login;
-
-- (NSString *)loginvCode;
-
-
 // 准备发表帖子
 - (NSString *)createNewThreadWithForumId:(NSString *)forumId;
 
 // 发表新帖子
 - (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId;
-
-// 站内短信
-- (NSString *)privateWithType:(int)type withPage:(int)page;
-
-- (NSString *)deletePrivateWithType:(int)type;
-
-- (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type;
-
-- (NSString *)privateReplyWithMessageIdPre:(int)messageId;
-
-- (NSString *)privateReplyWithMessage;
-
-- (NSString *)privateNewPre;
 
 // UserCP
 - (NSString *)favoriteForums;
@@ -127,6 +104,4 @@
 @optional
 - (NSString *) listUserThreads:(NSString *) userId withPage:(int) page;
 
-@required
-- (NSString *) signature;
 @end

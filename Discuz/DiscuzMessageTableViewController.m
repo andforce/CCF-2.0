@@ -65,36 +65,33 @@
 
 
 - (void)refreshMessage:(int)page {
-    
-    /*
-    [self.forumApi listPrivateMessageWithType:messageType andPage:page handler:^(BOOL isSuccess, ViewForumPage *message) {
+
+    [self.forumApi listPrivateMessage:page handler:^(BOOL isSuccess, ViewForumPage * message) {
         [self.tableView.mj_header endRefreshing];
-        
+
         if (isSuccess) {
-            
+
             [self.tableView.mj_footer endRefreshing];
-            
+
             currentForumPage = message;
-            
+
             if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
-            
+
             [self.dataList removeAllObjects];
             [self.dataList addObjectsFromArray:message.dataList];
-            
+
             [self.tableView reloadData];
         }
     }];
-     */
 }
 
 
 - (void)onLoadMore {
-    
-    /*
+
     int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
-    [self.forumApi listPrivateMessageWithType:messageType andPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
+    [self.forumApi listPrivateMessage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
         [self.tableView.mj_footer endRefreshing];
         if (isSuccess) {
             
@@ -107,7 +104,7 @@
             [self.dataList addObjectsFromArray:message.dataList];
             [self.tableView reloadData];
         }
-    }];*/
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

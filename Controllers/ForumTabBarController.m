@@ -35,7 +35,7 @@
 
     NSArray * currentControllers = self.viewControllers;
 
-    for (int i = 0; i < currentControllers.count; i++){
+    for (NSUInteger i = 0; i < currentControllers.count; i++){
         if (i == 3){
             [withDiscuzControllers addObject:navigationController1];
         } else {
@@ -53,6 +53,8 @@
         _leftDrawerView = [[DrawerView alloc] initWithDrawerType:DrawerViewTypeLeft andXib:@"DrawerView"];
         [self.view addSubview:_leftDrawerView];
     }
+
+    [self changeMessageUITabController:0];
 }
 
 - (BOOL)isNeedHideLeftMenu {

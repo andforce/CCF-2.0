@@ -1957,7 +1957,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbS-5S-4ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1538" y="-1961"/>
+            <point key="canvasLocation" x="-2916" y="-1401"/>
         </scene>
         <!--子论坛帖-->
         <scene sceneID="wBW-D6-BVd">
@@ -3668,10 +3668,10 @@
             </objects>
             <point key="canvasLocation" x="-8504" y="-7176"/>
         </scene>
-        <!--站内短信-->
+        <!--论坛消息-->
         <scene sceneID="4rh-V5-hLv">
             <objects>
-                <tableViewController storyboardIdentifier="ShowDiscuzMessage" title="站内短信" id="29L-7I-Y5q" customClass="DiscuzMessageTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShowDiscuzMessage" title="站内短信" id="29L-7I-Y5q" userLabel="论坛消息" customClass="DiscuzMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="119" sectionHeaderHeight="18" sectionFooterHeight="18" id="PmG-Qw-dYn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3793,7 +3793,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g3Y-hn-yna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3765" y="-2092"/>
+            <point key="canvasLocation" x="-3765" y="-2289"/>
         </scene>
         <!--消息-->
         <scene sceneID="zZb-24-rYK">

@@ -310,4 +310,16 @@
     }];
 }
 
+- (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler {
+    NSString *url = [forumConfig privateMessage:page];
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            ViewForumPage *viewForumPage = [forumParser parsePrivateMessageFromHtml:html];
+            handler(YES, viewForumPage);
+        } else {
+            handler(NO, [forumParser parseErrorMessage:html]);
+        }
+    }];
+}
+
 @end

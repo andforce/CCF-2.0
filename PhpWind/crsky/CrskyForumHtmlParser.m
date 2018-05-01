@@ -12,6 +12,7 @@
 #import "IGXMLNode+Children.h"
 #import "NSString+Extensions.h"
 #import "LocalForumApi.h"
+#import "CommonUtils.h"
 
 @implementation CrskyForumHtmlParser{
     LocalForumApi *localApi;
@@ -74,7 +75,7 @@
         //3. time
         IGXMLNode *timeNode = [contentDoc queryNodeWithClassName:@"fl gray"];
         NSString *time = [timeNode.text.trim stringByReplacingOccurrencesOfString:@"发表于: " withString:@""];
-        post.postTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        post.postTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
 
         //4. content
         IGXMLNodeSet *contentNodeSet = [contentDoc queryWithClassName:@"tpc_content"];
@@ -200,36 +201,6 @@
     return token;
 }
 
-// private
-- (NSString *)timeForShort:(NSString *)time withFormat:(NSString *)format {
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //[dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [dateFormatter setDateFormat:format];
-    NSDate *date = [dateFormatter dateFromString:time];
-
-    NSTimeInterval intervalTime = date.timeIntervalSinceNow;
-
-    int interval = -intervalTime;
-    if (interval < 60) {
-        return @"刚刚";
-    } else if (interval >= 60 && interval <= 60 * 60) {
-        return [NSString stringWithFormat:@"%d分钟前", (int) (interval / 60)];
-    } else if (interval > 60 * 60 && interval < 60 * 60 * 24) {
-        return [NSString stringWithFormat:@"%d小时前", (int) (interval / (60 * 60))];
-    } else if (interval >= 60 * 60 * 24 && interval < 60 * 60 * 24 * 7) {
-        return [NSString stringWithFormat:@"%d天前", (int) (interval / (60 * 60 * 24))];
-    } else if (interval >= 60 * 60 * 24 * 7 && interval < 60 * 60 * 24 * 30) {
-        return [NSString stringWithFormat:@"%d周前", (int) (interval / (60 * 60 * 24 * 7))];
-    } else if (interval >= 60 * 60 * 24 * 30 && interval <= 60 * 60 * 24 * 365) {
-        return [NSString stringWithFormat:@"%d月前", (int) (interval / (60 * 60 * 24 * 30))];
-    } else if (interval > 60 * 60 * 24 * 365) {
-        return [NSString stringWithFormat:@"%d年前", (int) (interval / (60 * 60 * 24 * 365))];
-    }
-
-    return time;
-}
-
 - (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop {
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
@@ -328,7 +299,7 @@
             IGXMLNode *lastPostTimeNode = [threadNode childAt:4];
             //11. 最后回帖时间
             NSString *lastPostTime = [lastPostTimeNode childAt:0].text.trim;
-            thread.lastPostTime = [self timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
+            thread.lastPostTime = [CommonUtils timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
 
             //12. 最后发表的人
             NSString *lastPostAuthorName = [[lastPostTimeNode childAt:1].text.trim stringByReplacingOccurrencesOfString:@"by: " withString:@""];
@@ -463,7 +434,7 @@
         IGXMLNode *lastPostTimeNode = [threadNode childAt:6];
         //11. 最后回帖时间
         NSString *lastPostTime = [lastPostTimeNode childAt:0].text.trim;
-        thread.lastPostTime = [self timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
+        thread.lastPostTime = [CommonUtils timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
 
         //12. 最后发表的人
         NSString *lastPostAuthorName = [lastPostTimeNode.text componentsSeparatedByString:@"by: "].lastObject;
@@ -542,7 +513,7 @@
 
                     // 5. 时间
                     NSString *time = [node childAt:3].text.trim;
-                    message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
+                    message.pmTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                     [messagesList addObject:message];
 
@@ -578,7 +549,7 @@
 
                 // 5. 时间
                 NSString *time = [node childAt:3].text.trim;
-                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
+                message.pmTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                 [messagesList addObject:message];
 
@@ -613,7 +584,7 @@
 
                 // 5. 时间
                 NSString *time = [node childAt:3].text.trim;
-                message.pmTime = [self timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
+                message.pmTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
                 [messagesList addObject:message];
 
@@ -641,7 +612,7 @@
     privateMessage.pmTitle = pmTitle;
 
     NSString *pmTime = [[[infoBaseNode childAt:0] childAt:2] childAt:1].text.trim;
-    privateMessage.pmTime = [self timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm"];
+    privateMessage.pmTime = [CommonUtils timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm"];
 
     NSString *pmContent = [[[infoBaseNode childAt:0] childAt:3] childAt:1].html;
     NSString * content = [NSString stringWithFormat:@"<div style=\"overflow-x: hidden;\">%@</div>", pmContent];

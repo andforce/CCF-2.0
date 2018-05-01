@@ -14,6 +14,7 @@
 #import "IGHTMLDocument+QueryNode.h"
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
+#import "CommonUtils.h"
 
 @implementation DRLForumHtmlParser {
 
@@ -76,7 +77,7 @@
             timeNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[1]/td[1]"].firstObject;
         }
         NSString * time = [[timeNode text] trim];
-        post.postTime = [self timeForShort:time withFormat:@"MM-dd-yyyy, HH:mm"];
+        post.postTime = [CommonUtils timeForShort:time withFormat:@"MM-dd-yyyy, HH:mm"];
         //post.postTime = time;
         
         // post Louceng
@@ -332,38 +333,6 @@
     return nil;
 }
 
-// private
-- (NSString *)timeForShort:(NSString *)time withFormat:(NSString *)format {
-    if ([time hasPrefix:@"今天"] || [time hasPrefix:@"昨天"]) {
-        return time;
-    }
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //[dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [dateFormatter setDateFormat:format];
-    NSDate *date = [dateFormatter dateFromString:time];
-    
-    NSTimeInterval intervalTime = date.timeIntervalSinceNow;
-    
-    int interval = -intervalTime;
-    if (interval < 60) {
-        return @"刚刚";
-    } else if (interval >= 60 && interval <= 60 * 60) {
-        return [NSString stringWithFormat:@"%d分钟前", (int) (interval / 60)];
-    } else if (interval > 60 * 60 && interval < 60 * 60 * 24) {
-        return [NSString stringWithFormat:@"%d小时前", (int) (interval / (60 * 60))];
-    } else if (interval >= 60 * 60 * 24 && interval < 60 * 60 * 24 * 7) {
-        return [NSString stringWithFormat:@"%d天前", (int) (interval / (60 * 60 * 24))];
-    } else if (interval >= 60 * 60 * 24 * 7 && interval < 60 * 60 * 24 * 30) {
-        return [NSString stringWithFormat:@"%d周前", (int) (interval / (60 * 60 * 24 * 7))];
-    } else if (interval >= 60 * 60 * 24 * 30 && interval <= 60 * 60 * 24 * 365) {
-        return [NSString stringWithFormat:@"%d月前", (int) (interval / (60 * 60 * 24 * 30))];
-    } else if (interval > 60 * 60 * 24 * 365) {
-        return [NSString stringWithFormat:@"%d年前", (int) (interval / (60 * 60 * 24 * 365))];
-    }
-    
-    return time;
-}
 
 - (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop {
     
@@ -451,7 +420,7 @@
                 lastPostTimePosition = 3;
             }
             IGXMLNode *lastPostTime = [normallThreadNode childAt:lastPostTimePosition];
-            normalThread.lastPostTime = [self timeForShort:[[lastPostTime text] trim] withFormat:@"MM-dd-yyyy HH:mm"];
+            normalThread.lastPostTime = [CommonUtils timeForShort:[[lastPostTime text] trim] withFormat:@"MM-dd-yyyy HH:mm"];
             
             // 回帖数量
             int commentCountPosition = 5;

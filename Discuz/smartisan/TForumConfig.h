@@ -61,6 +61,8 @@
 
 #define LIST_USER_THREAD BBS_HOST@"u.php?action=topic&uid=%@&page=%d"
 
+#define PRIVATE_MESSAGE BBS_HOST@"home.php?mod=space&do=pm&filter=privatepm&page=%d"
+
 @interface TForumConfig : NSObject<ForumConfigDelegate>
 
 @end

@@ -180,4 +180,8 @@
     return signature;
 }
 
+- (NSString *)privateMessage:(int)page {
+    return [NSString stringWithFormat:PRIVATE_MESSAGE, page];
+}
+
 @end

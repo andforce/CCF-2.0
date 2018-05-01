@@ -20,7 +20,10 @@
 #import "ViewSearchForumPage.h"
 #import "PageNumber.h"
 
-@protocol ForumParserDelegate <NSObject>
+#import "vBulletinParserDelegate.h"
+#import "DiscuzParserDelegate.h"
+
+@protocol ForumParserDelegate <vBulletinParserDelegate, DiscuzParserDelegate>
 
 @required
 // 页面相关
@@ -30,7 +33,6 @@
 
 - (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html;
 
-@optional
 - (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html;
 
 - (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int) type;
@@ -60,17 +62,6 @@
 
 - (NSString *)parseListMyThreadSearchId:(NSString *)html;
 
-@required
 - (NSString *)parseErrorMessage:(NSString *)html;
 
-// vBulletin
-- (NSString *)parseSecurityToken:(NSString *)html;
-
-- (NSString *)parsePostHash:(NSString *)html;
-
-- (NSString *)parserPostStartTime:(NSString *)html;
-
-- (NSString *)parseLoginErrorMessage:(NSString *)html;
-
-- (NSString *)parseQuote:(NSString *)html;
 @end
