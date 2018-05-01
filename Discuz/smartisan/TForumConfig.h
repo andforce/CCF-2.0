@@ -63,6 +63,8 @@
 
 #define PRIVATE_MESSAGE BBS_HOST@"home.php?mod=space&do=pm&filter=privatepm&page=%d"
 
+#define NOTICE_MESSAGE BBS_HOST@"home.php?mod=space&do=notice&view=mypost&page=%d"
+
 @interface TForumConfig : NSObject<ForumConfigDelegate>
 
 @end

@@ -14,9 +14,13 @@
 #import "UIStoryboard+Forum.h"
 #import "ForumTabBarController.h"
 
+typedef enum {
+    PrivateMessage = 0,
+    NoticeMessage
+} MessageType;
 
 @interface DiscuzMessageTableViewController ()<ThreadListCellDelegate, MGSwipeTableCellDelegate> {
-    int messageType;
+    MessageType _messageType;
     UIStoryboardSegue *selectSegue;
 }
 
@@ -27,7 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _messageType = PrivateMessage;
+
     if ([self isNeedHideLeftMenu]){
         self.navigationItem.leftBarButtonItem = nil;
     }
@@ -42,17 +47,17 @@
     NSInteger index = Seg.selectedSegmentIndex;
     switch (index) {
         case 0:
-            messageType = 0;
+            _messageType = PrivateMessage;
             [self.tableView.mj_header beginRefreshing];
             [self refreshMessage:1];
             break;
         case 1:
-            messageType = -1;
+            _messageType = NoticeMessage;
             [self.tableView.mj_header beginRefreshing];
             [self refreshMessage:1];
             break;
         default:
-            messageType = 0;
+            _messageType = PrivateMessage;
             [self.tableView.mj_header beginRefreshing];
             [self refreshMessage:1];
             break;
@@ -66,45 +71,100 @@
 
 - (void)refreshMessage:(int)page {
 
-    [self.forumApi listPrivateMessage:page handler:^(BOOL isSuccess, ViewForumPage * message) {
-        [self.tableView.mj_header endRefreshing];
+    switch (_messageType){
+        case PrivateMessage: {
+            [self.forumApi listPrivateMessage:page handler:^(BOOL isSuccess, ViewForumPage *message) {
+                [self.tableView.mj_header endRefreshing];
 
-        if (isSuccess) {
+                if (isSuccess) {
 
-            [self.tableView.mj_footer endRefreshing];
+                    [self.tableView.mj_footer endRefreshing];
 
-            currentForumPage = message;
+                    currentForumPage = message;
 
-            if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
+                    if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
 
-            [self.dataList removeAllObjects];
-            [self.dataList addObjectsFromArray:message.dataList];
+                    [self.dataList removeAllObjects];
+                    [self.dataList addObjectsFromArray:message.dataList];
 
-            [self.tableView reloadData];
+                    [self.tableView reloadData];
+                }
+            }];
+
+            break;
         }
-    }];
+        case NoticeMessage: {
+            [self.forumApi listNoticeMessage:page handler:^(BOOL isSuccess, ViewForumPage *message) {
+                [self.tableView.mj_header endRefreshing];
+
+                if (isSuccess) {
+
+                    [self.tableView.mj_footer endRefreshing];
+
+                    currentForumPage = message;
+
+                    if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
+
+                    [self.dataList removeAllObjects];
+                    [self.dataList addObjectsFromArray:message.dataList];
+
+                    [self.tableView reloadData];
+                }
+            }];
+            break;
+        }
+    }
 }
 
 
 - (void)onLoadMore {
 
     int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
-    [self.forumApi listPrivateMessage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
-        [self.tableView.mj_footer endRefreshing];
-        if (isSuccess) {
-            
-            currentForumPage = message;
-            
-            if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-            
-            [self.dataList addObjectsFromArray:message.dataList];
-            [self.tableView reloadData];
+    switch (_messageType){
+        case PrivateMessage: {
+            [self.forumApi listPrivateMessage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
+                [self.tableView.mj_footer endRefreshing];
+                if (isSuccess) {
+
+                    currentForumPage = message;
+
+                    if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
+
+                    [self.dataList addObjectsFromArray:message.dataList];
+                    [self.tableView reloadData];
+                }
+            }];
+            break;
         }
-    }];
+        case NoticeMessage: {
+            [self.forumApi listNoticeMessage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
+                [self.tableView.mj_footer endRefreshing];
+                if (isSuccess) {
+
+                    currentForumPage = message;
+
+                    if (currentForumPage.pageNumber.currentPageNumber >= currentForumPage.pageNumber.totalPageNumber) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
+
+                    [self.dataList addObjectsFromArray:message.dataList];
+                    [self.tableView reloadData];
+                }
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+
+
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -131,7 +191,9 @@
     return cell;
 }
 
-- (BOOL)swipeTableCell:(MGSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+- (BOOL)swipeTableCell:(MGSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index
+             direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+
     NSIndexPath *indexPath = cell.indexPath;
     
     Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];

@@ -11,4 +11,7 @@
 // 站内短信
 - (NSString *)privateMessage:(int)page;
 
+// 帖子消息
+- (NSString *)noticeMessage:(int)page;
+
 @end

@@ -520,4 +520,56 @@
 
     return page;
 }
+
+- (ViewForumPage *)parseNoticeMessageFromHtml:(NSString *)html {
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNode *messageNode = [document queryNodeWithClassName:@"nts"];
+    if (messageNode == nil || messageNode.childrenCount == 0){
+        return page;
+    }
+
+    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+
+    PageNumber *pageNumber = [self parserPageNumber:html];
+
+    IGXMLNodeSet *messagesNodeSet = messageNode.children;
+
+    for (IGXMLNode *node in messagesNodeSet) {
+
+        Message *message = [[Message alloc] init];
+
+        // 1. 是不是未读短信
+        message.isReaded = ![[node attribute:@"class"] containsString:@"newpm"];
+
+        // Message Id
+        message.pmID = [[node attribute:@"notice"] stringWithRegular:@"\\d+"];
+
+        // 2. 标题
+        IGXMLNode *title = [node childAt:2];
+        message.pmTitle = title.text.trim;
+
+        // 3. 发送PM作者
+        IGXMLNode *authorNode = [node childAt:0];
+        message.pmAuthor = authorNode.text.trim;
+
+        // 4. 发送者ID
+        message.pmAuthorId = [authorNode.html stringWithRegular:@"(?<=uid-)\\d+"];
+
+        // 5. 时间
+        IGXMLNode *timeNode = [node childAt:1];
+        message.pmTime = [CommonUtils timeForShort:[[timeNode text] trim] withFormat:@"yyyy-MM-dd HH:mm"];
+
+        [messagesList addObject:message];
+    }
+
+    page.dataList = [messagesList copy];
+
+    page.pageNumber = pageNumber;
+
+    return page;
+}
+
 @end

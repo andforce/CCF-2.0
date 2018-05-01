@@ -184,4 +184,7 @@
     return [NSString stringWithFormat:PRIVATE_MESSAGE, page];
 }
 
+- (NSString *)noticeMessage:(int)page {
+    return [NSString stringWithFormat:NOTICE_MESSAGE, page];
+}
 @end

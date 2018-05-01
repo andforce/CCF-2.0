@@ -11,4 +11,6 @@
 @optional
 - (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler;
 
+- (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler;
+
 @end
