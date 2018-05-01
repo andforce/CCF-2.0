@@ -120,7 +120,7 @@
 }
 
 - (NSString *)createNewThreadWithForumId:(NSString *)forumId {
-    return REPLY;
+    return NEW_THREAD;
 }
 
 
@@ -187,5 +187,9 @@
 
 - (NSString *)noticeMessage:(int)page {
     return [NSString stringWithFormat:NOTICE_MESSAGE, page];
+}
+
+- (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId {
+    return [NSString stringWithFormat:ENTER_NEW_POST, forumId];
 }
 @end

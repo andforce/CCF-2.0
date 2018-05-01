@@ -15,9 +15,6 @@
 // 发表新帖子时候，支持的主题分类
 - (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler;
 
-// 发表一个新的帖子
-- (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *) page handler:(HandlerWithBool)handler;
-
 // 收藏这个论坛
 - (void)favoriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler;
 

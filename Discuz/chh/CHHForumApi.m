@@ -62,8 +62,8 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
 }
 
 - (void)listThreadCategory:(NSString *)fid handler:(HandlerWithBool)handler {
-    NSArray *categorys = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    handler(YES,categorys);
+    NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
+    handler(YES,categories);
 }
 
 - (void)seniorReplyPostWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
@@ -502,7 +502,8 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
 }
 
 - (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title
-                         andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page handler:(HandlerWithBool)handler {
+                         andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page
+                            handler:(HandlerWithBool)handler {
 
     NSString * subject = [category stringByAppendingString:title];
 
@@ -545,14 +546,11 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
                     NSString *uploadTime = [[token componentsSeparatedByString:@"-"] firstObject];
                     NSString *uploadHash = [forumParser parsePostHash:result];
 
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createThreadUploadImages:) name:@"CREATE_THREAD_UPLOAD_IMAGE" object:nil];
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createThreadUploadImages:)
+                                                                 name:@"CREATE_THREAD_UPLOAD_IMAGE" object:nil];
 
-//                    toUploadImages = images;
-//                    _handlerWithBool = handler;
-//                    _message = message;
-//                    _subject = subject;
-
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self userInfo:@{@"uploadToken": uploadToken, @"fId": @(fId), @"uploadTime": uploadTime, @"uploadHash": uploadHash, @"imageId": @(0)}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
+                                                                      userInfo:@{@"uploadToken": uploadToken, @"fId": @(fId), @"uploadTime": uploadTime, @"uploadHash": uploadHash, @"imageId": @(0)}];
                 } else {
                     handler(NO, result);
                 }

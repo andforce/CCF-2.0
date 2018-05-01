@@ -31,6 +31,10 @@
 
 #define REPLY BBS_HOST@"post.php?"
 
+#define NEW_THREAD BBS_HOST@"forum.php?mod=post&action=newthread&fid=%@&extra=&topicsubmit=yes"
+
+#define ENTER_NEW_POST BBS_HOST@"forum.php?mod=post&action=newthread&fid=%@"
+
 #define QUOTE_REPLY BBS_HOST@"post.php?action=quote&fid=%d&tid=%d&pid=%d"
 
 #define SHOW_THREAD BBS_HOST@"thread-%@-%d-1.html"

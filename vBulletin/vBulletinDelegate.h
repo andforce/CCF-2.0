@@ -39,4 +39,13 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 // 回复站内短信
 - (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
 
+// 发表一个新的帖子
+- (void)createNewThreadWithCategory:(NSString *)category
+                      categoryIndex:(int)index
+                          withTitle:(NSString *)title
+                         andMessage:(NSString *)message
+                         withImages:(NSArray *)images
+                             inPage:(ViewForumPage *) page
+                            handler:(HandlerWithBool)handler;
+
 @end
