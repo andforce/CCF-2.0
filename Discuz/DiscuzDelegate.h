@@ -19,8 +19,8 @@ typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback;
 
 // 发表一个新的帖子
-- (void)createNewThreadWithCategory:(NSString *)category
-                      categoryIndex:(int)index
+- (void)createNewThreadWithCategory:(NSString *)categoryName
+                      categoryValue:(NSString *)categoryValue
                           withTitle:(NSString *)title
                          andMessage:(NSString *)message
                          withImages:(NSArray *)images
@@ -31,7 +31,6 @@ typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash
                         secCodeHash:(NSString *)seccodehash
                       seccodeverify:(NSString *)seccodeverify
                            postTime:(NSString *)postTime
-                             typeId:(NSString *)typeId
                             handler:(HandlerWithBool)handler;
 
 @end

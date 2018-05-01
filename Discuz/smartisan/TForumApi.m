@@ -104,13 +104,10 @@
             }];
 }
 
-- (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title
-                         andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page
-                           postHash:(NSString *)posthash formHash:(NSString *)formhash
-                        secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify
-                           postTime:(NSString *)postTime typeId:(NSString *)typeId handler:(HandlerWithBool)handler {
-
-    NSString * subject = [category stringByAppendingString:title];
+- (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title andMessage:(NSString *)message
+                         withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash
+                           formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify
+                           postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
     if ([NSUserDefaults standardUserDefaults].isSignatureEnabled) {
         //message = [message stringByAppendingString:[forumConfig signature]];
@@ -120,9 +117,9 @@
     int fId = page.forumId;
 
     if (images == nil || images.count == 0) {
-        [self doPostThread:fId withSubject:subject andMessage:message postHash:posthash formHash:formhash
+        [self doPostThread:fId withSubject:title andMessage:message postHash:posthash formHash:formhash
                secCodeHash:seccodehash seccodeverify:seccodeverify postTime:postTime
-                    typeid:typeId handler:^(BOOL isSuccess, NSString * result) {
+                    typeid:categoryValue handler:^(BOOL isSuccess, NSString * result) {
                     if (isSuccess) {
                         NSString *error = [self checkError:result];
                         if (error != nil) {
@@ -168,7 +165,6 @@
     }
 
      */
-
 }
 
 

@@ -283,20 +283,36 @@
         [uploadData addObject:data];
     }
 
-    NSString *threadTitle = [category stringByAppendingString:title];
+    if ([_localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"]){
+        NSString *categoryName = _typeidList.allKeys[(NSUInteger) categoryIndex];
 
-    [_forumApi createNewThreadWithCategory:category categoryIndex:categoryIndex + 1 withTitle:title andMessage:message
-                                withImages:[uploadData copy] inPage:currentForumPage handler:^(BOOL isSuccess, id message) {
-        [self dismissViewControllerAnimated:YES completion:^{
+        [_forumApi createNewThreadWithCategory:categoryName categoryValue:[_typeidList valueForKey:categoryName] withTitle:title
+                                    andMessage:message withImages:uploadData inPage:currentForumPage postHash:_post_hash
+                                      formHash:_forum_hash secCodeHash:_seccodehash seccodeverify:nil postTime:_posttime handler:^(BOOL isSuccess, id message) {
 
-        }];
+                    if (isSuccess) {
+                        [ProgressDialog showSuccess:@"发帖成功"];
+                    } else {
+                        [ProgressDialog showError:@"发帖失败"];
+                    }
+                }];
+    } else {
+        [_forumApi createNewThreadWithCategory:category categoryIndex:categoryIndex + 1 withTitle:title andMessage:message
+                                    withImages:[uploadData copy] inPage:currentForumPage handler:^(BOOL isSuccess, id message) {
+                    [self dismissViewControllerAnimated:YES completion:^{
 
-        if (isSuccess) {
-            [ProgressDialog showSuccess:@"发帖成功"];
-        } else {
-            [ProgressDialog showError:@"发帖失败"];
-        }
-    }];
+                    }];
+
+                    if (isSuccess) {
+                        [ProgressDialog showSuccess:@"发帖成功"];
+                    } else {
+                        [ProgressDialog showError:@"发帖失败"];
+                    }
+                }];
+    }
+
+
+
 }
 
 - (IBAction)back:(id)sender {
