@@ -17,6 +17,7 @@
 #import "UIStoryboard+Forum.h"
 #import "ProgressDialog.h"
 #import "UIKit+AFNetworking.h"
+#import "NSString+Extensions.h"
 
 @interface ForumCreateNewThreadViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
         UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
@@ -42,6 +43,7 @@
     NSString *_seccodeverify;
     NSDictionary *_typeidList;
             
+            IBOutlet UITextField *secCodeTV;
             IBOutlet UIImageView *vCodeImgV;
             IBOutlet NSLayoutConstraint *vcodeRootHeightLC;
 }
@@ -101,11 +103,6 @@
 
         NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
 
-//        NSArray<NSHTTPCookie *> * cookies = _localForumApi.loadCookie;
-//        for (NSHTTPCookie * c in cookies) {
-//            [request setValue:[c value] forHTTPHeaderField:[c name]];
-//        }
-
         NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
         NSDictionary *dictCookies = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
 
@@ -113,18 +110,13 @@
         [request setValue:object  forHTTPHeaderField: @"Cookie"];
 
         [request setValue:@"bbs.smartisan.com" forHTTPHeaderField: @"Host"];
-//        [request setValue:@"" forHTTPHeaderField: @"User-Agent	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
         [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField: @"Accept"];
         [request setValue:@"1" forHTTPHeaderField: @"DNT"];
-//        [request setValue:@"" forHTTPHeaderField: @"Referer	http://bbs.smartisan.com/thread-865161-1-1.html
         [request setValue:@"gzip, deflate" forHTTPHeaderField: @"Accept-Encoding"];
         [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
 
-        //NSURL *URL = [NSURL URLWithString:_seccodeverify];
-        //NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        
         UIImageView *view = vCodeImgV;
         
         [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
@@ -320,6 +312,12 @@
         [ProgressDialog showError:@"标题太短"];
         return;
     }
+
+    if (vcodeRootHeightLC.constant > 1 && [[secCodeTV.text trim] isEqualToString:@""]){
+        [ProgressDialog showError:@"输入验证码"];
+        return;
+    }
+
     [ProgressDialog showStatus:@"正在发送"];
 
     NSMutableArray<NSData *> *uploadData = [NSMutableArray array];
@@ -333,7 +331,7 @@
 
         [_forumApi createNewThreadWithCategory:categoryName categoryValue:[_typeidList valueForKey:categoryName] withTitle:title
                                     andMessage:message withImages:uploadData inPage:currentForumPage postHash:_post_hash
-                                      formHash:_forum_hash secCodeHash:_seccodehash seccodeverify:nil postTime:_posttime handler:^(BOOL isSuccess, id message) {
+                                      formHash:_forum_hash secCodeHash:_seccodehash seccodeverify:[secCodeTV.text trim] postTime:_posttime handler:^(BOOL isSuccess, id message) {
 
                     if (isSuccess) {
                         [ProgressDialog showSuccess:@"发帖成功"];

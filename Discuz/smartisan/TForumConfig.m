@@ -120,7 +120,7 @@
 }
 
 - (NSString *)createNewThreadWithForumId:(NSString *)forumId {
-    return NEW_THREAD;
+    return [NSString stringWithFormat:NEW_THREAD, forumId];
 }
 
 
