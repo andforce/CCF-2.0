@@ -8,6 +8,7 @@
 
 #import "TForumConfig.h"
 #import "DeviceName.h"
+#import "UIColor+MyColor.h"
 
 @implementation TForumConfig{
     NSURL *_forumURL;
@@ -20,7 +21,7 @@
 }
 
 - (UIColor *)themeColor {
-    return [[UIColor alloc] initWithRed:176.f / 255.f green:63.f / 255.f blue:61.f / 255.f alpha:1];;;
+    return [UIColor colorWithHex:@"#FFAF2029"];
 }
 
 - (NSURL *)forumURL {

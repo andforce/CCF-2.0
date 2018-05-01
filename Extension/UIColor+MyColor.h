@@ -14,4 +14,6 @@
 
 + (UIColor *)colorWithBlueHighLight;
 
++ (UIColor *)colorWithHex:(NSString *)hex;
+
 @end

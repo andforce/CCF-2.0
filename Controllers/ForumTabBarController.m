@@ -54,7 +54,12 @@
         [self.view addSubview:_leftDrawerView];
     }
 
-    [self changeMessageUITabController:0];
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    if ([localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"]){
+        [self changeMessageUITabController:0];
+    } else {
+        [self changeMessageUITabController:1];
+    }
 }
 
 - (BOOL)isNeedHideLeftMenu {

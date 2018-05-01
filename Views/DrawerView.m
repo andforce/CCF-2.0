@@ -153,9 +153,9 @@
         coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         if (cacheUsers == nil) {
             LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-            cacheUsers = [[coreDateManager selectData:^NSPredicate * {
-                return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
-            }] copy];
+            cacheUsers = (NSMutableArray<UserEntry *> *) [[coreDateManager selectData:^NSPredicate * {
+                            return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
+                        }] copy];
         }
 
         for (UserEntry *user in cacheUsers) {
@@ -192,7 +192,7 @@
 
     UITableViewCell *cell = nib.lastObject;
 
-    Forums *forums = _haveLoginForums[indexPath.row];
+    Forums *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     if ([forums.host isEqualToString:[localForumApi currentForumHost]]) {
@@ -218,7 +218,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
 
-    Forums *forums = _haveLoginForums[indexPath.row];
+    Forums *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
     NSURL *url = [NSURL URLWithString:forums.url];
 
@@ -231,9 +231,15 @@
         [self showUserAvatar];
         if ([forumApi isHaveLogin:url.host]) {
             ForumTabBarController *rootViewController = (ForumTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
+
+            if ([url.host isEqualToString:@"bbs.smartisan.com"]){
+                [rootViewController changeMessageUITabController:0];
+            } else {
+                [rootViewController changeMessageUITabController:1];
+            }
             rootViewController.selectedIndex = 2;
-            UIStoryboard *stortboard = [UIStoryboard mainStoryboard];
-            [stortboard changeRootViewControllerToController:rootViewController withAnim:UIViewAnimationOptionTransitionFlipFromRight];
+            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+            [storyboard changeRootViewControllerToController:rootViewController withAnim:UIViewAnimationOptionTransitionFlipFromRight];
         }
     }];
 
@@ -403,7 +409,7 @@
 
         NSArray *subViews = _leftDrawerView.subviews;
 
-        int width = self.frame.size.width;
+        int width = (int) self.frame.size.width;
 
         for (UIView *view in subViews) {
             if ([view isKindOfClass:[LeftDrawerItem class]]) {
