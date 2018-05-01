@@ -7,6 +7,7 @@
 
 #import "ForumCreateNewThreadViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <AFNetworking/AFImageDownloader.h>
 #import "LCActionSheet.h"
 #import "ActionSheetStringPicker.h"
 #import "AFNetworking.h"
@@ -15,6 +16,7 @@
 #import "PayManager.h"
 #import "UIStoryboard+Forum.h"
 #import "ProgressDialog.h"
+#import "UIKit+AFNetworking.h"
 
 @interface ForumCreateNewThreadViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
         UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
@@ -39,6 +41,9 @@
     NSString *_seccodehash;
     NSString *_seccodeverify;
     NSDictionary *_typeidList;
+            
+            IBOutlet UIImageView *vCodeImgV;
+            IBOutlet NSLayoutConstraint *vcodeRootHeightLC;
 }
 
 @end
@@ -89,6 +94,44 @@
         _seccodehash = seccodehash;
         _seccodeverify = seccodeverify;
         _typeidList = typeidList;
+        
+        AFImageDownloader *downloader = [[vCodeImgV class] sharedImageDownloader];
+        id <AFImageRequestCache> imageCache = downloader.imageCache;
+        [imageCache removeImageWithIdentifier:_seccodeverify];
+
+        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
+
+//        NSArray<NSHTTPCookie *> * cookies = _localForumApi.loadCookie;
+//        for (NSHTTPCookie * c in cookies) {
+//            [request setValue:[c value] forHTTPHeaderField:[c name]];
+//        }
+
+        NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        NSDictionary *dictCookies = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+
+        NSString * object = dictCookies[@"Cookie"];
+        [request setValue:object  forHTTPHeaderField: @"Cookie"];
+
+        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField: @"Host"];
+//        [request setValue:@"" forHTTPHeaderField: @"User-Agent	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField: @"Accept"];
+        [request setValue:@"1" forHTTPHeaderField: @"DNT"];
+//        [request setValue:@"" forHTTPHeaderField: @"Referer	http://bbs.smartisan.com/thread-865161-1-1.html
+        [request setValue:@"gzip, deflate" forHTTPHeaderField: @"Accept-Encoding"];
+        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
+        NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
+        [request setValue:referer forHTTPHeaderField:@"Referer"];
+
+        //NSURL *URL = [NSURL URLWithString:_seccodeverify];
+        //NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        UIImageView *view = vCodeImgV;
+        
+        [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
+            [view setImage:image];
+        }   failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
+            NSLog(@"refreshDoor failed >> >> %@", urlRequest.allHTTPHeaderFields);
+        }];
 
         if (_typeidList != nil){
             [ProgressDialog dismiss];
@@ -96,6 +139,8 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+    
+    vcodeRootHeightLC.constant = 46.0;
 
 }
 

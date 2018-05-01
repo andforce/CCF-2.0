@@ -215,20 +215,20 @@
     return bundleId;
 }
 
-- (NSString *)loadCookie {
+- (NSArray<NSHTTPCookie *> *)loadCookie {
     NSData *cookiesData = [_userDefaults objectForKey:[[self currentForumHost] stringByAppendingString:@"-Cookies"]];
 
     if ([cookiesData length]) {
-        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+        NSArray<NSHTTPCookie *> *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
 
         NSHTTPCookie *cookie;
         for (cookie in cookies) {
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         }
         
-        NSString *result = [cookies componentsJoinedByString:@"|"];//分隔符
+        //NSString *result = [cookies componentsJoinedByString:@"|"];//分隔符
         
-        return result;
+        return cookies;
     }
 
     return nil;

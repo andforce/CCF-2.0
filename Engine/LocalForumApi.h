@@ -36,7 +36,7 @@
 
 //---------------------------------------
 
-- (NSString *)loadCookie;
+- (NSArray<NSHTTPCookie *> *)loadCookie;
 
 - (void)saveCookie;
 
