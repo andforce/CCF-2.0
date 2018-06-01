@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumConfigDelegate.h"
+#import "vBulletinCommonConfig.h"
 
-@interface DRLForumConfig : NSObject <ForumConfigDelegate>
+@interface DRLForumConfig : vBulletinCommonConfig<ForumCommonConfigDelegate>
 
 
 @end

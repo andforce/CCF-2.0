@@ -9,20 +9,19 @@
 #import "CCFForumConfig.h"
 #import "DeviceName.h"
 
-@implementation CCFForumConfig {
-    NSURL *_forumURL;
-}
+@implementation CCFForumConfig
 
 - (instancetype)init {
     self = [super init];
-    _forumURL = [NSURL URLWithString:@"https://bbs.et8.net/bbs/"];
+    super.forumURL = [NSURL URLWithString:@"https://bbs.et8.net/bbs/"];
 
     return self;
 }
 
 #pragma mark optional
+
 - (NSString *)privateWithType:(int)type withPage:(int)page {
-    return [NSString stringWithFormat:@"%@private.php?folderid=%d&pp=30&sort=date&page=%d", _forumURL.absoluteString, type, page];
+    return [NSString stringWithFormat:@"%@private.php?folderid=%d&pp=30&sort=date&page=%d", super.forumURL.absoluteString, type, page];
 }
 
 - (NSString *)deletePrivateWithType:(int)type {
@@ -30,23 +29,23 @@
     if (fixType != 0){
         fixType = -1;
     }
-    return [NSString stringWithFormat:@"%@private.php?folderid=%d", _forumURL.absoluteString, fixType];
+    return [NSString stringWithFormat:@"%@private.php?folderid=%d", super.forumURL.absoluteString, fixType];
 }
 
 - (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type {
-    return [NSString stringWithFormat:@"%@private.php?do=showpm&pmid=%d", _forumURL.absoluteString, messageId];
+    return [NSString stringWithFormat:@"%@private.php?do=showpm&pmid=%d", super.forumURL.absoluteString, messageId];
 }
 
 - (NSString *)privateReplyWithMessageIdPre:(int)messageId {
-    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=%d", _forumURL.absoluteString, messageId];
+    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=%d", super.forumURL.absoluteString, messageId];
 }
 
 - (NSString *)privateReplyWithMessage {
-    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=0", _forumURL.absoluteString];
+    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=0", super.forumURL.absoluteString];
 }
 
 - (NSString *)privateNewPre {
-    return [NSString stringWithFormat:@"%@private.php?do=newpm", _forumURL.absoluteString];
+    return [NSString stringWithFormat:@"%@private.php?do=newpm", super.forumURL.absoluteString];
 }
 
 

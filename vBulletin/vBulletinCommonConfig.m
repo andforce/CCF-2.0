@@ -7,18 +7,10 @@
 #import "DeviceName.h"
 
 
-@implementation vBulletinCommonConfig {
-    NSURL *_forumURL;
-}
-
-- (instancetype)init {
-    self = [super init];
-    _forumURL = [NSURL URLWithString:@"https://bbs.et8.net/bbs/"];
-
-    return self;
-}
+@implementation vBulletinCommonConfig
 
 #pragma mark ForumURLCommonConfig
+
 - (NSURL *)forumURL {
     return _forumURL;
 }

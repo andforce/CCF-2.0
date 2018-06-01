@@ -8,4 +8,6 @@
 
 
 @interface vBulletinCommonConfig : NSObject <ForumURLCommonConfig, vBulletinConfigDelegate>
+
+@property NSURL *forumURL;
 @end
