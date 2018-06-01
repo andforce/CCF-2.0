@@ -18,6 +18,7 @@
 		2F34CD24DA52CC996BE6F47A /* ForumApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C14160BC257F07318CEF /* ForumApiHelper.m */; };
 		2F34CDC68B8E6EA4AB5D764B /* PageNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA39D274171CAD239E5E /* PageNumber.m */; };
 		2F34CEF71A3645A8A7E867A0 /* more.html in Resources */ = {isa = PBXBuildFile; fileRef = 2F34C861EB4DB6A0EFE91943 /* more.html */; };
+		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* ForumShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* ForumShortCutCreateNewThreadViewController.m */; };
 		2F34CFF359980DE0DEC0C980 /* ForumPushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C1D609B2659CED986D39 /* ForumPushManager.m */; };
 		3A288A4C1DFAE47F002EBBC2 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* DrawerView.m */; };
@@ -169,6 +170,7 @@
 		2F34C0C48D6A20923716C6EC /* ProgressDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressDialog.m; sourceTree = "<group>"; };
 		2F34C14160BC257F07318CEF /* ForumApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumApiHelper.m; sourceTree = "<group>"; };
 		2F34C1D609B2659CED986D39 /* ForumPushManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumPushManager.m; sourceTree = "<group>"; };
+		2F34C28405B308FEE5FC1BD0 /* ForumURLCommonConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumURLCommonConfig.h; sourceTree = "<group>"; };
 		2F34C2A567EB792DCF9E85BD /* vBulletinDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinDelegate.h; sourceTree = "<group>"; };
 		2F34C2EF08CDE92A8266D169 /* CharUnicodeBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharUnicodeBlock.m; sourceTree = "<group>"; };
 		2F34C36FABA87760B3B5B1B3 /* CHHForumConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHHForumConfig.m; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		2F34C73D8B42951BAF2813CA /* CharUnicodeBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharUnicodeBlock.h; sourceTree = "<group>"; };
 		2F34C8512C8DD9A161DB7136 /* ForumCommonConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumCommonConfigDelegate.h; sourceTree = "<group>"; };
 		2F34C861EB4DB6A0EFE91943 /* more.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = more.html; sourceTree = "<group>"; };
+		2F34C87A20D645FB8D21CFAD /* vBulletinCommonConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinCommonConfig.h; sourceTree = "<group>"; };
 		2F34C8DBF1BAF7284E27B0F6 /* CHHForumHtmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHHForumHtmlParser.h; sourceTree = "<group>"; };
 		2F34C933EAF9358009F4612F /* CHHForumHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHHForumHtmlParser.m; sourceTree = "<group>"; };
 		2F34C95254DD621AB9345D1B /* DiscuzDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscuzDelegate.h; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 		2F34CE82EC5F0149A7675701 /* LocalForumApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalForumApi.m; sourceTree = "<group>"; };
 		2F34CEDC13FE605A95AACC4B /* ForumLoginWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumLoginWebViewController.h; sourceTree = "<group>"; };
 		2F34CEDE561AF2B8E93A940E /* PhpWindDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindDelegate.h; sourceTree = "<group>"; };
+		2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vBulletinCommonConfig.m; sourceTree = "<group>"; };
 		2F34CEEEF0AB70454650352A /* ForumConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumConfigDelegate.h; sourceTree = "<group>"; };
 		2F34CF08A261B408C3A92081 /* ForumApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumApiHelper.h; sourceTree = "<group>"; };
 		2F34CF789D3C14352C95AF73 /* LocalForumApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalForumApi.h; sourceTree = "<group>"; };
@@ -797,6 +801,7 @@
 				2F34CE82EC5F0149A7675701 /* LocalForumApi.m */,
 				2F34C5448FBC9DC69B1F5CF7 /* ForumCommonDelegate.h */,
 				2F34C8512C8DD9A161DB7136 /* ForumCommonConfigDelegate.h */,
+				2F34C28405B308FEE5FC1BD0 /* ForumURLCommonConfig.h */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -912,6 +917,8 @@
 				3ACB5C241FDC264100D5339C /* drl */,
 				2F34C02E3940F0553AB003DA /* vBulletinConfigDelegate.h */,
 				2F34C63D087B9C331FC76727 /* vBulletinParserDelegate.h */,
+				2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */,
+				2F34C87A20D645FB8D21CFAD /* vBulletinCommonConfig.h */,
 			);
 			path = vBulletin;
 			sourceTree = "<group>";
@@ -1329,6 +1336,7 @@
 				2F34CFF359980DE0DEC0C980 /* ForumPushManager.m in Sources */,
 				C7B59B9DABEB94C6EC3B70A4 /* PayManager.m in Sources */,
 				2F34CA0802E0D84DC825B125 /* ProgressDialog.m in Sources */,
+				2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,10 +19,6 @@
     return self;
 }
 
-- (NSString *)host {
-    return _forumURL.host;
-}
-
 - (NSString *)cookieUserIdKey {
     return @"drluserid";
 }
