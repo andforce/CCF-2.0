@@ -148,12 +148,41 @@
 }
 
 #pragma mark vBulletinConfigDelegate
+
 - (NSString *)login {
     return [NSString stringWithFormat:@"%@login.php?do=login", _forumURL.absoluteString];
 }
 
 - (NSString *)loginvCode {
     return [NSString stringWithFormat:@"%@login.php?do=vcode", _forumURL.absoluteString];
+}
+
+- (NSString *)privateWithType:(int)type withPage:(int)page {
+    return [NSString stringWithFormat:@"%@private.php?folderid=%d&pp=30&sort=date&page=%d", _forumURL.absoluteString, type, page];
+}
+
+- (NSString *)deletePrivateWithType:(int)type {
+    int fixType = type;
+    if (fixType != 0) {
+        fixType = -1;
+    }
+    return [NSString stringWithFormat:@"%@private.php?folderid=%d", _forumURL.absoluteString, fixType];
+}
+
+- (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type {
+    return [NSString stringWithFormat:@"%@private.php?do=showpm&pmid=%d", _forumURL.absoluteString, messageId];
+}
+
+- (NSString *)privateReplyWithMessageIdPre:(int)messageId {
+    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=%d", _forumURL.absoluteString, messageId];
+}
+
+- (NSString *)privateReplyWithMessage {
+    return [NSString stringWithFormat:@"%@private.php?do=insertpm&pmid=0", _forumURL.absoluteString];
+}
+
+- (NSString *)privateNewPre {
+    return [NSString stringWithFormat:@"%@private.php?do=newpm", _forumURL.absoluteString];
 }
 
 

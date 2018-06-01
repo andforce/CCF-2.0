@@ -12,8 +12,6 @@
 
 - (NSString *)loginvCode;
 
-@optional
-// 站内短信
 - (NSString *)privateWithType:(int)type withPage:(int)page;
 
 - (NSString *)deletePrivateWithType:(int)type;
