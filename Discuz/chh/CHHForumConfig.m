@@ -8,28 +8,23 @@
 
 
 @implementation CHHForumConfig {
+    NSURL *_forumURL;
+}
 
+#pragma mark
+- (instancetype)init {
+    self = [super init];
+    _forumURL = [NSURL URLWithString:BBS_HOST];
+    return self;
 }
-- (UIColor *)themeColor {
-    return [UIColor redColor];
-}
+
 
 - (NSURL *)forumURL {
-    return [NSURL URLWithString:@"https://chiphell.com/"];
+    return _forumURL;
 }
 
 - (NSString *)archive {
-    return @"https://www.chiphell.com/archiver/";
-}
-
-- (NSString *)cookieUserIdKey {
-    // name:"v2x4_48dd_lastcheckfeed" value:"238210%7C1494126638" expiresDate:2018-05-07 03:10:38 +0000
-    return @"v2x4_48dd_lastcheckfeed";
-}
-
-- (NSString *)cookieExpTimeKey {
-    // name:"v2x4_48dd_lastcheckfeed" value:"238210%7C1494126638" expiresDate:2018-05-07 03:10:38 +0000
-    return @"v2x4_48dd_lastcheckfeed";
+    return ARCHIVE;
 }
 
 - (NSString *)newattachmentForThread:(int)threadId time:(NSString *)time postHash:(NSString *)postHash {
@@ -119,7 +114,7 @@
 }
 
 - (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/thread-%@-%d-1.html", threadId, page];
+    return [NSString stringWithFormat:SHOW_THREAD, threadId, page];
 }
 
 - (NSString *)showThreadWithP:(NSString *)p {
@@ -144,7 +139,7 @@
 }
 
 - (NSString *)memberWithUserId:(NSString *)userId {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/space-uid-%@.html", userId];
+    return [NSString stringWithFormat:MEMBER, userId];
 }
 
 - (NSString *)login {
@@ -156,15 +151,16 @@
 }
 
 - (NSString *)createNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=newthread&fid=%@&extra=&topicsubmit=yes", forumId];
+    return [NSString stringWithFormat:NEW_THREAD, forumId];
 }
 
 - (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=newthread&fid=%@", forumId];
+    return [NSString stringWithFormat:ENTER_NEW_POST, forumId];
 }
 
 
 - (NSString *)privateWithType:(int)type withPage:(int)page {
+
     if (type == 0){
         return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=pm&filter=privatepm&page=%d", page];
     } else{
@@ -202,6 +198,19 @@
 
 - (NSString *)loginControllerId {
     return @"LoginForumWebView";
+}
+
+#pragma mark ForumCommonConfigDelegate
+- (UIColor *)themeColor {
+    return [UIColor redColor];
+}
+
+- (NSString *)cookieUserIdKey {
+    return @"v2x4_48dd_lastcheckfeed";;
+}
+
+- (NSString *)cookieExpTimeKey {
+    return @"v2x4_48dd_lastcheckfeed";
 }
 
 - (NSString *)signature {
