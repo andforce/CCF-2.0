@@ -7,73 +7,25 @@
 #import "DeviceName.h"
 
 
-@implementation CHHForumConfig {
-    NSURL *_forumURL;
-}
+@implementation CHHForumConfig
 
 #pragma mark
 - (instancetype)init {
     self = [super init];
-    _forumURL = [NSURL URLWithString:BBS_HOST];
+    super.forumURL = [NSURL URLWithString:@"https://chiphell.com/"];
     return self;
 }
 
 
-- (NSURL *)forumURL {
-    return _forumURL;
-}
-
 - (NSString *)archive {
-    return ARCHIVE;
+    return @"https://chiphell.com/archiver/";
 }
 
-- (NSString *)newattachmentForThread:(int)threadId time:(NSString *)time postHash:(NSString *)postHash {
-    return nil;
-}
-
-- (NSString *)newattachmentForForum:(int)forumId time:(NSString *)time postHash:(NSString *)postHash {
-    return nil;
-}
-
-- (NSString *)newattachment {
-    return nil;
-}
-
-- (NSString *)search {
-    return nil;
-}
-
-- (NSString *)searchWithSearchId:(NSString *)searchId withPage:(int)page {
-    return nil;
-}
 
 - (NSString *)searchThreadWithUserId:(NSString *)userId {
     return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&uid=%@&do=thread&view=me&type=thread&order=dateline&from=space&page=", userId];
 }
 
-- (NSString *)searchMyThreadWithUserName:(NSString *)name {
-    return nil;
-}
-
-- (NSString *)favForumWithId:(NSString *)forumId {
-    return nil;
-}
-
-- (NSString *)favForumWithIdParam:(NSString *)forumId {
-    return nil;
-}
-
-- (NSString *)unfavForumWithId:(NSString *)forumId {
-    return nil;
-}
-
-- (NSString *)favThreadWithIdPre:(NSString *)threadId {
-    return nil;
-}
-
-- (NSString *)favThreadWithId:(NSString *)threadId {
-    return nil;
-}
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId {
     return @"https://www.chiphell.com/home.php?mod=spacecp&ac=favorite&op=delete&type=all&checkall=1";
@@ -81,10 +33,6 @@
 
 - (NSString *)listFavorThreads:(int)userId withPage:(int)page {
     return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=favorite&type=thread&page=%d", page];
-}
-
-- (NSString *)forumDisplayWithId:(NSString *)forumId {
-    return nil;
 }
 
 - (NSString *)forumDisplayWithId:(NSString *)forumId withPage:(int)page {
@@ -105,24 +53,9 @@
     }
 }
 
-- (NSString *)quoteReply:(int)fid threadId:(int)threadId postId:(int)postId {
-    return nil;
-}
-
-- (NSString *)deletePrivateWithType:(int)type {
-    return nil;
-}
 
 - (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page {
-    return [NSString stringWithFormat:SHOW_THREAD, threadId, page];
-}
-
-- (NSString *)showThreadWithP:(NSString *)p {
-    return nil;
-}
-
-- (NSString *)copyThreadUrl:(NSString *)threadId withPostId:(NSString *)postId withPostCout:(int)postCount {
-    return nil;
+    return [NSString stringWithFormat:@"https://chiphell.com/thread-%@-%d-1.html", threadId, page];
 }
 
 
@@ -139,23 +72,20 @@
 }
 
 - (NSString *)memberWithUserId:(NSString *)userId {
-    return [NSString stringWithFormat:MEMBER, userId];
+    return [NSString stringWithFormat:@"https://chiphell.com/home.php?mod=space&uid=%@", userId];
 }
 
 - (NSString *)login {
     return @"https://www.chiphell.com/member.php?mod=logging&action=login&referer=https%3A%2F%2Fwww.chiphell.com%2Fforum.php&cookietime=1";
 }
 
-- (NSString *)loginvCode {
-    return nil;
-}
 
 - (NSString *)createNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:NEW_THREAD, forumId];
+    return [NSString stringWithFormat:@"https://chiphell.com/forum.php?mod=post&action=newthread&fid=%@&extra=&topicsubmit=yes", forumId];
 }
 
 - (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:ENTER_NEW_POST, forumId];
+    return [NSString stringWithFormat:@"https://chiphell.com/forum.php?mod=post&action=newthread&fid=%@", forumId];
 }
 
 
@@ -172,29 +102,11 @@
     return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=pm&subop=view&touid=%d#last", messageId];
 }
 
-- (NSString *)privateReplyWithMessageIdPre:(int)messageId {
-    return nil;
-}
-
-- (NSString *)privateReplyWithMessage {
-    return nil;
-}
-
-- (NSString *)privateNewPre {
-    return nil;
-}
 
 - (NSString *)favoriteForums {
     return @"https://www.chiphell.com/home.php?mod=space&do=favorite&type=forum";
 }
 
-- (NSString *)report {
-    return nil;
-}
-
-- (NSString *)reportWithPostId:(int)postId {
-    return nil;
-}
 
 - (NSString *)loginControllerId {
     return @"LoginForumWebView";
