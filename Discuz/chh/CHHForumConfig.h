@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumConfigDelegate.h"
+#import "DiscuzCommonConfig.h"
 
 #define BBS_HOST @"https://chiphell.com/"
 
@@ -66,5 +67,5 @@
 
 #define NOTICE_MESSAGE BBS_HOST@"home.php?mod=space&do=notice&view=mypost&page=%d"
 
-@interface CHHForumConfig : NSObject <ForumConfigDelegate>
+@interface CHHForumConfig : DiscuzCommonConfig<DiscuzConfigDelegate>
 @end
