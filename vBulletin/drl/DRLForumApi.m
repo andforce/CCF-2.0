@@ -17,8 +17,6 @@
 #import "TransBundle.h"
 #import "UIStoryboard+Forum.h"
 #import "ForumWebViewController.h"
-#import "IGHTMLDocument+QueryNode.h"
-#import "IGXMLNode+Children.h"
 
 #define kSecurityToken @"securitytoken"
 
@@ -35,25 +33,25 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
 - (instancetype)init {
     self = [super init];
-    if (self){
-        forumConfig = [[DRLForumConfig alloc] init];
-        forumParser = [[DRLForumHtmlParser alloc]init];
+    if (self) {
+        forumConfig = (id <ForumConfigDelegate>) [[DRLForumConfig alloc] init];
+        forumParser = [[DRLForumHtmlParser alloc] init];
     }
     return self;
 }
 
-- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback {
     NSMutableDictionary *defparameters = [NSMutableDictionary dictionary];
     [parameters setValue:@"3" forKey:@"styleid"];
 
-    if (parameters){
+    if (parameters) {
         [defparameters addEntriesFromDictionary:parameters];
     }
 
     [self.browser GETWithURLString:url parameters:defparameters charset:UTF_8 requestCallback:callback];
 }
 
-- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback {
     [self GET:url parameters:nil requestCallback:callback];
 }
 
@@ -120,7 +118,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     [vCodeImageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
         [view setImage:image];
-    }failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
+    }                              failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
         NSLog(@"refreshDoor failed");
     }];
 }
@@ -150,14 +148,14 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
         if (isSuccess) {
 
-            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
-            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
-            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+            NSString *post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString *forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString *posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString *seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
-            NSArray * array = [html arrayWithRegular:@"(?<=<OPTION value=')\\S+(?='>)"];
+            NSArray *array = [html arrayWithRegular:@"(?<=<OPTION value=')\\S+(?='>)"];
 
             for (NSString *str in array) {
                 [typeidDic setValue:str forKey:str];
@@ -228,80 +226,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         callback(isSuccess, html);
     }];
-}
-
-// private 开始上传图片
-- (void)uploadFile:(NSString *)token fId:(NSString *)fId postTime:(NSString *)postTime hash:(NSString *)hash image:(NSData *)image {
-
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-
-    [parameters setValue:@"" forKey:@"s"];
-    [parameters setValue:token forKey:@"securitytoken"];
-    [parameters setValue:@"manageattach" forKey:@"do"];
-    [parameters setValue:@"" forKey:@"t"];
-    [parameters setValue:fId forKey:@"f"];
-    [parameters setValue:@"" forKey:@"p"];
-    [parameters setValue:postTime forKey:@"poststarttime"];
-    [parameters setValue:@"0" forKey:@"editpost"];
-    [parameters setValue:hash forKey:@"posthash"];
-    [parameters setValue:@"16777216" forKey:@"MAX_FILE_SIZE"];
-    [parameters setValue:@"上传" forKey:@"upload"];
-    NSString *name = [NSString stringWithFormat:@"Forum_Client_%f.jpg", [[NSDate date] timeIntervalSince1970]];
-
-    [parameters setValue:name forKey:@"attachment[]"];
-
-    [parameters setValue:@"" forKey:@"attachmenturl[]"];
-
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    // 设置时间格式
-    formatter.dateFormat = @"yyyyMMddHHmmss";
-    NSString *str = [formatter stringFromDate:[NSDate date]];
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
-    [parameters setValue:fileName forKey:@"attachment[]"];
-
-
-
-    //[self.browser.requestSerializer setValue:@"multipart/form-data; boundary=----WebKitFormBoundaryG9KMXkoSxJnZByFF" forHTTPHeaderField:@"Content-Type"];
-
-    [self.browser POSTWithURLString:forumConfig.newattachment parameters:parameters constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-        NSString *type = [self contentTypeForImageData:image];
-
-        //[formData appendPartWithFileData:image name:@"attachment[]" fileName:@"abc123.jpeg" mimeType:type];
-
-        UIImage *test = [UIImage imageNamed:@"test.jpg"];
-        NSData *data = UIImageJPEGRepresentation(test, 1);
-
-
-        [formData appendPartWithFileData:data name:@"attachment[]" fileName:fileName mimeType:type];
-
-        //[formData appendPartWithFormData:data name:fileName];
-
-    }  charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
-
-        NSLog(@"上传结果-------->>>>>>>> :   %@", html);
-        NSLog(@"上传结果-------->>>>>>>> 上传结束");
-    }];
-
-}
-
-// private
-- (NSString *)contentTypeForImageData:(NSData *)data {
-    uint8_t c;
-    [data getBytes:&c length:1];
-
-    switch (c) {
-        case 0xFF:
-            return @"image/jpeg";
-        case 0x89:
-            return @"image/png";
-        case 0x47:
-            return @"image/gif";
-        case 0x49:
-        case 0x4D:
-            return @"image/tiff";
-    }
-    return nil;
 }
 
 // private
@@ -506,18 +430,18 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *url = [forumConfig replyWithThreadId:threadId forForumId:-1 replyPostId:-1];
 
 
-    NSMutableDictionary *presparameters = [NSMutableDictionary dictionary];
-    [presparameters setValue:@"" forKey:@"message"];
-    [presparameters setValue:@"1" forKey:@"fromquickreply"];
-    [presparameters setValue:@"" forKey:@"s"];
-    [presparameters setValue:@"postreply" forKey:@"do"];
-    [presparameters setValue:[NSString stringWithFormat:@"%d", threadId] forKey:@"t"];
-    [presparameters setValue:@"who cares" forKey:@"p"];
-    [presparameters setValue:@"1" forKey:@"parseurl"];
-    [presparameters setValue:@"高级模式" forKey:@"preview"];
-    [presparameters setValue:@"高级模式" forKey:@"clickedelm"];
+    NSMutableDictionary *preParameters = [NSMutableDictionary dictionary];
+    [preParameters setValue:@"" forKey:@"message"];
+    [preParameters setValue:@"1" forKey:@"fromquickreply"];
+    [preParameters setValue:@"" forKey:@"s"];
+    [preParameters setValue:@"postreply" forKey:@"do"];
+    [preParameters setValue:[NSString stringWithFormat:@"%d", threadId] forKey:@"t"];
+    [preParameters setValue:@"who cares" forKey:@"p"];
+    [preParameters setValue:@"1" forKey:@"parseurl"];
+    [preParameters setValue:@"高级模式" forKey:@"preview"];
+    [preParameters setValue:@"高级模式" forKey:@"clickedelm"];
 
-    [self.browser POSTWithURLString:url parameters:presparameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+    [self.browser POSTWithURLString:url parameters:preParameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             NSString *postHash = [forumParser parsePostHash:html];
@@ -597,7 +521,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler {
 
     NSString *replyUrl = nil;
-    if (quote){
+    if (quote) {
         replyUrl = [forumConfig quoteReply:threadPage.forumId threadId:threadPage.threadID postId:[postId intValue]];
     } else {
         replyUrl = [forumConfig replyWithThreadId:threadPage.threadID forForumId:threadPage.forumId replyPostId:[postId intValue]];
@@ -605,9 +529,9 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [self GET:replyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
-            NSString * quoteString = [forumParser parseQuote:html];
+            NSString *quoteString = [forumParser parseQuote:html];
 
-            NSString * replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
+            NSString *replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
             [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {
@@ -722,7 +646,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    // setting the body of the post to the reqeust
+    // setting the body of the post to the request
     [request setHTTPBody:body];
 
     // set the content-length
@@ -880,8 +804,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
 - (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
-
-
     int pmId = [privateMessage.pmID intValue];
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:0];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
@@ -963,28 +885,28 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 - (void)favoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
     NSString *preUrl = [forumConfig favThreadWithIdPre:threadPostId];
 
-   [self GET:preUrl requestCallback:^(BOOL isSuccess, NSString *html) {
-       if (!isSuccess) {
-           handler(NO, html);
-       } else {
-           NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [self GET:preUrl requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (!isSuccess) {
+            handler(NO, html);
+        } else {
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
-           [parameters setValue:@"" forKey:@"s"];
-           [parameters setValue:@"addsubscription" forKey:@"do"];
-           [parameters setValue:threadPostId forKey:@"threadid"];
+            [parameters setValue:@"" forKey:@"s"];
+            [parameters setValue:@"addsubscription" forKey:@"do"];
+            [parameters setValue:threadPostId forKey:@"threadid"];
 
-           NSString *urlPram = [forumConfig showThreadWithThreadId:threadPostId withPage:-1];
-           [parameters setValue:urlPram forKey:@"url"];
+            NSString *urlPram = [forumConfig showThreadWithThreadId:threadPostId withPage:-1];
+            [parameters setValue:urlPram forKey:@"url"];
 
-           [parameters setValue:@"0" forKey:@"emailupdate"];
-           [parameters setValue:@"0" forKey:@"folderid"];
+            [parameters setValue:@"0" forKey:@"emailupdate"];
+            [parameters setValue:@"0" forKey:@"folderid"];
 
-           NSString *fav = [forumConfig favThreadWithId:threadPostId];
-           [self.browser POSTWithURLString:fav parameters:parameters charset:UTF_8 requestCallback:^(BOOL success, NSString *result) {
-               handler(success, result);
-           }];
-       }
-   }];
+            NSString *fav = [forumConfig favThreadWithId:threadPostId];
+            [self.browser POSTWithURLString:fav parameters:parameters charset:UTF_8 requestCallback:^(BOOL success, NSString *result) {
+                handler(success, result);
+            }];
+        }
+    }];
 }
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
@@ -1009,7 +931,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig deletePrivateWithType:type];
+    NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
@@ -1039,7 +961,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
         NSString *threadIdStr = [query valueForKey:@"t"];
 
-
         UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
         ForumWebViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
 
@@ -1056,6 +977,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 #pragma private
+
 - (NSDictionary *)dictionaryFromQuery:(NSString *)query usingEncoding:(NSStringEncoding)encoding {
     NSCharacterSet *delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
     NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
@@ -1066,9 +988,9 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         [scanner scanCharactersFromSet:delimiterSet intoString:NULL];
         NSArray *kvPair = [pairString componentsSeparatedByString:@"="];
         if (kvPair.count == 2) {
-            NSString *key = [[kvPair objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            NSString *value = [[kvPair objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            [pairs setObject:value forKey:key];
+            NSString *key = [kvPair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            NSString *value = [kvPair[1] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            pairs[key] = value;
         }
     }
 
@@ -1113,7 +1035,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     long spaceTime = timeStamp - lastTimeStamp;
     if (page == 1 && (searchId == 0 || spaceTime > 60 * 10)) {
 
-        NSString * url = [forumConfig searchNewThread:page];
+        NSString *url = [forumConfig searchNewThread:page];
         [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
             if (isSuccess) {
                 NSUInteger newThreadPostSearchId = (NSUInteger) [[forumParser parseListMyThreadSearchId:html] integerValue];
@@ -1206,8 +1128,8 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
         [self GET:baseUrl requestCallback:^(BOOL isSuccess, NSString *html) {
             if (isSuccess) {
-                ViewForumPage *sarchPage = [forumParser parseSearchPageFromHtml:html];
-                handler(isSuccess, sarchPage);
+                ViewForumPage *searchPage = [forumParser parseSearchPageFromHtml:html];
+                handler(isSuccess, searchPage);
             } else {
                 handler(NO, html);
             }
@@ -1221,7 +1143,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (html == nil || [html containsString:@"<div style=\"margin: 10px\">没有指定 主题 。如果您来自一个有效链接，请通知<a href=\"sendmessage.php\">管理员</a></div>"]
                 || [html containsString:@"<div style=\"margin: 10px\">沒有指定主題 。如果您來自一個有效連結，請通知<a href=\"sendmessage.php\">管理員</a></div>"]
-                        || [html containsString:@"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>"]
+                || [html containsString:@"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>"]
                 || [html containsString:@"<li>您的帳號可能沒有足夠的權限存取此頁面。您是否正在嘗試編輯別人的文章、存取論壇管理功能或是一些其他需要授權存取的系統?</li>"]) {
             handler(NO, @"没有指定主題，可能被删除或无权查看");
             return;
@@ -1240,7 +1162,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (html == nil || [html containsString:@"<div style=\"margin: 10px\">没有指定 主题 。如果您来自一个有效链接，请通知<a href=\"sendmessage.php\">管理员</a></div>"]
                 || [html containsString:@"<div style=\"margin: 10px\">沒有指定主題 。如果您來自一個有效連結，請通知<a href=\"sendmessage.php\">管理員</a></div>"]
-                        || [html containsString:@"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>"]
+                || [html containsString:@"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>"]
                 || [html containsString:@"<li>您的帳號可能沒有足夠的權限存取此頁面。您是否正在嘗試編輯別人的文章、存取論壇管理功能或是一些其他需要授權存取的系統?</li>"]) {
             handler(NO, @"没有指定主題，可能被删除或无权查看");
             return;
@@ -1322,7 +1244,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig reportWithPostId:postId];
+    NSString *url = [forumConfig reportWithPostId:postId];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
