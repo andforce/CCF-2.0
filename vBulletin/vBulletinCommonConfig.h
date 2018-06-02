@@ -7,7 +7,7 @@
 #import "ForumConfigDelegate.h"
 
 
-@interface vBulletinCommonConfig : NSObject <ForumURLCommonConfig, vBulletinConfigDelegate>
+@interface vBulletinCommonConfig : NSObject <ForumBaseConfigDelegate, vBulletinConfigDelegate>
 
 @property(nonatomic) NSURL *forumURL;
 @end

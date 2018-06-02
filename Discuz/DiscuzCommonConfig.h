@@ -4,11 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumURLCommonConfig.h"
+#import "ForumBaseConfigDelegate.h"
 #import "DiscuzConfigDelegate.h"
 
 
-@interface DiscuzCommonConfig : NSObject<ForumURLCommonConfig, DiscuzConfigDelegate>
+@interface DiscuzCommonConfig : NSObject<ForumBaseConfigDelegate, DiscuzConfigDelegate>
 
 @property NSURL *forumURL;
 

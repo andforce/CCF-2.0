@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol ForumURLCommonConfig <NSObject>
+@protocol ForumBaseConfigDelegate <NSObject>
 
 - (NSURL *)forumURL;
 

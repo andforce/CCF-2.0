@@ -15,9 +15,570 @@
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
 #import "CommonUtils.h"
+#import "Message.h"
 
 @implementation DRLForumHtmlParser {
 
+}
+- (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
+    NSString * fixedImage = [self fixedImage:html];
+
+    NSString * fixFontSizeHTML = [self fixedFontSize:fixedImage];
+    NSString * fixedCodeBlock = [self fixedCodeBlodk:fixFontSizeHTML];
+
+    NSString * fixedQuoteHeight = [self fixedQuote:fixedCodeBlock];
+    NSString * fixedHtml = [self fixedLink:fixedQuoteHeight];
+
+
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:fixedHtml error:nil];
+
+    ViewThreadPage * showThreadPage = [[ViewThreadPage alloc]init];
+    // origin html
+    showThreadPage.originalHtml = [self postMessages:fixedHtml];
+
+    // forum Id
+    NSString * forumId = [[fixedHtml stringWithRegular:@"<option value=\"\\d+\" class=\".*\" selected=\"selected\">" andChild:@"value=\"\\d+\""] stringWithRegular:@"\\d+"];
+    showThreadPage.forumId = [forumId intValue];
+
+    // token 【失败】
+    NSString * securityToken = [self parseSecurityToken:html];
+    showThreadPage.securityToken = securityToken;
+
+    // ajax  【失败】
+    NSString * ajaxLastPost = [self parseAjaxLastPost:html];
+    showThreadPage.ajaxLastPost = ajaxLastPost;
+
+    // all posts
+    showThreadPage.postList = [self parseShowThreadPosts:document];
+
+    // title
+    IGXMLNode * titleNode = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/strong"].firstObject;
+
+    if (titleNode != nil) {
+        NSString * fixedTitle = [titleNode.text trim];
+        if ([fixedTitle hasPrefix:@"【"]){
+            fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"【" withString:@"["];
+            fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
+        } else{
+            fixedTitle = [@"讨论" stringByAppendingString:fixedTitle];
+        }
+        showThreadPage.threadTitle = fixedTitle;
+    }
+
+    NSString *threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"searchthreadid\" value=\")\\d+"];
+    showThreadPage.threadID = [threadID intValue];
+
+    // page number
+
+    PageNumber * pageNumber = [self pageNumber:html];
+
+    showThreadPage.pageNumber = pageNumber;
+
+    return showThreadPage;
+}
+
+- (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop {
+    ViewForumPage *forumDisplayPage = [[ViewForumPage alloc] init];
+
+    NSString *path = @"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]";
+
+    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNodeSet *contents = [document queryWithXPath:path];
+
+    for (int i = 0; i < contents.count; i++) {
+        IGXMLNode *normallThreadNode = contents[(NSUInteger) i];
+
+        if (normallThreadNode.children.count >= 8) { // 要>=8的原因是：过滤已经被删除的帖子 以及 被移动的帖子
+
+            Thread *normalThread = [[Thread alloc] init];
+
+            // 由于各个论坛的帖子格式可能不一样，因此此处的标题等所在的列也会发生变化
+            // 需要根据不同的论坛计算不同的位置
+
+            NSInteger childColumnCount = normallThreadNode.children.count;
+
+            int titlePosition = 2;
+
+            if (childColumnCount == 8) {
+                titlePosition = 2;
+            } else if (childColumnCount == 7) {
+                titlePosition = 1;
+            }
+
+            // title Node
+            IGXMLNode *threadTitleNode = [normallThreadNode childAt:titlePosition];
+
+            // title all html
+            NSString *titleHtml = [threadTitleNode html];
+
+            // title inner html
+            NSString *titleInnerHtml = [threadTitleNode innerHtml];
+
+            // 判断是不是置顶主题
+            normalThread.isTopThread = [self isStickyThread:titleHtml];
+
+            // 判断是不是精华帖子
+            normalThread.isGoodNess = [self isGoodNessThread:titleHtml];
+
+            // 是否包含小别针
+            normalThread.isContainsImage = [self isContainsImagesThread:titleHtml];
+
+            // 主题和分类
+            NSString *titleAndCategory = [self parseTitle:titleInnerHtml];
+            IGHTMLDocument *titleTemp = [[IGHTMLDocument alloc] initWithXMLString:titleAndCategory error:nil];
+
+            NSString *titleText = [titleTemp text];
+
+            if ([titleText hasPrefix:@"【"]) {
+                titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
+                titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
+            } else {
+                titleText = [@"[讨论]" stringByAppendingString:titleText];
+            }
+
+            // 分离出主题
+            normalThread.threadTitle = titleText;
+
+            //[@"showthread.php?t=" length]    17的由来
+            normalThread.threadID = [[titleTemp attribute:@"href"] substringFromIndex:17];
+
+            // 作者相关
+            int authorNodePosition = 3;
+            if (childColumnCount == 7) {
+                authorNodePosition = 2;
+            }
+            IGXMLNode *authorNode = [normallThreadNode childAt:authorNodePosition];
+            NSString *authorIdStr = [authorNode innerHtml];
+            normalThread.threadAuthorID = [authorIdStr stringWithRegular:@"\\d+"];
+            normalThread.threadAuthorName = [[authorNode text] trim];
+
+            // 最后回帖时间
+            int lastPostTimePosition = 4;
+            if (childColumnCount == 7) {
+                lastPostTimePosition = 3;
+            }
+            IGXMLNode *lastPostTime = [normallThreadNode childAt:lastPostTimePosition];
+            normalThread.lastPostTime = [CommonUtils timeForShort:[[lastPostTime text] trim] withFormat:@"MM-dd-yyyy HH:mm"];
+
+            // 回帖数量
+            int commentCountPosition = 5;
+            if (childColumnCount == 7) {
+                commentCountPosition = 4;
+            }
+            IGXMLNode *commentCountNode = [normallThreadNode childAt:commentCountPosition];
+            normalThread.postCount = [commentCountNode text];
+
+            // 查看数量
+            int openCountNodePosition = 6;
+            if (childColumnCount == 7) {
+                openCountNodePosition = 5;
+            }
+            IGXMLNode *openCountNode = [normallThreadNode childAt:openCountNodePosition];
+            normalThread.openCount = [openCountNode text];
+
+            [threadList addObject:normalThread];
+        }
+    }
+    forumDisplayPage.dataList = threadList;
+
+    //forumID
+    int fid = [[html stringWithRegular:@"(?<=newthread&amp;f=)\\d+"] intValue];
+    forumDisplayPage.forumId = fid;
+
+    forumDisplayPage.token = [self parseSecurityToken:html];
+
+    // 总页数
+    PageNumber * pageNumber = [self pageNumber:html];
+
+    forumDisplayPage.pageNumber = pageNumber;
+
+    return forumDisplayPage;
+}
+
+- (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html {
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    NSString *path = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form[2]/table/tr[position()>2]";
+
+    //*[@id="threadbits_forum_147"]/tr[1]
+
+    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNodeSet *contents = [document queryWithXPath:path];
+
+    // NSInteger totaleListCount = -1;
+
+
+    for (int i = 0; i < contents.count; i++) {
+        IGXMLNode *threadListNode = contents[(NSUInteger) i];
+
+        if (threadListNode.children.count >= 6) {
+
+            Thread *simpleThread = [[Thread alloc] init];
+
+            // Title
+            IGXMLNode *threadTitleNode = threadListNode.children[2];
+            NSString *titleText = [[[threadTitleNode text] trim] componentsSeparatedByString:@"\n"].firstObject;
+
+            if (! ([titleText hasPrefix:@"["] && [titleText containsString:@"]"])){
+                if ([titleText hasPrefix:@"【"]) {
+                    titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
+                    titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
+                } else {
+                    titleText = [@"[讨论]" stringByAppendingString:titleText];
+                }
+            }
+            simpleThread.threadTitle = titleText;
+
+            // Thread Id
+            NSString * threadStrig = [[threadTitleNode attribute:@"id"] stringWithRegular:@"\\d+"];
+            simpleThread.threadID = threadStrig;
+
+            //  Author
+            IGXMLNode *authorNode = threadListNode.children[3];
+
+            NSString *authorIdStr = [authorNode innerHtml];
+            simpleThread.threadAuthorID = [authorIdStr stringWithRegular:@"\\d+"];
+
+            simpleThread.threadAuthorName = [[authorNode text] trim];
+
+            IGXMLNode *timeNode = threadListNode.children[4];
+            NSString *time = [[timeNode text] trim];
+
+            simpleThread.lastPostTime = time;
+
+            [threadList addObject:simpleThread];
+        }
+    }
+    page.dataList = threadList;
+
+    // 总页数
+    PageNumber *pageNumber = [self pageNumber:html];
+    page.pageNumber = pageNumber;
+
+    return page;
+}
+
+- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html {
+    return nil;
+}
+
+- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
+    return [self parsePrivateMessageFromHtml:html];
+}
+
+- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
+
+
+    IGXMLNodeSet * searchNodeSet = [document queryWithXPath:@"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]"];
+
+    if (searchNodeSet == nil || searchNodeSet.count == 0) {
+        return nil;
+    }
+
+
+    ViewSearchForumPage * resultPage = [[ViewSearchForumPage alloc]init];
+
+
+    // 总页数 和 当前页数
+    PageNumber *pageNumber = [self pageNumber:html];
+
+    resultPage.pageNumber = pageNumber;
+
+    NSMutableArray<Thread*>* post = [NSMutableArray array];
+
+    for (IGXMLNode *node in searchNodeSet) {
+
+        if (node.children.count == 9) {
+            // 9个节点是正确的输出结果
+            Thread * searchThread = [[Thread alloc]init];
+
+            IGXMLNode * postForNode = [node childAt:2];
+
+            NSString * postIdNode = [postForNode html];
+            NSString * postId = [postIdNode stringWithRegular:@"t=\\d+" andChild:@"\\d+"];
+
+            NSString * postTitle = @"[标题解析错误请联系@马小甲]";
+
+            IGXMLNodeSet * realNodeSet = postForNode.firstChild.children;
+            for (IGXMLNode * realNode in realNodeSet) {
+                if ([realNode.tag isEqualToString:@"a"] && [[realNode attribute:@"href"] hasPrefix:@"showthread.php?t="]){
+                    postTitle = realNode.text.trim;
+                }
+            }
+
+            NSString * postAuthor = [[[node childAt:3] text] trim];
+            NSString * postAuthorId = [[node.children[3] html] stringWithRegular:@"=\\d+" andChild:@"\\d+"];
+            NSString * postTime = [[node.children[4] text] trim];
+            NSString * postBelongForm = [node.children[8] text];
+
+            searchThread.threadID = postId;
+
+            NSString * titleText = [postTitle trim];
+
+            if ([titleText hasPrefix:@"【"]) {
+                titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
+                titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
+            } else {
+                titleText = [@"[讨论]" stringByAppendingString:titleText];
+            }
+
+            searchThread.threadTitle = titleText;
+            searchThread.threadAuthorName = postAuthor;
+            searchThread.threadAuthorID = postAuthorId;
+            searchThread.lastPostTime = [postTime trim];
+            searchThread.fromFormName = postBelongForm;
+
+
+            [post addObject:searchThread];
+        }
+    }
+
+    resultPage.dataList = post;
+
+    return resultPage;
+}
+
+- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+    return nil;
+}
+
+- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    // ===== message content =====
+    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+
+    // PM Title
+    IGXMLNode *pmTitleNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[1]/tr/td"].firstObject;
+    NSString *pmTitle = [[pmTitleNode text] trim];
+    privateMessage.pmTitle = pmTitle;
+
+    // PM Content
+    IGXMLNode *contentNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[2]/div"].firstObject;
+    privateMessage.pmContent = [contentNode html];
+
+    // 回帖时间
+    IGXMLNode *timeNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[1]/td[1]/text()"].firstObject;
+    privateMessage.pmTime = [timeNode.text trim];
+
+    // PM ID
+    IGXMLNode *idNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[4]/td/a[2]"].firstObject;
+    NSString *pmId = [[idNode attribute:@"href"] stringWithRegular:@"\\d+"];
+    privateMessage.pmID = pmId;
+
+    // ===== User Info =====
+    User *pmAuthor = [[User alloc] init];
+
+    // 用户名
+    IGXMLNode *userInfoNode = [document queryNodeWithXPath:@"//*[@id='postmenu_']/a"];
+    NSString *name = [[userInfoNode text] trim];
+    pmAuthor.userName = name;
+    // 用户ID
+    NSString *userId = [[userInfoNode attribute:@"href"] stringWithRegular:@"\\d+"];
+    pmAuthor.userID = userId;
+
+    // 用户头像
+    IGXMLNode * userAvatarNode = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[2]/a/img"];
+    NSString *userAvatar = [userAvatarNode attribute:@"src"];//[[userAvatarNode attribute:@"src"] componentsSeparatedByString:@"customavatars"].lastObject;
+    if (userAvatar == nil) {
+        userAvatar = avatarNO;
+    }
+    pmAuthor.userAvatar = userAvatar;
+
+    // 用户等级
+    NSString *userRank = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[3]"].text;
+    pmAuthor.userRank = userRank;
+    // 注册日期
+    NSString *userSignDate = [[document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[5]/fieldset/div[1]"].text componentsSeparatedByString:@": "].lastObject;
+    pmAuthor.userSignDate = userSignDate;
+    // 帖子数量
+    NSString *postCount = [[[[document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[5]/fieldset/div[2]/text()"] text] trim] componentsSeparatedByString:@": "].lastObject;
+    pmAuthor.userPostCount = postCount;
+
+    privateMessage.pmUserInfo = pmAuthor;
+    return privateMessage;
+}
+
+- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    UserProfile *profile = [[UserProfile alloc] init];
+    // 用户名
+    NSString *userNameXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[1]/td/div[2]";
+    profile.profileName = [[[document queryWithXPath:userNameXPath].firstObject text] trim];
+
+    // 用户等级
+    NSString *rankXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[1]/td/div[3]";
+    profile.profileRank = [self queryText:document withXPath:rankXPath];
+
+    // 注册日期                    /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/div/div
+    NSString *signDatePattern = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/div/div";
+
+    profile.profileRegisterDate = [[[[[document queryWithXPath:signDatePattern].firstObject text] trim ] componentsSeparatedByString:@": "]lastObject];
+
+    // 最近活动时间
+    NSString *lastLoginDayXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[2]/td[2]/div[1]";
+    NSString *lastDay = [[[self queryText:document withXPath:lastLoginDayXPath] trim] componentsSeparatedByString:@": "].lastObject;
+
+    if (lastDay == nil) {
+        profile.profileRecentLoginDate = @"隐私";
+    } else {
+        profile.profileRecentLoginDate = lastDay;
+    }
+
+
+    // 帖子总数                   /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td
+    NSString *postCountXPath = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td";
+    NSString * postCount = [[[document queryWithXPath:postCountXPath].firstObject text] componentsSeparatedByString:@": "].lastObject;
+    profile.profileTotalPostCount = postCount;
+
+    profile.profileUserId = userId;
+    return profile;
+}
+
+- (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *)host {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
+
+    //                   /html/body/table/tr/td/div[3]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]
+    NSString * xPath = @"/html/body/table/tr/td/div[*]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]";
+
+    IGXMLNode * contents = [document queryNodeWithXPath:xPath];
+
+    NSMutableArray<Forum *> * needInsert = [NSMutableArray array];
+
+    int parentForumIDForTH1 = -1;
+    int parentForumIDForTH2 = -1;
+    for (IGXMLNode * child in contents.children) {
+
+        Forum * forum = [[Forum alloc] init];
+
+        NSString * classType = [child attribute:@"class"];
+        int forumID = [[child attribute:@"value"] intValue];
+        NSString * forumName = [[child text] trim];
+
+
+        if ([classType isEqualToString:@"fjsel"] || [classType isEqualToString:@"fjdpth0"]) {
+            parentForumIDForTH1 = forumID;
+            forum.parentForumId = -1;
+        } else if([classType isEqualToString:@"fjdpth1"]){
+            forum.parentForumId = parentForumIDForTH1;
+            parentForumIDForTH2 = forumID;
+
+        } else if ([classType isEqualToString:@"fjdpth2"]){
+            forum.parentForumId = parentForumIDForTH2;
+        }
+
+        forum.forumId = forumID;
+        forum.forumName = forumName;
+        forum.forumHost = host;
+
+        [needInsert addObject:forum];
+    }
+
+    for (Forum * forum in needInsert) {
+        NSLog(@">>>>>>>>>>>>>>>>>>>>>>> %@     formId: %d     parentFormId:%d\n\n\n", forum.forumName, forum.forumId, forum.parentForumId);
+    }
+
+    return [needInsert copy];
+}
+
+- (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNodeSet *favFormNodeSet = [document queryWithXPath:@"//*[@id='collapseobj_usercp_forums']/tr[*]/td[2]/div[1]/a"];
+
+
+    NSMutableArray *ids = [NSMutableArray array];
+
+    //<a href="forumdisplay.php?f=158">『手机◇移动数码』</a>
+    for (IGXMLNode *node in favFormNodeSet) {
+        NSString *idsStr = [node.html stringWithRegular:@"f=\\d+" andChild:@"\\d+"];
+        [ids addObject:@([idsStr intValue])];
+    }
+
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    [localForumApi saveFavFormIds:ids];
+
+    // 通过ids 过滤出Form
+    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    NSArray *result = [manager selectData:^NSPredicate * {
+        NSString * host = localForumApi.currentForumHost;
+        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", host ,ids];
+    }];
+
+    NSMutableArray<Forum *> *forms = [NSMutableArray arrayWithCapacity:result.count];
+
+    for (ForumEntry *entry in result) {
+        Forum *form = [[Forum alloc] init];
+        form.forumName = entry.forumName;
+        form.forumId = [entry.forumId intValue];
+        [forms addObject:form];
+    }
+
+    return forms;
+}
+
+- (PageNumber *)parserPageNumber:(NSString *)html {
+    PageNumber *pageNumber = [[PageNumber alloc] init];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNode * pageNode = [document queryNodeWithClassName:@"pg"];
+
+    if (pageNode == nil){
+        pageNumber.currentPageNumber = 1;
+        pageNumber.totalPageNumber = 1;
+    } else{
+        NSString * text = [pageNode text];
+        NSLog(@"%@", text);
+    }
+    return pageNumber;
+}
+
+- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='vB_Editor_QR_textarea']"];
+    NSString *node = [[nodeSet firstObject] text];
+    return node;
+}
+
+- (NSString *)parseQuickReplyTitle:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='message_form']/div[1]/div/div/div[3]/input[9]"];
+
+    NSString *node = [[nodeSet firstObject] attribute:@"value"];
+    return node;
+}
+
+- (NSString *)parseQuickReplyTo:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='message_form']/div[1]/div/div/div[3]/input[10]"];
+    NSString *node = [[nodeSet firstObject] attribute:@"value"];
+    return node;
+}
+
+- (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
+    NSString *regular = [NSString stringWithFormat:@"/avatar%@_(\\d+).gif", userId];
+    NSString *avatar = [html stringWithRegular:regular];
+    if (avatar == nil) {
+        avatar = @"/no_avatar.gif";
+    }
+    //NSLog(@"avatarLink  >> %@", avatar);
+    return avatar;
+}
+
+- (NSString *)parseListMyThreadSearchId:(NSString *)html {
+    NSString *searchid = [html stringWithRegular:@"/search.php\\?searchid=\\d+" andChild:@"\\d+"];
+    return searchid;
+}
+
+- (NSString *)parseErrorMessage:(NSString *)html {
+    return nil;
 }
 
 // private
@@ -217,66 +778,6 @@
     return result;
 }
 
-- (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
-    
-    
-    NSString * fixedImage = [self fixedImage:html];
-    
-    NSString * fixFontSizeHTML = [self fixedFontSize:fixedImage];
-    NSString * fixedClodeBlock = [self fixedCodeBlodk:fixFontSizeHTML];
-
-    NSString * fixedQuoteHeight = [self fixedQuote:fixedClodeBlock];
-    NSString * fixedHtml = [self fixedLink:fixedQuoteHeight];
-    
-    
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:fixedHtml error:nil];
-    
-    ViewThreadPage * showThreadPage = [[ViewThreadPage alloc]init];
-    // origin html
-    showThreadPage.originalHtml = [self postMessages:fixedHtml];
-    
-    // forum Id
-    NSString * forumId = [[fixedHtml stringWithRegular:@"<option value=\"\\d+\" class=\".*\" selected=\"selected\">" andChild:@"value=\"\\d+\""] stringWithRegular:@"\\d+"];
-    showThreadPage.forumId = [forumId intValue];
-    
-    // token 【失败】
-    NSString * securityToken = [self parseSecurityToken:html];
-    showThreadPage.securityToken = securityToken;
-    
-    // ajax  【失败】
-    NSString * ajaxLastPost = [self parseAjaxLastPost:html];
-    showThreadPage.ajaxLastPost = ajaxLastPost;
-    
-    // all posts
-    showThreadPage.postList = [self parseShowThreadPosts:document];
-    
-    // title
-    IGXMLNode * titleNode = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/strong"].firstObject;
-    
-    if (titleNode != nil) {
-        NSString * fixedTitle = [titleNode.text trim];
-        if ([fixedTitle hasPrefix:@"【"]){
-            fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"【" withString:@"["];
-            fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
-        } else{
-            fixedTitle = [@"讨论" stringByAppendingString:fixedTitle];
-        }
-        showThreadPage.threadTitle = fixedTitle;
-    }
-
-    NSString *threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"searchthreadid\" value=\")\\d+"];
-    showThreadPage.threadID = [threadID intValue];
-
-    // page number
-
-    PageNumber * pageNumber = [self pageNumber:html];
-
-    showThreadPage.pageNumber = pageNumber;
-    
-    return showThreadPage;
-}
-
 - (PageNumber *) pageNumber:(NSString *) html{
     NSString *pageStr = [html stringWithRegular:@"(?<=/> -->)第\\d+页 共\\d+页(?=</td>)"];
     PageNumber * pageNumber = [[PageNumber alloc] init];
@@ -333,199 +834,6 @@
     return nil;
 }
 
-
-- (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop {
-    
-    
-    ViewForumPage *forumDisplayPage = [[ViewForumPage alloc] init];
-
-    NSString *path = @"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]";
-    
-    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-
-    IGXMLNodeSet *contents = [document queryWithXPath:path];
-
-    for (int i = 0; i < contents.count; i++) {
-        IGXMLNode *normallThreadNode = contents[(NSUInteger) i];
-        
-        if (normallThreadNode.children.count >= 8) { // 要>=8的原因是：过滤已经被删除的帖子 以及 被移动的帖子
-
-            Thread *normalThread = [[Thread alloc] init];
-            
-            // 由于各个论坛的帖子格式可能不一样，因此此处的标题等所在的列也会发生变化
-            // 需要根据不同的论坛计算不同的位置
-            
-            NSInteger childColumnCount = normallThreadNode.children.count;
-            
-            int titlePosition = 2;
-            
-            if (childColumnCount == 8) {
-                titlePosition = 2;
-            } else if (childColumnCount == 7) {
-                titlePosition = 1;
-            }
-            
-            // title Node
-            IGXMLNode *threadTitleNode = [normallThreadNode childAt:titlePosition];
-            
-            // title all html
-            NSString *titleHtml = [threadTitleNode html];
-            
-            // title inner html
-            NSString *titleInnerHtml = [threadTitleNode innerHtml];
-            
-            // 判断是不是置顶主题
-            normalThread.isTopThread = [self isStickyThread:titleHtml];
-            
-            // 判断是不是精华帖子
-            normalThread.isGoodNess = [self isGoodNessThread:titleHtml];
-            
-            // 是否包含小别针
-            normalThread.isContainsImage = [self isContainsImagesThread:titleHtml];
-            
-            // 主题和分类
-            NSString *titleAndCategory = [self parseTitle:titleInnerHtml];
-            IGHTMLDocument *titleTemp = [[IGHTMLDocument alloc] initWithXMLString:titleAndCategory error:nil];
-            
-            NSString *titleText = [titleTemp text];
-            
-            if ([titleText hasPrefix:@"【"]) {
-                titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
-                titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
-            } else {
-                titleText = [@"[讨论]" stringByAppendingString:titleText];
-            }
-            
-            // 分离出主题
-            normalThread.threadTitle = titleText;
-            
-            //[@"showthread.php?t=" length]    17的由来
-            normalThread.threadID = [[titleTemp attribute:@"href"] substringFromIndex:17];
-            
-            // 作者相关
-            int authorNodePosition = 3;
-            if (childColumnCount == 7) {
-                authorNodePosition = 2;
-            }
-            IGXMLNode *authorNode = [normallThreadNode childAt:authorNodePosition];
-            NSString *authorIdStr = [authorNode innerHtml];
-            normalThread.threadAuthorID = [authorIdStr stringWithRegular:@"\\d+"];
-            normalThread.threadAuthorName = [[authorNode text] trim];
-            
-            // 最后回帖时间
-            int lastPostTimePosition = 4;
-            if (childColumnCount == 7) {
-                lastPostTimePosition = 3;
-            }
-            IGXMLNode *lastPostTime = [normallThreadNode childAt:lastPostTimePosition];
-            normalThread.lastPostTime = [CommonUtils timeForShort:[[lastPostTime text] trim] withFormat:@"MM-dd-yyyy HH:mm"];
-            
-            // 回帖数量
-            int commentCountPosition = 5;
-            if (childColumnCount == 7) {
-                commentCountPosition = 4;
-            }
-            IGXMLNode *commentCountNode = [normallThreadNode childAt:commentCountPosition];
-            normalThread.postCount = [commentCountNode text];
-            
-            // 查看数量
-            int openCountNodePosition = 6;
-            if (childColumnCount == 7) {
-                openCountNodePosition = 5;
-            }
-            IGXMLNode *openCountNode = [normallThreadNode childAt:openCountNodePosition];
-            normalThread.openCount = [openCountNode text];
-            
-            [threadList addObject:normalThread];
-        }
-    }
-    forumDisplayPage.dataList = threadList;
-
-    //forumID
-    int fid = [[html stringWithRegular:@"(?<=newthread&amp;f=)\\d+"] intValue];
-    forumDisplayPage.forumId = fid;
-
-    forumDisplayPage.token = [self parseSecurityToken:html];
-
-    // 总页数
-    PageNumber * pageNumber = [self pageNumber:html];
-
-    forumDisplayPage.pageNumber = pageNumber;
-    
-    return forumDisplayPage;
-}
-
-- (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html {
-    ViewForumPage *page = [[ViewForumPage alloc] init];
-    
-    NSString *path = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form[2]/table/tr[position()>2]";
-    
-    //*[@id="threadbits_forum_147"]/tr[1]
-    
-    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
-
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNodeSet *contents = [document queryWithXPath:path];
-
-   // NSInteger totaleListCount = -1;
-
-
-    for (int i = 0; i < contents.count; i++) {
-        IGXMLNode *threadListNode = contents[i];
-
-        if (threadListNode.children.count >= 6) {
-
-            Thread *simpleThread = [[Thread alloc] init];
-
-            // Title
-            IGXMLNode *threadTitleNode = threadListNode.children[2];
-            NSString *titleText = [[[threadTitleNode text] trim] componentsSeparatedByString:@"\n"].firstObject;
-
-            if (! ([titleText hasPrefix:@"["] && [titleText containsString:@"]"])){
-                if ([titleText hasPrefix:@"【"]) {
-                    titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
-                    titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
-                } else {
-                    titleText = [@"[讨论]" stringByAppendingString:titleText];
-                }
-            }
-            simpleThread.threadTitle = titleText;
-
-            // Thread Id
-            NSString * threadStrig = [[threadTitleNode attribute:@"id"] stringWithRegular:@"\\d+"];
-            simpleThread.threadID = threadStrig;
-
-            //  Author
-            IGXMLNode *authorNode = threadListNode.children[3];
-
-            NSString *authorIdStr = [authorNode innerHtml];
-            simpleThread.threadAuthorID = [authorIdStr stringWithRegular:@"\\d+"];
-
-            simpleThread.threadAuthorName = [[authorNode text] trim];
-
-            IGXMLNode *timeNode = threadListNode.children[4];
-            NSString *time = [[timeNode text] trim];
-
-            simpleThread.lastPostTime = time;
-
-            [threadList addObject:simpleThread];
-        }
-    }
-    page.dataList = threadList;
-    
-    // 总页数
-    PageNumber *pageNumber = [self pageNumber:html];
-    page.pageNumber = pageNumber;
-    
-    return page;
-}
-
-- (NSString *)parseErrorMessage:(NSString *)html {
-    return nil;
-}
-
 - (NSString *)parseSecurityToken:(NSString *)html {
     NSString *searchText = html;
     
@@ -574,120 +882,6 @@
     return [nodeSet.firstObject attribute:@"href"];
     
 }
-
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
-    
-    
-    IGXMLNodeSet * searchNodeSet = [document queryWithXPath:@"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]"];
-    
-    if (searchNodeSet == nil || searchNodeSet.count == 0) {
-        return nil;
-    }
-    
-    
-    ViewSearchForumPage * resultPage = [[ViewSearchForumPage alloc]init];
-    
-    
-    // 总页数 和 当前页数
-    PageNumber *pageNumber = [self pageNumber:html];
-
-    resultPage.pageNumber = pageNumber;
-
-    NSMutableArray<Thread*>* post = [NSMutableArray array];
-    
-    for (IGXMLNode *node in searchNodeSet) {
-        
-        if (node.children.count == 9) {
-            // 9个节点是正确的输出结果
-            Thread * searchThread = [[Thread alloc]init];
-            
-            IGXMLNode * postForNode = [node childAt:2];
-            
-            NSString * postIdNode = [postForNode html];
-            NSString * postId = [postIdNode stringWithRegular:@"t=\\d+" andChild:@"\\d+"];
-            
-            NSString * postTitle = @"[标题解析错误请联系@马小甲]";
-
-            IGXMLNodeSet * realNodeSet = postForNode.firstChild.children;
-            for (IGXMLNode * realNode in realNodeSet) {
-                if ([realNode.tag isEqualToString:@"a"] && [[realNode attribute:@"href"] hasPrefix:@"showthread.php?t="]){
-                    postTitle = realNode.text.trim;
-                }
-            }
-
-            NSString * postAuthor = [[[node childAt:3] text] trim];
-            NSString * postAuthorId = [[node.children[3] html] stringWithRegular:@"=\\d+" andChild:@"\\d+"];
-            NSString * postTime = [[node.children[4] text] trim];
-            NSString * postBelongForm = [node.children[8] text];
-            
-            searchThread.threadID = postId;
-            
-            NSString * titleText = [postTitle trim];
-            
-            if ([titleText hasPrefix:@"【"]) {
-                titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
-                titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
-            } else {
-                titleText = [@"[讨论]" stringByAppendingString:titleText];
-            }
-            
-            searchThread.threadTitle = titleText;
-            searchThread.threadAuthorName = postAuthor;
-            searchThread.threadAuthorID = postAuthorId;
-            searchThread.lastPostTime = [postTime trim];
-            searchThread.fromFormName = postBelongForm;
-            
-            
-            [post addObject:searchThread];
-        }
-    }
-    
-    resultPage.dataList = post;
-    
-    return resultPage;
-}
-
-
-- (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNodeSet *favFormNodeSet = [document queryWithXPath:@"//*[@id='collapseobj_usercp_forums']/tr[*]/td[2]/div[1]/a"];
-
-
-    NSMutableArray *ids = [NSMutableArray array];
-
-    //<a href="forumdisplay.php?f=158">『手机◇移动数码』</a>
-    for (IGXMLNode *node in favFormNodeSet) {
-        NSString *idsStr = [node.html stringWithRegular:@"f=\\d+" andChild:@"\\d+"];
-        [ids addObject:@([idsStr intValue])];
-    }
-
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    [localForumApi saveFavFormIds:ids];
-
-    // 通过ids 过滤出Form
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-    NSArray *result = [manager selectData:^NSPredicate * {
-        NSString * host = localForumApi.currentForumHost;
-        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", host ,ids];
-    }];
-
-    NSMutableArray<Forum *> *forms = [NSMutableArray arrayWithCapacity:result.count];
-
-    for (ForumEntry *entry in result) {
-        Forum *form = [[Forum alloc] init];
-        form.forumName = entry.forumName;
-        form.forumId = [entry.forumId intValue];
-        [forms addObject:form];
-    }
-
-    return forms;
-}
-
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
-    return [self parsePrivateMessageFromHtml:html];
-}
-
 
 // for drl
 - (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html {
@@ -757,149 +951,12 @@
     return page;
 }
 
-// for drl
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *) avatarBase noavatar:(NSString *) avatarNO{
-    
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    
-    // ===== message content =====
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
-    
-    // PM Title
-    IGXMLNode *pmTitleNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[1]/tr/td"].firstObject;
-    NSString *pmTitle = [[pmTitleNode text] trim];
-    privateMessage.pmTitle = pmTitle;
-    
-    // PM Content
-    IGXMLNode *contentNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[2]/div"].firstObject;
-    privateMessage.pmContent = [contentNode html];
-    
-    // 回帖时间
-    IGXMLNode *timeNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[1]/td[1]/text()"].firstObject;
-    privateMessage.pmTime = [timeNode.text trim];
-    
-    // PM ID
-    IGXMLNode *idNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[4]/td/a[2]"].firstObject;
-    NSString *pmId = [[idNode attribute:@"href"] stringWithRegular:@"\\d+"];
-    privateMessage.pmID = pmId;
-    
-    // ===== User Info =====
-    User *pmAuthor = [[User alloc] init];
-    
-    // 用户名
-    IGXMLNode *userInfoNode = [document queryNodeWithXPath:@"//*[@id='postmenu_']/a"];
-    NSString *name = [[userInfoNode text] trim];
-    pmAuthor.userName = name;
-    // 用户ID
-    NSString *userId = [[userInfoNode attribute:@"href"] stringWithRegular:@"\\d+"];
-    pmAuthor.userID = userId;
-    
-    // 用户头像
-    IGXMLNode * userAvatarNode = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[2]/a/img"];
-    NSString *userAvatar = [userAvatarNode attribute:@"src"];//[[userAvatarNode attribute:@"src"] componentsSeparatedByString:@"customavatars"].lastObject;
-    if (userAvatar == nil) {
-        userAvatar = avatarNO;
-    }
-    pmAuthor.userAvatar = userAvatar;
-    
-    // 用户等级
-    NSString *userRank = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[3]"].text;
-    pmAuthor.userRank = userRank;
-    // 注册日期
-    NSString *userSignDate = [[document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[5]/fieldset/div[1]"].text componentsSeparatedByString:@": "].lastObject;
-    pmAuthor.userSignDate = userSignDate;
-    // 帖子数量
-    NSString *postCount = [[[[document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[5]/fieldset/div[2]/text()"] text] trim] componentsSeparatedByString:@": "].lastObject;
-    pmAuthor.userPostCount = postCount;
-    
-    privateMessage.pmUserInfo = pmAuthor;
-    return privateMessage;
-}
-
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='vB_Editor_QR_textarea']"];
-    NSString *node = [[nodeSet firstObject] text];
-    return node;
-}
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='message_form']/div[1]/div/div/div[3]/input[9]"];
-    
-    NSString *node = [[nodeSet firstObject] attribute:@"value"];
-    return node;
-}
-
-- (NSString *)parseQuickReplyTo:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNodeSet *nodeSet = [document queryWithXPath:@"//*[@id='message_form']/div[1]/div/div/div[3]/input[10]"];
-    NSString *node = [[nodeSet firstObject] attribute:@"value"];
-    return node;
-}
-
-- (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
-    NSString *regular = [NSString stringWithFormat:@"/avatar%@_(\\d+).gif", userId];
-    NSString *avatar = [html stringWithRegular:regular];
-    if (avatar == nil) {
-        avatar = @"/no_avatar.gif";
-    }
-    //NSLog(@"avatarLink  >> %@", avatar);
-    return avatar;
-}
-
-- (NSString *)parseListMyThreadSearchId:(NSString *)html {
-    NSString *searchid = [html stringWithRegular:@"/search.php\\?searchid=\\d+" andChild:@"\\d+"];
-    return searchid;
-}
-
 // private
 - (NSString *)queryText:(IGHTMLDocument *)document withXPath:(NSString *)xpath {
     IGXMLNodeSet *nodeSet = [document queryWithXPath:xpath];
     NSString *text = [nodeSet.firstObject text];
     return text;
 }
-
-// for drl
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    UserProfile *profile = [[UserProfile alloc] init];
-    // 用户名
-    NSString *userNameXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[1]/td/div[2]";
-    profile.profileName = [[[document queryWithXPath:userNameXPath].firstObject text] trim];
-    
-    // 用户等级
-    NSString *rankXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[1]/td/div[3]";
-    profile.profileRank = [self queryText:document withXPath:rankXPath];
-    
-    // 注册日期                    /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/div/div
-    NSString *signDatePattern = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/div/div";
-    
-    profile.profileRegisterDate = [[[[[document queryWithXPath:signDatePattern].firstObject text] trim ] componentsSeparatedByString:@": "]lastObject];
-    
-    // 最近活动时间
-    NSString *lastLoginDayXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[2]/td[2]/div[1]";
-    NSString *lastDay = [[[self queryText:document withXPath:lastLoginDayXPath] trim] componentsSeparatedByString:@": "].lastObject;
-    
-    if (lastDay == nil) {
-        profile.profileRecentLoginDate = @"隐私";
-    } else {
-        profile.profileRecentLoginDate = lastDay;
-    }
-    
-    
-    // 帖子总数                   /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td
-    NSString *postCountXPath = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td";
-    NSString * postCount = [[[document queryWithXPath:postCountXPath].firstObject text] componentsSeparatedByString:@": "].lastObject;
-    profile.profileTotalPostCount = postCount;
-    
-    profile.profileUserId = userId;
-    return profile;
-}
-
 
 // private
 - (Forum *)node2Form:(IGXMLNode *)node parentFormId:(int)parentFormId replaceId:(int)replaceId {
@@ -933,70 +990,6 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
-}
-
-- (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *) host{
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
-    
-    //                   /html/body/table/tr/td/div[3]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]
-    NSString * xPath = @"/html/body/table/tr/td/div[*]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]";
-    
-    IGXMLNode * contents = [document queryNodeWithXPath:xPath];
-    
-    NSMutableArray<Forum *> * needInsert = [NSMutableArray array];
-    
-    int parentForumIDForTH1 = -1;
-    int parentForumIDForTH2 = -1;
-    for (IGXMLNode * child in contents.children) {
-        
-        Forum * forum = [[Forum alloc] init];
-        
-        NSString * classType = [child attribute:@"class"];
-        int forumID = [[child attribute:@"value"] intValue];
-        NSString * forumName = [[child text] trim];
-        
-        
-        if ([classType isEqualToString:@"fjsel"] || [classType isEqualToString:@"fjdpth0"]) {
-            parentForumIDForTH1 = forumID;
-            forum.parentForumId = -1;
-        } else if([classType isEqualToString:@"fjdpth1"]){
-            forum.parentForumId = parentForumIDForTH1;
-            parentForumIDForTH2 = forumID;
-            
-        } else if ([classType isEqualToString:@"fjdpth2"]){
-            forum.parentForumId = parentForumIDForTH2;
-        }
-        
-        forum.forumId = forumID;
-        forum.forumName = forumName;
-        forum.forumHost = host;
-        
-        [needInsert addObject:forum];
-    }
-    
-    for (Forum * forum in needInsert) {
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>> %@     formId: %d     parentFormId:%d\n\n\n", forum.forumName, forum.forumId, forum.parentForumId);
-    }
-    
-    return [needInsert copy];
-}
-
-- (PageNumber *)parserPageNumber:(NSString *)html {
-
-    PageNumber *pageNumber = [[PageNumber alloc] init];
-
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-
-    IGXMLNode * pageNode = [document queryNodeWithClassName:@"pg"];
-
-    if (pageNode == nil){
-        pageNumber.currentPageNumber = 1;
-        pageNumber.totalPageNumber = 1;
-    } else{
-        NSString * text = [pageNode text];
-        NSLog(@"%@", text);
-    }
-    return pageNumber;
 }
 
 @end

@@ -23,45 +23,8 @@
 #import "vBulletinParserDelegate.h"
 #import "DiscuzParserDelegate.h"
 
-@protocol ForumParserDelegate <vBulletinParserDelegate, DiscuzParserDelegate>
+#import "ForumBaseParserDelegate.h"
 
-@required
-// 页面相关
-- (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html;
-
-- (ViewForumPage *)parseThreadListFromHtml:(NSString *)html withThread:(int)threadId andContainsTop:(BOOL)containTop;
-
-- (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html;
-
-- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html;
-
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int) type;
-
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html;
-
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int) type;
-
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *) avatarBase noavatar:(NSString *) avatarNO;
-
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId;
-
-- (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *) host;
-
-- (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html;
-
-// 动作相关
-- (PageNumber *) parserPageNumber:(NSString *)html;
-
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html;
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html;
-
-- (NSString *)parseQuickReplyTo:(NSString *)html;
-
-- (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId;
-
-- (NSString *)parseListMyThreadSearchId:(NSString *)html;
-
-- (NSString *)parseErrorMessage:(NSString *)html;
+@protocol ForumParserDelegate <ForumBaseParserDelegate, vBulletinParserDelegate, DiscuzParserDelegate>
 
 @end

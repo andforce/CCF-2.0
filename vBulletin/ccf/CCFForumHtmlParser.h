@@ -5,7 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumParserDelegate.h"
+#import "ForumBaseParserDelegate.h"
+#import "vBulletinParserDelegate.h"
 
 
-@interface CCFForumHtmlParser : NSObject<ForumParserDelegate>
+@interface CCFForumHtmlParser : NSObject<ForumBaseParserDelegate,vBulletinParserDelegate>
 @end

@@ -172,7 +172,7 @@
 		2F34C0C48D6A20923716C6EC /* ProgressDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressDialog.m; sourceTree = "<group>"; };
 		2F34C14160BC257F07318CEF /* ForumApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumApiHelper.m; sourceTree = "<group>"; };
 		2F34C1D609B2659CED986D39 /* ForumPushManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumPushManager.m; sourceTree = "<group>"; };
-		2F34C28405B308FEE5FC1BD0 /* ForumURLCommonConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumURLCommonConfig.h; sourceTree = "<group>"; };
+		2F34C28405B308FEE5FC1BD0 /* ForumBaseConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseConfigDelegate.h; sourceTree = "<group>"; };
 		2F34C2A567EB792DCF9E85BD /* vBulletinApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinApiDelegate.h; sourceTree = "<group>"; };
 		2F34C2EF08CDE92A8266D169 /* CharUnicodeBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharUnicodeBlock.m; sourceTree = "<group>"; };
 		2F34C31F2FF45A57A999DCFF /* vBulletinBaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vBulletinBaseApi.m; sourceTree = "<group>"; };
@@ -201,6 +201,7 @@
 		2F34CAFE1A4BB2690531ABD9 /* PageNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageNumber.h; sourceTree = "<group>"; };
 		2F34CBBCB62F26627BA0E932 /* ProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDialog.h; sourceTree = "<group>"; };
 		2F34CCD81990A1C00E06B7AA /* PhpWindConfigDelegage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindConfigDelegage.h; sourceTree = "<group>"; };
+		2F34CE562C58E9985BE89837 /* ForumBaseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseParserDelegate.h; sourceTree = "<group>"; };
 		2F34CE82EC5F0149A7675701 /* LocalForumApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalForumApi.m; sourceTree = "<group>"; };
 		2F34CEDC13FE605A95AACC4B /* ForumLoginWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumLoginWebViewController.h; sourceTree = "<group>"; };
 		2F34CEDE561AF2B8E93A940E /* PhpWindApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindApiDelegate.h; sourceTree = "<group>"; };
@@ -807,7 +808,8 @@
 				2F34CE82EC5F0149A7675701 /* LocalForumApi.m */,
 				2F34C5448FBC9DC69B1F5CF7 /* ForumApiBaseDelegate.h */,
 				2F34C8512C8DD9A161DB7136 /* ForumCommonConfigDelegate.h */,
-				2F34C28405B308FEE5FC1BD0 /* ForumURLCommonConfig.h */,
+				2F34C28405B308FEE5FC1BD0 /* ForumBaseConfigDelegate.h */,
+				2F34CE562C58E9985BE89837 /* ForumBaseParserDelegate.h */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
