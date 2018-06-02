@@ -34,14 +34,14 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *_message;
     NSString *_subject;
 
-    id <ForumConfigDelegate> forumConfig;
-    id <ForumParserDelegate> forumParser;
+    CCFForumConfig * forumConfig;
+    CCFForumHtmlParser * forumParser;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self){
-        forumConfig = (id <ForumConfigDelegate>) [[CCFForumConfig alloc] init];
+        forumConfig =  [[CCFForumConfig alloc] init];
         forumParser = [[CCFForumHtmlParser alloc]init];
     }
     return self;
@@ -245,7 +245,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 
-    NSString *cookie = [localForumApi loadCookie];
+    NSString *cookie = [localForumApi loadCookieString];
     [request setValue:cookie forHTTPHeaderField:@"Cookie"];
 
     NSString *boundary = [NSString stringWithFormat:@"----WebKitFormBoundary%@", [self uploadParamDivider]];
@@ -647,7 +647,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [request setHTTPMethod:@"POST"];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    NSString *cookie = [localForumApi loadCookie];
+    NSString *cookie = [localForumApi loadCookieString];
     [request setValue:cookie forHTTPHeaderField:@"Cookie"];
 
     NSString *boundary = [NSString stringWithFormat:@"----WebKitFormBoundary%@", [self uploadParamDivider]];
@@ -1347,7 +1347,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
 
         NSString *threadIdStr = [query valueForKey:@"t"];
-        
+
         UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
         ForumWebViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
 

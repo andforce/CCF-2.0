@@ -38,6 +38,8 @@
 
 - (NSArray<NSHTTPCookie *> *)loadCookie;
 
+- (NSString*)loadCookieString;
+
 - (void)saveCookie;
 
 - (void)clearCookie;

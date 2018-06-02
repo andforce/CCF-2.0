@@ -239,7 +239,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [request setHTTPMethod:@"POST"];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    NSString *cookie = [localForumApi loadCookie];
+    NSString *cookie = [localForumApi loadCookieString];
     [request setValue:cookie forHTTPHeaderField:@"Cookie"];
 
     NSString *boundary = [NSString stringWithFormat:@"----WebKitFormBoundary%@", [self uploadParamDivider]];
@@ -592,7 +592,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [request setHTTPMethod:@"POST"];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    NSString *cookie = [localForumApi loadCookie];
+    NSString *cookie = [localForumApi loadCookieString];
     [request setValue:cookie forHTTPHeaderField:@"Cookie"];
 
     NSString *boundary = [NSString stringWithFormat:@"----WebKitFormBoundary%@", [self uploadParamDivider]];

@@ -225,13 +225,24 @@
         for (cookie in cookies) {
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         }
-        
+
         //NSString *result = [cookies componentsJoinedByString:@"|"];//分隔符
-        
+
         return cookies;
     }
 
     return nil;
+}
+
+- (NSString *)loadCookieString {
+
+    NSArray<NSHTTPCookie *> * cookies = [self loadCookie];
+    NSMutableArray<NSString*> * cookieStrings = [NSMutableArray array];
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieStrings addObject:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value]];
+    }
+    NSString *result = [cookies componentsJoinedByString:@"; "];
+    return result;
 }
 
 - (void)saveCookie {

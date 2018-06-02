@@ -107,7 +107,7 @@
         // 保存Cookie
         [localForumApi saveCookie];
 
-        NSLog(@"TForumLogin.loadCookies: %@", [localForumApi loadCookie]);
+        NSLog(@"TForumLogin.loadCookies: %@", [localForumApi loadCookieString]);
 
         [self.forumApi fetchUserInfo:^(BOOL isSuccess, NSString *userName, NSString *userId) {
             if (isSuccess) {
