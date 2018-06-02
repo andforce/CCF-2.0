@@ -69,7 +69,7 @@
     NSString *avatarInArray = [avatarCache valueForKey:userId];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumBrowserDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    id<ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
 
     if (avatarInArray == nil) {
 

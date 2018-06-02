@@ -18,7 +18,6 @@
 #import "UIStoryboard+Forum.h"
 #import "IGHTMLDocument+QueryNode.h"
 #import "IGXMLNode+Children.h"
-#import "CommonUtils.h"
 
 #define kSecurityToken @"securitytoken"
 
@@ -49,15 +48,15 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 - (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
-    NSMutableDictionary *defparameters = [NSMutableDictionary dictionary];
-    [defparameters setValue:@"2" forKey:@"styleid"];
-    [defparameters setValue:@"1" forKey:@"langid"];
+    NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
+    [defParameters setValue:@"2" forKey:@"styleid"];
+    [defParameters setValue:@"1" forKey:@"langid"];
 
     if (parameters){
-        [defparameters addEntriesFromDictionary:parameters];
+        [defParameters addEntriesFromDictionary:parameters];
     }
 
-    [self.browser GETWithURLString:url parameters:defparameters charset:UTF_8 requestCallback:callback];
+    [self.browser GETWithURLString:url parameters:defParameters charset:UTF_8 requestCallback:callback];
 }
 
 - (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
@@ -484,26 +483,26 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *url = [forumConfig replyWithThreadId:threadId forForumId:-1 replyPostId:-1];
     int forumId = threadPage.forumId;
 
-    NSMutableDictionary *presparameters = [NSMutableDictionary dictionary];
-    [presparameters setValue:@"" forKey:@"message"];
-    [presparameters setValue:@"0" forKey:@"wysiwyg"];
-    [presparameters setValue:@"2" forKey:@"styleid"];
-    [presparameters setValue:@"1" forKey:@"signature"];
-    [presparameters setValue:@"1" forKey:@"fromquickreply"];
-    [presparameters setValue:@"" forKey:@"s"];
-    [presparameters setValue:token forKey:@"securitytoken"];
-    [presparameters setValue:@"postreply" forKey:@"do"];
-    [presparameters setValue:[NSString stringWithFormat:@"%d", threadId] forKey:@"t"];
-    [presparameters setValue:@"who cares" forKey:@"p"];
-    [presparameters setValue:@"0" forKey:@"specifiedpost"];
-    [presparameters setValue:@"1" forKey:@"parseurl"];
+    NSMutableDictionary *preParameters = [NSMutableDictionary dictionary];
+    [preParameters setValue:@"" forKey:@"message"];
+    [preParameters setValue:@"0" forKey:@"wysiwyg"];
+    [preParameters setValue:@"2" forKey:@"styleid"];
+    [preParameters setValue:@"1" forKey:@"signature"];
+    [preParameters setValue:@"1" forKey:@"fromquickreply"];
+    [preParameters setValue:@"" forKey:@"s"];
+    [preParameters setValue:token forKey:@"securitytoken"];
+    [preParameters setValue:@"postreply" forKey:@"do"];
+    [preParameters setValue:[NSString stringWithFormat:@"%d", threadId] forKey:@"t"];
+    [preParameters setValue:@"who cares" forKey:@"p"];
+    [preParameters setValue:@"0" forKey:@"specifiedpost"];
+    [preParameters setValue:@"1" forKey:@"parseurl"];
 
     LocalForumApi *forumApi = [[LocalForumApi alloc] init];
     LoginUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
-    [presparameters setValue:user.userID forKey:@"loggedinuser"];
-    [presparameters setValue:@"进入高级模式" forKey:@"preview"];
+    [preParameters setValue:user.userID forKey:@"loggedinuser"];
+    [preParameters setValue:@"进入高级模式" forKey:@"preview"];
 
-    [self.browser POSTWithURLString:url parameters:presparameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+    [self.browser POSTWithURLString:url parameters:preParameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             NSString *securityToken = [forumParser parseSecurityToken:html];
@@ -1348,8 +1347,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
 
         NSString *threadIdStr = [query valueForKey:@"t"];
-
-
+        
         UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
         ForumWebViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
 

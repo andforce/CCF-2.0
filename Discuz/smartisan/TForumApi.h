@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumBrowser.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 
 
-@interface TForumApi : ForumBrowser<ForumBrowserDelegate>
+@interface TForumApi : ForumBrowser<ForumApiDelegate>
 
 @end

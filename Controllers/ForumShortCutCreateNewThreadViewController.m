@@ -17,7 +17,7 @@
         DeleteDelegate, TransBundleDelegate, UIScrollViewDelegate> {
 
 
-    id<ForumBrowserDelegate> _forumApi;
+    id<ForumApiDelegate> _forumApi;
     int forumId;
     UIImagePickerController *pickControl;
     NSMutableArray<UIImage *> *images;

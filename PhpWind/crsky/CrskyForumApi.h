@@ -7,8 +7,8 @@
 //
 
 #import "ForumBrowser.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 
-@interface CrskyForumApi : ForumBrowser<ForumBrowserDelegate>
+@interface CrskyForumApi : ForumBrowser<ForumApiDelegate>
 
 @end

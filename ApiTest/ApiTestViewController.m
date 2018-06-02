@@ -32,7 +32,7 @@
 
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumBrowserDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    id<ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
 
     [forumApi listAllForums:^(BOOL isSuccess, id message) {
 

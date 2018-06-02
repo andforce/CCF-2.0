@@ -10,7 +10,7 @@
 
 @interface ForumBaseStaticTableViewController : UITableViewController
 
-@property(nonatomic, strong) id<ForumBrowserDelegate> forumApi;
+@property(nonatomic, strong) id<ForumApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;
 @property(nonatomic, assign) int currentPage;
 @property(nonatomic, assign) int totalPage;

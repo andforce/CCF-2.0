@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumConfigDelegate.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 #import "ForumParserDelegate.h"
 
 @class AFHTTPSessionManager;
@@ -16,7 +16,7 @@
 
 @interface ForumApiHelper : NSObject
 
-+ (id <ForumBrowserDelegate>)forumApi:(NSString *)host;
++ (id <ForumApiDelegate>)forumApi:(NSString *)host;
 
 + (id <ForumConfigDelegate>)forumConfig:(NSString *)host;
 

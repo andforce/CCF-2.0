@@ -18,7 +18,7 @@
 
     CGRect screenSize;
 
-    id<ForumBrowserDelegate> _forumApi;
+    id<ForumApiDelegate> _forumApi;
 
 }
 

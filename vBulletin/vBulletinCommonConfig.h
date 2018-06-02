@@ -9,5 +9,5 @@
 
 @interface vBulletinCommonConfig : NSObject <ForumURLCommonConfig, vBulletinConfigDelegate>
 
-@property NSURL *forumURL;
+@property(nonatomic) NSURL *forumURL;
 @end

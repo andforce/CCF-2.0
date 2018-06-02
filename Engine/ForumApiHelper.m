@@ -30,7 +30,7 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 
 
 @implementation ForumApiHelper
-+ (id <ForumBrowserDelegate>)forumApi:(NSString *)host {
++ (id <ForumApiDelegate>)forumApi:(NSString *)host {
 
     if ([host isEqualToString:CCF_HOST]){
 
@@ -122,7 +122,7 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
     return nil;
 }
 
-+ (id <ForumBrowserDelegate>)forumApi {
++ (id <ForumApiDelegate>)forumApi {
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];

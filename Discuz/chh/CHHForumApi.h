@@ -5,8 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumBrowser.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 
 
-@interface CHHForumApi : ForumBrowser<ForumBrowserDelegate>
+@interface CHHForumApi : ForumBrowser<ForumApiDelegate>
 @end

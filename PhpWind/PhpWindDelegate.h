@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 
 typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 

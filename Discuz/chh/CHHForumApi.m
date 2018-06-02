@@ -16,7 +16,7 @@
 #import "NSString+Extensions.h"
 #import "IGXMLNode+Children.h"
 
-typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttime);
+typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttime);
 
 @implementation CHHForumApi {
 
@@ -27,20 +27,20 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
 - (instancetype)init {
     self = [super init];
     if (self){
-        forumConfig = [[CHHForumConfig alloc] init];
+        forumConfig = (id <ForumConfigDelegate>) [[CHHForumConfig alloc] init];
         forumParser = [[CHHForumHtmlParser alloc]init];
     }
     return self;
 }
 
 - (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
-    NSMutableDictionary *defparameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
 
     if (parameters){
-        [defparameters addEntriesFromDictionary:parameters];
+        [defParameters addEntriesFromDictionary:parameters];
     }
 
-    [self.browser GETWithURLString:url parameters:defparameters charset:UTF_8 requestCallback:callback];
+    [self.browser GETWithURLString:url parameters:defParameters charset:UTF_8 requestCallback:callback];
 }
 
 - (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
@@ -213,9 +213,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
 }
 
 - (void)unFavouriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
-    NSString *rurl = @"https://www.chiphell.com/home.php?mod=space&do=favorite&view=me";
+    NSString *urlUnFav = @"https://www.chiphell.com/home.php?mod=space&do=favorite&view=me";
 
-    [self GET:rurl requestCallback:^(BOOL isSuccess, NSString *html) {
+    [self GET:urlUnFav requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
 
@@ -501,7 +501,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
 }
 
 // private 进入图片管理页面，准备上传图片
-- (void)uploadImagePrepair:(int)forumId startPostTime:(NSString *)time postHash:(NSString *)hash :(HandlerWithBool)callback {
+- (void)uploadImagePrepare:(int)forumId startPostTime:(NSString *)time postHash:(NSString *)hash :(HandlerWithBool)callback {
 
     NSString *url = [forumConfig newattachmentForForum:forumId time:time postHash:hash];
 
@@ -568,7 +568,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumhash, NSString *posttim
             }];
         } else {
             // 如果有图片，先传图片
-            [self uploadImagePrepair:fId startPostTime:time postHash:hash :^(BOOL isSuccess, NSString *result) {
+            [self uploadImagePrepare:fId startPostTime:time postHash:hash :^(BOOL isSuccess, NSString *result) {
 
                 if (isSuccess) {
                     // 解析出上传图片需要的参数

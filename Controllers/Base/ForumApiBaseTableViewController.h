@@ -14,7 +14,7 @@
 
 @interface ForumApiBaseTableViewController : TranBundleUITableViewController
 
-@property(nonatomic, strong) id<ForumBrowserDelegate> forumApi;
+@property(nonatomic, strong) id<ForumApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;
 @property(nonatomic, strong) PageNumber *pageNumber;
 

@@ -6,8 +6,10 @@
 #import <Foundation/Foundation.h>
 
 @class Message;
+@class ForumWebViewController;
+@class ViewThreadPage;
 
-@protocol ForumCommonDelegate <NSObject>
+@protocol ForumApiBaseDelegate <NSObject>
 
 // 获取所有的论坛列表
 - (void)listAllForums:(HandlerWithBool)handler;
@@ -47,5 +49,23 @@
 
 // 显示用户信息页面
 - (void)showProfileWithUserId:(NSString *)userId handler:(HandlerWithBool)handler;
+
+// 引用回复楼层
+- (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler;
+
+// 搜索论坛
+// 0.标题 1. 内容 2. 用户
+- (void)searchWithKeyWord:(NSString *)keyWord forType:(int)type handler:(HandlerWithBool)handler;
+
+// 查看新帖
+- (void)listNewThreadWithPage:(int)page handler:(HandlerWithBool)handler;
+
+- (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type  handler:(HandlerWithBool)handler;
+
+
+// 举报违规帖子
+- (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler;
+
+- (BOOL) openUrlByClient:(ForumWebViewController *) controller request:(NSURLRequest *)request;
 
 @end

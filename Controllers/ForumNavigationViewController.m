@@ -7,7 +7,7 @@
 //
 
 #import "ForumNavigationViewController.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
 #import "ForumApiHelper.h"
 #import "LocalForumApi.h"
 

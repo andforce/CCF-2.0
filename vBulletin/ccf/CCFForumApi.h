@@ -5,8 +5,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ForumBrowser.h"
-#import "ForumBrowserDelegate.h"
+#import "ForumApiDelegate.h"
+#import "vBulletinBaseApi.h"
 
 
-@interface CCFForumApi : ForumBrowser<ForumBrowserDelegate>
+@interface CCFForumApi : vBulletinBaseApi<ForumApiDelegate>
 @end
