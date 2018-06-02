@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumParserDelegate.h"
+#import "ForumBaseParserDelegate.h"
 
-@interface CrskyForumHtmlParser : NSObject<ForumParserDelegate>
+@interface CrskyForumHtmlParser : NSObject<ForumBaseParserDelegate>
 
 @end
