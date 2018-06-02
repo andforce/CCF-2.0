@@ -142,7 +142,7 @@
                 [bundle putIntValue:[t intValue] forKey:@"threadID"];
             } else {
                 NSString *p = [query valueForKey:@"p"];
-                [bundle putIntValue:[p intValue] forKey:@"p"];
+                [bundle putIntValue:[p intValue] forKey:@"pId"];
             }
 
 

@@ -46,14 +46,14 @@
 - (void)transBundle:(TransBundle *)bundle {
     userName = [bundle getStringValue:@"USER_NAME"];
     threadId = [bundle getIntValue:@"THREAD_ID"];
-    securityToken = [bundle getStringValue:@"SECYRITY_TOKEN"];
+    securityToken = [bundle getStringValue:@"SECURITY_TOKEN"];
     forumId = [bundle getIntValue:@"FORM_ID"];
     int pid = [bundle getIntValue:@"POST_ID"];
     postId = [NSString stringWithFormat:@"%d", pid];
 
     replyThread = [bundle getObjectValue:@"QUICK_REPLY_THREAD"];
 
-    isQuoteReply = [bundle getIntValue:@"ISQUOTEREPLY"] == 1;
+    isQuoteReply = [bundle getIntValue:@"IS_QUOTE_REPLY"] == 1;
 }
 
 
