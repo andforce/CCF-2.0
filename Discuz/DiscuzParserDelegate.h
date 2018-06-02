@@ -9,7 +9,6 @@
 
 @protocol DiscuzParserDelegate <NSObject>
 
-@optional
 - (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html;
 
 - (ViewForumPage *)parseNoticeMessageFromHtml:(NSString *)html;

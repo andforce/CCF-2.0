@@ -4,8 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumParserDelegate.h"
+#import "ForumBaseParserDelegate.h"
+#import "DiscuzParserDelegate.h"
 
 
-@interface CHHForumHtmlParser : NSObject<ForumParserDelegate>
+@interface CHHForumHtmlParser : NSObject<ForumBaseParserDelegate,DiscuzParserDelegate>
 @end

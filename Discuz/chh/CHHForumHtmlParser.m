@@ -14,13 +14,13 @@
 #import "IGXMLNode+Children.h"
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
+#import "Message.h"
 
 @implementation CHHForumHtmlParser {
 
 }
-- (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)orgHtml {
-
-    NSString * fixImagesHtml = orgHtml;
+- (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
+    NSString * fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
     NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\".*\" zoomfile=\".*\" file=\".*\" class=\"zoom\" onclick=\".*\" width=\".*\" .*"];
     for (NSString *img in orgImages) {
@@ -56,7 +56,7 @@
     showThreadPage.threadTitle = threadTitle;
     showThreadPage.forumId= [forumId intValue];
     showThreadPage.originalHtml = originHtml;
-    
+
     showThreadPage.pageNumber = pageNumber;
 
 
@@ -121,7 +121,7 @@
 
     showThreadPage.postList = postList;
 
-    NSString * forumHash = [self parseSecurityToken:orgHtml];
+    NSString * forumHash = [self parseSecurityToken:html];
     showThreadPage.securityToken = forumHash;
 
     return showThreadPage;
@@ -153,18 +153,7 @@
             // thread Title
             IGXMLNode * titleNode = [threadNode.firstChild childAt:1];
             NSString * titleHtml = titleNode.html;
-            int childrenCount = titleNode.childrenCount;
-//            if (childrenCount == 4){
-//
-//            }
-//            if (childrenCount < 5) {
-//                continue;
-//            }
-//
-//            int titleIndex = 3;
-//            if (![titleHtml containsString:@"<em>[<a href=\"forum.php?mod=forumdisplay&amp;fid="]) {
-//                titleIndex = 2;
-//            }
+
             NSString *threadTitle = [titleHtml stringWithRegular:@"(?<=class=\"s xst\">).*(?=</a>)"];
             if (threadTitle == nil || [threadTitle isEqualToString:@""]){
                 continue;
@@ -277,87 +266,16 @@
     return page;
 }
 
-- (NSString *)parseErrorMessage:(NSString *)html {
+- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html {
     return nil;
 }
 
-- (NSString *)parseSecurityToken:(NSString *)html {
-    //<input type="hidden" name="formhash" value="fc436b99" />
-    NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
-    NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    return forumHash;
-}
-
-- (NSString *)parsePostHash:(NSString *)html {
-    //<input type="hidden" name="formhash" value="142b2f4e" />
-    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
-    return forumHash;
-}
-
-- (NSString *)parserPostStartTime:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseLoginErrorMessage:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuote:(NSString *)html {
-    return nil;
-}
-
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
-    ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
-
-    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
-
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-
-    NSString * xpath = @"result f s0";
-    if (type == 1){
-        xpath = @"result f s3";
+- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
+    if (type == 0){
+        return [self parsePrivateMessageFromHtml:html];
+    } else{
+        return [self parsePostMessageFromHtml:html];
     }
-    IGXMLNodeSet *contents = [document queryWithClassName:xpath];
-    int childCount = contents.count;
-
-    for (int i = 0; i < childCount; ++i) {
-        IGXMLNode *node = contents[(NSUInteger) i];
-        IGXMLNode *titleNode = [[node childAt:0] childAt:0];
-        NSString *href = [titleNode attribute:@"href"];
-        if (![href containsString:@"/thread-"]){
-            continue;
-        }
-
-        Thread *thread = [[Thread alloc] init];
-        NSString *tid = [href stringWithRegular:@"(?<=thread-)\\d+"];
-        NSString *title = [[titleNode text] trim];
-
-        thread.threadID = tid;
-        thread.threadTitle = title;
-
-        [threadList addObject:thread];
-    }
-
-    page.dataList = threadList;
-
-    // 总页数
-    PageNumber *pageNumber = [[PageNumber alloc] init];
-    IGXMLNode *curPageNode = [document queryWithClassName:@"pager-current-foot"].firstObject;
-    NSString *cnHtml = [curPageNode html];
-    int cNumber = [[[curPageNode text] trim] intValue];
-    pageNumber.currentPageNumber = cNumber == 0 ? cNumber + 1 : cNumber;
-    NSString * totalCount = [[document queryNodeWithXPath:@"//*[@id=\"results\"]/span"].text stringWithRegular:@"\\d+"];
-    int tInt = [totalCount intValue];
-    if (tInt % 10 == 0){
-        pageNumber.totalPageNumber = [totalCount intValue] / 10;
-    } else {
-        pageNumber.totalPageNumber = [totalCount intValue] / 10 + 1;
-    }
-
-    page.pageNumber = pageNumber;
-
-
-    return page;
 }
 
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
@@ -449,170 +367,65 @@
     return page;
 }
 
-- (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    //*[@id="favorite_ul"]
-    IGXMLNode * favoriteUl = [document queryNodeWithXPath:@"//*[@id=\"favorite_ul\"]"];
-    IGXMLNodeSet * favoriteLis = favoriteUl.children;
+- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+    ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
 
-    NSMutableArray *ids = [NSMutableArray array];
-
-    for (IGXMLNode *favLi in favoriteLis){
-        IGXMLNode * forumIdNode = [favLi childAt:2];
-        NSString * forumIdNodeHtml = forumIdNode.html;
-        //<a href="forum-196-1.html" target="_blank">GALAX</a>
-        NSString *idsStr = [forumIdNodeHtml stringWithRegular:@"forum-\\d+" andChild:@"\\d+"];
-        [ids addObject:@(idsStr.intValue)];
-        NSLog(@"%@", forumIdNodeHtml);
-    }
-
-    // 通过ids 过滤出Form
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-    NSArray *result = [manager selectData:^NSPredicate * {
-        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];
-    }];
-
-    NSMutableArray<Forum *> *forms = [NSMutableArray arrayWithCapacity:result.count];
-
-    for (ForumEntry *entry in result) {
-        Forum *form = [[Forum alloc] init];
-        form.forumName = entry.forumName;
-        form.forumId = [entry.forumId intValue];
-        [forms addObject:form];
-    }
-    return forms;
-}
-
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
-    if (type == 0){
-        return [self parsePrivateMessageFromHtml:html];
-    } else{
-        return [self parsePostMessageFromHtml:html];
-    }
-}
-
-- (ViewForumPage *)parsePostMessageFromHtml:(NSString *)html {
-    ViewForumPage *page = [[ViewForumPage alloc] init];
+    NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"ct\"]/div[1]/div/div/div"];
+    NSString * xpath = @"result f s0";
+    if (type == 1){
+        xpath = @"result f s3";
+    }
+    IGXMLNodeSet *contents = [document queryWithClassName:xpath];
+    int childCount = contents.count;
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
-    for (IGXMLNode *pmNode in pmRootNode.children){
-        Message *message = [[Message alloc] init];
+    for (int i = 0; i < childCount; ++i) {
+        IGXMLNode *node = contents[(NSUInteger) i];
+        IGXMLNode *titleNode = [[node childAt:0] childAt:0];
+        NSString *href = [titleNode attribute:@"href"];
+        if (![href containsString:@"/thread-"]){
+            continue;
+        }
 
-        BOOL isReaded = NO;
+        Thread *thread = [[Thread alloc] init];
+        NSString *tid = [href stringWithRegular:@"(?<=thread-)\\d+"];
+        NSString *title = [[titleNode text] trim];
 
-        // Title
-        IGXMLNodeSet *actionNode = [pmNode queryWithXPath:@"dd[2]/text()"];
-        NSString * action = [[actionNode[1] text] trim];
-        IGXMLNode *actionTitleNode = [pmNode queryWithXPath:@"dd[2]/a[2]"].firstObject;
-        NSString *pmId = [actionTitleNode attribute:@"href"];
-        NSString *actionTitle = [[actionTitleNode text] trim];
-        NSString * title = [NSString stringWithFormat:@"%@ %@", action, actionTitle];
+        thread.threadID = tid;
+        thread.threadTitle = title;
 
-        // 作者
-        IGXMLNode *authorNode = [pmNode queryWithXPath:@"dd[2]/a[1]"].firstObject;
-        NSString *authorName = [[authorNode text] trim];
-        NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
-
-        // 时间
-        IGXMLNode *timeNode = [pmNode queryWithXPath:@"dt/span"].firstObject;
-        NSString *time = [timeNode text];
-
-        message.isReaded = isReaded;
-        message.pmID = pmId;
-        message.pmAuthor = authorName;
-        message.pmAuthorId = authorId;
-        message.pmTime = time;
-        message.pmTitle = title;
-
-        [messagesList addObject:message];
-
+        [threadList addObject:thread];
     }
 
-    page.dataList = messagesList;
-    PageNumber *pageNumber = [self parserPageNumber:html];
+    page.dataList = threadList;
+
+    // 总页数
+    PageNumber *pageNumber = [[PageNumber alloc] init];
+    IGXMLNode *curPageNode = [document queryWithClassName:@"pager-current-foot"].firstObject;
+    NSString *cnHtml = [curPageNode html];
+    int cNumber = [[[curPageNode text] trim] intValue];
+    pageNumber.currentPageNumber = cNumber == 0 ? cNumber + 1 : cNumber;
+    NSString * totalCount = [[document queryNodeWithXPath:@"//*[@id=\"results\"]/span"].text stringWithRegular:@"\\d+"];
+    int tInt = [totalCount intValue];
+    if (tInt % 10 == 0){
+        pageNumber.totalPageNumber = [totalCount intValue] / 10;
+    } else {
+        pageNumber.totalPageNumber = [totalCount intValue] / 10 + 1;
+    }
+
     page.pageNumber = pageNumber;
-    return page;
-}
 
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html {
-    ViewForumPage *page = [[ViewForumPage alloc] init];
 
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-
-    IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"deletepmform\"]/div[1]"];
-
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
-    for (IGXMLNode *pmNode in pmRootNode.children){
-        Message *message = [[Message alloc] init];
-        NSString *newPm = [pmNode attribute:@"class"];
-        BOOL isReaded = ![newPm isEqualToString:@"bbda cur1 cl newpm"];
-        NSString *pmId = [[pmNode attribute:@"id"] componentsSeparatedByString:@"_"].lastObject;
-
-        //*[@id="pmlist_973711"]/dd[2]/text()[1]
-        IGXMLNodeSet *dd = [pmNode queryWithXPath:@"dd[2]/text()"];
-        NSString * title = [[[dd[4] text] trim] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-
-        IGXMLNode *authorNode = [pmNode queryWithXPath:@"dd[2]/a"].firstObject;
-        NSString *authorName = [[authorNode text] trim];
-        NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
-
-        IGXMLNode *timeNode = [pmNode queryWithXPath:@"dd[2]/span[2]"].firstObject;
-        NSString *time = [timeNode text];
-
-        message.isReaded = isReaded;
-        message.pmID = pmId;
-        message.pmAuthor = authorName;
-        message.pmAuthorId = authorId;
-        message.pmTime = time;
-        message.pmTitle = title;
-
-        [messagesList addObject:message];
-
-    }
-
-    page.dataList = messagesList;
-    PageNumber *pageNumber = [self parserPageNumber:html];
-    page.pageNumber = pageNumber;
     return page;
 }
 
 - (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
-
-    //*[@id="pm_ul"]
-
-    return nil;
-}
-
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTo:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    IGXMLNode *avatarNode = [document queryNodeWithClassName:@"icn avt"];
-    NSString *attrSrc = [[avatarNode.firstChild.firstChild attribute:@"src"] stringByReplacingOccurrencesOfString:@"_avatar_small" withString:@"_avatar_middle"];
-    return attrSrc;
-}
-
-- (NSString *)parseListMyThreadSearchId:(NSString *)html {
     return nil;
 }
 
 - (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
-
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     UserProfile *profile = [[UserProfile alloc] init];
@@ -691,17 +504,42 @@
     return [needInsert copy];
 }
 
-- (NSArray *)flatForm:(Forum *)form {
-    NSMutableArray *resultArray = [NSMutableArray array];
-    [resultArray addObject:form];
-    for (Forum *childForm in form.childForums) {
-        [resultArray addObjectsFromArray:[self flatForm:childForm]];
+- (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    //*[@id="favorite_ul"]
+    IGXMLNode * favoriteUl = [document queryNodeWithXPath:@"//*[@id=\"favorite_ul\"]"];
+    IGXMLNodeSet * favoriteLis = favoriteUl.children;
+
+    NSMutableArray *ids = [NSMutableArray array];
+
+    for (IGXMLNode *favLi in favoriteLis){
+        IGXMLNode * forumIdNode = [favLi childAt:2];
+        NSString * forumIdNodeHtml = forumIdNode.html;
+        //<a href="forum-196-1.html" target="_blank">GALAX</a>
+        NSString *idsStr = [forumIdNodeHtml stringWithRegular:@"forum-\\d+" andChild:@"\\d+"];
+        [ids addObject:@(idsStr.intValue)];
+        NSLog(@"%@", forumIdNodeHtml);
     }
-    return resultArray;
+
+    // 通过ids 过滤出Form
+    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+    NSArray *result = [manager selectData:^NSPredicate * {
+        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];
+    }];
+
+    NSMutableArray<Forum *> *forms = [NSMutableArray arrayWithCapacity:result.count];
+
+    for (ForumEntry *entry in result) {
+        Forum *form = [[Forum alloc] init];
+        form.forumName = entry.forumName;
+        form.forumId = [entry.forumId intValue];
+        [forms addObject:form];
+    }
+    return forms;
 }
 
 - (PageNumber *)parserPageNumber:(NSString *)html {
-
     PageNumber *pageNumber = [[PageNumber alloc] init];
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
@@ -717,6 +555,160 @@
         pageNumber.totalPageNumber = 1;
     }
     return pageNumber;
+}
+
+- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseQuickReplyTitle:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseQuickReplyTo:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+    IGXMLNode *avatarNode = [document queryNodeWithClassName:@"icn avt"];
+    NSString *attrSrc = [[avatarNode.firstChild.firstChild attribute:@"src"] stringByReplacingOccurrencesOfString:@"_avatar_small" withString:@"_avatar_middle"];
+    return attrSrc;
+}
+
+- (NSString *)parseListMyThreadSearchId:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseErrorMessage:(NSString *)html {
+    return nil;
+}
+
+- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html {
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"deletepmform\"]/div[1]"];
+
+    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    for (IGXMLNode *pmNode in pmRootNode.children){
+        Message *message = [[Message alloc] init];
+        NSString *newPm = [pmNode attribute:@"class"];
+        BOOL isReaded = ![newPm isEqualToString:@"bbda cur1 cl newpm"];
+        NSString *pmId = [[pmNode attribute:@"id"] componentsSeparatedByString:@"_"].lastObject;
+
+        //*[@id="pmlist_973711"]/dd[2]/text()[1]
+        IGXMLNodeSet *dd = [pmNode queryWithXPath:@"dd[2]/text()"];
+        NSString * title = [[[dd[4] text] trim] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+
+        IGXMLNode *authorNode = [pmNode queryWithXPath:@"dd[2]/a"].firstObject;
+        NSString *authorName = [[authorNode text] trim];
+        NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
+
+        IGXMLNode *timeNode = [pmNode queryWithXPath:@"dd[2]/span[2]"].firstObject;
+        NSString *time = [timeNode text];
+
+        message.isReaded = isReaded;
+        message.pmID = pmId;
+        message.pmAuthor = authorName;
+        message.pmAuthorId = authorId;
+        message.pmTime = time;
+        message.pmTitle = title;
+
+        [messagesList addObject:message];
+
+    }
+
+    page.dataList = messagesList;
+    PageNumber *pageNumber = [self parserPageNumber:html];
+    page.pageNumber = pageNumber;
+    return page;
+}
+
+- (ViewForumPage *)parseNoticeMessageFromHtml:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseSecurityToken:(NSString *)html {
+    //<input type="hidden" name="formhash" value="fc436b99" />
+    NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
+    NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    return forumHash;
+}
+
+- (NSString *)parsePostHash:(NSString *)html {
+    //<input type="hidden" name="formhash" value="142b2f4e" />
+    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
+    return forumHash;
+}
+
+- (NSString *)parserPostStartTime:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseLoginErrorMessage:(NSString *)html {
+    return nil;
+}
+
+- (NSString *)parseQuote:(NSString *)html {
+    return nil;
+}
+
+- (ViewForumPage *)parsePostMessageFromHtml:(NSString *)html {
+    ViewForumPage *page = [[ViewForumPage alloc] init];
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"ct\"]/div[1]/div/div/div"];
+
+    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    for (IGXMLNode *pmNode in pmRootNode.children){
+        Message *message = [[Message alloc] init];
+
+        BOOL isReaded = NO;
+
+        // Title
+        IGXMLNodeSet *actionNode = [pmNode queryWithXPath:@"dd[2]/text()"];
+        NSString * action = [[actionNode[1] text] trim];
+        IGXMLNode *actionTitleNode = [pmNode queryWithXPath:@"dd[2]/a[2]"].firstObject;
+        NSString *pmId = [actionTitleNode attribute:@"href"];
+        NSString *actionTitle = [[actionTitleNode text] trim];
+        NSString * title = [NSString stringWithFormat:@"%@ %@", action, actionTitle];
+
+        // 作者
+        IGXMLNode *authorNode = [pmNode queryWithXPath:@"dd[2]/a[1]"].firstObject;
+        NSString *authorName = [[authorNode text] trim];
+        NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
+
+        // 时间
+        IGXMLNode *timeNode = [pmNode queryWithXPath:@"dt/span"].firstObject;
+        NSString *time = [timeNode text];
+
+        message.isReaded = isReaded;
+        message.pmID = pmId;
+        message.pmAuthor = authorName;
+        message.pmAuthorId = authorId;
+        message.pmTime = time;
+        message.pmTitle = title;
+
+        [messagesList addObject:message];
+
+    }
+
+    page.dataList = messagesList;
+    PageNumber *pageNumber = [self parserPageNumber:html];
+    page.pageNumber = pageNumber;
+    return page;
+}
+
+- (NSArray *)flatForm:(Forum *)form {
+    NSMutableArray *resultArray = [NSMutableArray array];
+    [resultArray addObject:form];
+    for (Forum *childForm in form.childForums) {
+        [resultArray addObjectsFromArray:[self flatForm:childForm]];
+    }
+    return resultArray;
 }
 
 @end
