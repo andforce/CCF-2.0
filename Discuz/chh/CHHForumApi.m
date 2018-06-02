@@ -20,14 +20,14 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 @implementation CHHForumApi {
 
-    id <ForumConfigDelegate> forumConfig;
-    id <ForumParserDelegate> forumParser;
+    CHHForumConfig* forumConfig;
+    CHHForumHtmlParser* forumParser;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self){
-        forumConfig = (id <ForumConfigDelegate>) [[CHHForumConfig alloc] init];
+        forumConfig = [[CHHForumConfig alloc] init];
         forumParser = [[CHHForumHtmlParser alloc]init];
     }
     return self;
@@ -516,9 +516,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            //NSString *token = [forumParser parseSecurityToken:html];
 
-            //NSString *postTime = [[token componentsSeparatedByString:@"-"] firstObject];
             NSString *hash = [forumParser parsePostHash:html];
 
             NSDate *date = [NSDate date];

@@ -812,6 +812,9 @@
 - (NSString *)parseQuote:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNodeSet *contents = [document queryWithXPath:@"//*[@id=\"vB_Editor_001_textarea\"]/text()"];
+    if (contents.firstObject.text == nil) {
+        return @"";
+    }
     return contents.firstObject.text;
 }
 

@@ -7,8 +7,6 @@
 
 @protocol vBulletinParserDelegate <NSObject>
 
-- (NSString *)parseSecurityToken:(NSString *)html;
-
 - (NSString *)parsePostHash:(NSString *)html;
 
 - (NSString *)parserPostStartTime:(NSString *)html;

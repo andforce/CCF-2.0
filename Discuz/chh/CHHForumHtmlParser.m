@@ -681,4 +681,10 @@
     return resultArray;
 }
 
+- (NSString *)parsePostHash:(NSString *)html {
+    //<input type="hidden" name="formhash" value="142b2f4e" />
+    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
+    return forumHash;
+}
+
 @end

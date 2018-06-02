@@ -24,8 +24,8 @@
 #import "CommonUtils.h"
 
 @implementation TForumApi{
-    id <ForumConfigDelegate> forumConfig;
-    id <ForumParserDelegate> forumParser;
+    TForumConfig* forumConfig;
+    TForumHtmlParser* forumParser;
 }
 
 

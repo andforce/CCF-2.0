@@ -783,6 +783,10 @@
     return [self token:html];
 }
 
+- (NSString *)parsePostHash:(NSString *)html {
+    return nil;
+}
+
 - (NSString *) userId:(NSString *)html{
     NSString * uid = [html stringWithRegular:@"(?<=uid=)\\d+"].trim;
     if ([uid isEqualToString:@"0"]){

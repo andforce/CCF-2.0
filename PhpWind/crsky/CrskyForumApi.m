@@ -24,8 +24,8 @@
 #import "ForumWebViewController.h"
 
 @implementation CrskyForumApi{
-    id <ForumConfigDelegate> forumConfig;
-    id <ForumParserDelegate> forumParser;
+    CrskyForumConfig* forumConfig;
+    CrskyForumHtmlParser* forumParser;
 }
 
 
@@ -332,9 +332,7 @@
     [self GET:replyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
-            NSString * quoteString = [forumParser parseQuote:html];
-
-            NSString * replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
+            NSString * replyContent = [NSString stringWithFormat:@"%@ %@", @"", message];
             [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {

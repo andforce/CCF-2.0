@@ -45,4 +45,8 @@
 
 - (NSString *)parseErrorMessage:(NSString *)html;
 
+- (NSString *)parseSecurityToken:(NSString *)html;
+
+- (NSString *)parsePostHash:(NSString *)html;
+
 @end

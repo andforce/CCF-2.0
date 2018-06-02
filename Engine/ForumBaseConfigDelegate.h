@@ -91,6 +91,10 @@
 
 - (NSString *)loginControllerId;
 
+- (NSString *)privateWithType:(int)type withPage:(int)page;
+
+- (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type;
+
 @optional
 - (NSString *) listUserThreads:(NSString *) userId withPage:(int) page;
 
