@@ -695,8 +695,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         [body appendData:[[NSString stringWithFormat:@"%@\r\n", parameters[param]] dataUsingEncoding:NSUTF8StringEncoding]];
     }
 
-
-
     // add image data
     if (imageData) {
 
@@ -715,7 +713,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     // set the content-length
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long) [body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-
 
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
 
@@ -781,7 +778,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
         }];
     }
-
 }
 
 // private
@@ -813,7 +809,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         [parameters setValue:@"1" forKey:@"titleonly"];
         [parameters setValue:keyWord forKey:@"searchuser"];
     }
-
 
     [parameters setValue:@"1" forKey:@"exactname"];
     [parameters setValue:@"0" forKey:@"replyless"];

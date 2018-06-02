@@ -5,9 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash, NSString *posttime,
-        NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
-
 @protocol DiscuzApiDelegate <NSObject>
 
 #pragma 短消息相关
@@ -15,8 +12,6 @@ typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash
 - (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler;
 
 - (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler;
-
-- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback;
 
 // 发表一个新的帖子
 - (void)createNewThreadWithCategory:(NSString *)categoryName

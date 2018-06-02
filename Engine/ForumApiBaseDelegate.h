@@ -9,6 +9,9 @@
 @class ForumWebViewController;
 @class ViewThreadPage;
 
+typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+        NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
+
 @protocol ForumApiBaseDelegate <NSObject>
 
 // 获取所有的论坛列表
@@ -67,5 +70,7 @@
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler;
 
 - (BOOL) openUrlByClient:(ForumWebViewController *) controller request:(NSURLRequest *)request;
+
+- (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback;
 
 @end
