@@ -27,28 +27,28 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     NSMutableDictionary *listUserThreadRedirectUrlDictionary;
 
-    id <ForumConfigDelegate> forumConfig;
-    id <ForumParserDelegate> forumParser;
+    DRLForumConfig* forumConfig;
+    DRLForumHtmlParser* forumParser;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        forumConfig = (id <ForumConfigDelegate>) [[DRLForumConfig alloc] init];
+        forumConfig = [[DRLForumConfig alloc] init];
         forumParser = [[DRLForumHtmlParser alloc] init];
     }
     return self;
 }
 
 - (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback {
-    NSMutableDictionary *defparameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
     [parameters setValue:@"3" forKey:@"styleid"];
 
     if (parameters) {
-        [defparameters addEntriesFromDictionary:parameters];
+        [defParameters addEntriesFromDictionary:parameters];
     }
 
-    [self.browser GETWithURLString:url parameters:defparameters charset:UTF_8 requestCallback:callback];
+    [self.browser GETWithURLString:url parameters:defParameters charset:UTF_8 requestCallback:callback];
 }
 
 - (void)GET:(NSString *)url requestCallback:(RequestCallback)callback {
@@ -425,7 +425,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 - (void)reply:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
 
     int threadId = threadPage.threadID;
-    NSString *token = threadPage.securityToken;
     int forumId = threadPage.forumId;
     NSString *url = [forumConfig replyWithThreadId:threadId forForumId:-1 replyPostId:-1];
 
