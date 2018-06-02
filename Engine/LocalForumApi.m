@@ -296,7 +296,7 @@
     } else if([bundleId isEqualToString:@"com.andforce.Crsky"]){
         return @"http://bbs.crsky.com/";
     } else if ([bundleId isEqualToString:@"com.andforce.CHH"]){
-        return @"https://chiphell.com/";
+        return @"https://www.chiphell.com/";
     } else{
         NSString *forumUrl = [_userDefaults valueForKey:@"currentForumURL"];
         return forumUrl;

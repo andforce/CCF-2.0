@@ -82,7 +82,7 @@
 }
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId {
-    return @"%@u.php?action=favor&";
+    return [NSString stringWithFormat:@"%@u.php?action=favor&",_forumURL.absoluteString];
 }
 
 - (NSString *)listFavorThreads:(int)userId withPage:(int)page {

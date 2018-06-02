@@ -10,101 +10,69 @@
 @implementation CHHForumConfig
 
 #pragma mark
+
 - (instancetype)init {
     self = [super init];
-    super.forumURL = [NSURL URLWithString:@"https://chiphell.com/"];
+    super.forumURL = [NSURL URLWithString:@"https://www.chiphell.com/"];
     return self;
 }
 
+#pragma mark Overide
 
 - (NSString *)archive {
-    return @"https://chiphell.com/archiver/";
+    return [NSString stringWithFormat:@"%@archiver/", super.forumURL.absoluteString];
 }
 
 
 - (NSString *)searchThreadWithUserId:(NSString *)userId {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&uid=%@&do=thread&view=me&type=thread&order=dateline&from=space&page=", userId];
+    return [NSString stringWithFormat:@"%@home.php?mod=space&uid=%@&do=thread&view=me&type=thread&order=dateline&from=space&page=", super.forumURL.absoluteString, userId];
 }
 
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId {
-    return @"https://www.chiphell.com/home.php?mod=spacecp&ac=favorite&op=delete&type=all&checkall=1";
-}
-
-- (NSString *)listFavorThreads:(int)userId withPage:(int)page {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=favorite&type=thread&page=%d", page];
+    return @"%@home.php?mod=spacecp&ac=favorite&op=delete&type=all&checkall=1";
 }
 
 - (NSString *)forumDisplayWithId:(NSString *)forumId withPage:(int)page {
 
-    return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=forumdisplay&fid=%@&forumdefstyle=yes&page=%d", forumId, page];
+    return [NSString stringWithFormat:@"%@forum.php?mod=forumdisplay&fid=%@&forumdefstyle=yes&page=%d", super.forumURL.absoluteString, forumId, page];
 }
 
 - (NSString *)searchNewThread:(int)page {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=guide&view=hot&page=%d", page];
+    return [NSString stringWithFormat:@"%@forum.php?mod=guide&view=hot&page=%d", super.forumURL.absoluteString, page];
 }
 
 - (NSString *)replyWithThreadId:(int)threadId forForumId:(int)forumId replyPostId:(int)postId {
 
-    if (postId != -1){  //  回复某个楼层
-        return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&tid=%d&extra=page%%3D1&replysubmit=yes", forumId ,threadId];
-    } else{
-        return [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&tid=%d&extra=&replysubmit=yes", forumId, threadId];
+    if (postId != -1) {  //  回复某个楼层
+        return [NSString stringWithFormat:@"%@forum.php?mod=post&action=reply&fid=%d&tid=%d&extra=page%%3D1&replysubmit=yes", super.forumURL.absoluteString, forumId, threadId];
+    } else {
+        return [NSString stringWithFormat:@"%@forum.php?mod=post&action=reply&fid=%d&tid=%d&extra=&replysubmit=yes", super.forumURL.absoluteString, forumId, threadId];
     }
 }
 
 
-- (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page {
-    return [NSString stringWithFormat:@"https://chiphell.com/thread-%@-%d-1.html", threadId, page];
-}
-
-
-- (NSString *)avatar:(NSString *)avatar {
-    return avatar;
-}
-
-- (NSString *)avatarBase {
-    return @"";
-}
-
-- (NSString *)avatarNo {
-    return @"/no_avatar.gif";
-}
-
-- (NSString *)memberWithUserId:(NSString *)userId {
-    return [NSString stringWithFormat:@"https://chiphell.com/home.php?mod=space&uid=%@", userId];
-}
-
 - (NSString *)login {
-    return @"https://www.chiphell.com/member.php?mod=logging&action=login&referer=https%3A%2F%2Fwww.chiphell.com%2Fforum.php&cookietime=1";
-}
-
-
-- (NSString *)createNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:@"https://chiphell.com/forum.php?mod=post&action=newthread&fid=%@&extra=&topicsubmit=yes", forumId];
-}
-
-- (NSString *)enterCreateNewThreadWithForumId:(NSString *)forumId {
-    return [NSString stringWithFormat:@"https://chiphell.com/forum.php?mod=post&action=newthread&fid=%@", forumId];
+    return [NSString stringWithFormat:@"%@member.php?mod=logging&action=login&referer=https%%3A%%2F%%2Fwww.chiphell.com%%2Fforum.php&cookietime=1", super.forumURL.absoluteString];
 }
 
 
 - (NSString *)privateWithType:(int)type withPage:(int)page {
 
-    if (type == 0){
-        return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=pm&filter=privatepm&page=%d", page];
-    } else{
-        return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=notice&view=mypost&page=%d", page];
+    if (type == 0) {
+        return [NSString stringWithFormat:@"%@home.php?mod=space&do=pm&filter=privatepm&page=%d", super.forumURL.absoluteString, page];
+    } else {
+        return [NSString stringWithFormat:@"%@home.php?mod=space&do=notice&view=mypost&page=%d", super.forumURL.absoluteString, page];
     }
 }
 
 - (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type {
-    return [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=space&do=pm&subop=view&touid=%d#last", messageId];
+    return [NSString stringWithFormat:@"%@home.php?mod=space&do=pm&subop=view&touid=%d#last", super.forumURL.absoluteString, messageId];
 }
 
 
 - (NSString *)favoriteForums {
-    return @"https://www.chiphell.com/home.php?mod=space&do=favorite&type=forum";
+    return [NSString stringWithFormat:@"%@home.php?mod=space&do=favorite&type=forum", super.forumURL.absoluteString];
 }
 
 
@@ -113,6 +81,7 @@
 }
 
 #pragma mark ForumCommonConfigDelegate
+
 - (UIColor *)themeColor {
     return [UIColor redColor];
 }
