@@ -502,18 +502,6 @@
     return pageNumber;
 }
 
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTo:(NSString *)html {
-    return nil;
-}
-
 - (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
     return nil;
 }
@@ -582,22 +570,6 @@
 }
 
 - (NSString *)parseSecurityToken:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parsePostHash:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parserPostStartTime:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseLoginErrorMessage:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuote:(NSString *)html {
     return nil;
 }
 

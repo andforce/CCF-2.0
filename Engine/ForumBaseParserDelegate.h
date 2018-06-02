@@ -39,12 +39,6 @@
 // 动作相关
 - (PageNumber *) parserPageNumber:(NSString *)html;
 
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html;
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html;
-
-- (NSString *)parseQuickReplyTo:(NSString *)html;
-
 - (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId;
 
 - (NSString *)parseListMyThreadSearchId:(NSString *)html;

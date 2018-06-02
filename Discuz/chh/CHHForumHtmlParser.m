@@ -557,18 +557,6 @@
     return pageNumber;
 }
 
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTo:(NSString *)html {
-    return nil;
-}
-
 - (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNode *avatarNode = [document queryNodeWithClassName:@"icn avt"];
@@ -635,24 +623,6 @@
     NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
     NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     return forumHash;
-}
-
-- (NSString *)parsePostHash:(NSString *)html {
-    //<input type="hidden" name="formhash" value="142b2f4e" />
-    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
-    return forumHash;
-}
-
-- (NSString *)parserPostStartTime:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseLoginErrorMessage:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuote:(NSString *)html {
-    return nil;
 }
 
 - (ViewForumPage *)parsePostMessageFromHtml:(NSString *)html {

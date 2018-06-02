@@ -649,18 +649,6 @@
     return pageNumber;
 }
 
-- (NSString *)parseQuickReplyQuoteContent:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTitle:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseQuickReplyTo:(NSString *)html {
-    return nil;
-}
-
 - (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNode *picNode = [document queryNodeWithClassName:@"pic"];

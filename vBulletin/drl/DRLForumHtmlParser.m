@@ -122,7 +122,7 @@
             normalThread.isTopThread = [self isStickyThread:titleHtml];
 
             // 判断是不是精华帖子
-            normalThread.isGoodNess = [self isGoodNessThread:titleHtml];
+            normalThread.isGoodNess = [self isGoodnessThread:titleHtml];
 
             // 是否包含小别针
             normalThread.isContainsImage = [self isContainsImagesThread:titleHtml];
@@ -799,7 +799,7 @@
 }
 
 // private 判断是不是精华帖子
-- (BOOL)isGoodNessThread:(NSString *)postTitleHtml {
+- (BOOL)isGoodnessThread:(NSString *)postTitleHtml {
     return [postTitleHtml containsString:@"images/drl2/misc/elite_posticon.gif"];
 }
 
@@ -869,18 +869,6 @@
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNodeSet *contents = [document queryWithXPath:@"//*[@id='vBulletin_editor']/table/tr[2]/td[1]/textarea"];
     return contents.firstObject.text;
-}
-
-
-// private
--(NSString *)parseListMyThreadRedirectUrl:(NSString *)html{
-    NSString * xPath = @"/html/body/table/tr/td/div[2]/div/div/table[1]/tr/td[2]/table/tr[2]/td/a";
-    
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
-    IGXMLNodeSet * nodeSet = [document queryWithXPath:xPath];
-    
-    return [nodeSet.firstObject attribute:@"href"];
-    
 }
 
 // for drl
