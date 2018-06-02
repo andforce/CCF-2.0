@@ -4,9 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumBrowser.h"
-#import "ForumApiDelegate.h"
 #import "vBulletinBaseApi.h"
 
-@interface DRLForumApi : vBulletinBaseApi<ForumApiDelegate>
+@interface DRLForumApi : vBulletinBaseApi
 @end

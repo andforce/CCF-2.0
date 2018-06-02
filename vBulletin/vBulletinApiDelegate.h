@@ -5,12 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ViewForumPage.h"
 
 @class Message;
 
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
-@protocol vBulletinDelegate <NSObject>
+@protocol vBulletinApiDelegate <NSObject>
 
 // 登录论坛
 @optional

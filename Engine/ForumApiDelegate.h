@@ -11,9 +11,9 @@
 #import "ViewSearchForumPage.h"
 #import "ForumConfigDelegate.h"
 #import "Forum.h"
-#import "vBulletinDelegate.h"
-#import "DiscuzDelegate.h"
-#import "PhpWindDelegate.h"
+#import "vBulletinApiDelegate.h"
+#import "DiscuzApiDelegate.h"
+#import "PhpWindApiDelegate.h"
 #import "ForumApiBaseDelegate.h"
 
 @class ViewThreadPage;
@@ -25,7 +25,7 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
 typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
-@protocol ForumApiDelegate <ForumApiBaseDelegate, vBulletinDelegate, DiscuzDelegate, PhpWindDelegate>
+@protocol ForumApiDelegate <ForumApiBaseDelegate, vBulletinApiDelegate, DiscuzApiDelegate, PhpWindApiDelegate>
 
 
 @end

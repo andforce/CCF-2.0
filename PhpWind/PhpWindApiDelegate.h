@@ -8,7 +8,7 @@
 
 typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
-@protocol PhpWindDelegate <NSObject>
+@protocol PhpWindApiDelegate <NSObject>
 
 @optional
 

@@ -8,7 +8,7 @@
 typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash, NSString *posttime,
         NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
 
-@protocol DiscuzDelegate <NSObject>
+@protocol DiscuzApiDelegate <NSObject>
 
 #pragma 短消息相关
 @optional
