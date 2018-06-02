@@ -42,7 +42,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 - (instancetype)init {
     self = [super init];
     if (self){
-        forumConfig = [[CCFForumConfig alloc] init];
+        forumConfig = (id <ForumConfigDelegate>) [[CCFForumConfig alloc] init];
         forumParser = [[CCFForumHtmlParser alloc]init];
     }
     return self;
@@ -1376,9 +1376,9 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         [scanner scanCharactersFromSet:delimiterSet intoString:NULL];
         NSArray *kvPair = [pairString componentsSeparatedByString:@"="];
         if (kvPair.count == 2) {
-            NSString *key = [[kvPair objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            NSString *value = [[kvPair objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:encoding];
-            [pairs setObject:value forKey:key];
+            NSString *key = [kvPair[0] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            NSString *value = [kvPair[1] stringByReplacingPercentEscapesUsingEncoding:encoding];
+            pairs[key] = value;
         }
     }
 
