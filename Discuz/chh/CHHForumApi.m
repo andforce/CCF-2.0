@@ -237,8 +237,8 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
 
-    NSString *rurl = @"https://www.chiphell.com/home.php?mod=space&do=favorite&view=me";
-    [self GET:rurl requestCallback:^(BOOL isSuccess, NSString *html) {
+    NSString *unFavUrl = @"https://www.chiphell.com/home.php?mod=space&do=favorite&view=me";
+    [self GET:unFavUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
 
@@ -375,8 +375,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)showThreadWithId:(int)threadId andPage:(int)page handler:(HandlerWithBool)handler {
 
-    //https://www.chiphell.com/thread-1732141-2-1.html
-
     NSString *url = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
@@ -439,13 +437,11 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 // private
 - (NSString *)checkError:(NSString *)html {
-    NSString *duplicate = @"<p><strong>此帖是您在最后 5 分钟发表的帖子的副本，您将返回该主题。</strong></p>";
-    //NSString *tooShot = @"<ol><li>您输入的信息太短，您发布的信息至少为 5 个字符。</li></ol>";
-    NSString *tooFast = @"<ol><li>本论坛允许的发表两个帖子的时间间隔必须大于 30 秒。请等待";
 
+    NSString *duplicate = @"<p><strong>此帖是您在最后 5 分钟发表的帖子的副本，您将返回该主题。</strong></p>";
+    NSString *tooFast = @"<ol><li>本论坛允许的发表两个帖子的时间间隔必须大于 30 秒。请等待";
     NSString *searchFailed = @"<ol><li>对不起，没有匹配记录。请尝试采用其他条件查询。";
     NSString *searchTooFast = @"<ol><li>本论坛允许的进行两次搜索的时间间隔必须大于 30 秒";
-
     NSString *urlLost = @"<div style=\"margin: 10px\">没有指定 主题 。如果您来自一个有效链接，请通知<a href=\"sendmessage.php\">管理员</a></div>";
     NSString *permission = @"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>";
 
