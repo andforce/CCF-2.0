@@ -4,7 +4,6 @@
 //
 
 #import "vBulletinCommonConfig.h"
-#import "DeviceName.h"
 
 
 @implementation vBulletinCommonConfig
