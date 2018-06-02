@@ -60,8 +60,6 @@
 // ShowThread
 - (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page;
 
-- (NSString *)showThreadWithP:(NSString *)p;
-
 // 复制
 - (NSString *)copyThreadUrl:(NSString *) threadId withPostId:(NSString *)postId withPostCout:(int)postCount;
 

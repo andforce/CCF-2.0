@@ -19,4 +19,6 @@
 - (NSString *)privateReplyWithMessage;
 
 - (NSString *)privateNewPre;
+
+- (NSString *)showThreadWithP:(NSString *)p;
 @end

@@ -111,10 +111,6 @@
     return [NSString stringWithFormat:@"%@thread-%@-%d-1.html", _forumURL.absoluteString, threadId, page];
 }
 
-- (NSString *)showThreadWithP:(NSString *)p {
-    return nil;
-}
-
 - (NSString *)copyThreadUrl:(NSString *)threadId withPostId:(NSString *)postId withPostCout:(int)postCount {
     NSString *fixPostId = postId;
     if ([fixPostId isEqualToString:@"0"]) {
