@@ -14,6 +14,7 @@
 #import "UIStoryboard+Forum.h"
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
+#import "ViewMessage.h"
 
 @interface ForumDiscuzShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TransBundleDelegate> {
 
@@ -71,13 +72,14 @@
             type = 2;
         }
 
-        [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmID intValue] withType:type handler:^(BOOL isSuccess, id message) {
+        [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmAuthorId intValue] withType:type handler:^(BOOL isSuccess, id message) {
 
             ViewMessagePage *content = message;
+            ViewMessage * viewMessage = content.viewMessages.firstObject;
 
-            NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, content.pmUserInfo.userID, content.pmUserInfo.userAvatar, content.pmUserInfo.userName, content.pmTime, content.pmContent];
+            NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
 
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, content.pmTitle, postInfo];
+            NSString *html = [NSString stringWithFormat:THREAD_PAGE, viewMessage.pmTitle, postInfo];
 
             LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
@@ -90,13 +92,13 @@
 }
 
 - (void)showUserProfile:(NSIndexPath *)indexPath {
-    ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
-
-    ViewMessagePage *message = self.dataList[(NSUInteger) indexPath.row];
-    TransBundle *bundle = [[TransBundle alloc] init];
-    [bundle putIntValue:[message.pmUserInfo.userID intValue] forKey:@"UserId"];
-
-    [self transBundle:bundle forController:controller];
+//    ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
+//
+//    ViewMessagePage *message = self.dataList[(NSUInteger) indexPath.row];
+//    TransBundle *bundle = [[TransBundle alloc] init];
+//    [bundle putIntValue:[message.pmUserInfo.userID intValue] forKey:@"UserId"];
+//
+//    [self transBundle:bundle forController:controller];
 }
 
 - (NSDictionary *)dictionaryFromQuery:(NSString *)query usingEncoding:(NSStringEncoding)encoding {

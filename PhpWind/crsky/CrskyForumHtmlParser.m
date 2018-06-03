@@ -15,6 +15,7 @@
 #import "CommonUtils.h"
 #import "Message.h"
 #import "LoginUser.h"
+#import "ViewMessage.h"
 
 @implementation CrskyForumHtmlParser{
     LocalForumApi *localApi;
@@ -498,31 +499,40 @@
 }
 
 - (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+
     ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+
+    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNode * infoBaseNode = [document queryNodeWithXPath:@"//*[@id=\"info_base\"]"];
     // pm ID
     NSString * pmId = [infoBaseNode.html stringWithRegular:@"(?<=mid=)\\d+"];
-    privateMessage.pmID = pmId;
+    viewMessage.pmID = pmId;
 
     // pm Title
     NSString *pmTitle = [[[infoBaseNode childAt:0] childAt:1] childAt:1].text.trim;
-    privateMessage.pmTitle = pmTitle;
+    viewMessage.pmTitle = pmTitle;
 
     NSString *pmTime = [[[infoBaseNode childAt:0] childAt:2] childAt:1].text.trim;
-    privateMessage.pmTime = [CommonUtils timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm"];
+    viewMessage.pmTime = [CommonUtils timeForShort:pmTime withFormat:@"yyyy-MM-dd HH:mm"];
 
     NSString *pmContent = [[[infoBaseNode childAt:0] childAt:3] childAt:1].html;
     NSString * content = [NSString stringWithFormat:@"<div style=\"overflow-x: hidden;\">%@</div>", pmContent];
-    privateMessage.pmContent = content;
+    viewMessage.pmContent = content;
 
     User *pmAuthor = [[User alloc] init];
     IGXMLNode *authorNode = [[[infoBaseNode childAt:0] childAt:0] childAt:1];
     pmAuthor.userName = authorNode.text.trim;
     pmAuthor.userID = [self userId:authorNode.html];
 
-    privateMessage.pmUserInfo = pmAuthor;
+    viewMessage.pmUserInfo = pmAuthor;
+
+    NSMutableArray *datas = [NSMutableArray array];
+    [datas addObject:viewMessage];
+
+    privateMessage.viewMessages = datas;
     return privateMessage;
 }
 

@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
 #import "CommonUtils.h"
+#import "ViewMessage.h"
 
 @implementation CCFForumHtmlParser {
 
@@ -358,21 +359,25 @@
 
     // message content
     ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+
+    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+
+
     IGXMLNodeSet *contentNodeSet = [document queryWithXPath:@"//*[@id='post_message_']"];
-    privateMessage.pmContent = [[contentNodeSet firstObject] html];
+    viewMessage.pmContent = [[contentNodeSet firstObject] html];
     // 回帖时间
     IGXMLNodeSet *privateSendTimeSet = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/text()"];
     NSString *timeLong = [[privateSendTimeSet[2] text] trim];
-    privateMessage.pmTime = [CommonUtils timeForShort:timeLong withFormat:@"yyyy-MM-dd, HH:mm:ss"];
+    viewMessage.pmTime = [CommonUtils timeForShort:timeLong withFormat:@"yyyy-MM-dd, HH:mm:ss"];
     // PM ID
     IGXMLNodeSet *privateMessageIdSet = [document queryWithXPath:@"/html/body/div[2]/div/div/table[2]/tr/td[1]/table/tr[2]/td/a"];
     NSString *pmId = [[[privateMessageIdSet firstObject] attribute:@"href"] stringWithRegular:@"\\d+"];
-    privateMessage.pmID = pmId;
+    viewMessage.pmID = pmId;
 
     // PM Title
     IGXMLNodeSet *pmTitleSet = [document queryWithXPath:@"/html/body/div[2]/div/div/table[2]/tr/td[1]/table/tr[2]/td/strong"];
     NSString *pmTitle = [[[pmTitleSet firstObject] text] trim];
-    privateMessage.pmTitle = pmTitle;
+    viewMessage.pmTitle = pmTitle;
 
 
     // User Info
@@ -405,7 +410,12 @@
     NSString *postCount = [[[[[[[userInfoNode childAt:4] childAt:1] childAt:2] text] trim] componentsSeparatedByString:@": "] lastObject];
     pmAuthor.userPostCount = postCount;
 
-    privateMessage.pmUserInfo = pmAuthor;
+    viewMessage.pmUserInfo = pmAuthor;
+
+    NSMutableArray *datas = [NSMutableArray array];
+    [datas addObject:viewMessage];
+
+    privateMessage.viewMessages = datas;
     return privateMessage;
 }
 

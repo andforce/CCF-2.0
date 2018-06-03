@@ -10,10 +10,11 @@
 
 @interface ViewMessagePage : NSObject
 
-@property(nonatomic, strong) User *pmUserInfo;
-@property(nonatomic, strong) NSString *pmID;
-@property(nonatomic, strong) NSString *pmTitle;
-@property(nonatomic, strong) NSString *pmTime;
-@property(nonatomic, strong) NSString *pmContent;
+@property(nonatomic, strong) NSMutableArray *viewMessages;
+//@property(nonatomic, strong) User *pmUserInfo;
+//@property(nonatomic, strong) NSString *pmID;
+//@property(nonatomic, strong) NSString *pmTitle;
+//@property(nonatomic, strong) NSString *pmTime;
+//@property(nonatomic, strong) NSString *pmContent;
 
 @end

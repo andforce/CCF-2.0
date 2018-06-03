@@ -15,6 +15,8 @@
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
 #import "Message.h"
+#import "CommonUtils.h"
+#import "ViewMessage.h"
 
 @implementation CHHForumHtmlParser {
 
@@ -410,7 +412,69 @@
 }
 
 - (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
-    return nil;
+
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+    // message content
+    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+
+    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+
+    IGXMLNodeSet *contentNodeSet = [document queryWithXPath:@"//*[@id='post_message_']"];
+    viewMessage.pmContent = [[contentNodeSet firstObject] html];
+    // 回帖时间
+    IGXMLNodeSet *privateSendTimeSet = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/text()"];
+    NSString *timeLong = [[privateSendTimeSet[2] text] trim];
+    viewMessage.pmTime = [CommonUtils timeForShort:timeLong withFormat:@"yyyy-MM-dd, HH:mm:ss"];
+    // PM ID
+    IGXMLNodeSet *privateMessageIdSet = [document queryWithXPath:@"/html/body/div[2]/div/div/table[2]/tr/td[1]/table/tr[2]/td/a"];
+    NSString *pmId = [[[privateMessageIdSet firstObject] attribute:@"href"] stringWithRegular:@"\\d+"];
+    viewMessage.pmID = pmId;
+
+    // PM Title
+    IGXMLNodeSet *pmTitleSet = [document queryWithXPath:@"/html/body/div[2]/div/div/table[2]/tr/td[1]/table/tr[2]/td/strong"];
+    NSString *pmTitle = [[[pmTitleSet firstObject] text] trim];
+    viewMessage.pmTitle = pmTitle;
+
+
+    // User Info
+    User *pmAuthor = [[User alloc] init];
+    IGXMLNode *userInfoNode = [document queryNodeWithXPath:@"//*[@id='post']/tr[1]/td[1]"];
+    // 用户名
+    NSString *name = [[[userInfoNode childAt:0] childAt:0] text];
+    pmAuthor.userName = name;
+    // 用户ID
+    NSString *userId = [[[[userInfoNode childAt:0] childAt:0] attribute:@"href"] stringWithRegular:@"\\d+"];
+    pmAuthor.userID = userId;
+
+    // 用户头像
+    NSString *userAvatar = [[[[[[userInfoNode childAt:1] childAt:1] childAt:0] attribute:@"src"] componentsSeparatedByString:@"/"] lastObject];
+    if (userAvatar) {
+        NSString *avatarPattern = @"%@/%@";
+        userAvatar = [NSString stringWithFormat:avatarPattern, avatarBase, userAvatar];
+    } else {
+        userAvatar = avatarNO;
+    }
+    pmAuthor.userAvatar = userAvatar;
+
+    // 用户等级
+    NSString *userRank = [[userInfoNode childAt:3] text];
+    pmAuthor.userRank = userRank;
+    // 注册日期
+    NSString *userSignDate = [[[[[[userInfoNode childAt:4] childAt:1] childAt:1] text] componentsSeparatedByString:@": "] lastObject];
+    pmAuthor.userSignDate = userSignDate;
+    // 帖子数量
+    NSString *postCount = [[[[[[[userInfoNode childAt:4] childAt:1] childAt:2] text] trim] componentsSeparatedByString:@": "] lastObject];
+    pmAuthor.userPostCount = postCount;
+
+    viewMessage.pmUserInfo = pmAuthor;
+
+    NSMutableArray *datas = [NSMutableArray array];
+    [datas addObject:viewMessage];
+
+    privateMessage.viewMessages = datas;
+
+    return privateMessage;
 }
 
 - (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {

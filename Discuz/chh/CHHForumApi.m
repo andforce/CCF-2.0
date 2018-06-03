@@ -15,6 +15,7 @@
 #import "LocalForumApi.h"
 #import "NSString+Extensions.h"
 #import "IGXMLNode+Children.h"
+#import "ViewMessage.h"
 
 typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttime);
 
@@ -919,13 +920,15 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            if (![content.pmUserInfo.userID isEqualToString:@"-1"]){
-                [self getAvatarWithUserId:content.pmUserInfo.userID handler:^(BOOL success, id message) {
-                    content.pmUserInfo.userAvatar = message;
+            ViewMessage * viewMessage = content.viewMessages.firstObject;
+
+            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]){
+                [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
+                    viewMessage.pmUserInfo.userAvatar = message;
                     handler(YES, content);
                 }];
             } else{
-                content.pmUserInfo.userAvatar = forumConfig.avatarNo;
+                viewMessage.pmUserInfo.userAvatar = forumConfig.avatarNo;
                 handler(YES, content);
             }
         } else {

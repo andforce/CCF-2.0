@@ -16,6 +16,7 @@
 #import "LocalForumApi.h"
 #import "CommonUtils.h"
 #import "Message.h"
+#import "ViewMessage.h"
 
 @implementation DRLForumHtmlParser {
 
@@ -348,26 +349,28 @@
 - (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    // ===== message content =====
     ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+
+    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+    // ===== message content =====
 
     // PM Title
     IGXMLNode *pmTitleNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[1]/tr/td"].firstObject;
     NSString *pmTitle = [[pmTitleNode text] trim];
-    privateMessage.pmTitle = pmTitle;
+    viewMessage.pmTitle = pmTitle;
 
     // PM Content
     IGXMLNode *contentNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[2]/div"].firstObject;
-    privateMessage.pmContent = [contentNode html];
+    viewMessage.pmContent = [contentNode html];
 
     // 回帖时间
     IGXMLNode *timeNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[1]/td[1]/text()"].firstObject;
-    privateMessage.pmTime = [timeNode.text trim];
+    viewMessage.pmTime = [timeNode.text trim];
 
     // PM ID
     IGXMLNode *idNode = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[4]/td/a[2]"].firstObject;
     NSString *pmId = [[idNode attribute:@"href"] stringWithRegular:@"\\d+"];
-    privateMessage.pmID = pmId;
+    viewMessage.pmID = pmId;
 
     // ===== User Info =====
     User *pmAuthor = [[User alloc] init];
@@ -398,7 +401,13 @@
     NSString *postCount = [[[[document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[5]/fieldset/div[2]/text()"] text] trim] componentsSeparatedByString:@": "].lastObject;
     pmAuthor.userPostCount = postCount;
 
-    privateMessage.pmUserInfo = pmAuthor;
+    viewMessage.pmUserInfo = pmAuthor;
+
+    NSMutableArray *datas = [NSMutableArray array];
+    [datas addObject:viewMessage];
+
+    privateMessage.viewMessages = datas;
+
     return privateMessage;
 }
 

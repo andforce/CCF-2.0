@@ -22,6 +22,7 @@
 #import "TransBundle.h"
 #import "UIStoryboard+Forum.h"
 #import "ForumWebViewController.h"
+#import "ViewMessage.h"
 
 @implementation CrskyForumApi{
     CrskyForumConfig* forumConfig;
@@ -412,13 +413,15 @@
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            if (![content.pmUserInfo.userID isEqualToString:@"-1"]){
-                [self getAvatarWithUserId:content.pmUserInfo.userID handler:^(BOOL success, id message) {
-                    content.pmUserInfo.userAvatar = message;
+            ViewMessage * viewMessage = content.viewMessages.firstObject;
+
+            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]){
+                [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
+                    viewMessage.pmUserInfo.userAvatar = message;
                     handler(YES, content);
                 }];
             } else{
-                content.pmUserInfo.userAvatar = forumConfig.avatarNo;
+                viewMessage.pmUserInfo.userAvatar = forumConfig.avatarNo;
                 handler(YES, content);
             }
         } else {
