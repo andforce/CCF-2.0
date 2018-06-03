@@ -540,7 +540,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                     NSMutableString * newMessage = [NSMutableString string];
                     [newMessage appendString:message];
                     for (NSString *image in hasUploadImages){
-                        NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+                        NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
                         [newMessage appendString:format];
 
                         [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
@@ -585,7 +585,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             NSMutableString * newMessage = [NSMutableString string];
             [newMessage appendString:message];
             for (NSString *image in hasUploadImages){
-                NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+                NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
                 [newMessage appendString:format];
 
                 [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
@@ -659,7 +659,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         NSMutableString * newMessage = [NSMutableString string];
         [newMessage appendString:message];
         for (NSString *image in images){
-            NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+            NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
             [newMessage appendString:format];
 
             [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
