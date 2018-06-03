@@ -149,14 +149,6 @@
         _seccodehash = seccodehash;
         _seccodeverify = seccodeverify;
         _typeidList = typeidList;
-
-        if (typeidList.count > 0){
-            _category.titleLabel.text = @"[请选分类]";
-            _category.enabled = YES;
-        } else{
-            _category.titleLabel.text = @"[无分类]";
-            _category.enabled = NO;
-        }
         
         AFImageDownloader *downloader = [[vCodeImgV class] sharedImageDownloader];
         id <AFImageRequestCache> imageCache = downloader.imageCache;
@@ -194,6 +186,16 @@
             [ProgressDialog dismiss];
         } else {
             [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        if ( typeidList.allKeys.count > 0){
+            [_category setTitle:@"[请选分类]" forState:UIControlStateNormal];
+            [_category setTitle:@"[请选分类]" forState:UIControlStateDisabled];
+            _category.enabled = YES;
+        } else{
+            [_category setTitle:@"[无分类]" forState:UIControlStateNormal];
+            [_category setTitle:@"[无分类]" forState:UIControlStateDisabled];
+            _category.enabled = NO;
         }
     }];
     

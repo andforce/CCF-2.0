@@ -18,7 +18,7 @@
 }
 
 - (NSString *)newattachmentForForum:(int)forumId time:(NSString *)time postHash:(NSString *)postHash {
-    return nil;
+    return [NSString stringWithFormat:@"%@misc.php?mod=swfupload&operation=upload&simple=1&type=image", _forumURL.absoluteString];
 }
 
 - (NSString *)newattachment {

@@ -512,16 +512,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-// private 进入图片管理页面，准备上传图片
-- (void)uploadImagePrepare:(int)forumId startPostTime:(NSString *)time postHash:(NSString *)hash :(HandlerWithBool)callback {
-
-    NSString *url = [forumConfig newattachmentForForum:forumId time:time postHash:hash];
-
-    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
-        callback(isSuccess, html);
-    }];
-}
-
 //private  获取发新帖子的Posttime hash 和token
 - (void)enterCreateThreadPage:(int)forumId :(CallBack)callback {
 
@@ -577,14 +567,15 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
             }];
         } else {
-            // 如果有图片，先传图片
-            [self uploadImagePrepare:fId startPostTime:time postHash:hash :^(BOOL isSuccess, NSString *result) {
+            NSString *url = [forumConfig newattachmentForForum:fId time:time postHash:hash];
+
+            [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
                 if (isSuccess) {
                     // 解析出上传图片需要的参数
-                    NSString *uploadToken = [forumParser parseSecurityToken:result];
+                    NSString *uploadToken = [forumParser parseSecurityToken:html];
                     NSString *uploadTime = [[token componentsSeparatedByString:@"-"] firstObject];
-                    NSString *uploadHash = [forumParser parsePostHash:result];
+                    NSString *uploadHash = [forumParser parsePostHash:html];
 
                     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createThreadUploadImages:)
                                                                  name:@"CREATE_THREAD_UPLOAD_IMAGE" object:nil];
@@ -592,13 +583,11 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
                                                                       userInfo:@{@"uploadToken": uploadToken, @"fId": @(fId), @"uploadTime": uploadTime, @"uploadHash": uploadHash, @"imageId": @(0)}];
                 } else {
-                    handler(NO, result);
+                    handler(NO, html);
                 }
-
 
             }];
         }
-
     }];
 }
 
