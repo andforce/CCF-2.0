@@ -20,6 +20,7 @@
 		2F34CD24DA52CC996BE6F47A /* ForumApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C14160BC257F07318CEF /* ForumApiHelper.m */; };
 		2F34CDC68B8E6EA4AB5D764B /* PageNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA39D274171CAD239E5E /* PageNumber.m */; };
 		2F34CEF71A3645A8A7E867A0 /* more.html in Resources */ = {isa = PBXBuildFile; fileRef = 2F34C861EB4DB6A0EFE91943 /* more.html */; };
+		2F34CF6094B6C2397FB0FE5C /* ForumDiscuzShowPrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C8996C973B366700F031 /* ForumDiscuzShowPrivateMessageViewController.m */; };
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* ForumShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* ForumShortCutCreateNewThreadViewController.m */; };
 		2F34CFF359980DE0DEC0C980 /* ForumPushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C1D609B2659CED986D39 /* ForumPushManager.m */; };
@@ -187,6 +188,7 @@
 		2F34C8512C8DD9A161DB7136 /* ForumCommonConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumCommonConfigDelegate.h; sourceTree = "<group>"; };
 		2F34C861EB4DB6A0EFE91943 /* more.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = more.html; sourceTree = "<group>"; };
 		2F34C87A20D645FB8D21CFAD /* vBulletinCommonConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinCommonConfig.h; sourceTree = "<group>"; };
+		2F34C8996C973B366700F031 /* ForumDiscuzShowPrivateMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumDiscuzShowPrivateMessageViewController.m; sourceTree = "<group>"; };
 		2F34C8DBF1BAF7284E27B0F6 /* CHHForumHtmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHHForumHtmlParser.h; sourceTree = "<group>"; };
 		2F34C933EAF9358009F4612F /* CHHForumHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHHForumHtmlParser.m; sourceTree = "<group>"; };
 		2F34C95254DD621AB9345D1B /* DiscuzApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscuzApiDelegate.h; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		2F34CDDC3E2FE65DAF5CE145 /* PhpWindParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindParserDelegate.h; sourceTree = "<group>"; };
 		2F34CE562C58E9985BE89837 /* ForumBaseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseParserDelegate.h; sourceTree = "<group>"; };
 		2F34CE82EC5F0149A7675701 /* LocalForumApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalForumApi.m; sourceTree = "<group>"; };
+		2F34CEBE6FC385BE63D4D640 /* ForumDiscuzShowPrivateMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumDiscuzShowPrivateMessageViewController.h; sourceTree = "<group>"; };
 		2F34CEDC13FE605A95AACC4B /* ForumLoginWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumLoginWebViewController.h; sourceTree = "<group>"; };
 		2F34CEDE561AF2B8E93A940E /* PhpWindApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindApiDelegate.h; sourceTree = "<group>"; };
 		2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vBulletinCommonConfig.m; sourceTree = "<group>"; };
@@ -697,6 +700,8 @@
 				2F34CA129BA2D7ADF167E05D /* ForumShortCutCreateNewThreadViewController.m */,
 				3ABEBF072020C44E00AB67E9 /* CloseViewController.h */,
 				3ABEBF082020C44E00AB67E9 /* CloseViewController.m */,
+				2F34C8996C973B366700F031 /* ForumDiscuzShowPrivateMessageViewController.m */,
+				2F34CEBE6FC385BE63D4D640 /* ForumDiscuzShowPrivateMessageViewController.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1353,6 +1358,7 @@
 				2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */,
 				2F34C8D22D201E791D39168D /* DiscuzCommonConfig.m in Sources */,
 				2F34CBF5EEBDA04BCA441217 /* vBulletinBaseApi.m in Sources */,
+				2F34CF6094B6C2397FB0FE5C /* ForumDiscuzShowPrivateMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

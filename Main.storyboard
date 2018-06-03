@@ -2014,7 +2014,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbS-5S-4ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2916" y="-1401"/>
+            <point key="canvasLocation" x="-2939" y="-1401"/>
         </scene>
         <!--子论坛帖-->
         <scene sceneID="wBW-D6-BVd">
@@ -3811,6 +3811,7 @@
                                     <outlet property="privateMessageAuthorAvatar" destination="9dl-er-t0B" id="fBw-yW-QgI"/>
                                     <outlet property="privateMessageTime" destination="hjj-LU-SdR" id="HL5-WY-fbO"/>
                                     <outlet property="privateMessageTitle" destination="fM7-Qv-bBV" id="9pQ-4I-FE2"/>
+                                    <segue destination="E10-IZ-8h6" kind="show" id="V2W-J1-P51"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3876,6 +3877,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Sm-Jn-CIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4594" y="-2289"/>
+        </scene>
+        <!--私信详情-->
+        <scene sceneID="h2G-6e-6vv">
+            <objects>
+                <viewController id="E10-IZ-8h6" customClass="ForumDiscuzShowPrivateMessageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PK1-X5-8ib"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pa2-kE-qr8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="McP-IC-acE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUS-lq-sZL">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <color key="backgroundColor" red="0.28958413" green="0.31462949509999999" blue="0.32950475810000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CUS-lq-sZL" firstAttribute="leading" secondItem="McP-IC-acE" secondAttribute="leadingMargin" constant="-20" id="7pr-Ek-SON"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CUS-lq-sZL" secondAttribute="trailing" constant="-20" id="HW0-93-KZU"/>
+                            <constraint firstItem="Pa2-kE-qr8" firstAttribute="top" secondItem="CUS-lq-sZL" secondAttribute="bottom" id="hFF-Nh-5eW"/>
+                            <constraint firstItem="CUS-lq-sZL" firstAttribute="top" secondItem="PK1-X5-8ib" secondAttribute="bottom" id="iZY-tr-Xuf"/>
+                            <constraint firstItem="CUS-lq-sZL" firstAttribute="centerX" secondItem="McP-IC-acE" secondAttribute="centerX" id="lff-xA-aka"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="私信详情" id="i6e-c0-82t">
+                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="0wr-w2-X6q">
+                            <color key="tintColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="back:" destination="E10-IZ-8h6" id="YKl-Zs-PQE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="回复" id="syd-AR-TBu">
+                            <color key="tintColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="replyPM:" destination="E10-IZ-8h6" id="Bkz-b9-ogL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="CUS-lq-sZL" id="fwQ-Pl-Zdn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xot-Yu-3Vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2974" y="-2289"/>
         </scene>
     </scenes>
     <resources>
