@@ -663,6 +663,26 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)favoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
 
+    NSString * fetchForumHashUrl = [forumConfig showThreadWithThreadId:threadPostId withPage:1];
+    [self GET:fetchForumHashUrl requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess){
+            NSString * forumHash = [forumParser parseSecurityToken:html];
+            // fav forum with forumID & forumHash
+            NSString *url = [forumConfig favThreadWithId:threadPostId];
+            NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+            [dictionary setValue:forumHash forKey:@"formhash"];
+            [self GET:url parameters:dictionary requestCallback:^(BOOL isSuccess, NSString *favHtml) {
+                BOOL isFavSuccess = [favHtml containsString:@"<p>信息收藏成功 <script"] || [favHtml containsString:@"<p>抱歉，您已收藏，请勿重复收藏</p>"];
+                if (isFavSuccess){
+                    handler(YES, @"");
+                } else {
+                    handler(NO, @"收藏失败");
+                }
+            }];
+        } else {
+            handler(NO, @"收藏失败");
+        }
+    }];
 }
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {

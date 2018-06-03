@@ -79,9 +79,8 @@
 }
 
 - (NSString *)favThreadWithId:(NSString *)threadId {
-    NSDate *date = [NSDate date];
-    NSInteger timeStamp = (NSInteger) [date timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%@pw_ajax.php?action=favor&type=0&nowtime=%ldl&tid=%@", _forumURL.absoluteString, (long) timeStamp, threadId];
+    return [NSString stringWithFormat:@"%@home.php?mod=spacecp&ac=favorite&type=thread&id=%@&infloat=yes&handlekey=k_favorite&"
+                                      "inajax=1&ajaxtarget=fwin_content_k_favorite", _forumURL.absoluteString, threadId];
 }
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId {
