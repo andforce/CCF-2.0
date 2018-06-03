@@ -16,4 +16,6 @@
 @property(nonatomic, strong) NSString *pmTime;
 @property(nonatomic, assign) BOOL isReaded;
 
+@property(nonatomic, strong) NSString *noticeUrl;
+
 @end

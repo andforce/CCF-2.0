@@ -228,19 +228,25 @@ typedef enum {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
-        ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
-        
-        
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
-        Message *message = self.dataList[(NSUInteger) indexPath.row];
-        
-        TransBundle *bundle = [[TransBundle alloc] init];
-        [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
-        [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
-        
-        
-        [self transBundle:bundle forController:controller];
+
+        if (_messageType == PrivateMessage){
+            ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
+
+
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+            Message *message = self.dataList[(NSUInteger) indexPath.row];
+
+            TransBundle *bundle = [[TransBundle alloc] init];
+            [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
+            [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
+
+
+            [self transBundle:bundle forController:controller];
+        } else {
+
+        }
+
         
     } else if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
         selectSegue = segue;

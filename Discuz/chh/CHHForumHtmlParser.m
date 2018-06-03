@@ -693,6 +693,10 @@
         message.pmTime = time;
         message.pmTitle = title;
 
+        IGXMLNode * node = [[pmNode childAt:2] childAt:1];
+
+        message.noticeUrl = [node attribute:@"src"];
+
         [messagesList addObject:message];
 
     }
