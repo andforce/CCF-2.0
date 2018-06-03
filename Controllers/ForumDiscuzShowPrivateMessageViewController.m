@@ -74,12 +74,17 @@
 
         [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmAuthorId intValue] withType:type handler:^(BOOL isSuccess, id message) {
 
-            ViewMessagePage *content = message;
-            ViewMessage * viewMessage = content.viewMessages.firstObject;
+            ViewMessagePage *page = message;
 
-            NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
+            NSMutableString * content = [NSMutableString string];
+            for (ViewMessage * viewMessage in page.viewMessages) {
 
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, viewMessage.pmTitle, postInfo];
+                NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
+                [content appendString:postInfo];
+            }
+
+
+            NSString *html = [NSString stringWithFormat:THREAD_PAGE, @"", content];
 
             LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
