@@ -270,7 +270,15 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler {
-
+    NSString *url = [forumConfig noticeMessage:page];
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            ViewForumPage *viewForumPage = [forumParser parseNoticeMessageFromHtml:html];
+            handler(YES, viewForumPage);
+        } else {
+            handler(NO, html);
+        }
+    }];
 }
 
 - (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify postTime:(NSString *)postTime handler:(HandlerWithBool)handler {

@@ -270,14 +270,6 @@
     return nil;
 }
 
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
-    if (type == 0){
-        return [self parsePrivateMessageFromHtml:html];
-    } else{
-        return [self parsePostMessageFromHtml:html];
-    }
-}
-
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
     ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
 
@@ -615,17 +607,6 @@
 }
 
 - (ViewForumPage *)parseNoticeMessageFromHtml:(NSString *)html {
-    return nil;
-}
-
-- (NSString *)parseSecurityToken:(NSString *)html {
-    //<input type="hidden" name="formhash" value="fc436b99" />
-    NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
-    NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    return forumHash;
-}
-
-- (ViewForumPage *)parsePostMessageFromHtml:(NSString *)html {
     ViewForumPage *page = [[ViewForumPage alloc] init];
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
@@ -670,6 +651,13 @@
     PageNumber *pageNumber = [self parserPageNumber:html];
     page.pageNumber = pageNumber;
     return page;
+}
+
+- (NSString *)parseSecurityToken:(NSString *)html {
+    //<input type="hidden" name="formhash" value="fc436b99" />
+    NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
+    NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    return forumHash;
 }
 
 - (NSArray *)flatForm:(Forum *)form {

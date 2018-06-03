@@ -22,8 +22,6 @@
 
 - (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html;
 
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int) type;
-
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html;
 
 - (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int) type;
