@@ -45,8 +45,9 @@
             
             IBOutlet UITextField *secCodeTV;
             IBOutlet UIImageView *vCodeImgV;
-            IBOutlet NSLayoutConstraint *vcodeRootHeightLC;
-}
+            IBOutlet NSLayoutConstraint *vCodeHeight;
+            IBOutlet NSLayoutConstraint *vCodeTVHeight;
+        }
 
 @end
 
@@ -136,6 +137,9 @@
 
     [ProgressDialog showStatus:@"获取分类"];
 
+    _category.titleLabel.text = @"[无分类]";
+    _category.enabled = NO;
+
     [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *post_hash, NSString *forum_hash, NSString *posttime,
             NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
@@ -145,6 +149,14 @@
         _seccodehash = seccodehash;
         _seccodeverify = seccodeverify;
         _typeidList = typeidList;
+
+        if (typeidList.count > 0){
+            _category.titleLabel.text = @"[请选分类]";
+            _category.enabled = YES;
+        } else{
+            _category.titleLabel.text = @"[无分类]";
+            _category.enabled = NO;
+        }
         
         AFImageDownloader *downloader = [[vCodeImgV class] sharedImageDownloader];
         id <AFImageRequestCache> imageCache = downloader.imageCache;
@@ -171,8 +183,11 @@
         
         [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
             [view setImage:image];
+            vCodeHeight.constant = 46.0;
+            vCodeTVHeight.constant = 30.0;
         }   failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
             NSLog(@"refreshDoor failed >> >> %@", urlRequest.allHTTPHeaderFields);
+            vCodeHeight.constant = 0.0;
         }];
 
         if (_typeidList != nil){
@@ -182,7 +197,8 @@
         }
     }];
     
-    vcodeRootHeightLC.constant = 46.0;
+    vCodeHeight.constant = 0.0;
+    vCodeTVHeight.constant = 0.0;
 
 }
 
@@ -363,7 +379,7 @@
         return;
     }
 
-    if (vcodeRootHeightLC.constant > 1 && [[secCodeTV.text trim] isEqualToString:@""]){
+    if (vCodeHeight.constant > 1 && [[secCodeTV.text trim] isEqualToString:@""]){
         [ProgressDialog showError:@"输入验证码"];
         return;
     }

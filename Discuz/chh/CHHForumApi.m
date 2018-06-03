@@ -96,122 +96,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-- (void)reply:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage handler:(HandlerWithBool)handler {
-    NSString *msg = message;
-
-    if ([NSUserDefaults standardUserDefaults].isSignatureEnabled) {
-        msg = [message stringByAppendingString:[forumConfig signature]];
-    }
-
-    int replyPostId = [postId intValue];
-    NSString *token = threadPage.securityToken;
-    int threadId = threadPage.threadID;
-    int forumId = threadPage.forumId;
-
-    if (replyPostId != -1){     // 表示回复的某一个楼层
-
-        NSString *preReplyUrl = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&extra=page%%3D1&tid=%d&repquote=%d", forumId, threadId, replyPostId];
-
-        [self GET:preReplyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
-            if (isSuccess) {
-                NSString *formHash = nil;
-                NSString *posttime = nil;
-                NSString *wysiwyg = nil;
-                NSString *noticeauthor = nil;
-                NSString *noticetrimstr = nil;
-                NSString *noticeauthormsg = nil;
-                NSString *reppid = nil;
-                NSString *reppost = nil;
-
-                IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithXMLString:html error:nil];
-
-                IGXMLNode *paramNode = [document queryNodeWithXPath:@"//*[@id='ct']"];
-                for (IGXMLNode *node  in paramNode.children) {
-                    NSString * nodeName = [node attribute:@"name"];
-
-                    if ([nodeName isEqualToString:@"formhash"]) {
-                        formHash = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"posttime"]) {
-                        posttime = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"wysiwyg"]) {
-                        wysiwyg = [node attribute:@"value"];
-                    } else if([nodeName isEqualToString:@"noticeauthor"]){
-                        noticeauthor = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"noticetrimstr"]){
-                        noticetrimstr = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"noticeauthormsg"]){
-                        noticeauthormsg = [node attribute:@"value"];
-                    }else if ([nodeName isEqualToString:@"reppid"]){
-                        reppid = [node attribute:@"value"];
-                    }else if ([nodeName isEqualToString:@"reppost"]){
-                        reppost = [node attribute:@"value"];
-                    }
-
-                    else {
-                        continue;
-                    }
-                }
-
-                // 开始回复
-                NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
-
-                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-                [parameters setValue:token forKey:@"formhash"];
-
-                [parameters setValue:posttime forKey:@"posttime"];
-                [parameters setValue:@"1" forKey:@"wysiwyg"];
-                [parameters setValue:noticeauthor forKey:@"noticeauthor"];
-                [parameters setValue:noticetrimstr forKey:@"noticetrimstr"];
-                [parameters setValue:noticeauthormsg forKey:@"noticeauthormsg"];
-
-                [parameters setValue:reppid forKey:@"reppid"];
-                [parameters setValue:reppost forKey:@"reppost"];
-                [parameters setValue:@"" forKey:@"subject"];
-                [parameters setValue:msg forKey:@"message"];
-                [parameters setValue:@"" forKey:@"save"];
-
-                [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL repsuccess, NSString *repHtml) {
-                    ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:repHtml];
-                    if (thread.postList.count > 0) {
-                        handler(YES, thread);
-                    } else {
-                        handler(NO, @"未知错误");
-                    }
-                }];
-
-            } else {
-                handler(NO, html);
-            }
-        }];
-
-    } else {
-        NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
-
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setValue:msg forKey:@"message"];
-        [parameters setValue:token forKey:@"formhash"];
-        long time = (long) [[NSDate date] timeIntervalSince1970];
-        [parameters setValue:[NSString stringWithFormat:@"%li", time] forKey:@"posttime"];
-        [parameters setValue:@"" forKey:@"wysiwyg"];
-
-        [parameters setValue:@"" forKey:@"noticeauthor"];
-        [parameters setValue:@"" forKey:@"noticetrimstr"];
-
-        [parameters setValue:@"" forKey:@"noticeauthormsg"];
-        [parameters setValue:@"" forKey:@"subject"];
-        [parameters setValue:@"0" forKey:@"save"];
-
-        [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
-            ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
-            if (thread.postList.count > 0) {
-                handler(YES, thread);
-            } else {
-                handler(NO, @"未知错误");
-            }
-        }];
-    }
-}
-
 - (void)unFavouriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
     NSString *urlUnFav = @"https://www.chiphell.com/home.php?mod=space&do=favorite&view=me";
 
@@ -281,8 +165,12 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-- (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
+- (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title
+                         andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash
+                           formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify
+                           postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
+    // TODO 以后再重构
 }
 
 - (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request {
@@ -447,7 +335,120 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote
         handler:(HandlerWithBool)handler {
-    [self reply:message withImages:images toPostId:postId thread:threadPage handler:handler];
+
+    NSString *msg = message;
+
+    if ([NSUserDefaults standardUserDefaults].isSignatureEnabled) {
+        msg = [message stringByAppendingString:[forumConfig signature]];
+    }
+
+    int replyPostId = [postId intValue];
+    NSString *token = threadPage.securityToken;
+    int threadId = threadPage.threadID;
+    int forumId = threadPage.forumId;
+
+    if (replyPostId != -1){     // 表示回复的某一个楼层
+
+        NSString *preReplyUrl = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&extra=page%%3D1&tid=%d&repquote=%d", forumId, threadId, replyPostId];
+
+        [self GET:preReplyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
+            if (isSuccess) {
+                NSString *formHash = nil;
+                NSString *posttime = nil;
+                NSString *wysiwyg = nil;
+                NSString *noticeauthor = nil;
+                NSString *noticetrimstr = nil;
+                NSString *noticeauthormsg = nil;
+                NSString *reppid = nil;
+                NSString *reppost = nil;
+
+                IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithXMLString:html error:nil];
+
+                IGXMLNode *paramNode = [document queryNodeWithXPath:@"//*[@id='ct']"];
+                for (IGXMLNode *node  in paramNode.children) {
+                    NSString * nodeName = [node attribute:@"name"];
+
+                    if ([nodeName isEqualToString:@"formhash"]) {
+                        formHash = [node attribute:@"value"];
+                    } else if ([nodeName isEqualToString:@"posttime"]) {
+                        posttime = [node attribute:@"value"];
+                    } else if ([nodeName isEqualToString:@"wysiwyg"]) {
+                        wysiwyg = [node attribute:@"value"];
+                    } else if([nodeName isEqualToString:@"noticeauthor"]){
+                        noticeauthor = [node attribute:@"value"];
+                    } else if ([nodeName isEqualToString:@"noticetrimstr"]){
+                        noticetrimstr = [node attribute:@"value"];
+                    } else if ([nodeName isEqualToString:@"noticeauthormsg"]){
+                        noticeauthormsg = [node attribute:@"value"];
+                    }else if ([nodeName isEqualToString:@"reppid"]){
+                        reppid = [node attribute:@"value"];
+                    }else if ([nodeName isEqualToString:@"reppost"]){
+                        reppost = [node attribute:@"value"];
+                    }
+
+                    else {
+                        continue;
+                    }
+                }
+
+                // 开始回复
+                NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
+
+                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+                [parameters setValue:token forKey:@"formhash"];
+
+                [parameters setValue:posttime forKey:@"posttime"];
+                [parameters setValue:@"1" forKey:@"wysiwyg"];
+                [parameters setValue:noticeauthor forKey:@"noticeauthor"];
+                [parameters setValue:noticetrimstr forKey:@"noticetrimstr"];
+                [parameters setValue:noticeauthormsg forKey:@"noticeauthormsg"];
+
+                [parameters setValue:reppid forKey:@"reppid"];
+                [parameters setValue:reppost forKey:@"reppost"];
+                [parameters setValue:@"" forKey:@"subject"];
+                [parameters setValue:msg forKey:@"message"];
+                [parameters setValue:@"" forKey:@"save"];
+
+                [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL repsuccess, NSString *repHtml) {
+                    ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:repHtml];
+                    if (thread.postList.count > 0) {
+                        handler(YES, thread);
+                    } else {
+                        handler(NO, @"未知错误");
+                    }
+                }];
+
+            } else {
+                handler(NO, html);
+            }
+        }];
+
+    } else {
+        NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
+
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setValue:msg forKey:@"message"];
+        [parameters setValue:token forKey:@"formhash"];
+        long time = (long) [[NSDate date] timeIntervalSince1970];
+        [parameters setValue:[NSString stringWithFormat:@"%li", time] forKey:@"posttime"];
+        [parameters setValue:@"" forKey:@"wysiwyg"];
+
+        [parameters setValue:@"" forKey:@"noticeauthor"];
+        [parameters setValue:@"" forKey:@"noticetrimstr"];
+
+        [parameters setValue:@"" forKey:@"noticeauthormsg"];
+        [parameters setValue:@"" forKey:@"subject"];
+        [parameters setValue:@"0" forKey:@"save"];
+
+        [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+            ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
+            if (thread.postList.count > 0) {
+                handler(YES, thread);
+            } else {
+                handler(NO, @"未知错误");
+            }
+        }];
+    }
 }
 
 // private
