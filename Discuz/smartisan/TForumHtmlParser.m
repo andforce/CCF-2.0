@@ -277,10 +277,6 @@
     return page;
 }
 
-- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html {
-    return nil;
-}
-
 - (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type {
     ViewForumPage *page = [[ViewForumPage alloc] init];
 

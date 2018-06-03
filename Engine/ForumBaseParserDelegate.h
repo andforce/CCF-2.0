@@ -20,8 +20,6 @@
 
 - (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html;
 
-- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html;
-
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html;
 
 - (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int) type;

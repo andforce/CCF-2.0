@@ -266,10 +266,6 @@
     return page;
 }
 
-- (ViewForumPage *)parseListMyAllThreadsFromHtml:(NSString *)html {
-    return nil;
-}
-
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
     ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
 

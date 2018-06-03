@@ -201,6 +201,7 @@
 		2F34CAFE1A4BB2690531ABD9 /* PageNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageNumber.h; sourceTree = "<group>"; };
 		2F34CBBCB62F26627BA0E932 /* ProgressDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDialog.h; sourceTree = "<group>"; };
 		2F34CCD81990A1C00E06B7AA /* PhpWindConfigDelegage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindConfigDelegage.h; sourceTree = "<group>"; };
+		2F34CDDC3E2FE65DAF5CE145 /* PhpWindParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhpWindParserDelegate.h; sourceTree = "<group>"; };
 		2F34CE562C58E9985BE89837 /* ForumBaseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseParserDelegate.h; sourceTree = "<group>"; };
 		2F34CE82EC5F0149A7675701 /* LocalForumApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalForumApi.m; sourceTree = "<group>"; };
 		2F34CEDC13FE605A95AACC4B /* ForumLoginWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumLoginWebViewController.h; sourceTree = "<group>"; };
@@ -955,6 +956,7 @@
 				2F34CEDE561AF2B8E93A940E /* PhpWindApiDelegate.h */,
 				3ACB5C231FDC262700D5339C /* crsky */,
 				2F34CCD81990A1C00E06B7AA /* PhpWindConfigDelegage.h */,
+				2F34CDDC3E2FE65DAF5CE145 /* PhpWindParserDelegate.h */,
 			);
 			path = PhpWind;
 			sourceTree = "<group>";
