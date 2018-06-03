@@ -232,10 +232,10 @@
         if ([forumApi isHaveLogin:url.host]) {
             ForumTabBarController *rootViewController = (ForumTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
 
-            if ([url.host isEqualToString:@"bbs.smartisan.com"]){
-                [rootViewController changeMessageUITabController:0];
+            if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]){
+                [rootViewController changeMessageUITabController:vBulletin];
             } else {
-                [rootViewController changeMessageUITabController:1];
+                [rootViewController changeMessageUITabController:Discuz];
             }
             rootViewController.selectedIndex = 2;
             UIStoryboard *storyboard = [UIStoryboard mainStoryboard];

@@ -20,16 +20,11 @@
 
 @implementation ForumTabBarController
 
-- (void)changeMessageUITabController:(int)type {
+- (void)changeMessageUITabController:(ForumType) forumType {
 
     UIStoryboard * storyboard  = [UIStoryboard mainStoryboard];
-    ForumNavigationViewController * navigationController1 = nil;
-
-    if (type == 0){
-        navigationController1 = (ForumNavigationViewController *) [storyboard finControllerById:@"DiscuzNavID"];
-    } else {
-        navigationController1 = (ForumNavigationViewController *) [storyboard finControllerById:@"vBulletinNavID"];
-    }
+    ForumNavigationViewController * controller = (ForumNavigationViewController *)
+            (forumType == Discuz ? [storyboard finControllerById:@"DiscuzNavID"]: [storyboard finControllerById:@"vBulletinNavID"]);
 
     NSMutableArray *withDiscuzControllers = [NSMutableArray new];
 
@@ -37,7 +32,7 @@
 
     for (NSUInteger i = 0; i < currentControllers.count; i++){
         if (i == 3){
-            [withDiscuzControllers addObject:navigationController1];
+            [withDiscuzControllers addObject:controller];
         } else {
             [withDiscuzControllers addObject:currentControllers[i]];
         }
@@ -55,10 +50,10 @@
     }
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    if ([localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"]){
-        [self changeMessageUITabController:0];
+    if ([localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]){
+        [self changeMessageUITabController:Discuz];
     } else {
-        [self changeMessageUITabController:1];
+        [self changeMessageUITabController:vBulletin];
     }
 }
 

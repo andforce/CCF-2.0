@@ -257,17 +257,24 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-- (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler {
-
-    NSString *url = [forumConfig privateWithType:type withPage:page];
+- (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler{
+    NSString *url = [forumConfig privateMessage:page];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewForumPage *viewForumPage = [forumParser parsePrivateMessageFromHtml:html forType:type];
+            ViewForumPage *viewForumPage = [forumParser parsePrivateMessageFromHtml:html];
             handler(YES, viewForumPage);
         } else {
             handler(NO, html);
         }
     }];
+}
+
+- (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler {
+
+}
+
+- (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
+
 }
 
 - (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request {

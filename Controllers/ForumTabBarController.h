@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, ForumType) {
+    vBulletin = 0,
+    Discuz
+};
+
 @interface ForumTabBarController : UITabBarController
 
 - (void)showLeftDrawer;
 
 - (void) bringLeftDrawerToFront;
 
-- (void) changeMessageUITabController:(int) type;
+- (void) changeMessageUITabController:(ForumType) forumType;
 
 @end

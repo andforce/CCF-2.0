@@ -8,7 +8,6 @@
 @protocol DiscuzApiDelegate <NSObject>
 
 #pragma 短消息相关
-@optional
 - (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler;
 
 - (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler;
