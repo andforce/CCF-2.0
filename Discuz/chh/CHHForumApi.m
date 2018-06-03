@@ -689,10 +689,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     //https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=311126&inajax=1&ajaxtarget=
 }
 
-- (void)showThreadWithP:(NSString *)p handler:(HandlerWithBool)handler {
-
-}
-
 - (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type handler:(HandlerWithBool)handler {
     NSString* encodedString = [keyWord stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *searchUrl = nil;
