@@ -340,6 +340,41 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     handler(YES,@"");
 }
 
+- (void)enterSeniorReplyPageFetchInfo:(int)forumId tid:(int)tid pid:(int)pid handler:(EnterNewThreadCallBack)callback {
+    NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&extra=&tid=%d&repquote=%d", forumId, tid, pid];
+    if (pid == -1){
+        url = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&tid=%d", forumId, tid];
+    }
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        if (isSuccess) {
+
+            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+
+            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGXMLNode *typeidNode = [document queryNodeWithXPath:@"//*[@id=\"typeid\"]"];
+
+            NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
+
+            for (int i = 0; i < typeidNode.childrenCount; ++i) {
+                IGXMLNode *child = [typeidNode childAt:i];
+                if (![[child attribute:@"value"] isEqualToString:@"0"]){
+                    [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
+                }
+            }
+
+            callback(html, post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+
+        } else {
+            callback(nil, nil, nil, nil, nil, nil, nil);
+        }
+    }];
+}
+
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote
         handler:(HandlerWithBool)handler {
 
@@ -350,10 +385,96 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }
 
     int replyPostId = [postId intValue];
-    NSString *token = threadPage.securityToken;
+    NSString *forumHash = threadPage.securityToken;
     int threadId = threadPage.threadID;
     int forumId = threadPage.forumId;
 
+    if (images == nil || images.count == 0){
+        [self doReply:handler msg:msg replyPostId:replyPostId token:forumHash threadId:threadId forumId:forumId];
+    } else {
+        [self enterSeniorReplyPageFetchInfo:forumId tid:threadId pid:replyPostId handler:^(NSString *responseHtml, NSString *post_hash,
+                NSString *forum_hash, NSString *posttime, NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
+
+            if (hasUploadImages == nil){
+                hasUploadImages = [NSMutableArray array];
+            } else{
+                [hasUploadImages removeAllObjects];
+            }
+
+            // 解析出上传图片需要的参数
+            NSString *uid = [responseHtml stringWithRegular:@"(?<=<input type=\"hidden\" name=\"uid\" value=\")\\d+(?=\">)"];
+            NSString *uploadHash = [responseHtml stringWithRegular:@"(?<=<input type=\"hidden\" name=\"hash\" value=\")\\w+(?=\">)"];
+
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replyThreadUploadImages:) name:@"REPLYTHREADUPLOADIMAGES" object:nil];
+
+            toUploadImages = images;
+            _handlerWithBool = handler;
+            _message = message;
+            //_subject = subject;
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"REPLYTHREADUPLOADIMAGES" object:self
+                                                              userInfo:@{@"uploadTime": posttime,
+                                                                      @"fId": @(forumId),
+                                                                      @"forumHash":forumHash,
+                                                                      @"replyPostId" :@(replyPostId),
+                                                                      @"threadId" :@(threadId),
+                                                                      @"uid": uid,
+                                                                      @"uploadHash": uploadHash,
+                                                                      @"imageId": @(0)}];
+        }];
+    }
+}
+
+- (void)replyThreadUploadImages:(NSNotification *)notification {
+
+    NSDictionary *dictionary = [notification userInfo];
+
+    // Discuz postThread
+    int forumId = [dictionary[@"fId"] intValue];
+    NSString *posttime = [dictionary valueForKey:@"uploadTime"];
+    NSString *forumHash = [dictionary valueForKey:@"forumHash"];
+
+    int replyPostId = [dictionary[@"replyPostId"] intValue];
+    int threadId = [dictionary[@"threadId"] intValue];
+
+    // Discuz upload
+    NSString *uid = [dictionary valueForKey:@"uid"];
+    NSString *uploadHash = [dictionary valueForKey:@"uploadHash"];
+
+    int imageId = [dictionary[@"imageId"] intValue];
+
+    if (imageId < toUploadImages.count) {
+
+        NSData *image = toUploadImages[(NSUInteger) imageId];
+
+        NSURL *url = [NSURL URLWithString:forumConfig.newattachment];
+        [self uploadImage:url uid:uid hash:uploadHash uploadImage:image callback:^(BOOL success, id html) {
+
+            NSString *uploaded = [html stringWithRegular:@"\\d\\d\\d+"];
+            [hasUploadImages addObject:uploaded];
+
+            [NSThread sleepForTimeInterval:2.0f];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"REPLYTHREADUPLOADIMAGES" object:self
+                                                              userInfo:@{@"uploadTime": posttime,
+                                                                      @"fId": @(forumId),
+                                                                      @"forumHash":forumHash,
+                                                                      @"replyPostId" :@(replyPostId),
+                                                                      @"threadId" :@(threadId),
+                                                                      @"uid": uid,
+                                                                      @"uploadHash": uploadHash,
+                                                                      @"imageId": @(imageId + 1)}];
+        }];
+    } else {
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+        [self doReply:_handlerWithBool msg:_message replyPostId:replyPostId token:forumHash threadId:threadId forumId:forumId];
+    }
+}
+
+
+- (void)doReply:(HandlerWithBool)handler msg:(NSString *)message replyPostId:(int)replyPostId token:(NSString *)formhash threadId:(int)threadId forumId:(int)forumId {
     if (replyPostId != -1){     // 表示回复的某一个楼层
 
         NSString *preReplyUrl = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&extra=page%%3D1&tid=%d&repquote=%d", forumId, threadId, replyPostId];
@@ -402,7 +523,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                 NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
 
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-                [parameters setValue:token forKey:@"formhash"];
+                [parameters setValue:formhash forKey:@"formhash"];
 
                 [parameters setValue:posttime forKey:@"posttime"];
                 [parameters setValue:@"1" forKey:@"wysiwyg"];
@@ -413,8 +534,22 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                 [parameters setValue:reppid forKey:@"reppid"];
                 [parameters setValue:reppost forKey:@"reppost"];
                 [parameters setValue:@"" forKey:@"subject"];
-                [parameters setValue:msg forKey:@"message"];
                 [parameters setValue:@"" forKey:@"save"];
+
+                if (hasUploadImages != nil && hasUploadImages.count > 0){
+                    NSMutableString * newMessage = [NSMutableString string];
+                    [newMessage appendString:message];
+                    for (NSString *image in hasUploadImages){
+                        NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+                        [newMessage appendString:format];
+
+                        [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
+                    }
+
+                    [parameters setValue:newMessage forKey:@"message"];
+                } else {
+                    [parameters setValue:message forKey:@"message"];
+                }
 
                 [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL repsuccess, NSString *repHtml) {
                     ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:repHtml];
@@ -434,8 +569,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         NSString *url = [forumConfig replyWithThreadId:threadId forForumId:forumId replyPostId:replyPostId];
 
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setValue:msg forKey:@"message"];
-        [parameters setValue:token forKey:@"formhash"];
+        [parameters setValue:formhash forKey:@"formhash"];
         long time = (long) [[NSDate date] timeIntervalSince1970];
         [parameters setValue:[NSString stringWithFormat:@"%li", time] forKey:@"posttime"];
         [parameters setValue:@"" forKey:@"wysiwyg"];
@@ -447,8 +581,29 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         [parameters setValue:@"" forKey:@"subject"];
         [parameters setValue:@"0" forKey:@"save"];
 
+        if (hasUploadImages != nil && hasUploadImages.count > 0){
+            NSMutableString * newMessage = [NSMutableString string];
+            [newMessage appendString:message];
+            for (NSString *image in hasUploadImages){
+                NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+                [newMessage appendString:format];
+
+                [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
+            }
+
+            [parameters setValue:newMessage forKey:@"message"];
+        } else {
+            [parameters setValue:message forKey:@"message"];
+        }
+
+
         [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
             ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
+
+            if (hasUploadImages != nil){
+                [hasUploadImages removeAllObjects];
+            }
+
             if (thread.postList.count > 0) {
                 handler(YES, thread);
             } else {
@@ -487,36 +642,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }
 }
 
-// private 正式开始发送
-- (void)doPostThread:(int)fId withSubject:(NSString *)subject andMessage:(NSString *)message
-            withHash:(NSString *)forumHash postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
-
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-
-    [parameters setValue:forumHash forKey:@"formhash"];
-    [parameters setValue:postTime forKey:@"posttime"];
-    [parameters setValue:@"1" forKey:@"wysiwyg"];
-    [parameters setValue:subject forKey:@"subject"];
-    [parameters setValue:message forKey:@"message"];
-    [parameters setValue:@"1" forKey:@"allownoticeauthor"];
-    [parameters setValue:@"" forKey:@"save"];
-
-    NSString *forumId = [NSString stringWithFormat:@"%d", fId];
-    [parameters setValue:forumId forKey:@"f"];
-    [parameters setValue:@"postthread" forKey:@"do"];
-
-    NSString *url = [forumConfig createNewThreadWithForumId:[NSString stringWithFormat:@"%d", fId]];
-    [self.browser POSTWithURLString: url
-                         parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
-
-        if (isSuccess) {
-            LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-            [localForumApi saveCookie];
-        }
-        handler(isSuccess, html);
-    }];
-}
-
+// private f发表新的主题
 - (void)doCreateNewThread:(int)fId withSubject:(NSString *)subject andMessage:(NSString *)message images:(NSArray *)images
                  withHash:(NSString *)forumHash postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
