@@ -22,7 +22,7 @@
 }
 
 - (NSString *)newattachment {
-    return nil;
+    return [NSString stringWithFormat:@"%@misc.php?mod=swfupload&operation=upload&simple=1&type=image", _forumURL.absoluteString];;
 }
 
 - (NSString *)searchThreadWithUserId:(NSString *)userId {

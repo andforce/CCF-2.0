@@ -161,10 +161,10 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
                 [typeidDic setValue:str forKey:str];
             }
 
-            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+            callback(html, post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
 
         } else {
-            callback(nil, nil, nil, nil, nil, nil);
+            callback(nil, nil, nil, nil, nil, nil, nil);
         }
     }];
 }

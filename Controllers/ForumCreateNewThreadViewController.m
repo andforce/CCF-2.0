@@ -60,7 +60,7 @@
 
 - (IBAction)refreshSecCode:(id)sender {
 
-    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
             NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
         _post_hash = post_hash;
@@ -140,7 +140,7 @@
     _category.titleLabel.text = @"[无分类]";
     _category.enabled = NO;
 
-    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
             NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
         _post_hash = post_hash;
@@ -325,7 +325,7 @@
 
     [self fileSizeAtPath:selectUrl];
 
-    UIImage *scaleImage = [select scaleUIImage:CGSizeMake(800, 800)];
+    UIImage *scaleImage = [select scaleUIImage:CGSizeMake(500, 500)];
 
     [images addObject:scaleImage];
 

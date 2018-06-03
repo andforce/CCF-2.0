@@ -113,10 +113,10 @@
                 [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
             }
 
-            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+            callback(html, post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
 
         } else {
-            callback(nil, nil, nil, nil, nil, nil);
+            callback(nil, nil, nil, nil, nil, nil, nil);
         }
     }];
 }

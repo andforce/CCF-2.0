@@ -9,7 +9,7 @@
 @class ForumWebViewController;
 @class ViewThreadPage;
 
-typedef void (^EnterNewThreadCallBack)(NSString *post_hash, NSString *forum_hash, NSString *posttime,
+typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
         NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
 
 @protocol ForumApiBaseDelegate <NSObject>

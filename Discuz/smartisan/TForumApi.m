@@ -202,14 +202,14 @@
                 if (success){
                     NSString *update = [resultHtml stringWithRegular:@"(?<=update=)\\d+"];
                     NSString * seccodeverify = [NSString stringWithFormat:@"http://bbs.smartisan.com/misc.php?mod=seccode&update=%@&idhash=%@", update, seccodehash];
-                    callback(post_hash, forum_hash, posttime, seccodehash, seccodeverify, typeidDic);
+                    callback(html, post_hash, forum_hash, posttime, seccodehash, seccodeverify, typeidDic);
                 } else {
-                    callback(nil, nil, nil, nil, nil, nil);
+                    callback(nil, nil, nil, nil, nil, nil, nil);
                 }
             }];
 
         } else {
-            callback(nil, nil, nil, nil, nil, nil);
+            callback(nil, nil, nil, nil, nil, nil, nil);
         }
     }];
 }

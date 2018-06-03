@@ -22,6 +22,13 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
     CHHForumConfig* forumConfig;
     CHHForumHtmlParser* forumParser;
+
+    NSArray *toUploadImages;
+    HandlerWithBool _handlerWithBool;
+    NSString *_message;
+    NSString *_subject;
+
+    NSMutableArray *hasUploadImages;
 }
 
 - (instancetype)init {
@@ -88,10 +95,10 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             }
 
             NSArray *categories = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-            callback(post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
+            callback(html, post_hash, forum_hash, posttime, seccodehash, nil, typeidDic);
 
         } else {
-            callback(nil, nil, nil, nil, nil, nil);
+            callback(nil, nil, nil, nil, nil, nil, nil);
         }
     }];
 }
@@ -481,20 +488,19 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 // private 正式开始发送
-- (void)doPostThread:(int)fId withSubject:(NSString *)subject andMessage:(NSString *)message withToken:(NSString *)token
-            withHash:(NSString *)hash postTime:(NSString *)time handler:(HandlerWithBool)handler {
+- (void)doPostThread:(int)fId withSubject:(NSString *)subject andMessage:(NSString *)message
+            withHash:(NSString *)forumHash postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
-    [parameters setValue:hash forKey:@"formhash"];
-    [parameters setValue:time forKey:@"posttime"];
+    [parameters setValue:forumHash forKey:@"formhash"];
+    [parameters setValue:postTime forKey:@"posttime"];
     [parameters setValue:@"1" forKey:@"wysiwyg"];
     [parameters setValue:subject forKey:@"subject"];
     [parameters setValue:message forKey:@"message"];
     [parameters setValue:@"1" forKey:@"allownoticeauthor"];
     [parameters setValue:@"" forKey:@"save"];
 
-    //[parameters setValue:token forKey:@"securitytoken"];
     NSString *forumId = [NSString stringWithFormat:@"%d", fId];
     [parameters setValue:forumId forKey:@"f"];
     [parameters setValue:@"postthread" forKey:@"do"];
@@ -508,27 +514,48 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             [localForumApi saveCookie];
         }
         handler(isSuccess, html);
-
     }];
 }
 
-//private  获取发新帖子的Posttime hash 和token
-- (void)enterCreateThreadPage:(int)forumId :(CallBack)callback {
+- (void)doCreateNewThread:(int)fId withSubject:(NSString *)subject andMessage:(NSString *)message images:(NSArray *)images
+                 withHash:(NSString *)forumHash postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
-    NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
-    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
-        if (isSuccess) {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
-            NSString *hash = [forumParser parsePostHash:html];
+    [parameters setValue:forumHash forKey:@"formhash"];
+    [parameters setValue:postTime forKey:@"posttime"];
+    [parameters setValue:@"1" forKey:@"wysiwyg"];
+    [parameters setValue:subject forKey:@"subject"];
+    [parameters setValue:@"1" forKey:@"allownoticeauthor"];
+    [parameters setValue:@"" forKey:@"save"];
 
-            NSDate *date = [NSDate date];
-            long timeStamp = (NSInteger) [date timeIntervalSince1970];
-            NSString *postTime = [NSString stringWithFormat:@"%ld", timeStamp];
-            callback(@"", hash, postTime);
-        } else {
-            callback(nil, nil, nil);
+    if (images != nil && images.count > 0){
+        NSMutableString * newMessage = [NSMutableString string];
+        [newMessage appendString:message];
+        for (NSString *image in images){
+            NSString *format = [NSString stringWithFormat:@"[attachimg]%@[/attachimg]", image];
+            [newMessage appendString:format];
+
+            [parameters setValue:@"" forKey:[NSString stringWithFormat:@"attachnew[%@][description]", image]];
         }
-    }];
+
+        [parameters setValue:newMessage forKey:@"message"];
+    } else {
+        [parameters setValue:message forKey:@"message"];
+    }
+
+    NSString *forumId = [NSString stringWithFormat:@"%d", fId];
+    NSString *url = [forumConfig createNewThreadWithForumId:forumId];
+
+    [self.browser POSTWithURLString: url
+                         parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+
+                if (isSuccess) {
+                    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+                    [localForumApi saveCookie];
+                }
+                handler(isSuccess, html);
+            }];
 }
 
 - (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title
@@ -543,12 +570,15 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }
 
     int fId = page.forumId;
-    // 准备发帖
-    [self enterCreateThreadPage:fId :^(NSString *token, NSString *hash, NSString *time) {
+
+    // 进入发帖页面，获取相关参数
+
+    [self enterCreateThreadPageFetchInfo:fId :^(NSString *responseHtml, NSString *post_hash, NSString *forumHash, NSString *posttime,
+            NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
         if (images == nil || images.count == 0) {
             // 没有图片，直接发送主题
-            [self doPostThread:fId withSubject:subject andMessage:message withToken:token withHash:hash postTime:time handler:^(BOOL isSuccess, NSString *result) {
+            [self doCreateNewThread:fId withSubject:subject andMessage:message images:nil withHash:forumHash postTime:posttime handler:^(BOOL isSuccess, NSString *result) {
                 if (isSuccess) {
                     NSString *error = [self checkError:result];
                     if (error != nil) {
@@ -567,28 +597,173 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
             }];
         } else {
-            NSString *url = [forumConfig newattachmentForForum:fId time:time postHash:hash];
 
-            [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+            if (hasUploadImages == nil){
+                hasUploadImages = [NSMutableArray array];
+            } else{
+                [hasUploadImages removeAllObjects];
+            }
 
-                if (isSuccess) {
-                    // 解析出上传图片需要的参数
-                    NSString *uploadToken = [forumParser parseSecurityToken:html];
-                    NSString *uploadTime = [[token componentsSeparatedByString:@"-"] firstObject];
-                    NSString *uploadHash = [forumParser parsePostHash:html];
+            // 解析出上传图片需要的参数
+            NSString *uid = [responseHtml stringWithRegular:@"(?<=<input type=\"hidden\" name=\"uid\" value=\")\\d+(?=\">)"];
+            NSString *uploadHash = [responseHtml stringWithRegular:@"(?<=<input type=\"hidden\" name=\"hash\" value=\")\\w+(?=\">)"];
 
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createThreadUploadImages:)
-                                                                 name:@"CREATE_THREAD_UPLOAD_IMAGE" object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createThreadUploadImages:) name:@"CREATE_THREAD_UPLOAD_IMAGE" object:nil];
 
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
-                                                                      userInfo:@{@"uploadToken": uploadToken, @"fId": @(fId), @"uploadTime": uploadTime, @"uploadHash": uploadHash, @"imageId": @(0)}];
-                } else {
-                    handler(NO, html);
-                }
+            toUploadImages = images;
+            _handlerWithBool = handler;
+            _message = message;
+            _subject = subject;
 
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
+                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash":forumHash, @"uid": uid, @"uploadHash": uploadHash, @"imageId": @(0)}];
         }
     }];
+}
+
+- (void)createThreadUploadImages:(NSNotification *)notification {
+
+    NSDictionary *dictionary = [notification userInfo];
+
+    // Discuz postThread
+    int fId = [dictionary[@"fId"] intValue];
+    NSString *posttime = [dictionary valueForKey:@"uploadTime"];
+    NSString *forumHash = [dictionary valueForKey:@"forumHash"];
+
+    // Discuz upload
+    NSString *uid = [dictionary valueForKey:@"uid"];
+    NSString *uploadHash = [dictionary valueForKey:@"uploadHash"];
+
+    int imageId = [dictionary[@"imageId"] intValue];
+
+    if (imageId < toUploadImages.count) {
+
+        NSData *image = toUploadImages[(NSUInteger) imageId];
+
+        NSURL *url = [NSURL URLWithString:forumConfig.newattachment];
+        [self uploadImage:url uid:uid hash:uploadHash uploadImage:image callback:^(BOOL success, id html) {
+
+            NSString *uploaded = [html stringWithRegular:@"\\d\\d\\d+"];
+            [hasUploadImages addObject:uploaded];
+
+            [NSThread sleepForTimeInterval:2.0f];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
+                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash":forumHash,@"uid": uid, @"uploadHash": uploadHash, @"imageId": @(imageId + 1)}];
+        }];
+    } else {
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+        [self doCreateNewThread:fId withSubject:_subject andMessage:_message images:hasUploadImages withHash:forumHash postTime:posttime handler:^(BOOL postSuccess, id doPostResult) {
+
+            if (postSuccess) {
+
+                NSString *error = [self checkError:doPostResult];
+                if (error != nil) {
+                    _handlerWithBool(NO, error);
+                } else {
+                    ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:doPostResult];
+                    if (thread.postList.count > 0) {
+                        _handlerWithBool(YES, thread);
+                    } else {
+                        _handlerWithBool(NO, @"未知错误");
+                    }
+                }
+            } else {
+                _handlerWithBool(NO, doPostResult);
+            }
+        }];
+    }
+}
+
+// private
+- (void)uploadImage:(NSURL *)url uid:(NSString *)uid hash:(NSString *)hash uploadImage:(NSData *)imageData callback:(HandlerWithBool)callback {
+
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+
+    NSString *boundary = [NSString stringWithFormat:@"----WebKitFormBoundary%@", [self uploadParamDivider]];
+
+    [request setHTTPShouldHandleCookies:YES];
+    [request setTimeoutInterval:60];
+    [request setHTTPMethod:@"POST"];
+
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+
+    // set Content-Type in HTTP header
+    NSString *cookie = [localForumApi loadCookieString];
+    [request setValue:cookie forHTTPHeaderField:@"cookie"];
+
+    [request setValue:@"max-age=0" forHTTPHeaderField:@"cache-control"];
+    //[request setValue:@"https://www.chiphell.com" forHTTPHeaderField:@"origin"];
+    [request setValue:@"1" forHTTPHeaderField:@"upgrade-insecure-requests"];
+    //[request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36" forHTTPHeaderField:@"user-agent"];
+    [request setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" forHTTPHeaderField:@"accept"];
+    [request setValue:@"1" forHTTPHeaderField:@"dnt"];
+    [request setValue:@"gzip, deflate, br" forHTTPHeaderField:@"accept-encoding"];
+    [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"accept-language"];
+    //[request setValue:@"https://www.chiphell.com/forum.php?mod=post&action=newthread&fid=201" forHTTPHeaderField:@"referer"];
+
+
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField:@"content-Type"];
+
+    // post body
+    NSMutableData *body = [NSMutableData data];
+
+    // add params (all params are strings)
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:uid forKey:@"uid"];
+    [parameters setValue:hash forKey:@"hash"];
+
+    for (NSString *param in parameters) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", parameters[param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
+    int inter = (int) [NSDate date].timeIntervalSince1970;
+    NSString *name = [NSString stringWithFormat:@"Forum_Client_%d.jpg", inter];
+    [parameters setValue:name forKey:@"Filedata[]"];
+    // add image data
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"Filedata[]", name]dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    // setting the body of the post to the request
+    [request setHTTPBody:body];
+
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long) [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"content-length"];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+
+        if (data.length > 0) {
+            //success
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            callback(YES, responseString);
+        } else {
+            callback(NO, @"failed");
+        }
+    }];
+}
+
+// private
+- (NSString *)uploadParamDivider {
+    static const NSString *kRandomAlphabet = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    NSMutableString *randomString = [NSMutableString stringWithCapacity:16];
+    for (int i = 0; i < 16; i++) {
+        [randomString appendFormat:@"%C", [kRandomAlphabet characterAtIndex:arc4random_uniform((u_int32_t) [kRandomAlphabet length])]];
+    }
+    return randomString;
 }
 
 - (void)searchWithKeyWord:(NSString *)keyWord forType:(int)type handler:(HandlerWithBool)handler {
