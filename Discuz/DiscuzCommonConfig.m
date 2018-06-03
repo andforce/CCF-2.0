@@ -34,7 +34,10 @@
 }
 
 - (NSString *)favForumWithId:(NSString *)forumId {
-    return nil;
+    //formhash=95861144&
+    // 需要请求时候添加
+    return [NSString stringWithFormat:@"%@home.php?mod=spacecp&ac=favorite&type=forum&id=%@&handlekey=favoriteforum&"
+                                      "infloat=yes&handlekey=a_favorite&inajax=1&ajaxtarget=fwin_content_a_favorite", _forumURL.absoluteString, forumId];
 }
 
 - (NSString *)favForumWithIdParam:(NSString *)forumId {
@@ -46,7 +49,7 @@
 }
 
 - (NSString *)forumDisplayWithId:(NSString *)forumId {
-    return nil;
+    return [NSString stringWithFormat:@"%@forum-%@-1.html", _forumURL.absoluteString, forumId];;
 }
 
 - (NSString *)favoriteForums {
