@@ -996,6 +996,38 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
     //https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=311126&inajax=1&ajaxtarget=
+
+    //https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&folder=
+
+    //https://www.chiphell.com/home.php?mod=space&do=pm&filter=privatepm
+
+    [self GET:[forumConfig privateMessage:1] requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        if (isSuccess){
+            NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
+
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+            [parameters setValue:forumHash forKey:@"formhash"];
+            [parameters setValue:@"true" forKey:@"deletesubmit"];
+            [parameters setValue:@"true" forKey:@"deletepmsubmit_btn"];
+            [parameters setValue:@"1" forKey:@"custompage"];
+            [parameters setValue:privateMessage.pmAuthorId forKey:@"deletepm_deluid[]"];
+
+            [self.browser POSTWithURLString:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&folder="
+                                 parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+
+                        if (isSuccess){
+                            handler(isSuccess, html);
+                        } else {
+                            handler(NO, @"");
+                        }
+                    }];
+        } else {
+            handler(NO, @"");
+        }
+
+    }];
+
 }
 
 - (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type handler:(HandlerWithBool)handler {
