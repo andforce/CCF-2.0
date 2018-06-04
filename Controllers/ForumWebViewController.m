@@ -35,6 +35,11 @@
     int pId;
 
     BOOL shouldScrollEnd;
+
+    // showNotice
+    NSString *pid;
+    NSString *ptid;
+
 }
 
 @end
@@ -130,6 +135,12 @@
         }
 
         shouldScrollEnd = YES;
+    } else if ([bundle containsKey:@"show_for_notice"]){
+
+        ptid = [bundle getStringValue:@"show_for_notice_ptid"];
+        pid = [bundle getStringValue:@"show_for_notice_pid"];
+
+
     } else {
         threadID = [bundle getIntValue:@"threadID"];
         pId = [bundle getIntValue:@"pId"];
@@ -183,79 +194,98 @@
 }
 
 - (void) showPreviousPageOrRefresh{
-    if (threadID == -1) {
-        [self.forumApi showThreadWithP:[NSString stringWithFormat:@"%d", pId] handler:^(BOOL isSuccess, id message) {
 
+    if (pid && ptid){
+        [self.forumApi showThreadWithPTid:ptid pid:pid handler:^(BOOL isSuccess, id message) {
             if (!isSuccess){
                 [self showFailedMessage:message];
                 return;
             }
 
-            ViewThreadPage *threadPage = message;
-            currentShowThreadPage = threadPage;
-            threadID = threadPage.threadID;
-
-            [self updatePageTitle];
-
-            NSMutableArray<Post *> *posts = threadPage.postList;
-
-
-            NSString *lis = @"";
-
-            LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-            id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
-
-            for (Post *post in posts) {
-
-                NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-                NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-                NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
-                                                                louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-                lis = [lis stringByAppendingString:postInfo];
-            }
-
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
-
-
-            // 缓存当前页面
-            pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
-
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-            [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
-
-            [self.webView.scrollView.mj_header endRefreshing];
-
-
-            CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
-            [stretchAnimation setToValue:@1.02F];
-            [stretchAnimation setRemovedOnCompletion:YES];
-            [stretchAnimation setFillMode:kCAFillModeRemoved];
-            [stretchAnimation setAutoreverses:YES];
-            [stretchAnimation setDuration:0.15];
-            [stretchAnimation setDelegate:self];
-            [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
-            [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [self.webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
-            CATransition *animation = [CATransition animation];
-            [animation setType:kCATransitionPush];
-            [animation setSubtype:kCATransitionFromBottom];
-            [animation setDuration:0.5f];
-            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [[self.webView layer] addAnimation:animation forKey:nil];
+            [self showMessage:message];
         }];
     } else {
-        if (currentShowThreadPage == nil) {
-            [self prePage:threadID page:1 withAnim:NO];
-        } else if (currentShowThreadPage.pageNumber.currentPageNumber == 1) {
-            [self prePage:threadID page:1 withAnim:NO];
+        if (threadID == -1) {
+            [self.forumApi showThreadWithP:[NSString stringWithFormat:@"%d", pId] handler:^(BOOL isSuccess, id message) {
+
+                if (!isSuccess){
+                    [self showFailedMessage:message];
+                    return;
+                }
+
+                [self showMessage:message];
+
+
+            }];
         } else {
-            int page = currentShowThreadPage.pageNumber.currentPageNumber - 1;
-            if (page <= 1) {
-                page = 1;
+            if (currentShowThreadPage == nil) {
+                [self prePage:threadID page:1 withAnim:NO];
+            } else if (currentShowThreadPage.pageNumber.currentPageNumber == 1) {
+                [self prePage:threadID page:1 withAnim:NO];
+            } else {
+                int page = currentShowThreadPage.pageNumber.currentPageNumber - 1;
+                if (page <= 1) {
+                    page = 1;
+                }
+                [self prePage:threadID page:page withAnim:YES];
             }
-            [self prePage:threadID page:page withAnim:YES];
         }
     }
+
+}
+
+- (void)showMessage:(id)message {
+    ViewThreadPage *threadPage = message;
+    currentShowThreadPage = threadPage;
+    threadID = threadPage.threadID;
+
+    [self updatePageTitle];
+
+    NSMutableArray<Post *> *posts = threadPage.postList;
+
+
+    NSString *lis = @"";
+
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+
+    for (Post *post in posts) {
+
+                    NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
+                    NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+                    NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
+                                                                    louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+                    lis = [lis stringByAppendingString:postInfo];
+                }
+
+    NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+
+
+    // 缓存当前页面
+    pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
+
+    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+
+    [self.webView.scrollView.mj_header endRefreshing];
+
+
+    CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
+    [stretchAnimation setToValue:@1.02F];
+    [stretchAnimation setRemovedOnCompletion:YES];
+    [stretchAnimation setFillMode:kCAFillModeRemoved];
+    [stretchAnimation setAutoreverses:YES];
+    [stretchAnimation setDuration:0.15];
+    [stretchAnimation setDelegate:self];
+    [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
+    [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+    CATransition *animation = [CATransition animation];
+    [animation setType:kCATransitionPush];
+    [animation setSubtype:kCATransitionFromBottom];
+    [animation setDuration:0.5f];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [[self.webView layer] addAnimation:animation forKey:nil];
 }
 
 -(void) showFailedMessage:(id) message{
@@ -276,7 +306,6 @@
 }
 
 - (void)prePage:(int)threadId page:(int)page withAnim:(BOOL)anim {
-
 
     [self.forumApi showThreadWithId:threadId andPage:page handler:^(BOOL isSuccess, id message) {
 

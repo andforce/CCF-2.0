@@ -173,6 +173,20 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
+- (void)showThreadWithPTid:(NSString *)ptid pid:(NSString *)pid handler:(HandlerWithBool)handler {
+    NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=redirect&goto=findpost&pid=%@&ptid=%@", pid, ptid];
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+        if (isSuccess) {
+            ViewThreadPage *detail = [forumParser parseShowThreadWithHtml:html];
+            handler(isSuccess, detail);
+        } else {
+            handler(NO, html);
+        }
+    }];
+}
+
+
 - (void)createNewThreadWithCategory:(NSString *)categoryName categoryValue:(NSString *)categoryValue withTitle:(NSString *)title
                          andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page postHash:(NSString *)posthash
                            formHash:(NSString *)formhash secCodeHash:(NSString *)seccodehash seccodeverify:(NSString *)seccodeverify

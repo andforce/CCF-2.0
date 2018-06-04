@@ -13,6 +13,8 @@
 
 - (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler;
 
+- (void)showThreadWithPTid:(NSString *)ptid pid:(NSString *)pid handler:(HandlerWithBool)handler;
+
 // 发表一个新的帖子
 - (void)createNewThreadWithCategory:(NSString *)categoryName
                       categoryValue:(NSString *)categoryValue

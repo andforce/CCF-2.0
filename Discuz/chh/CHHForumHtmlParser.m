@@ -695,7 +695,8 @@
 
         IGXMLNode * node = [[pmNode childAt:2] childAt:1];
 
-        message.noticeUrl = [node attribute:@"src"];
+        message.pid = [[node html] stringWithRegular:@"(?<=;pid=)\\d+"];
+        message.ptid = [[node html] stringWithRegular:@"(?<=;ptid=)\\d+"];
 
         [messagesList addObject:message];
 

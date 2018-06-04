@@ -225,27 +225,47 @@ typedef enum {
 
 #pragma mark Controller跳转
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(nullable id)sender {
+    if (_messageType == PrivateMessage){
+        return YES;
+    } else {
+
+        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+        ForumWebViewController *showThreadController = (id) [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
+        TransBundle *bundle = [[TransBundle alloc] init];
+
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+        Message *message = self.dataList[(NSUInteger) indexPath.row];
+
+        [bundle putStringValue:@"show_for_notice" forKey:@"show_for_notice"];
+        [bundle putStringValue:message.ptid forKey:@"show_for_notice_ptid"];
+        [bundle putStringValue:message.pid forKey:@"show_for_notice_pid"];
+
+
+        [self transBundle:bundle forController:showThreadController];
+        [self.navigationController pushViewController:showThreadController animated:YES];
+        return NO;
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
 
-        if (_messageType == PrivateMessage){
-            ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
+        ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
 
 
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
-            Message *message = self.dataList[(NSUInteger) indexPath.row];
+        Message *message = self.dataList[(NSUInteger) indexPath.row];
 
-            TransBundle *bundle = [[TransBundle alloc] init];
-            [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
-            [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
+        TransBundle *bundle = [[TransBundle alloc] init];
+        [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
+        [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
 
 
-            [self transBundle:bundle forController:controller];
-        } else {
-
-        }
+        [self transBundle:bundle forController:controller];
 
         
     } else if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
