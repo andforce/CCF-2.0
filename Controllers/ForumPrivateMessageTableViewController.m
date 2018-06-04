@@ -167,6 +167,7 @@
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
 
+        [controller setHidesBottomBarWhenPushed:YES];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 

@@ -13,6 +13,7 @@
 #import "ForumUserProfileTableViewController.h"
 #import "UIStoryboard+Forum.h"
 #import "ForumTabBarController.h"
+#import "ForumWebViewController.h"
 
 typedef enum {
     PrivateMessage = 0,
@@ -229,22 +230,23 @@ typedef enum {
     if (_messageType == PrivateMessage){
         return YES;
     } else {
-
-        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-        ForumWebViewController *showThreadController = (id) [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
-        TransBundle *bundle = [[TransBundle alloc] init];
-
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-
         Message *message = self.dataList[(NSUInteger) indexPath.row];
 
-        [bundle putStringValue:@"show_for_notice" forKey:@"show_for_notice"];
-        [bundle putStringValue:message.ptid forKey:@"show_for_notice_ptid"];
-        [bundle putStringValue:message.pid forKey:@"show_for_notice_pid"];
+        if (message.pid && message.ptid) {
 
+            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+            ForumWebViewController *showThreadController = (id) [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
+            [showThreadController setHidesBottomBarWhenPushed:YES];
+            TransBundle *bundle = [[TransBundle alloc] init];
 
-        [self transBundle:bundle forController:showThreadController];
-        [self.navigationController pushViewController:showThreadController animated:YES];
+            [bundle putStringValue:@"show_for_notice" forKey:@"show_for_notice"];
+            [bundle putStringValue:message.ptid forKey:@"show_for_notice_ptid"];
+            [bundle putStringValue:message.pid forKey:@"show_for_notice_pid"];
+
+            [self transBundle:bundle forController:(id) showThreadController];
+            [self.navigationController pushViewController:(id) showThreadController animated:YES];
+        }
         return NO;
     }
 }
@@ -254,7 +256,7 @@ typedef enum {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
 
         ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
-
+        [controller setHidesBottomBarWhenPushed:YES];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
