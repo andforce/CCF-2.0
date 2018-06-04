@@ -14,20 +14,16 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 @protocol vBulletinApiDelegate <NSObject>
 
 // 登录论坛
-@optional
 - (void)loginWithName:(NSString *)name andPassWord:(NSString *)passWord withCode:(NSString*) code question:(NSString *) q answer:(NSString *) a handler:(HandlerWithBool)handler;
 
 // 刷新验证码
-@optional
 - (void)refreshVCodeToUIImageView:(UIImageView *)vCodeImageView;
 
 - (void)showThreadWithP:(NSString *)p handler:(HandlerWithBool)handler;
 
 #pragma 短消息相关
-@optional
 - (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler;
 
-@optional
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
 
 // 根据PM ID 显示一条私信内容

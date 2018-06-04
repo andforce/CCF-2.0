@@ -4,8 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "vBulletinBaseApi.h"
+#import "ForumBrowser.h"
+#import "ForumApiBaseDelegate.h"
+#import "vBulletinApiDelegate.h"
 
 
-@interface CCFForumApi : vBulletinBaseApi
+@interface CCFForumApi : ForumBrowser<ForumApiBaseDelegate, vBulletinApiDelegate>
 @end

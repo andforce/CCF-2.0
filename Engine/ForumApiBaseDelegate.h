@@ -9,6 +9,8 @@
 @class ForumWebViewController;
 @class ViewThreadPage;
 
+typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
+
 typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
         NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
 

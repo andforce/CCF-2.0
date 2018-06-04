@@ -21,8 +21,6 @@
 @class Message;
 @class ForumWebViewController;
 
-typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
-
 typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
 @protocol ForumApiDelegate <ForumApiBaseDelegate, vBulletinApiDelegate, DiscuzApiDelegate, PhpWindApiDelegate>
