@@ -4,6 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ViewForumPage.h"
 
 @protocol DiscuzApiDelegate <NSObject>
 
