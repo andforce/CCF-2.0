@@ -170,7 +170,11 @@
     if (indexPath.section == 1 && indexPath.row == 1) {
         UINavigationController *controller = (id) [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"CreatePM"];
         TransBundle *bundle = [[TransBundle alloc] init];
-        [bundle putStringValue:userProfile.profileName forKey:@"PROFILE_NAME"];
+        User * user = [[User alloc] init];
+        user.userID = userProfile.profileUserId;
+        user.userName = userProfile.profileName;
+
+        [bundle putObjectValue:user forKey:@"PROFILE_NAME"];
 
         [self presentViewController:(id) controller withBundle:bundle forRootController:YES animated:YES completion:^{
 

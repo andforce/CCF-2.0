@@ -430,7 +430,7 @@
     }];
 }
 
-- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
     NSString *url =forumConfig.privateNewPre;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -440,8 +440,8 @@
                 [formData appendPartWithFormData:[@"write" dataForUTF8]  name:@"action"];
                 [formData appendPartWithFormData:[@"2" dataForUTF8] name:@"step"];
                 [formData appendPartWithFormData:[token dataForUTF8] name:@"verify"];
-                LoginUser *user = [[[LocalForumApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
-                [formData appendPartWithFormData:[self buildContent:user.userName] name:@"pwuser"];
+                LoginUser *touser = [[[LocalForumApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
+                [formData appendPartWithFormData:[self buildContent:touser.userName] name:@"pwuser"];
                 [formData appendPartWithFormData:[self buildContent:title] name:@"msg_title"];
                 [formData appendPartWithFormData:[@"" dataForUTF8] name:@"font"];
                 [formData appendPartWithFormData:[@"" dataForUTF8] name:@"size"];

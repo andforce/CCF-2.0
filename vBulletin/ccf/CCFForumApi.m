@@ -875,8 +875,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-
+- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
     NSString *url = forumConfig.privateNewPre;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -886,7 +885,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
             [pars setValue:message forKey:@"message"];
             [pars setValue:title forKey:@"title"];
             [pars setValue:@"0" forKey:@"pmid"];
-            [pars setValue:name forKey:@"recipients"];
+            [pars setValue:user.userName forKey:@"recipients"];
             [pars setValue:@"0" forKey:@"wysiwyg"];
             [pars setValue:@"" forKey:@"s"];
             [pars setValue:token forKey:@"securitytoken"];

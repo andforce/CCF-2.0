@@ -763,7 +763,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
     [self GET:forumConfig.privateNewPre requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
@@ -772,7 +772,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
             [parameters setValue:message forKey:@"message"];
             [parameters setValue:title forKey:@"title"];
             [parameters setValue:@"0" forKey:@"pmid"];
-            [parameters setValue:name forKey:@"recipients"];
+            [parameters setValue:user.userName forKey:@"recipients"];
             [parameters setValue:@"0" forKey:@"wysiwyg"];
             [parameters setValue:@"" forKey:@"s"];
             [parameters setValue:token forKey:@"securitytoken"];
@@ -800,7 +800,6 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         }
     }];
 }
-
 - (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
     int pmId = [privateMessage.pmID intValue];

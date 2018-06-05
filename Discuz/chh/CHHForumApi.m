@@ -951,7 +951,30 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-- (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+
+- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+    NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=send&touid=%@&inajax=1", user.userID];
+
+    [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
+
+        NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
+        if (isSuccess){
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+            [parameters setValue:@"true" forKey:@"pmsubmit"];
+            [parameters setValue:user.userID forKey:@"touid"];
+            [parameters setValue:forumHash forKey:@"formhash"];
+            [parameters setValue:@"showMsgBox" forKey:@"handlekey"];
+            [parameters setValue:message forKey:@"message"];
+            [parameters setValue:@"" forKey:@"messageappend"];
+
+            [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *sendHtml) {
+                handler(isSuccess, @"");
+            }];
+        } else {
+           handler(NO, @"ERROR");
+        }
+
+    }];
 
 }
 

@@ -8,6 +8,8 @@
 @class Message;
 @class ForumWebViewController;
 @class ViewThreadPage;
+@class User;
+@class User;
 
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
@@ -82,5 +84,10 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 // 根据PM ID 显示一条私信内容
 // 0 系统短信   1 正常私信
 - (void)showPrivateMessageContentWithId:(int)pmId withType:(int ) type handler:(HandlerWithBool)handler;
+
+// 发送站内短信
+- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
+
+- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
 
 @end

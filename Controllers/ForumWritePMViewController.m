@@ -14,13 +14,12 @@
 
 
 @interface ForumWritePMViewController () <TransBundleDelegate> {
-    NSString *profileName;
+    User *_toUser;
     BOOL isReply;
-    Message *_privateMessage;
-
     LocalForumApi *_localForumApi;
-
     PayManager *_payManager;
+
+    Message *_privateMessage;
 }
 
 @end
@@ -34,9 +33,12 @@
         isReply = YES;
         _privateMessage = [bundle getObjectValue:@"toReplyMessage"];
 
-
+        _toUser = [[User alloc] init];
+        _toUser.userName = _privateMessage.pmAuthor;
+        _toUser.userID = _privateMessage.pmAuthorId;
+        
     } else {
-        profileName = [bundle getStringValue:@"PROFILE_NAME"];
+        _toUser = [bundle getObjectValue:@"PROFILE_NAME"];
     }
 
 }
@@ -50,18 +52,19 @@
     _payManager = [PayManager shareInstance];
 
     if (isReply) {
-        self.toWho.text = _privateMessage.pmAuthor;
+        self.toWho.text = _toUser.userName;
         self.privateMessageTitle.text = [NSString stringWithFormat:@"回复：%@", _privateMessage.pmTitle];
         [self.privateMessageContent becomeFirstResponder];
     } else {
-        if (profileName != nil) {
-            self.toWho.text = profileName;
+        if (_toUser != nil) {
+            self.toWho.text = _toUser.userName;
             [self.privateMessageTitle becomeFirstResponder];
         } else {
             [self.toWho becomeFirstResponder];
         }
-
     }
+
+    self.toWho.enabled = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -142,7 +145,7 @@
                 }
             }];
         } else {
-            [self.forumApi sendPrivateMessageToUserName:self.toWho.text andTitle:self.privateMessageTitle.text andMessage:self.privateMessageContent.text handler:^(BOOL isSuccess, id message) {
+            [self.forumApi sendPrivateMessageTo:_toUser andTitle:self.privateMessageTitle.text andMessage:self.privateMessageContent.text handler:^(BOOL isSuccess, id message) {
 
                 [ProgressDialog dismiss];
 

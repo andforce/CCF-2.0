@@ -8,6 +8,7 @@
 #import "Message.h"
 #import "ForumWebViewController.h"
 #import "ViewThreadPage.h"
+#import "User.h"
 
 @implementation Message
 
