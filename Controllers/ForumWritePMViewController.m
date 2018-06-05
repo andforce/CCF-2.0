@@ -36,7 +36,7 @@
         _toUser = [[User alloc] init];
         _toUser.userName = _privateMessage.pmAuthor;
         _toUser.userID = _privateMessage.pmAuthorId;
-        
+
     } else {
         _toUser = [bundle getObjectValue:@"PROFILE_NAME"];
     }

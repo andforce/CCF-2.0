@@ -2172,7 +2172,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="ForumUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6tN-Pg-gRW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -2365,7 +2365,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISW-8d-bNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7017" y="-5955"/>
+            <point key="canvasLocation" x="-1596" y="-2157"/>
         </scene>
         <!--发送私信-->
         <scene sceneID="sMo-OX-hpQ">
@@ -2463,7 +2463,7 @@
             <objects>
                 <tableViewController id="l3g-AL-GdG" customClass="ForumUserThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XcW-xB-IIx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -3780,6 +3780,7 @@
                                             </constraints>
                                             <connections>
                                                 <action selector="showUserProfile:" destination="RCa-cG-1Qm" eventType="touchUpInside" id="ViF-N0-T78"/>
+                                                <segue destination="Kd2-6b-uhY" kind="show" identifier="ShowUserProfile" id="Qkn-xF-ZJG"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -3946,7 +3947,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="cB8-Pd-AFY"/>
         <segue reference="blx-ak-4u5"/>
-        <segue reference="b8A-CD-rhQ"/>
+        <segue reference="Qkn-xF-ZJG"/>
         <segue reference="FiC-V2-LqH"/>
         <segue reference="tJd-yI-EGE"/>
         <segue reference="BtX-d5-2Dd"/>
