@@ -26,15 +26,9 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
 
-// 根据PM ID 显示一条私信内容
-// 0 系统短信   1 正常私信
-- (void)showPrivateMessageContentWithId:(int)pmId withType:(int ) type handler:(HandlerWithBool)handler;
 
 // 发送站内短信
 - (void)sendPrivateMessageToUserName:(NSString *)name andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
-
-// 回复站内短信
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
 
 // 发表一个新的帖子
 - (void)createNewThreadWithCategory:(NSString *)category

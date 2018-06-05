@@ -621,6 +621,9 @@
 
     IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"deletepmform\"]/div[1]"];
 
+    //forumHash
+    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
+
     NSMutableArray<Message *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children){
         Message *message = [[Message alloc] init];
@@ -646,6 +649,8 @@
         message.pmTime = time;
         message.pmTitle = title;
 
+        message.forumhash = forumHash;
+
         [messagesList addObject:message];
 
     }
@@ -663,6 +668,8 @@
 
     IGXMLNode *pmRootNode = [document queryNodeWithXPath:@"//*[@id=\"ct\"]/div[1]/div/div/div"];
 
+    //forumHash
+    NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
     NSMutableArray<Message *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children){
         Message *message = [[Message alloc] init];
@@ -697,6 +704,7 @@
 
         message.pid = [[node html] stringWithRegular:@"(?<=;pid=)\\d+"];
         message.ptid = [[node html] stringWithRegular:@"(?<=;ptid=)\\d+"];
+        message.forumhash = forumHash;
 
         [messagesList addObject:message];
 

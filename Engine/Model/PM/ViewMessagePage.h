@@ -7,8 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
+#import "ViewMessage.h"
 
-@interface ViewMessagePage : NSObject
+@interface ViewMessagePage : ViewMessage
 
 @property(nonatomic, strong) NSMutableArray *viewMessages;
 //@property(nonatomic, strong) User *pmUserInfo;

@@ -75,4 +75,12 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback;
 
+
+// 回复站内短信
+- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
+
+// 根据PM ID 显示一条私信内容
+// 0 系统短信   1 正常私信
+- (void)showPrivateMessageContentWithId:(int)pmId withType:(int ) type handler:(HandlerWithBool)handler;
+
 @end

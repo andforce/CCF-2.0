@@ -17,6 +17,8 @@
 @property(nonatomic, assign) BOOL isReaded;
 
 
+
+@property(nonatomic, strong) NSString *forumhash;
 @property(nonatomic, strong) NSString *ptid;
 @property(nonatomic, strong) NSString *pid;
 

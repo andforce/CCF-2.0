@@ -956,7 +956,16 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
+    NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=send&pmid=%@&daterange=0&handlekey=pmsend&pmsubmit=yes&inajax=1", privateMessage.pmID];
 
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:privateMessage.forumhash forKey:@"formhash"];
+    [parameters setValue:content forKey:@"message"];
+    [parameters setValue:privateMessage.pmAuthorId forKey:@"topmuid"];
+
+    [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
+        handler(isSuccess, @"");
+    }];
 }
 
 - (void)favoriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
@@ -1009,11 +1018,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
-    //https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&deletesubmit=1&deletepm_deluid[]=311126&inajax=1&ajaxtarget=
-
-    //https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&folder=
-
-    //https://www.chiphell.com/home.php?mod=space&do=pm&filter=privatepm
 
     [self GET:[forumConfig privateMessage:1] requestCallback:^(BOOL isSuccess, NSString *html) {
 
