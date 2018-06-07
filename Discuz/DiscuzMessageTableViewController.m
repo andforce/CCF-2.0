@@ -180,10 +180,15 @@ typedef enum {
     cell.indexPath = indexPath;
     cell.delegate = self;
     cell.showUserProfileDelegate = self;
-    
-    cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor lightGrayColor]]];
-    cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
-    
+
+    if (_messageType == PrivateMessage){
+        cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor lightGrayColor]]];
+        cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
+    } else {
+        cell.rightButtons = nil;
+    }
+
+
     Message *message = self.dataList[(NSUInteger) indexPath.row];
     
     [cell setData:message forIndexPath:indexPath];
@@ -196,7 +201,7 @@ typedef enum {
              direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
 
     NSIndexPath *indexPath = cell.indexPath;
-    
+
     Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
     NSInteger delType = _messageSegmentedControl.selectedSegmentIndex;
     [self.forumApi deletePrivateMessage:deleteMessage withType:(int)delType handler:^(BOOL isSuccess, id message) {
@@ -206,7 +211,7 @@ typedef enum {
             [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2f];
         }
     }];
-    
+
     return YES;
 }
 
