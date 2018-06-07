@@ -17,6 +17,7 @@
 #import "Message.h"
 #import "CommonUtils.h"
 #import "ViewMessage.h"
+#import "IGXMLNode+QueryNode.h"
 
 @implementation CHHForumHtmlParser {
 
@@ -679,7 +680,10 @@
     for (IGXMLNode *pmNode in pmRootNode.children){
         Message *message = [[Message alloc] init];
 
-        BOOL isReaded = NO;
+        NSString * debug = pmNode.html;
+
+        NSString *style = [[pmNode queryNodeWithClassName:@"ntc_body"] attribute:@"style"];
+        BOOL isReaded = style == nil || [style isEqualToString:@""];
 
         // Title
         IGXMLNodeSet *actionNode = [pmNode queryWithXPath:@"dd[2]/text()"];
