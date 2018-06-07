@@ -426,11 +426,16 @@
         if (![node.tag isEqualToString:@"dl"]){
             continue;
         }
-        
-        viewMessage.pmContent = [[node childAt:2] html];
+
+        IGXMLNode *contentNode = [node childAt:2];
+        NSString *fixContent = contentNode.html;
+        fixContent = [fixContent removeStringWithRegular:@"<span class=\"xi2 xw1\">\\w+</span>"];
+        fixContent = [fixContent removeStringWithRegular:@"(?<=<span class=\"xg1\">)\\d+-\\d+-\\d+ \\d+:\\d+(?=</span>)"];
+        fixContent = [fixContent removeStringWithRegular:@"<a href=\"space-uid-\\d+.html\" target=\"_blank\" class=\"xw1\">\\w+</a>"];
+        viewMessage.pmContent = fixContent;
         // 回帖时间
         NSString *timeLong = [[[node childAt:2] html] stringWithRegular:@"(?<=<span class=\"xg1\">)\\d+-\\d+-\\d+ \\d+:\\d+(?=</span>)"];
-        viewMessage.pmTime = [CommonUtils timeForShort:timeLong withFormat:@"yyyy-MM-dd, HH:mm:ss"];
+        viewMessage.pmTime = [CommonUtils timeForShort:timeLong withFormat:@"yyyy-MM-dd HH:mm"];
         // PM ID
         NSString *pmId = [[node attribute:@"id"] stringWithRegular:@"\\d+"];
         viewMessage.pmID = pmId;

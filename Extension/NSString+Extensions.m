@@ -69,6 +69,15 @@
     return nil;
 }
 
+- (NSString *)removeStringWithRegular:(NSString *)regular {
+    NSArray *toRemove = [self arrayWithRegular:regular];
+    NSString *result = self;
+    for (NSString *remove in toRemove) {
+        result = [result stringByReplacingOccurrencesOfString:remove withString:@""];
+    }
+    return result;
+}
+
 - (NSString *)trim {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }

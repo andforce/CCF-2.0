@@ -19,6 +19,8 @@
 
 - (NSString *)stringWithRegular:(NSString *)regular andChild:(NSString *)childRegular;
 
+- (NSString *)removeStringWithRegular:(NSString *)regular;
+
 - (NSString *)trim;
 
 - (NSArray *)arrayWithRegular:(NSString *)regular;
