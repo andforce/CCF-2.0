@@ -10,6 +10,7 @@
 @class ViewThreadPage;
 @class User;
 @class User;
+@class ViewForumPage;
 
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
@@ -89,5 +90,14 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 - (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
+
+// 发表一个新的帖子
+- (void)createNewThreadWithCategory:(NSString *)category
+                      categoryIndex:(int)index
+                          withTitle:(NSString *)title
+                         andMessage:(NSString *)message
+                         withImages:(NSArray *)images
+                             inPage:(ViewForumPage *) page
+                            handler:(HandlerWithBool)handler;
 
 @end

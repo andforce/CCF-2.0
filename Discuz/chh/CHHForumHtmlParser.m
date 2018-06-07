@@ -680,10 +680,7 @@
     for (IGXMLNode *pmNode in pmRootNode.children){
         Message *message = [[Message alloc] init];
 
-        NSString * debug = pmNode.html;
-
-        NSString *style = [[pmNode queryNodeWithClassName:@"ntc_body"] attribute:@"style"];
-        BOOL isReaded = style == nil || [style isEqualToString:@""];
+        BOOL isReaded = ![pmNode.html containsString:@"<dd class=\"ntc_body\" style=\"color:#000;font-weight:bold;\">"];
 
         // Title
         IGXMLNodeSet *actionNode = [pmNode queryWithXPath:@"dd[2]/text()"];

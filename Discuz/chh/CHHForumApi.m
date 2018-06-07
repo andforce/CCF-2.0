@@ -704,6 +704,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                             handler:(HandlerWithBool)handler {
 
     NSString * subject = [category stringByAppendingString:title];
+    if ([category isEqualToString:@"[无分类]"]){
+        subject = title;
+    }
 
     if ([NSUserDefaults standardUserDefaults].isSignatureEnabled) {
         message = [message stringByAppendingString:[forumConfig signature]];

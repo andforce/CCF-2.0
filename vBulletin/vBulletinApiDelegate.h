@@ -24,13 +24,4 @@ typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 #pragma 短消息相关
 - (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler;
 
-// 发表一个新的帖子
-- (void)createNewThreadWithCategory:(NSString *)category
-                      categoryIndex:(int)index
-                          withTitle:(NSString *)title
-                         andMessage:(NSString *)message
-                         withImages:(NSArray *)images
-                             inPage:(ViewForumPage *) page
-                            handler:(HandlerWithBool)handler;
-
 @end
