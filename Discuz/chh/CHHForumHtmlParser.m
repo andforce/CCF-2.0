@@ -34,7 +34,7 @@
 
     NSString * fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
-    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\".*\" zoomfile=\".*\" file=\".*\" class=\"zoom\" onclick=\".*\" width=\".*\" .*"];
+    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\"\\s*(.*?)\" zoomfile=\"\\s*(.*?)\" file=\"\\s*(.*?)\" class=\"zoom\" onclick=\"\\s*(.*?)\" width=\"\\d+\"( id=\"aimg_\\d+\")( alt=\"\\s*(.*?)\")?( title=\"\\s*(.*?)\")?( w=\"\\d+\")?( inpost=\"1\")?( onmouseover=\"\\s*(.*?)\")?( initialized=\"true\")?( />)?"];
     for (NSString *img in orgImages) {
 
         IGXMLDocument *igxmlDocument = [[IGXMLDocument alloc] initWithXMLString:img error:nil];
@@ -43,6 +43,11 @@
         NSLog(@"parseShowThreadWithHtml orgimage: %@ %@", img, newImage);
 
         fixImagesHtml = [fixImagesHtml stringByReplacingOccurrencesOfString:img withString:newImage];
+    }
+
+    NSArray *imagePs = [fixImagesHtml arrayWithRegular:@"<p style=\"line-height:\\S+;text-indent:\\S+;text-align:left\">\\r|\\n<ignore_js_op>(\\r|\\n)+<img"];
+    for (NSString *img in imagePs) {
+        fixImagesHtml = [fixImagesHtml stringByReplacingOccurrencesOfString:img withString:@"<p><ignore_js_op><img"];
     }
 
     IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:fixImagesHtml error:nil];
