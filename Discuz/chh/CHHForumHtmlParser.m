@@ -31,7 +31,7 @@
             html = [html stringByReplacingOccurrencesOfString:jammer withString:@""];
         }
     }
-    
+
     NSString * fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
     NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\".*\" zoomfile=\".*\" file=\".*\" class=\"zoom\" onclick=\".*\" width=\".*\" .*"];
@@ -89,8 +89,11 @@
             NSString *postTime = [[document queryNodeWithXPath:postTimeQuery] text];//[[[document queryNodeWithXPath:postTimeQuery] text] stringWithRegular:@"\\d+-\\d+\\d+ \\d+:\\d+"];
             // 发表内容
 
-
             NSString *contentQuery = [NSString stringWithFormat:@"//*[@id=\"pid%@\"]/tr[1]/td[2]/div[2]/div/div[1]", postId];
+            if([nodeHtml containsString:@"<div class=\"typeoption\">"]){
+                // 说明这是玩家售卖区
+                contentQuery = [NSString stringWithFormat:@"//*[@id=\"pid%@\"]/tr[1]/td[2]/div[2]/div", postId];
+            }
             NSString *postContent = [document queryNodeWithXPath:contentQuery].html;
             // User Info
             User * user = [[User alloc] init];
