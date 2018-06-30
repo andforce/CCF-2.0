@@ -23,6 +23,15 @@
 
 }
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
+
+    // 可能存在jammer标签
+    NSArray<NSString *> * jammerList = [html arrayWithRegular:@"<font class=\"jammer\">[\\s\\S]*?<\\/font>"];
+    if (jammerList && jammerList.count > 0){
+        for (NSString * jammer in jammerList) {
+            html = [html stringByReplacingOccurrencesOfString:jammer withString:@""];
+        }
+    }
+    
     NSString * fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
     NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\".*\" zoomfile=\".*\" file=\".*\" class=\"zoom\" onclick=\".*\" width=\".*\" .*"];
@@ -142,6 +151,14 @@
               html = [html stringByReplacingOccurrencesOfString:email withString:@""];
           }
       }
+
+     // 可能存在jammer标签
+    NSArray<NSString *> * jammerList = [html arrayWithRegular:@"<font class=\"jammer\">[\\s\\S]*?<\\/font>"];
+    if (jammerList && jammerList.count > 0){
+        for (NSString * jammer in jammerList) {
+            html = [html stringByReplacingOccurrencesOfString:jammer withString:@""];
+        }
+    }
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNode *contents = [document queryNodeWithXPath:@"//*[@id='threadlisttableid']"];
