@@ -135,6 +135,13 @@
 
     NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
 
+    //有可能存在email保护，直接删除把
+      NSArray<NSString *> * emailProtect = [html arrayWithRegular:@"<span class=\"__cf_email__\" data-cfemail=\"\\w+\">\\[email&#160;protected\\]</span> "];
+      if (emailProtect && emailProtect.count > 0){
+          for (NSString * email in emailProtect) {
+              html = [html stringByReplacingOccurrencesOfString:email withString:@""];
+          }
+      }
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNode *contents = [document queryNodeWithXPath:@"//*[@id='threadlisttableid']"];
@@ -157,10 +164,19 @@
             IGXMLNode * titleNode = [threadNode.firstChild childAt:1];
             NSString * titleHtml = titleNode.html;
 
+            // 标题前分类
+            NSString * category = [titleHtml stringWithRegular:@"(?<=\">)\\w+(?=</a>\\]</em>)"];
+
             NSString *threadTitle = [titleHtml stringWithRegular:@"(?<=class=\"s xst\">).*(?=</a>)"];
             if (threadTitle == nil || [threadTitle isEqualToString:@""]){
                 continue;
             }
+
+            if (category){
+                category = [NSString stringWithFormat:@"[%@]", [titleHtml stringWithRegular:@"(?<=\">)\\w+(?=</a>\\]</em>)"]];
+                threadTitle = [category stringByAppendingString:threadTitle];
+            }
+
             // 作者
             IGXMLNode * authorNode = [threadNode.firstChild childAt:2];
             if (authorNode.childrenCount < 2){
