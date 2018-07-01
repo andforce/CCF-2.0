@@ -71,6 +71,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
+
+// 获取发新帖子的post_hash、forum_hash、posttime、seccodehash、seccodeverify, typeid list
+
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
     NSString *url = [forumConfig enterCreateNewThreadWithForumId:[NSString stringWithFormat:@"%d", forumId]];
 
@@ -88,7 +91,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
-            for (int i = 0; i < typeidNode.childrenCount; ++i) {
+            for (int i = 0; i < typeidNode.childrenCount; i++) {
                 IGXMLNode *child = [typeidNode childAt:i];
                 if (![[child attribute:@"value"] isEqualToString:@"0"]){
                     [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
@@ -125,6 +128,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         }
     }];
 }
+
 
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
@@ -193,10 +197,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                            postTime:(NSString *)postTime handler:(HandlerWithBool)handler {
 
     // TODO 以后再重构
-}
-
-- (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request {
-    return NO;
 }
 
 - (void)listFavoriteForums:(HandlerWithBool)handler {
@@ -355,6 +355,10 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     handler(YES,@"");
 }
 
+- (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request {
+    return NO;
+}
+
 - (void)enterSeniorReplyPageFetchInfo:(int)forumId tid:(int)tid pid:(int)pid handler:(EnterNewThreadCallBack)callback {
     NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/forum.php?mod=post&action=reply&fid=%d&extra=&tid=%d&repquote=%d", forumId, tid, pid];
     if (pid == -1){
@@ -487,7 +491,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         [self doReply:_handlerWithBool msg:_message replyPostId:replyPostId token:forumHash threadId:threadId forumId:forumId];
     }
 }
-
 
 - (void)doReply:(HandlerWithBool)handler msg:(NSString *)message replyPostId:(int)replyPostId token:(NSString *)formhash threadId:(int)threadId forumId:(int)forumId {
     if (replyPostId != -1){     // 表示回复的某一个楼层
@@ -630,7 +633,6 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 // private
 - (NSString *)checkError:(NSString *)html {
-
     NSString *duplicate = @"<p><strong>此帖是您在最后 5 分钟发表的帖子的副本，您将返回该主题。</strong></p>";
     NSString *tooFast = @"<ol><li>本论坛允许的发表两个帖子的时间间隔必须大于 30 秒。请等待";
     NSString *searchFailed = @"<ol><li>对不起，没有匹配记录。请尝试采用其他条件查询。";
