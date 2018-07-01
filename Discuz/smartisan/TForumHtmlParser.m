@@ -83,8 +83,8 @@
 
         //3. time
         IGXMLNode *timeNode = [postNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id='authorposton%@']", pid]];
-        NSString *time = [timeNode.text.trim stringByReplacingOccurrencesOfString:@"发表于: " withString:@""];
-        post.postTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *time = [timeNode.text.trim stringByReplacingOccurrencesOfString:@"发表于 " withString:@""];
+        post.postTime = [CommonUtils timeForShort:time withFormat:@"yyyy-MM-dd HH:mm"];
 
         //4. content
         IGHTMLDocument * contentDoc = [[IGHTMLDocument alloc] initWithHTMLString:postNodeHtml error:nil];
@@ -199,7 +199,8 @@
 
         //11. 最后回帖时间
         IGXMLNode *lastPostTimeNode = [[threadNode childAt:1] childAt:1];
-        NSString *lastPostTime = [[lastPostTimeNode childAt:0].text.trim stringWithRegular:@"\\d+-\\d+-\\d+ \\d+:\\d+"];
+        NSString * timeHtml = [lastPostTimeNode childAt:1].text.trim;
+        NSString *lastPostTime = [timeHtml stringWithRegular:@"\\d+-\\d+-\\d+ \\d+:\\d+"];
         thread.lastPostTime = [CommonUtils timeForShort:lastPostTime withFormat:@"yyyy-MM-dd HH:mm"];
 
         //12. 最后发表的人
