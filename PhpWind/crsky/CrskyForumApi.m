@@ -756,7 +756,7 @@
     NSInteger lastTimeStamp = [userDefault integerForKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_time"]];
 
     long spaceTime = timeStamp - lastTimeStamp;
-    if (searchId == 0 || spaceTime > 60 * 10) {
+    if (searchId == 0 || spaceTime > 30) {
 
         NSString *url = [forumConfig searchNewThread:page];
         [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {

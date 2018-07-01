@@ -1031,7 +1031,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSInteger lastTimeStamp = [userDefault integerForKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_time"]];
 
     long spaceTime = timeStamp - lastTimeStamp;
-    if (page == 1 && (searchId == 0 || spaceTime > 60 * 10)) {
+    if (page == 1 && (searchId == 0 || spaceTime > 30)) {
 
         NSString *url = [forumConfig searchNewThread:page];
         [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {

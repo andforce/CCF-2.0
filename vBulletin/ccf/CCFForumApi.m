@@ -1105,7 +1105,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     long spaceTime = timeStamp - lastTimeStamp;
 
-    if (page == 1 && (searchId == 0 || spaceTime > 60 * 10)) {
+    if (page == 1 && (searchId == 0 || spaceTime > 30)) {
 
         [self GET:[forumConfig searchNewThread:page] requestCallback:^(BOOL isSuccess, NSString *html) {
             if (isSuccess) {
