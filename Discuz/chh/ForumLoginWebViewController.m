@@ -15,7 +15,7 @@
 #import "UIStoryboard+Forum.h"
 #import "LocalForumApi.h"
 
-#define LOG_IN_URL @"https://www.chiphell.com/member.php?mod=logging&action=login"
+#define LOG_IN_URL @"https://www.chiphell.com/member.php?mod=logging&action=login&mobile=no&referer=https://www.chiphell.com/forum.php"
 
 @interface ForumLoginWebViewController () <UIWebViewDelegate> {
 
@@ -24,6 +24,8 @@
 @end
 
 @implementation ForumLoginWebViewController {
+
+    NSString *REFERER;
 
 }
 
@@ -36,6 +38,7 @@
 
     [self.webView setOpaque:NO];
 
+    REFERER = [LOG_IN_URL stringWithRegular:@"(?<=referer=).*"];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]]];
     
     if ([self isNeedHideLeftMenu]){
@@ -83,7 +86,7 @@
 
         [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
-    } else if ([currentURL isEqualToString:@"https://www.chiphell.com/forum.php?mobile=yes"]){
+    } else if ([currentURL isEqualToString:REFERER]){
 
         IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
         IGXMLNode *logined = [document queryNodeWithXPath:@"/html/body/div[3]/div[1]/a[1]"];
