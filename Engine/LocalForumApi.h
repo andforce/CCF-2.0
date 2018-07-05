@@ -24,6 +24,8 @@
 // 退出论坛
 - (void)logout;
 
+- (void)logout:(NSString *)forumUrl;
+
 - (NSString *)currentForumHost;
 
 - (NSArray<Forums *> *) supportForums;

@@ -175,6 +175,29 @@
     [self deleteLoginUser:user];
 }
 
+- (void)logout:(NSString *)forumUrl {
+
+    NSURL *forumURL = [NSURL URLWithString:forumUrl];
+
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:forumURL.host];
+
+    [self clearCookie:forumURL.host];
+
+    //NSURL *url = forumConfig.forumURL;
+    if (forumURL) {
+        NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:forumURL];
+        for (int i = 0; i < [cookies count]; i++) {
+            NSHTTPCookie *cookie = (NSHTTPCookie *) cookies[(NSUInteger) i];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+        }
+    }
+
+    LoginUser *user = [localForumApi getLoginUser:forumURL.host];
+    [self deleteLoginUser:user];
+}
+
+
 - (NSString *)currentForumHost {
     NSString * urlStr = [self currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
@@ -254,6 +277,10 @@
 
 - (void)clearCookie {
     [_userDefaults removeObjectForKey:[[self currentForumHost] stringByAppendingString:@"-Cookies"]];
+}
+
+- (void)clearCookie:(NSString *)host {
+    [_userDefaults removeObjectForKey:[host stringByAppendingString:@"-Cookies"]];
 }
 
 - (void)saveFavFormIds:(NSArray *)ids {

@@ -24,7 +24,7 @@
 #import "PayManager.h"
 
 static BOOL API_DEBUG = NO;
-static int DB_VERSION = 10;
+static int DB_VERSION = 11;
 
 static BOOL PAY_DEBUG = NO;
 
@@ -106,6 +106,11 @@ static BOOL PAY_DEBUG = NO;
         [userManager deleteData];
         
         [localForumApi setDBVersion:DB_VERSION];
+
+        NSArray<Forums *> * forums = localForumApi.supportForums;
+        for (Forums * f in forums) {
+            [localForumApi logout:f.url];
+        }
         
         isClearDB = YES;
     }
