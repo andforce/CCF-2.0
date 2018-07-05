@@ -34,7 +34,8 @@
 
     NSString * fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
-    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\"\\s*(.*?)\" zoomfile=\"\\s*(.*?)\" file=\"\\s*(.*?)\" class=\"zoom\" onclick=\"\\s*(.*?)\" width=\"\\d+\"( id=\"aimg_\\d+\")( alt=\"\\s*(.*?)\")?( title=\"\\s*(.*?)\")?( w=\"\\d+\")?( inpost=\"1\")?( onmouseover=\"\\s*(.*?)\")?( initialized=\"true\")?( />)?"];
+    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" (([^<>=\"]*)=\"([^<>=]*)\" )+/>"];
+                                                         //"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\"\\s*(.*?)\" zoomfile=\"\\s*(.*?)\" file=\"\\s*(.*?)\" class=\"zoom\" onclick=\"\\s*(.*?)\" width=\"\\d+\"( id=\"aimg_\\d+\")( alt=\"\\s*(.*?)\")?( title=\"\\s*(.*?)\")?( w=\"\\d+\")?( inpost=\"1\")?( onmouseover=\"\\s*(.*?)\")?( initialized=\"true\")?( />)?"];
     for (NSString *img in orgImages) {
 
         IGXMLDocument *igxmlDocument = [[IGXMLDocument alloc] initWithXMLString:img error:nil];
