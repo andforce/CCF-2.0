@@ -19,6 +19,7 @@
 		2F34CD24DA52CC996BE6F47A /* ForumApiHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C14160BC257F07318CEF /* ForumApiHelper.m */; };
 		2F34CDB6320AF601C4CB6F75 /* ViewMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C014C33EFE301A3E9085 /* ViewMessage.m */; };
 		2F34CDC68B8E6EA4AB5D764B /* PageNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA39D274171CAD239E5E /* PageNumber.m */; };
+		2F34CE343E0618B3258CBF17 /* login.html in Resources */ = {isa = PBXBuildFile; fileRef = 2F34C6547027D475D41B023C /* login.html */; };
 		2F34CEF71A3645A8A7E867A0 /* more.html in Resources */ = {isa = PBXBuildFile; fileRef = 2F34C861EB4DB6A0EFE91943 /* more.html */; };
 		2F34CF6094B6C2397FB0FE5C /* ForumDiscuzShowPrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C8996C973B366700F031 /* ForumDiscuzShowPrivateMessageViewController.m */; };
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
@@ -182,6 +183,7 @@
 		2F34C5448FBC9DC69B1F5CF7 /* ForumApiBaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumApiBaseDelegate.h; sourceTree = "<group>"; };
 		2F34C552F73B2613CA4936CE /* DiscuzParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscuzParserDelegate.h; sourceTree = "<group>"; };
 		2F34C63D087B9C331FC76727 /* vBulletinParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinParserDelegate.h; sourceTree = "<group>"; };
+		2F34C6547027D475D41B023C /* login.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = login.html; sourceTree = "<group>"; };
 		2F34C6F9B5DFB54074BB4E7D /* ViewMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewMessage.h; sourceTree = "<group>"; };
 		2F34C71219973AD2B45DF7D9 /* DiscuzCommonConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscuzCommonConfig.h; sourceTree = "<group>"; };
 		2F34C7268015BDFF76F7DF66 /* DiscuzCommonConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscuzCommonConfig.m; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				3A2C3F1C1DDFBAD000576151 /* post_view.html */,
 				3A2C3F181DDFBABD00576151 /* append_post.js */,
 				3A2C3F161DDFBAB200576151 /* append_post_content.html */,
+				2F34C6547027D475D41B023C /* login.html */,
 			);
 			path = Templet;
 			sourceTree = "<group>";
@@ -1169,6 +1172,7 @@
 				C7B59FBEDA751551C16B2A0E /* WillSupportForums.json in Resources */,
 				C7B592195D565E7F41FD734C /* chhlogin.js in Resources */,
 				2F34CEF71A3645A8A7E867A0 /* more.html in Resources */,
+				2F34CE343E0618B3258CBF17 /* login.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
