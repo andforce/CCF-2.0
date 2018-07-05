@@ -24,7 +24,7 @@
 #import "PayManager.h"
 
 static BOOL API_DEBUG = NO;
-static int DB_VERSION = 9;
+static int DB_VERSION = 10;
 
 static BOOL PAY_DEBUG = NO;
 

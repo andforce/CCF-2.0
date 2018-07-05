@@ -89,7 +89,8 @@
     } else if ([currentURL isEqualToString:REFERER]){
 
         IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-        IGXMLNode *logined = [document queryNodeWithXPath:@"/html/body/div[3]/div[1]/a[1]"];
+
+        IGXMLNode *logined = [document queryNodeWithXPath:@"//*[@id=\"um\"]/p[1]/strong"];
         NSString *userName = [[logined text] trim];
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
