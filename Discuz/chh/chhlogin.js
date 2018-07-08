@@ -1,11 +1,22 @@
-var hideElements=["footer","header"];
+var hideElements=["hd","ft","toptb"];
 for (var index in hideElements){
-    document.getElementsByClassName(hideElements[index])[0].style.display="none";
+    document.getElementById(hideElements[index]).style.display="none";
 }
 
-var xpaths=["/html/body/div[1]/p"];
+var hideClasses=["y","xs2","tipcol","bdshare-slide-button"];
+for (index in hideClasses){
+    var toHide = document.getElementsByClassName(hideClasses[index]);
+    for (var i = 0; i < toHide.length; i++){
+        toHide[i].style.display="none";
+    }
+}
 
-for (var indexPath in xpaths){
-    var yinshenNode =document.evaluate(xpaths[indexPath], document).iterateNext();
+document.getElementById("wp").style.width="100%";
+
+//*[@id="nv_member"]/div[9]
+var xPaths=["//*[@id=\"nv_member\"]/div[9]"];
+
+for (var indexPath in xPaths){
+    var yinshenNode =document.evaluate(xPaths[indexPath], document).iterateNext();
     yinshenNode.style.display="none";
 }
