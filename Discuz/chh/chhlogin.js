@@ -20,3 +20,17 @@ for (var indexPath in xPaths){
     var yinshenNode =document.evaluate(xPaths[indexPath], document).iterateNext();
     yinshenNode.style.display="none";
 }
+
+
+xPaths=["//*[@id=\"cookietime_LypJq\"]"];
+
+for (indexPath in xPaths){
+    yinshenNode =document.evaluate(xPaths[indexPath], document).iterateNext();
+    yinshenNode.checked = true;
+}
+
+xPaths = ["//*[@id=\"loginform_LypJq\"]/div/div[5]"];
+for (indexPath in xPaths){
+    yinshenNode =document.evaluate(xPaths[indexPath], document).iterateNext();
+    yinshenNode.style.display = "none";
+}
