@@ -31,7 +31,7 @@
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
-    NSDictionary*dictionnary = @{@"UserAgent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E302"};
+    NSDictionary*dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bbs.crsky.com/login.php"]]];

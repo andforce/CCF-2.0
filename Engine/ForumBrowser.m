@@ -13,7 +13,7 @@
         _browser = [AFHTTPSessionManager manager];
         _browser.responseSerializer = [AFHTTPResponseSerializer serializer];
         _browser.responseSerializer.acceptableContentTypes = [_browser.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-        [_browser.requestSerializer setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E302" forHTTPHeaderField:@"User-Agent"];
+        [_browser.requestSerializer setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
 
     }
     return self;

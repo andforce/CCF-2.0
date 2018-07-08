@@ -38,6 +38,8 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [self changeUserAgentForWebView];
+
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     
     if (NO && !PAY_DEBUG) {
@@ -146,6 +148,13 @@ static BOOL PAY_DEBUG = NO;
     }
     
     return YES;
+}
+
+- (void)changeUserAgentForWebView {
+
+    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
+    NSDictionary *dictionary = @{@"UserAgent": newAgent, @"User-Agent":newAgent,@"useragent":newAgent, @"user-agent":newAgent};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
 - (void)showReloginController:(LocalForumApi *)localForumApi {

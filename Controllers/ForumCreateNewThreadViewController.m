@@ -89,7 +89,7 @@
         [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
-        [request setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E302" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
 
         UIImageView *view = vCodeImgV;
 
@@ -169,7 +169,7 @@
         [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
-        [request setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E302" forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
 
         UIImageView *view = vCodeImgV;
         

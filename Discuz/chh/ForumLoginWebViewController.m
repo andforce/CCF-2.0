@@ -30,6 +30,18 @@
 }
 
 - (void)viewDidLoad {
+    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSLog(@"old agent :%@", oldAgent);
+
+    //add my info to the new agent
+    NSString *newAgent = [oldAgent stringByAppendingString:@" Jiecao/2.4.7 ch_appstore"];
+    NSLog(@"new agent :%@", newAgent);
+
+    //regist the new agent
+    NSDictionary *dictionary = @{@"UserAgent": newAgent};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+
+
     [self.webView setScalesPageToFit:YES];
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -44,17 +56,6 @@
     if ([self isNeedHideLeftMenu]){
         self.navigationItem.leftBarButtonItem = nil;
     }
-
-//    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-//    NSLog(@"old agent :%@", oldAgent);
-//
-//    //add my info to the new agent
-//    NSString *newAgent = [oldAgent stringByAppendingString:@" Jiecao/2.4.7 ch_appstore"];
-//    NSLog(@"new agent :%@", newAgent);
-//
-//    //regist the new agent
-//    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
 
 - (BOOL)isNeedHideLeftMenu {
