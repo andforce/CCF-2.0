@@ -10,6 +10,7 @@
 #import "SDImageCache+URLCache.h"
 #import <NYTPhotosViewController.h>
 #import <NYTPhotoViewer/NYTPhoto.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "NYTExamplePhoto.h"
 #import "LCActionSheet.h"
 #import "UIStoryboard+Forum.h"
@@ -762,7 +763,7 @@
     id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
     itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             // 复制贴链接
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
             
@@ -770,11 +771,11 @@
 
             [ProgressDialog showSuccess:@"复制成功"];
             
-        } else if (buttonIndex == 1) {
+        } else if (buttonIndex == 2) {
             // 在浏览器种查看
             NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
             [[UIApplication sharedApplication] openURL:url];
-        } else if (buttonIndex == 2) {
+        } else if (buttonIndex == 3) {
             [self reportThreadPost:nil userName:nil];
         }
         
