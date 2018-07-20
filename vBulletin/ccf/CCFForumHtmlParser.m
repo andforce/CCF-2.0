@@ -19,7 +19,18 @@
 
 @implementation CCFForumHtmlParser {
 
+    LocalForumApi *localApi;
+    LoginUser *loginUser;
 }
+
+- (instancetype)init {
+    self = [super init];
+    if (self){
+        localApi = [[LocalForumApi alloc] init];
+    }
+    return self;
+}
+
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
     // 查找设置了字体的回帖
     NSArray *fontSetString = [html arrayWithRegular:@"<font size=\"\\d+\">"];
@@ -334,6 +345,12 @@
             searchThread.fromFormName = postBelongForm;
 
 
+            if ([self isSpecial]){
+                NSArray *blackList = [self blackList];
+                if ([blackList containsObject:postBelongForm]){
+                    continue;
+                }
+            }
             [post addObject:searchThread];
         }
     }
@@ -472,13 +489,26 @@
 
     }
 
-    NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
-
+    NSMutableArray<Forum *>* tmp = [NSMutableArray array];
     for (Forum *forum in forms) {
-        [needInsert addObjectsFromArray:[self flatForm:forum]];
+        [tmp addObjectsFromArray:[self flatForm:forum]];
     }
 
-    return [needInsert copy];
+    if ([self isSpecial]){
+        NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
+        for (Forum * forum in tmp) {
+            NSArray *blackList = [self blackList];
+            if ([blackList containsObject:forum.forumName]){
+                continue;
+            } else{
+                [needInsert addObject:forum];
+            }
+        }
+
+        return [needInsert copy];
+    } else {
+        return [tmp copy];
+    }
 }
 
 - (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
@@ -927,6 +957,19 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
+}
+
+- (BOOL) isSpecial{
+    if (loginUser == nil){
+        NSString * url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    return [loginUser.userName isEqualToString:@"马小甲"];
+}
+
+- (NSArray *) blackList{
+    return @[@"『影视，影评』",@"预览归档", @"匿名版", @"『精品笑话』",@"精典笑话", @"『金融财经』",@"『商品交易版』",@"【充值卡网络服务类】",@"『论坛团购』",@"『 二手闲置 』",@"归档区",@"【交易区版务】",
+    @"『TorrentCCF版务』",@"『精品音乐』",@"『放心情-热会』",@"交易",@"『 网购指南 』",@"『游戏』",@"『游戏下载』",@"MMORPG游戏分区",@"WebGame游戏分区"];
 }
 
 @end

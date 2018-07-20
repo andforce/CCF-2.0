@@ -149,10 +149,15 @@
 
 - (void)deleteLoginUser:(LoginUser *)loginUser {
     NSString *uid = [self.currentForumHost stringByAppendingString:@"-UserId"];
-    [_userDefaults setValue:@"" forKey:uid];
-
+    if (uid != nil) {
+        [_userDefaults setValue:@"" forKey:uid];
+    }
+    
     NSString *name = [self.currentForumHost stringByAppendingString:@"-UserName"];
-    [_userDefaults setValue:@"" forKey:name];
+    
+    if (name != nil) {
+        [_userDefaults setValue:@"" forKey:name];
+    }
 }
 
 - (void)logout {
