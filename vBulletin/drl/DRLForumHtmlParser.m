@@ -17,10 +17,21 @@
 #import "CommonUtils.h"
 #import "Message.h"
 #import "ViewMessage.h"
+#import "LoginUser.h"
 
 @implementation DRLForumHtmlParser {
-
+    LocalForumApi *localApi;
+    LoginUser *loginUser;
 }
+
+- (instancetype)init {
+    self = [super init];
+    if (self){
+        localApi = [[LocalForumApi alloc] init];
+    }
+    return self;
+}
+
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
     NSString * fixedImage = [self fixedImage:html];
 
@@ -332,7 +343,12 @@
             searchThread.lastPostTime = [postTime trim];
             searchThread.fromFormName = postBelongForm;
 
-
+            if ([self isSpecial]){
+                NSArray *blackList = [self blackList];
+                if ([blackList containsObject:postBelongForm]){
+                    continue;
+                }
+            }
             [post addObject:searchThread];
         }
     }
@@ -486,11 +502,26 @@
         [needInsert addObject:forum];
     }
 
-    for (Forum * forum in needInsert) {
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>> %@     formId: %d     parentFormId:%d\n\n\n", forum.forumName, forum.forumId, forum.parentForumId);
-    }
+//    for (Forum * forum in needInsert) {
+//        NSLog(@">>>>>>>>>>>>>>>>>>>>>>> %@     formId: %d     parentFormId:%d\n\n\n", forum.forumName, forum.forumId, forum.parentForumId);
+//    }
 
-    return [needInsert copy];
+
+    if ([self isSpecial]){
+        NSMutableArray<Forum *> *realMeedInsert = [NSMutableArray array];
+        for (Forum * forum in needInsert) {
+            NSArray *blackList = [self blackList];
+            if ([blackList containsObject:forum.forumName]){
+                continue;
+            } else{
+                [realMeedInsert addObject:forum];
+            }
+        }
+
+        return [realMeedInsert copy];
+    } else {
+        return [needInsert copy];
+    }
 }
 
 - (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
@@ -983,6 +1014,20 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
+}
+
+- (BOOL) isSpecial{
+    if (loginUser == nil){
+        NSString * url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    return [loginUser.userName isEqualToString:@"马小甲"];
+}
+
+- (NSArray *) blackList{
+    return @[@"〖软件会员区〗",@"软件会员区精华",@"〖影视会员区〗",@"DVDR 介绍区",@"连续剧介绍区",@"动漫介绍区",@"影视讨论精华区",@"高清影视",@"〖交易信息〗",@"团购及商业性交易"
+            ,@"优惠快讯版",@"身份备案",@"Archive",@"争议协调",@"DRL-X 讨论",@"0day warez介绍",@"〖杰出会员评选〗",@"〖羊毛〗"
+                                                                                         ,@"〖补档交流区〗",@"Archive",@"〖FTP资源〗",@"DRL-X",@"【论坛工作区】"];
 }
 
 @end
