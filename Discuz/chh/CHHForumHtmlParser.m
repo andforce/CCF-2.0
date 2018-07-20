@@ -18,10 +18,22 @@
 #import "CommonUtils.h"
 #import "ViewMessage.h"
 #import "IGXMLNode+QueryNode.h"
+#import "LoginUser.h"
 
 @implementation CHHForumHtmlParser {
 
+    LocalForumApi *localApi;
+    LoginUser *loginUser;
 }
+
+- (instancetype)init {
+    self = [super init];
+    if (self){
+        localApi = [[LocalForumApi alloc] init];
+    }
+    return self;
+}
+
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
 
     // 可能存在jammer标签
@@ -591,7 +603,21 @@
         [needInsert addObjectsFromArray:[self flatForm:forum]];
     }
 
-    return [needInsert copy];
+    if ([self isSpecial]){
+        NSMutableArray<Forum *> *realNeedInsert = [NSMutableArray array];
+        for (Forum * forum in needInsert) {
+            NSArray *blackList = [self blackList];
+            if ([blackList containsObject:forum.forumName]){
+                continue;
+            } else{
+                [realNeedInsert addObject:forum];
+            }
+        }
+
+        return [realNeedInsert copy];
+    } else {
+        return [needInsert copy];
+    }
 }
 
 - (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html {
@@ -784,6 +810,18 @@
     //<input type="hidden" name="formhash" value="142b2f4e" />
     NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
     return forumHash;
+}
+
+- (BOOL) isSpecial{
+    if (loginUser == nil){
+        NSString * url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    return [loginUser.userName isEqualToString:@"马小甲"];
+}
+
+- (NSArray *) blackList{
+    return @[@"交易区-剁手党和败家党的生产地", @"Chiphell周边产品官方定制区"];
 }
 
 @end
