@@ -30,19 +30,19 @@
 }
 
 - (void)viewDidLoad {
-    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    NSLog(@"old agent :%@", oldAgent);
+//    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+//    NSLog(@"old agent :%@", oldAgent);
+//
+//    //add my info to the new agent
+//    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
+//    NSLog(@"new agent :%@", newAgent);
+//
+//    //regist the new agent
+//    NSDictionary *dictionary = @{@"UserAgent": newAgent};
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
-    //add my info to the new agent
-    NSString *newAgent = [oldAgent stringByAppendingString:@" Jiecao/2.4.7 ch_appstore"];
-    NSLog(@"new agent :%@", newAgent);
 
-    //regist the new agent
-    NSDictionary *dictionary = @{@"UserAgent": newAgent};
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-
-
-    [self.webView setScalesPageToFit:YES];
+    //[self.webView setScalesPageToFit:YES];
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.delegate = self;
