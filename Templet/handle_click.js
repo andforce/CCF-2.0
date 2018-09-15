@@ -1,5 +1,37 @@
 let list = document.getElementById("list");
 
+list.addEventListener("touchstart", function (event) {
+    let el = event.target;
+    while (el && !el.getAttribute('data-id')) {
+        el = el.parentNode;
+    }
+
+    if (el){
+        el.style.backgroundColor = '#F1F1F1';
+    }
+});
+
+list.addEventListener("touchend", function (event) {
+    let el = event.target;
+    while (el && !el.getAttribute('data-id')) {
+        el = el.parentNode;
+    }
+    if (el){
+        el.style.backgroundColor = '';
+    }
+});
+
+
+list.addEventListener("touchcancel", function (event) {
+    let el = event.target;
+    while (el && !el.getAttribute('data-id')) {
+        el = el.parentNode;
+    }
+    if (el){
+        el.style.backgroundColor = '';
+    }
+});
+
 list.addEventListener("click", function (event) {
     let el = event.target;
 
