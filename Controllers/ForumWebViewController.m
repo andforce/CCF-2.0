@@ -170,21 +170,28 @@
     webViewConfiguration.userContentController = contentController;
 
 
-    UIEdgeInsets edgeInsets = [[UIApplication sharedApplication] keyWindow].safeAreaInsets;
+    CGFloat safeBottom = 0;
+    if (@available(iOS 11.0,*)){
+        UIEdgeInsets edgeInsets = [[UIApplication sharedApplication] keyWindow].safeAreaInsets;
+        safeBottom = edgeInsets.bottom;
+    }
 
-//    NSLog(@">>>>>>>>>>>>>>>>> %@", edgeInsets);
 
-    CGFloat bottom = edgeInsets.bottom + _bottomView.frame.size.height;
+    CGFloat bottom = safeBottom + _bottomView.frame.size.height;
 
     CGRect f = self.view.frame;
-    f.size.height = _bottomView.frame.origin.y + bottom;//f.size.height -(edgeInsets.bottom + _bottomView.frame.size.height);
 
-    _webView = [[WKWebView alloc] initWithFrame:f configuration:webViewConfiguration];
+    CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
+    CGRect rectNav = self.navigationController.navigationBar.frame;
+
+    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, f.size.width, f.size.height - rectStatus.size.height - rectNav.size.height - bottom) configuration:webViewConfiguration];
 
     _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     _webView.backgroundColor = [UIColor whiteColor];
 
     [self.view addSubview:_webView];
+
+    [self.view sendSubviewToBack:_webView];
 
 
 //    [_webView setScalesPageToFit:YES];
