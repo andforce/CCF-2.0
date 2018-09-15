@@ -2,6 +2,7 @@ let list = document.getElementById("list");
 let img_click_el = function (el) {
     let p = getPosition(el);
     location.href = 'image://' + el.src;
+    webkit.messageHandlers.onImageClicked.postMessage(el.src);
 };
 list.addEventListener("click", function (event) {
     let el = event.target;
@@ -15,17 +16,22 @@ list.addEventListener("click", function (event) {
         }
         if (el.getAttribute('data-id')) {
             location.href = el.getAttribute('data-id');
+            webkit.messageHandlers.onPostMessageClicked.postMessage(location.href);
         } else {
             img_click_el(el);
         }
     } else if (el.nodeName === 'SPAN' && el.getAttribute('data-id')) {
         location.href = el.getAttribute('data-id');
+        webkit.messageHandlers.onPostMessageClicked.postMessage(location.href);
     } else {
         while (el && !el.getAttribute('data-id')) {
             el = el.parentNode;
             if (el.nodeName === 'A') return;
         }
-        if (el) location.href = el.getAttribute('data-id');
+        if (el) {
+            location.href = el.getAttribute('data-id');
+            webkit.messageHandlers.onPostMessageClicked.postMessage(location.href);
+        }
     }
 });
 let img_click = function (el) {

@@ -166,7 +166,9 @@
 
     WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
     WKUserContentController *contentController = [[WKUserContentController alloc] init];
-    [contentController addScriptMessageHandler:self name:@"didGetHTML"];
+    [contentController addScriptMessageHandler:self name:@"onImageClicked"];
+    [contentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
+    [contentController addScriptMessageHandler:self name:@"onAvatarClicked"];
     webViewConfiguration.userContentController = contentController;
 
 
@@ -226,6 +228,11 @@
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if ([message.name isEqualToString:@"onImageClicked"]){
+        NSLog(@"onImageClicked %@", message.body);
+    } else{
+        NSLog(@"didReceiveScriptMessage %@, body:%@", message.name, message.body);
+    }
 
 }
 
