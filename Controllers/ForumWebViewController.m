@@ -22,7 +22,9 @@
 #import "ProgressDialog.h"
 #import "NYTPhotoViewerArrayDataSource.h"
 
-@interface ForumWebViewController () <UIWebViewDelegate, UIScrollViewDelegate, TransBundleDelegate, CAAnimationDelegate> {
+#import <WebKit/WebKit.h>
+
+@interface ForumWebViewController () <UIWebViewDelegate, UIScrollViewDelegate, TransBundleDelegate, CAAnimationDelegate, WKScriptMessageHandler> {
 
     LCActionSheet *itemActionSheet;
 
@@ -41,6 +43,7 @@
     NSString *pid;
     NSString *ptid;
 
+    WKWebView *_webView;
 }
 
 @end
@@ -88,7 +91,7 @@
 
         LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
             pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
@@ -131,7 +134,7 @@
         NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-            [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
             pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
@@ -161,37 +164,62 @@
 
     pageDic = [NSMutableDictionary dictionary];
 
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
-    self.webView.backgroundColor = [UIColor whiteColor];
+    WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
+    WKUserContentController *contentController = [[WKUserContentController alloc] init];
+    [contentController addScriptMessageHandler:self name:@"didGetHTML"];
+    webViewConfiguration.userContentController = contentController;
 
-    for (UIView *view in [[self.webView subviews][0] subviews]) {
+
+    UIEdgeInsets edgeInsets = [[UIApplication sharedApplication] keyWindow].safeAreaInsets;
+
+//    NSLog(@">>>>>>>>>>>>>>>>> %@", edgeInsets);
+
+    CGFloat bottom = edgeInsets.bottom + _bottomView.frame.size.height;
+
+    CGRect f = self.view.frame;
+    f.size.height = _bottomView.frame.origin.y + bottom;//f.size.height -(edgeInsets.bottom + _bottomView.frame.size.height);
+
+    _webView = [[WKWebView alloc] initWithFrame:f configuration:webViewConfiguration];
+
+    _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    _webView.backgroundColor = [UIColor whiteColor];
+
+    [self.view addSubview:_webView];
+
+
+//    [_webView setScalesPageToFit:YES];
+//    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
+//    _webView.delegate = self;
+
+    for (UIView *view in [[_webView subviews][0] subviews]) {
         if ([view isKindOfClass:[UIImageView class]]) {
             view.hidden = YES;
         }
     }
-    [self.webView setOpaque:NO];
+    [_webView setOpaque:NO];
 
     // scrollView
-    self.webView.scrollView.delegate = self;
+    _webView.scrollView.delegate = self;
 
-    self.webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 
         [self showPreviousPageOrRefresh];
 
     }];
 
 
-    self.webView.scrollView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    _webView.scrollView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
 
         // 当前页面 == 页面的最大数，只刷新当前页面就可以了
         [self showNextPageOrRefreshCurrentPage:currentShowThreadPage.pageNumber.currentPageNumber forThreadId:threadID];
 
     }];
 
-    [self.webView.scrollView.mj_header beginRefreshing];
+    [_webView.scrollView.mj_header beginRefreshing];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+
 }
 
 - (void) showPreviousPageOrRefresh{
@@ -266,9 +294,9 @@
     pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
     LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-    [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+    [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
-    [self.webView.scrollView.mj_header endRefreshing];
+    [_webView.scrollView.mj_header endRefreshing];
 
 
     CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
@@ -280,17 +308,17 @@
     [stretchAnimation setDelegate:self];
     [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
     [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [self.webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+    [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
     CATransition *animation = [CATransition animation];
     [animation setType:kCATransitionPush];
     [animation setSubtype:kCATransitionFromBottom];
     [animation setDuration:0.5f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [[self.webView layer] addAnimation:animation forKey:nil];
+    [[_webView layer] addAnimation:animation forKey:nil];
 }
 
 -(void) showFailedMessage:(id) message{
-    [self.webView.scrollView.mj_header endRefreshing];
+    [_webView.scrollView.mj_header endRefreshing];
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:message preferredStyle:UIAlertControllerStyleAlert];
 
@@ -319,7 +347,7 @@
 
         if (threadPage.threadTitle == nil) {
 
-            [self.webView.scrollView.mj_header endRefreshing];
+            [_webView.scrollView.mj_header endRefreshing];
 
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:@"\n此帖包含乱码无法正确解析，使用浏览器打开？" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -380,9 +408,9 @@
         pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
         LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-        [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+        [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
-        [self.webView.scrollView.mj_header endRefreshing];
+        [_webView.scrollView.mj_header endRefreshing];
 
 
         if (anim) {
@@ -397,15 +425,15 @@
             [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
 
             [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            //[self.webView setAnchorPoint:CGPointMake(0.0, 1) forView:self.webView];
-            [self.webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+            //[_webView setAnchorPoint:CGPointMake(0.0, 1) forView:_webView];
+            [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
 
             CATransition *animation = [CATransition animation];
             [animation setType:kCATransitionPush];
             [animation setSubtype:kCATransitionFromBottom];
             [animation setDuration:0.5f];
             [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [[self.webView layer] addAnimation:animation forKey:nil];
+            [[_webView layer] addAnimation:animation forKey:nil];
         }
 
     }];
@@ -442,7 +470,7 @@
 
                 currentShowThreadPage = threadPage;
             }
-            [self.webView.scrollView.mj_footer endRefreshing];
+            [_webView.scrollView.mj_footer endRefreshing];
         }];
     }
 }
@@ -499,7 +527,7 @@
         }
         
         LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
-        [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+        [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
         if (anim) {
             CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
@@ -513,18 +541,18 @@
             [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
 
             [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            //[self.webView setAnchorPoint:CGPointMake(0.0, 1) forView:self.webView];
-            [self.webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+            //[_webView setAnchorPoint:CGPointMake(0.0, 1) forView:_webView];
+            [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
 
             CATransition *animation = [CATransition animation];
             [animation setType:kCATransitionPush];
             [animation setSubtype:kCATransitionFromTop];
             [animation setDuration:0.5f];
             [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [[self.webView layer] addAnimation:animation forKey:nil];
+            [[_webView layer] addAnimation:animation forKey:nil];
         }
 
-        [self.webView.scrollView.mj_footer endRefreshing];
+        [_webView.scrollView.mj_footer endRefreshing];
 
     }];
 }
@@ -541,7 +569,9 @@
 
     NSString *js = [NSString stringWithFormat:pattern, post.postID, post.postID, post.postUserInfo.userName, louceng, deleteLine];
 
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
+//    [_webView stringByEvaluatingJavaScriptFromString:js];
+
+    [_webView evaluateJavaScript:js completionHandler:nil];
 }
 
 
@@ -808,7 +838,7 @@
 }
 - (IBAction)firstPage:(id)sender {
     if (1 == currentShowThreadPage.pageNumber.currentPageNumber){
-        [self.webView.scrollView.mj_header beginRefreshing];
+        [_webView.scrollView.mj_header beginRefreshing];
         return;
     }
 
@@ -818,7 +848,7 @@
 
 - (IBAction)lastPage:(id)sender {
     if (currentShowThreadPage.pageNumber.totalPageNumber == currentShowThreadPage.pageNumber.currentPageNumber){
-        [self.webView.scrollView.mj_footer beginRefreshing];
+        [_webView.scrollView.mj_footer beginRefreshing];
         return;
     }
     [ProgressDialog showStatus:@"正在切换"];
@@ -826,11 +856,11 @@
 }
 
 - (IBAction)previousPage:(id)sender {
-    [self.webView.scrollView.mj_header beginRefreshing];
+    [_webView.scrollView.mj_header beginRefreshing];
 }
 
 - (IBAction)nextPage:(id)sender {
-    [self.webView.scrollView.mj_footer beginRefreshing];
+    [_webView.scrollView.mj_footer beginRefreshing];
 }
 
 + (NYTPhotoViewerArrayDataSource *)newTimesBuildingDataSource:(NSArray *)images {

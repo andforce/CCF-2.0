@@ -11,7 +11,7 @@
 
 
 @interface ForumWebViewController : ForumApiBaseViewController
-@property(weak, nonatomic) IBOutlet UIWebView *webView;
+//@property(weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property(nonatomic, strong) UIImageView *animatedFromView;
 
@@ -30,5 +30,6 @@
 - (IBAction)lastPage:(id)sender;
 - (IBAction)nextPage:(id)sender;
 @property (strong, nonatomic) IBOutletCollection(UIVisualEffectView) NSArray *blurView;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 
 @end

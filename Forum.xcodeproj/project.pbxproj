@@ -111,6 +111,7 @@
 		3A430BAC209734FF007D3BCB /* DiscuzMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A430BAB209734FF007D3BCB /* DiscuzMessageTableViewController.m */; };
 		3A48EF80214D3BFD0025CE2D /* fastclick_lib.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */; };
 		3A48EF81214D3BFD0025CE2D /* handle_click.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7F214D3BFD0025CE2D /* handle_click.js */; };
+		3A48EF83214D45490025CE2D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A48EF82214D45480025CE2D /* WebKit.framework */; };
 		3A5A2CD61EBDEA7100B62F96 /* ForumSupportNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A2CD51EBDEA7100B62F96 /* ForumSupportNavigationController.m */; };
 		3A6B4F611EB705A600B9CD79 /* DeviceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B4F601EB705A600B9CD79 /* DeviceName.m */; };
 		3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A8750C01FBDFC07002757AD /* changeLoginStyle.js */; };
@@ -374,6 +375,7 @@
 		3A430BAB209734FF007D3BCB /* DiscuzMessageTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscuzMessageTableViewController.m; sourceTree = "<group>"; };
 		3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fastclick_lib.js; sourceTree = "<group>"; };
 		3A48EF7F214D3BFD0025CE2D /* handle_click.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = handle_click.js; sourceTree = "<group>"; };
+		3A48EF82214D45480025CE2D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3A5A2CD41EBDEA7100B62F96 /* ForumSupportNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumSupportNavigationController.h; sourceTree = "<group>"; };
 		3A5A2CD51EBDEA7100B62F96 /* ForumSupportNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumSupportNavigationController.m; sourceTree = "<group>"; };
 		3A6B4F5F1EB705A600B9CD79 /* DeviceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceName.h; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A48EF83214D45490025CE2D /* WebKit.framework in Frameworks */,
 				4D4CCC791F42CA5A009A4D58 /* CloudKit.framework in Frameworks */,
 				4DEB34C31C47BBE400063CBB /* AssetsLibrary.framework in Frameworks */,
 				757C88B17FCB5AFBB7C0CA0B /* libPods-Forum.a in Frameworks */,
@@ -1075,6 +1078,7 @@
 		CC5E7A99B69535660B7F40C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A48EF82214D45480025CE2D /* WebKit.framework */,
 				4D4CCC781F42CA5A009A4D58 /* CloudKit.framework */,
 				4DEB34C21C47BBE400063CBB /* AssetsLibrary.framework */,
 				EA91F0D805959E8525B7BE0D /* libPods-Forum.a */,
