@@ -1,618 +1,358 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Forum</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <style type="text/css">
-            body {
-                font-family: "Helvetica Neue", sans-serif !Important;
-                -webkit-text-size-adjust: **[ txtadjust ] **;
-                font-size: 16px !Important;
-                background-color: #ffffff;
-                width: 100%% !Important;
-                margin: 0 auto !Important;
-                word-wrap: break-word !Important;
-                line-height: **[ lineHeight ] **!Important;
-                overflow: hidden;
-            }
-
-            textarea {
-                display: none !important;
-            }
-
-            input {
-                display: none !important;
-            }
-
-            form {
-                display: none !important;
-            }
-
-            table, thead, tbody {
-                table-layout: fixed;
-                max-width: 100%% !important;
-            }
-
-            table, tr, td {
-                background-color: transparent;
-            }
-
-            table {
-                width: 100%% !important;
-                max-width 100%% !important;
-            }
-
-            h1, h2, h3 {
-                font-size: 1.0em !important;
-            }
-
-            .content a {
-                text-decoration: none !Important;
-                border-bottom: 1px dashed;
-            }
-
-            span {
-                white-space: normal !Important;
-            }
-
-            img {
-                max-width: 100%% !important;
-                width: auto !important;
-                height: auto !important;
-                margin: 0 auto !important;
-            }
-
-            .attach_image {
-                min-height: 20px;
-            }
-
-            .img_placeholder {
-                width: 100%%;
-                height: 185px;
-                line-height: 185px;
-                text-align: center;
-                background: #f6f6f6;
-                font-size: 0.8em;
-                /*color: #dadada;*/
-                margin: 10px 0;
-            }
-
-            .content video,
-            .content embed,
-            .content object {
-                display: none;
-            }
-
-            .content pre,
-            .content code {
-                white-space: pre-line;
-                font-size: 0.9em;
-            }
-
-            .content img[src^='images'] {
-                border: 0 !important;
-                outline: 0 !important;
-                margin: 0 !important;
-                width: auto !important;
-                background-color: transparent !important;
-                display: inline !important;
-            }
-
-            .list {
-                list-style: none outside none;
-                margin: 0;
-                padding: 0;
-            }
-
-            /* 标题相关 */
-            .post-title {
-                border-bottom: 1.0px solid #DCDCDC;
-                padding: 1px 4px 1px 4px;
-            }
-
-            .title {
-                font-size: 18px !Important;
-                margin-bottom: 0px;
-            }
-
-            .title a {
-                text-decoration: none !Important;
-                color: #333 !Important;
-            }
-
-            .post-quote {
-                background-color: #f6f6f8;
-                border: 1.0px solid #CFCFD1;
-                margin-bottom: 10px;
-            }
-
-            .blockquote {
-                font-size: 12px;
-                width: 100%;
-                border: 1px solid #ece9d8;
-                background: #fffef3;
-                padding: 3px 5px 3px 8px;
-                margin: 0 0 1px;
-                color: #736933;
-            }
-
-            .quote2 {
-                font-size: 12px;
-                color: #333;
-                margin: 0px;
-                padding: 8px 28px 0;
-                color: #006699;
-                background: url(images/winds/read/quote.gif) 8px 8px no-repeat;
-            }
-
-            .blockquote3 {
-                font-size: 12px;
-                border: 1px solid #ccc;
-                background: #f7f7f7;
-                padding: 3px 5px 3px 8px;
-                margin: 0 0 1px;
-                color: #555;
-            }
-
-            /*DRL 论坛的引用样式*/
-            #quote_x {
-                font-size: 12px;
-                width: 100%%;
-                background: #f7f7f7;
-                padding: 3px 5px 3px 8px;
-                margin: 0 0 1px;
-                color: #555;
-            }
-
-            /*CHH*/
-            .quote {
-                padding: 2px;
-                background: #F9F9F9 url(https://www.chiphell.com/static/image/common/icon_quote_s.gif) no-repeat 10px 3px;
-            }
-
-            .post-message {
-                border-bottom: 1.0px solid #DCDCDC;
-                padding: 4px 4px;
-            }
-
-            .page .gotoFloor {
-                background-color: Gainsboro;
-            }
-
-            .list {
-                list-style: none outside none;
-            }
-
-            /*帖子的内容*/
-            body > div > ul > li > div {
-                padding-top: 10px !important;
-                padding-bottom: 10px !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-
-            body > div > ul > li > div > ul > li {
-                border-bottom: 0px;
-                padding: 4px 0px;
-            }
-
-            /**/
-            .shell {
-                width: 95%;
-                border: 1px solid #909090;
-                padding: 8px;
-                padding-top: 8px;
-                margin: 8px;
-                margin-top: 12pt;
-                text-align: left;
-                background-color: #000000;
-                color: #ffffff;
-            }
-
-            .fieldset {
-                display: block;
-                -webkit-margin-start: 2px;
-                -webkit-margin-end: 2px;
-                -webkit-padding-before: 0.35em;
-                -webkit-padding-start: 0.75em;
-                -webkit-padding-end: 0.75em;
-                -webkit-padding-after: 0.625em;
-                border-image-source: initial;
-                border-image-slice: initial;
-                border-image-width: initial;
-                border-image-outset: initial;
-                border-image-repeat: initial;
-                min-width: -webkit-min-content;
-                border-width: 2px;
-                border-style: groove;
-                border-color: threedface;
-            }
-
-            .pre {
-                margin: 0px;
-                padding: 6px;
-                border: 1px solid;
-                width: 100%%;
-                height: 34px;
-                text-align: left;
-                overflow: auto
-            }
-
-            /* >>>>>>>>>> 发帖者的头像，名字，发帖时间，楼层*/
-            .info {
-                margin-left: 15px !important;
-                margin-right: 15px !important;
-                padding-top: 0px !important;
-                padding-bottom: 0px !important;
-                position: relative;
-                height: 35px;
-            }
-
-            .avatar {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            .avatar img {
-                width: 35px !important;
-                height: 35px !important;
-                -webkit-border-radius: 17.5px;
-                border: 0 !important;
-                outline: 0 !important;
-                margin: 0 !important;
-            }
-
-            .floor {
-                position: absolute;
-                color: #7f7f7f;
-                font-size: 10px;
-                right: 0;
-                top: 0px;
-            }
-
-            .time-ago {
-                font-size: 12px;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                color: #7f7f7f;
-            }
-
-            .author {
-                font-size: 14px;
-                color: #7f7f7f;
-                position: relative;
-                vertical-align: middle;
-                line-height: 35px;
-                left: 30px;
-            }
-
-            /* 发帖者的头像，名字，发帖时间，楼层 <<<<<<<<<< */
-
-            .blocked {
-                text-align: center;
-                color: #929292;
-            }
-            a:link {color:#000000;text-decoration:none;}    /* 未被访问的链接 */
-            a:visited {color:#000000;text-decoration:none;} /* 已被访问的链接 */
-            a:hover {color:#000000;}   /* 鼠标指针移动到链接上 */
-            a:active {color:#000000;}  /* 正在被点击的链接 */
-
-        </style>
-    </head>
-    <body>
-        <div class="page">
-            
-            <ul class="list" id="list">
-                <li class="post-title">
-                    <div class="title">%@</div>
-                </li>
-                %@
-                <!--
-                 <li class="post-message" data-id="postid://16832061" >
-                 <div class="info">
-                 <span class="avatar"><a href="large_image"><img src="https://bbs.et8.net/bbs/customavatars/thumbs/avatar17981_14.gif"></a></span>
-                 <span class="author">马小甲</span>
-                 <span class="floor">#1</span>
-                 <span class="time-ago">一天前</span>
-                 </div>
-                 <div id="post_message_16831653" style="overflow-x: hidden;">
-                 我是五个字
-                 还有一张流
-                 </div>
-                 </li>
-                 -->
-            </ul>
-            
-        </div>
-        <script type="text/javascript">
-            /*
-             FastClick  1.0.0
-             */
-        function FastClick(a) {
-            function b(a, b) {
-                return function () {
-                    return a.apply(b, arguments)
-                }
-            }
-            var c;
-            this.trackingClick = !1;
-            this.trackingClickStart = 0;
-            this.targetElement = null;
-            this.lastTouchIdentifier = this.touchStartY = this.touchStartX = 0;
-            this.touchBoundary = 10;
-            this.layer = a;
-            FastClick.notNeeded(a) || (deviceIsAndroid && (a.addEventListener("mouseover", b(this.onMouse, this), !0), a.addEventListener("mousedown", b(this.onMouse, this), !0), a.addEventListener("mouseup", b(this.onMouse, this), !0)), a.addEventListener("click", b(this.onClick,
-                                                                                                                                                                                                                                                                            this), !0), a.addEventListener("touchstart", b(this.onTouchStart, this), !1), a.addEventListener("touchmove", b(this.onTouchMove, this), !1), a.addEventListener("touchend", b(this.onTouchEnd, this), !1), a.addEventListener("touchcancel", b(this.onTouchCancel, this), !1), Event.prototype.stopImmediatePropagation || (a.removeEventListener = function (b, c, e) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         var f = Node.prototype.removeEventListener;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "click" === b ? f.call(a, b, c.hijacked || c, e) : f.call(a, b, c, e)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }, a.addEventListener = function (b, c, e) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         var f = Node.prototype.addEventListener;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "click" === b ? f.call(a, b, c.hijacked || (c.hijacked = function (a) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     a.propagationStopped || c(a)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     }), e) : f.call(a, b, c, e)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }), "function" === typeof a.onclick && (c = a.onclick, a.addEventListener("click", function (a) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   c(a)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }, !1), a.onclick = null))
+<head>
+    <title>Forum</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue", sans-serif !Important;
+            -webkit-text-size-adjust: **[ txtadjust ] **;
+            font-size: 16px !Important;
+            background-color: #ffffff;
+            width: 100%% !Important;
+            margin: 0 auto !Important;
+            word-wrap: break-word !Important;
+            line-height: **[ lineHeight ] **!Important;
+            overflow: hidden;
         }
-        var deviceIsAndroid = 0 < navigator.userAgent.indexOf("Android"), deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent), deviceIsIOS4 = deviceIsIOS && /OS 4_\d(_\d)?/.test(navigator.userAgent), deviceIsIOSWithBadTarget = deviceIsIOS && /OS ([6-9]|\d{2})_\d/.test(navigator.userAgent);
-        FastClick.prototype.needsClick = function (a) {
-            switch (a.nodeName.toLowerCase()) {
-                case "button":
-                case "select":
-                case "textarea":
-                if (a.disabled)return !0;
-                break;
-                case "input":
-                if (deviceIsIOS && "file" === a.type || a.disabled)return !0;
-                break;
-                case "label":
-                case "video":
-                return !0
-            }
-            return /\bneedsclick\b/.test(a.className)
-        };
-        FastClick.prototype.needsFocus = function (a) {
-            switch (a.nodeName.toLowerCase()) {
-                case "textarea":
-                return !0;
-                case "select":
-                return !deviceIsAndroid;
-                case "input":
-                switch (a.type) {
-                    case "button":
-                    case "checkbox":
-                    case "file":
-                    case "image":
-                    case "radio":
-                    case "submit":
-                    return !1
-                }
-                return !a.disabled && !a.readOnly;
-                default:
-                return /\bneedsfocus\b/.test(a.className)
-            }
-        };
-        FastClick.prototype.sendClick = function (a, b) {
-            var c, d;
-            document.activeElement && document.activeElement !== a && document.activeElement.blur();
-            d = b.changedTouches[0];
-            c = document.createEvent("MouseEvents");
-            c.initMouseEvent(this.determineEventType(a), !0, !0, window, 1, d.screenX, d.screenY, d.clientX, d.clientY, !1, !1, !1, !1, 0, null);
-            c.forwardedTouchEvent = !0;
-            a.dispatchEvent(c)
-        };
-        FastClick.prototype.determineEventType = function (a) {
-            return deviceIsAndroid && "select" === a.tagName.toLowerCase() ? "mousedown" : "click"
-        };
-        FastClick.prototype.focus = function (a) {
-            var b;
-            deviceIsIOS && a.setSelectionRange && 0 !== a.type.indexOf("date") && "time" !== a.type ? (b = a.value.length, a.setSelectionRange(b, b)) : a.focus()
-        };
-        FastClick.prototype.updateScrollParent = function (a) {
-            var b, c;
-            b = a.fastClickScrollParent;
-            if (!b || !b.contains(a)) {
-                c = a;
-                do {
-                    if (c.scrollHeight > c.offsetHeight) {
-                        b = c;
-                        a.fastClickScrollParent = c;
-                        break
-                    }
-                    c = c.parentElement
-                } while (c)
-            }
-            b && (b.fastClickLastScrollTop = b.scrollTop)
-        };
-        FastClick.prototype.getTargetElementFromEventTarget = function (a) {
-            return a.nodeType === Node.TEXT_NODE ? a.parentNode : a
-        };
-        FastClick.prototype.onTouchStart = function (a) {
-            var b, c, d;
-            if (1 < a.targetTouches.length)return !0;
-            b = this.getTargetElementFromEventTarget(a.target);
-            c = a.targetTouches[0];
-            if (deviceIsIOS) {
-                d = window.getSelection();
-                if (d.rangeCount && !d.isCollapsed)return !0;
-                if (!deviceIsIOS4) {
-                    if (c.identifier === this.lastTouchIdentifier)return a.preventDefault(), !1;
-                    this.lastTouchIdentifier = c.identifier;
-                    this.updateScrollParent(b)
-                }
-            }
-            this.trackingClick = !0;
-            this.trackingClickStart = a.timeStamp;
-            this.targetElement = b;
-            this.touchStartX = c.pageX;
-            this.touchStartY = c.pageY;
-            200 > a.timeStamp - this.lastClickTime && a.preventDefault();
-            return !0
-        };
-        FastClick.prototype.touchHasMoved = function (a) {
-            a = a.changedTouches[0];
-            var b = this.touchBoundary;
-            return Math.abs(a.pageX - this.touchStartX) > b || Math.abs(a.pageY - this.touchStartY) > b ? !0 : !1
-        };
-        FastClick.prototype.onTouchMove = function (a) {
-            if (!this.trackingClick)return !0;
-            if (this.targetElement !== this.getTargetElementFromEventTarget(a.target) || this.touchHasMoved(a))this.trackingClick = !1, this.targetElement = null;
-            return !0
-        };
-        FastClick.prototype.findControl = function (a) {
-            return void 0 !== a.control ? a.control : a.htmlFor ? document.getElementById(a.htmlFor) : a.querySelector("button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea")
-        };
-        FastClick.prototype.onTouchEnd = function (a) {
-            var b, c, d = this.targetElement;
-            if (!this.trackingClick)return !0;
-            if (200 > a.timeStamp - this.lastClickTime)return this.cancelNextClick = !0;
-            this.cancelNextClick = !1;
-            this.lastClickTime = a.timeStamp;
-            b = this.trackingClickStart;
-            this.trackingClick = !1;
-            this.trackingClickStart = 0;
-            deviceIsIOSWithBadTarget && (c = a.changedTouches[0], d = document.elementFromPoint(c.pageX - window.pageXOffset, c.pageY - window.pageYOffset) || d, d.fastClickScrollParent = this.targetElement.fastClickScrollParent);
-            c = d.tagName.toLowerCase();
-            if ("label" === c) {
-                if (b = this.findControl(d)) {
-                    this.focus(d);
-                    if (deviceIsAndroid)return !1;
-                    d = b
-                }
-            } else if (this.needsFocus(d)) {
-                if (100 < a.timeStamp - b || deviceIsIOS && window.top !== window && "input" === c)return this.targetElement = null, !1;
-                this.focus(d);
-                this.sendClick(d, a);
-                deviceIsIOS4 && "select" === c || (this.targetElement = null, a.preventDefault());
-                return !1
-            }
-            if (deviceIsIOS && !deviceIsIOS4 && (b = d.fastClickScrollParent) && b.fastClickLastScrollTop !== b.scrollTop)return !0;
-            this.needsClick(d) || (a.preventDefault(),
-                                   this.sendClick(d, a));
-                                   return !1
-        };
-        FastClick.prototype.onTouchCancel = function () {
-            this.trackingClick = !1;
-            this.targetElement = null
-        };
-        FastClick.prototype.onMouse = function (a) {
-            return this.targetElement && !a.forwardedTouchEvent && a.cancelable ? !this.needsClick(this.targetElement) || this.cancelNextClick ? (a.stopImmediatePropagation ? a.stopImmediatePropagation() : a.propagationStopped = !0, a.stopPropagation(), a.preventDefault(), !1) : !0 : !0
-        };
-        FastClick.prototype.onClick = function (a) {
-            if (this.trackingClick)return this.targetElement = null, this.trackingClick = !1, !0;
-            if ("submit" === a.target.type && 0 === a.detail)return !0;
-            a = this.onMouse(a);
-            a || (this.targetElement = null);
-            return a
-        };
-        FastClick.prototype.destroy = function () {
-            var a = this.layer;
-            deviceIsAndroid && (a.removeEventListener("mouseover", this.onMouse, !0), a.removeEventListener("mousedown", this.onMouse, !0), a.removeEventListener("mouseup", this.onMouse, !0));
-            a.removeEventListener("click", this.onClick, !0);
-            a.removeEventListener("touchstart", this.onTouchStart, !1);
-            a.removeEventListener("touchmove", this.onTouchMove, !1);
-            a.removeEventListener("touchend", this.onTouchEnd, !1);
-            a.removeEventListener("touchcancel", this.onTouchCancel, !1)
-        };
-        FastClick.notNeeded = function (a) {
-            var b, c;
-            if ("undefined" === typeof window.ontouchstart)return !0;
-            if (c = +(/Chrome\/([0-9]+)/.exec(navigator.userAgent) || [, 0])[1])if (deviceIsAndroid) {
-                if ((b = document.querySelector("meta[name=viewport]")) && (-1 !== b.content.indexOf("user-scalable=no") || 31 < c && window.innerWidth <= window.screen.width))return !0
-            } else return !0;
-            return "none" === a.style.msTouchAction ? !0 : !1
-        };
-        FastClick.attach = function (a) {
-            return new FastClick(a)
-        };
-        "undefined" !== typeof define && define.amd ? define(function () {
-                                                             return FastClick
-                                                             }) : "undefined" !== typeof module && module.exports ? (module.exports = FastClick.attach, module.exports.FastClick = FastClick) : window.FastClick = FastClick;
-                                                             window.addEventListener('load', function () {
-                                                                                     FastClick.attach(document.body);
-                                                                                     }, false);
-                                                                                     function addNewStyle(newStyle) {
-                                                                                         var styleElement = document.getElementById('styles_js');
-                                                                                         if (!styleElement) {
-                                                                                             styleElement = document.createElement('style');
-                                                                                             styleElement.type = 'text/css';
-                                                                                             styleElement.id = 'styles_js';
-                                                                                             document.getElementsByTagName('head')[0].appendChild(styleElement);
-                                                                                         }
-                                                                                         styleElement.appendChild(document.createTextNode(newStyle));
-                                                                                     }
-        var list = document.getElementById("list");
-        list.addEventListener("click", function (event) {
-                              var el = event.target;
-                              if (el.nodeName == 'A') {
-                              return;
-                              } else if (el.nodeName == 'DIV' && el.className == 'img_placeholder') {
-                              return;
-                              } else if (el.nodeName == 'IMG') {
-                              if (el.parentNode.nodeName == 'A') {
-                              return;
-                              }
-                              if (el.getAttribute('data-id')) {
-                              location.href = el.getAttribute('data-id');
-                              } else {
-                              img_click_el(el);
-                              }
-                              } else if (el.nodeName == 'SPAN' && el.getAttribute('data-id')) {
-                              location.href = el.getAttribute('data-id');
-                              } else {
-                              while (el && !el.getAttribute('data-id')) {
-                              el = el.parentNode;
-                              if (el.nodeName == 'A') return;
-                              }
-                              if (el) location.href = el.getAttribute('data-id');
-                              }
-                              });
-                              var img_click_el = function (el) {
-                                  var p = getPosition(el);
-                                  location.href = 'image://' + el.src;
-                              };
-        var img_click = function (el) {
-            var s = el.getAttribute('image').replace(/\\/g, '');
-            var div = document.createElement('div');
-            div.innerHTML = s;
-            var imageNode = div.firstChild;
-            el.parentNode.insertBefore(imageNode, el);
-            el.parentNode.removeChild(el);
-        };
-        //http://stackoverflow.com/questions/4712310/javascript-how-to-detect-if-a-word-is-highlighted
-        function getSelectedText() {
-            var text = "";
-            if (typeof window.getSelection != "undefined") {
-                text = window.getSelection().toString();
-            } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
-                text = document.selection.createRange().text;
-            }
-            return text;
+
+        textarea {
+            display: none !important;
         }
-        function getPosition(element) {
-            var xPosition = 0;
-            var yPosition = 0;
-            while (element) {
-                xPosition += (element.offsetLeft - element.scrollLeft + element.clientLeft);
-                yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
-                element = element.offsetParent;
-            }
-            return {x: xPosition, y: yPosition};
+
+        input {
+            display: none !important;
         }
-        var images = document.getElementsByTagName('IMG');
-        for (var i in images) {
-            if (images[i].src.indexOf("http://www.hi-pda.com/forum/uc_server/data/avatar/") === 0) {
-                continue;
-            }
-            images[i].onerror = function () {
-                this.onerror = null;
-                this.src = this.src;
-            }
+
+        form {
+            display: none !important;
         }
-        </script>
-        
-    </body>
+
+        table, thead, tbody {
+            table-layout: fixed;
+            max-width: 100%% !important;
+        }
+
+        table, tr, td {
+            background-color: transparent;
+        }
+
+        table {
+            width: 100%% !important;
+            max-width 100%% !important;
+        }
+
+        h1, h2, h3 {
+            font-size: 1.0em !important;
+        }
+
+        .content a {
+            text-decoration: none !Important;
+            border-bottom: 1px dashed;
+        }
+
+        span {
+            white-space: normal !Important;
+        }
+
+        img {
+            max-width: 100%% !important;
+            width: auto !important;
+            height: auto !important;
+            margin: 0 auto !important;
+        }
+
+        .attach_image {
+            min-height: 20px;
+        }
+
+        .img_placeholder {
+            width: 100%%;
+            height: 185px;
+            line-height: 185px;
+            text-align: center;
+            background: #f6f6f6;
+            font-size: 0.8em;
+            /*color: #dadada;*/
+            margin: 10px 0;
+        }
+
+        .content video,
+        .content embed,
+        .content object {
+            display: none;
+        }
+
+        .content pre,
+        .content code {
+            white-space: pre-line;
+            font-size: 0.9em;
+        }
+
+        .content img[src^='images'] {
+            border: 0 !important;
+            outline: 0 !important;
+            margin: 0 !important;
+            width: auto !important;
+            background-color: transparent !important;
+            display: inline !important;
+        }
+
+        .list {
+            list-style: none outside none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 标题相关 */
+        .post-title {
+            border-bottom: 1.0px solid #DCDCDC;
+            padding: 1px 4px 1px 4px;
+        }
+
+        .title {
+            font-size: 18px !Important;
+            margin-bottom: 0px;
+        }
+
+        .title a {
+            text-decoration: none !Important;
+            color: #333 !Important;
+        }
+
+        .post-quote {
+            background-color: #f6f6f8;
+            border: 1.0px solid #CFCFD1;
+            margin-bottom: 10px;
+        }
+
+        .blockquote {
+            font-size: 12px;
+            width: 100%;
+            border: 1px solid #ece9d8;
+            background: #fffef3;
+            padding: 3px 5px 3px 8px;
+            margin: 0 0 1px;
+            color: #736933;
+        }
+
+        .quote2 {
+            font-size: 12px;
+            color: #333;
+            margin: 0px;
+            padding: 8px 28px 0;
+            color: #006699;
+            background: url(images/winds/read/quote.gif) 8px 8px no-repeat;
+        }
+
+        .blockquote3 {
+            font-size: 12px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+            padding: 3px 5px 3px 8px;
+            margin: 0 0 1px;
+            color: #555;
+        }
+
+        /*DRL 论坛的引用样式*/
+        #quote_x {
+            font-size: 12px;
+            width: 100%%;
+            background: #f7f7f7;
+            padding: 3px 5px 3px 8px;
+            margin: 0 0 1px;
+            color: #555;
+        }
+
+        /*CHH*/
+        .quote {
+            padding: 2px;
+            background: #F9F9F9 url(https://www.chiphell.com/static/image/common/icon_quote_s.gif) no-repeat 10px 3px;
+        }
+
+        .post-message {
+            border-bottom: 1.0px solid #DCDCDC;
+            padding: 4px 4px;
+        }
+
+        .page .gotoFloor {
+            background-color: Gainsboro;
+        }
+
+        .list {
+            list-style: none outside none;
+        }
+
+        /*帖子的内容*/
+        body > div > ul > li > div {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        body > div > ul > li > div > ul > li {
+            border-bottom: 0px;
+            padding: 4px 0px;
+        }
+
+        /**/
+        .shell {
+            width: 95%;
+            border: 1px solid #909090;
+            padding: 8px;
+            padding-top: 8px;
+            margin: 8px;
+            margin-top: 12pt;
+            text-align: left;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .fieldset {
+            display: block;
+            -webkit-margin-start: 2px;
+            -webkit-margin-end: 2px;
+            -webkit-padding-before: 0.35em;
+            -webkit-padding-start: 0.75em;
+            -webkit-padding-end: 0.75em;
+            -webkit-padding-after: 0.625em;
+            border-image-source: initial;
+            border-image-slice: initial;
+            border-image-width: initial;
+            border-image-outset: initial;
+            border-image-repeat: initial;
+            min-width: -webkit-min-content;
+            border-width: 2px;
+            border-style: groove;
+            border-color: threedface;
+        }
+
+        .pre {
+            margin: 0px;
+            padding: 6px;
+            border: 1px solid;
+            width: 100%%;
+            height: 34px;
+            text-align: left;
+            overflow: auto
+        }
+
+        /* >>>>>>>>>> 发帖者的头像，名字，发帖时间，楼层*/
+        .info {
+            margin-left: 15px !important;
+            margin-right: 15px !important;
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            position: relative;
+            height: 35px;
+        }
+
+        .avatar {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .avatar img {
+            width: 35px !important;
+            height: 35px !important;
+            -webkit-border-radius: 17.5px;
+            border: 0 !important;
+            outline: 0 !important;
+            margin: 0 !important;
+        }
+
+        .floor {
+            position: absolute;
+            color: #7f7f7f;
+            font-size: 10px;
+            right: 0;
+            top: 0px;
+        }
+
+        .time-ago {
+            font-size: 12px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: #7f7f7f;
+        }
+
+        .author {
+            font-size: 14px;
+            color: #7f7f7f;
+            position: relative;
+            vertical-align: middle;
+            line-height: 35px;
+            left: 30px;
+        }
+
+        /* 发帖者的头像，名字，发帖时间，楼层 <<<<<<<<<< */
+
+        .blocked {
+            text-align: center;
+            color: #929292;
+        }
+
+        a:link {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* 未被访问的链接 */
+        a:visited {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* 已被访问的链接 */
+        a:hover {
+            color: #000000;
+        }
+
+        /* 鼠标指针移动到链接上 */
+        a:active {
+            color: #000000;
+        }
+
+        /* 正在被点击的链接 */
+
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <ul class="list" id="list">
+        <li class="post-title">
+            <div class="title">%@</div>
+        </li>
+        %@
+        <!--
+         <li class="post-message" data-id="postid://16832061" >
+         <div class="info">
+         <span class="avatar"><a href="large_image"><img src="https://bbs.et8.net/bbs/customavatars/thumbs/avatar17981_14.gif"></a></span>
+         <span class="author">马小甲</span>
+         <span class="floor">#1</span>
+         <span class="time-ago">一天前</span>
+         </div>
+         <div id="post_message_16831653" style="overflow-x: hidden;">
+         我是五个字
+         还有一张流
+         </div>
+         </li>
+         -->
+    </ul>
+
+</div>
+<script type="text/javascript">
+
+    // 此处添加 FastClick lib
+    %@
+
+    %@
+</script>
+
+</body>
 </html>

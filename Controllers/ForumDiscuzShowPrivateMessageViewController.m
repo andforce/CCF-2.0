@@ -87,7 +87,7 @@
             }
 
 
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, @"", content];
+            NSString *html = [NSString stringWithFormat:THREAD_PAGE, @"", content, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
             LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];

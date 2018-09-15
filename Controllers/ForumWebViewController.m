@@ -79,9 +79,9 @@
         NSString *html = nil;
 
         if (threadPage.pageNumber.currentPageNumber <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
         NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
@@ -123,9 +123,9 @@
         NSString *html = nil;
 
         if (threadPage.pageNumber.currentPageNumber <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
         NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
@@ -259,7 +259,7 @@
                     lis = [lis stringByAppendingString:postInfo];
                 }
 
-    NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+    NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
 
     // 缓存当前页面
@@ -368,9 +368,12 @@
         NSString *html = nil;
 
         if (page <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+            NSString * lib = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fastclick_lib" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+            [lib length];
+            
+            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
 
@@ -486,9 +489,9 @@
         NSString *html = nil;
 
         if (page <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis];
+            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
