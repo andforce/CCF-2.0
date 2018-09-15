@@ -9,6 +9,10 @@
 
 #import <sys/utsname.h>
 
+#import "Forum.pch"
+
+#import <UIKit/UIKit.h>
+
 @implementation DeviceName
 
 + (NSString *)platform{
@@ -223,7 +227,19 @@
     if ([platform isEqualToString:@"iPod4,1"]) return @"iPod touch 4";
     if ([platform isEqualToString:@"iPod5,1"]) return @"iPod touch 5";
     if ([platform isEqualToString:@"iPod7,1"]) return @"iPod touch 6";
-    
+
+    if (SCREEN_WIDTH == 828 && SCREEN_HEIGHT == 1792){
+        return @"iPhone XR";
+    }
+
+    if (SCREEN_WIDTH == 1125 && SCREEN_HEIGHT == 2436){
+        return @"iPhone XS";
+    }
+
+    if (SCREEN_WIDTH == 1242 && SCREEN_HEIGHT == 2688){
+        return @"iPhone XS Max";
+    }
+
     return platform;
 }
 
