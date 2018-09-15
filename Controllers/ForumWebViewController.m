@@ -169,6 +169,9 @@
     [contentController addScriptMessageHandler:self name:@"onImageClicked"];
     [contentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
     [contentController addScriptMessageHandler:self name:@"onAvatarClicked"];
+    [contentController addScriptMessageHandler:self name:@"onLinkClicked"];
+    [contentController addScriptMessageHandler:self name:@"onDebug"];
+
     webViewConfiguration.userContentController = contentController;
 
 
@@ -230,8 +233,121 @@
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     if ([message.name isEqualToString:@"onImageClicked"]){
         NSLog(@"onImageClicked %@", message.body);
-    } else{
-        NSLog(@"didReceiveScriptMessage %@, body:%@", message.name, message.body);
+
+        NSURL *url = [NSURL URLWithString:message.body];
+
+        NSString *absUrl = url.absoluteString;
+
+
+        NSString *src = [absUrl stringByReplacingOccurrencesOfString:@"image://https//" withString:@"https://"];
+        if ([absUrl hasPrefix:@"image://http//"]) {
+            src = [absUrl stringByReplacingOccurrencesOfString:@"image://http//" withString:@"http://"];
+        }
+
+        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
+        NSData *data = nil;
+        if (memCachedImage) {
+            if (!memCachedImage.images) {
+                data = UIImageJPEGRepresentation(memCachedImage, 1.f);
+            }
+        } else {
+            data = [[SDImageCache sharedImageCache] hp_imageDataFromDiskCacheForKey:src];
+            memCachedImage = [UIImage imageWithData:data];
+        }
+
+        NYTPhotoViewerArrayDataSource * ds = [self.class newTimesBuildingDataSource:@[memCachedImage]];
+
+        NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithDataSource:ds initialPhoto:nil delegate:nil];
+
+        [self presentViewController:photosViewController animated:YES completion:nil];
+
+    } else if ([message.name isEqualToString:@"onPostMessageClicked"]){
+        NSLog(@"onPostMessageClicked %@", message.body);
+
+        NSURL *url = [NSURL URLWithString:message.body];
+
+        NSDictionary *query = [self dictionaryFromQuery:url.query usingEncoding:NSUTF8StringEncoding];
+
+        NSString *userName = [[query valueForKey:@"postuser"] replaceUnicode];
+        int postId = [[query valueForKey:@"postid"] intValue];
+        int louCeng = [[query valueForKey:@"postlouceng"] intValue];
+
+        itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+
+            NSLog(@"LCActionSheet click index %ld", (long) buttonIndex);
+
+            if (buttonIndex == 1) {
+
+                UIStoryboard *storyBoard = [UIStoryboard mainStoryboard];
+
+                UINavigationController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"SeniorReplySomeOne"];
+
+                TransBundle *bundle = [[TransBundle alloc] init];
+
+                [bundle putIntValue:currentShowThreadPage.forumId forKey:@"FORM_ID"];
+                [bundle putIntValue:threadID forKey:@"THREAD_ID"];
+                [bundle putIntValue:postId forKey:@"POST_ID"];
+                NSString *token = currentShowThreadPage.securityToken;
+                [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
+                [bundle putStringValue:currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
+                [bundle putStringValue:userName forKey:@"USER_NAME"];
+                [bundle putIntValue:1 forKey:@"IS_QUOTE_REPLY"];
+
+                [bundle putObjectValue:currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
+
+                [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
+
+                }];
+
+            } else if (buttonIndex == 2) {
+
+                LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+                id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+
+                NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:louCeng];
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = postUrl;
+                [ProgressDialog showSuccess:@"复制成功"];
+            } else if (buttonIndex == 3){
+                [self reportThreadPost:postId userName:userName];
+            }
+        } otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
+
+        [itemActionSheet show];
+
+    }else if ([message.name isEqualToString:@"onAvatarClicked"]){
+        NSLog(@"onAvatarClicked %@", message.body);
+
+        NSURL *url = [NSURL URLWithString:message.body];
+        NSDictionary *query = [self dictionaryFromQuery:url.query usingEncoding:NSUTF8StringEncoding];
+
+        NSString *userid = [query valueForKey:@"userid"];
+
+
+        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+        ForumUserProfileTableViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowUserProfile"];
+
+        TransBundle *bundle = [[TransBundle alloc] init];
+        [bundle putIntValue:[userid intValue] forKey:@"UserId"];
+        [self transBundle:bundle forController:showThreadController];
+
+        [self.navigationController pushViewController:showThreadController animated:YES];
+
+    }else if ([message.name isEqualToString:@"onLinkClicked"]){
+
+        NSURL *url = [NSURL URLWithString:message.body];
+
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+
+        if ([self.forumApi openUrlByClient:self request:request]){
+
+        } else {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }
+
+    else{
+        NSLog(@"didReceiveScriptMessage() >>>:%@, body:%@", message.name, message.body);
     }
 
 }
@@ -636,108 +752,8 @@
 
     //NSString *urlString = [[request URL] absoluteString];
 
-    if ([request.URL.scheme isEqualToString:@"postid"]) {
-        NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
-
-        NSString *userName = [[query valueForKey:@"postuser"] replaceUnicode];
-        int postId = [[query valueForKey:@"postid"] intValue];
-        int louCeng = [[query valueForKey:@"postlouceng"] intValue];
-
-        itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
-            
-            NSLog(@"LCActionSheet click index %ld", (long) buttonIndex);
-            
-            if (buttonIndex == 1) {
-                
-                UIStoryboard *storyBoard = [UIStoryboard mainStoryboard];
-                
-                UINavigationController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"SeniorReplySomeOne"];
-                
-                TransBundle *bundle = [[TransBundle alloc] init];
-                
-                [bundle putIntValue:currentShowThreadPage.forumId forKey:@"FORM_ID"];
-                [bundle putIntValue:threadID forKey:@"THREAD_ID"];
-                [bundle putIntValue:postId forKey:@"POST_ID"];
-                NSString *token = currentShowThreadPage.securityToken;
-                [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
-                [bundle putStringValue:currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
-                [bundle putStringValue:userName forKey:@"USER_NAME"];
-                [bundle putIntValue:1 forKey:@"IS_QUOTE_REPLY"];
-                
-                [bundle putObjectValue:currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
-                
-                [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
-                    
-                }];
-                
-            } else if (buttonIndex == 2) {
-                
-                LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-                id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
-                
-                NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:louCeng];
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = postUrl;
-                [ProgressDialog showSuccess:@"复制成功"];
-            } else if (buttonIndex == 3){
-                [self reportThreadPost:postId userName:userName];
-            }
-        } otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
-        
-        [itemActionSheet show];
-        return NO;
-
-    }
-
-    if ([request.URL.scheme isEqualToString:@"image"]) {
-
-        NSString *absUrl = request.URL.absoluteString;
 
 
-        NSString *src = [absUrl stringByReplacingOccurrencesOfString:@"image://https//" withString:@"https://"];
-        if ([absUrl hasPrefix:@"image://http//"]) {
-            src = [absUrl stringByReplacingOccurrencesOfString:@"image://http//" withString:@"http://"];
-        }
-
-        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
-        NSData *data = nil;
-        if (memCachedImage) {
-            if (!memCachedImage.images) {
-                data = UIImageJPEGRepresentation(memCachedImage, 1.f);
-            }
-        } else {
-            data = [[SDImageCache sharedImageCache] hp_imageDataFromDiskCacheForKey:src];
-            memCachedImage = [UIImage imageWithData:data];
-        }
-        
-        NYTPhotoViewerArrayDataSource * ds = [self.class newTimesBuildingDataSource:@[memCachedImage]];
-        
-        NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithDataSource:ds initialPhoto:nil delegate:nil];
-        
-        [self presentViewController:photosViewController animated:YES completion:nil];
-
-        return NO;
-    }
-
-
-
-    if ([request.URL.scheme isEqualToString:@"avatar"]) {
-        NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
-
-        NSString *userid = [query valueForKey:@"userid"];
-
-
-        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-        ForumUserProfileTableViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowUserProfile"];
-
-        TransBundle *bundle = [[TransBundle alloc] init];
-        [bundle putIntValue:[userid intValue] forKey:@"UserId"];
-        [self transBundle:bundle forController:showThreadController];
-
-        [self.navigationController pushViewController:showThreadController animated:YES];
-
-        return NO;
-    }
 
     if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
 
