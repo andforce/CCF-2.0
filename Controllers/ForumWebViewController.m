@@ -45,6 +45,8 @@
     NSString *ptid;
 
     WKWebView *_webView;
+
+    WKUserContentController *contentController;
 }
 
 @end
@@ -165,16 +167,11 @@
 
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
-
+    
     pageDic = [NSMutableDictionary dictionary];
 
     WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
-    WKUserContentController *contentController = [[WKUserContentController alloc] init];
-    [contentController addScriptMessageHandler:self name:@"onImageClicked"];
-    [contentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
-    [contentController addScriptMessageHandler:self name:@"onAvatarClicked"];
-    [contentController addScriptMessageHandler:self name:@"onLinkClicked"];
-    [contentController addScriptMessageHandler:self name:@"onDebug"];
+    contentController = [[WKUserContentController alloc] init];
 
     webViewConfiguration.userContentController = contentController;
 
@@ -232,6 +229,30 @@
     }];
 
     [_webView.scrollView.mj_header beginRefreshing];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onImageClicked"];
+    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
+    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onAvatarClicked"];
+    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onLinkClicked"];
+    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onDebug"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+//    [NSURLProtocol wk_unregisterScheme:@"http"];
+//    [NSURLProtocol wk_unregisterScheme:@"https"];
+
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onImageClicked"];
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onPostMessageClicked"];
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onAvatarClicked"];
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onLinkClicked"];
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onDebug"];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
