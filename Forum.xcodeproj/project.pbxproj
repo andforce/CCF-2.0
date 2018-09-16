@@ -112,6 +112,8 @@
 		3A48EF80214D3BFD0025CE2D /* fastclick_lib.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */; };
 		3A48EF81214D3BFD0025CE2D /* handle_click.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7F214D3BFD0025CE2D /* handle_click.js */; };
 		3A48EF83214D45490025CE2D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A48EF82214D45480025CE2D /* WebKit.framework */; };
+		3A48EF88214E9FAC0025CE2D /* HybridNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */; };
+		3A48EF89214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */; };
 		3A5A2CD61EBDEA7100B62F96 /* ForumSupportNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A2CD51EBDEA7100B62F96 /* ForumSupportNavigationController.m */; };
 		3A6B4F611EB705A600B9CD79 /* DeviceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B4F601EB705A600B9CD79 /* DeviceName.m */; };
 		3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A8750C01FBDFC07002757AD /* changeLoginStyle.js */; };
@@ -121,9 +123,6 @@
 		3A92CDA51F2C826B00E41573 /* CrskyLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CDA41F2C826B00E41573 /* CrskyLoginViewController.m */; };
 		3A92CE061F37527800E41573 /* CharUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CE051F37527400E41573 /* CharUtils.m */; };
 		3ABEBF092020C44E00AB67E9 /* CloseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABEBF082020C44E00AB67E9 /* CloseViewController.m */; };
-		3ACFFD2C1CF9D6BF000312DC /* HPURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFFD291CF9D6BF000312DC /* HPURLCache.m */; };
-		3ACFFD2D1CF9D6BF000312DC /* SDImageCache+URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFFD2B1CF9D6BF000312DC /* SDImageCache+URLCache.m */; };
-		3ACFFD301CF9DD3C000312DC /* HPURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFFD2F1CF9DD3C000312DC /* HPURLProtocol.m */; };
 		3ACFFD341CFA641F000312DC /* NYTExamplePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFFD331CFA641F000312DC /* NYTExamplePhoto.m */; };
 		3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */; };
 		3AEDFA60209578B400E93BB0 /* TForumApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA5F209578B400E93BB0 /* TForumApi.m */; };
@@ -376,6 +375,10 @@
 		3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = fastclick_lib.js; sourceTree = "<group>"; };
 		3A48EF7F214D3BFD0025CE2D /* handle_click.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = handle_click.js; sourceTree = "<group>"; };
 		3A48EF82214D45480025CE2D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		3A48EF84214E9FAB0025CE2D /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
+		3A48EF85214E9FAC0025CE2D /* HybridNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridNSURLProtocol.h; sourceTree = "<group>"; };
+		3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridNSURLProtocol.m; sourceTree = "<group>"; };
+		3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		3A5A2CD41EBDEA7100B62F96 /* ForumSupportNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumSupportNavigationController.h; sourceTree = "<group>"; };
 		3A5A2CD51EBDEA7100B62F96 /* ForumSupportNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumSupportNavigationController.m; sourceTree = "<group>"; };
 		3A6B4F5F1EB705A600B9CD79 /* DeviceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceName.h; sourceTree = "<group>"; };
@@ -394,12 +397,6 @@
 		3A92CE051F37527400E41573 /* CharUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharUtils.m; sourceTree = "<group>"; };
 		3ABEBF072020C44E00AB67E9 /* CloseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloseViewController.h; sourceTree = "<group>"; };
 		3ABEBF082020C44E00AB67E9 /* CloseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloseViewController.m; sourceTree = "<group>"; };
-		3ACFFD281CF9D6BF000312DC /* HPURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPURLCache.h; sourceTree = "<group>"; };
-		3ACFFD291CF9D6BF000312DC /* HPURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPURLCache.m; sourceTree = "<group>"; };
-		3ACFFD2A1CF9D6BF000312DC /* SDImageCache+URLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+URLCache.h"; sourceTree = "<group>"; };
-		3ACFFD2B1CF9D6BF000312DC /* SDImageCache+URLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+URLCache.m"; sourceTree = "<group>"; };
-		3ACFFD2E1CF9DD3C000312DC /* HPURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPURLProtocol.h; sourceTree = "<group>"; };
-		3ACFFD2F1CF9DD3C000312DC /* HPURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPURLProtocol.m; sourceTree = "<group>"; };
 		3ACFFD321CFA641F000312DC /* NYTExamplePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTExamplePhoto.h; sourceTree = "<group>"; };
 		3ACFFD331CFA641F000312DC /* NYTExamplePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTExamplePhoto.m; sourceTree = "<group>"; };
 		3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = defaultAvatar.gif; sourceTree = "<group>"; };
@@ -905,12 +902,10 @@
 		3ACB5C341FDC27ED00D5339C /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
-				3ACFFD281CF9D6BF000312DC /* HPURLCache.h */,
-				3ACFFD291CF9D6BF000312DC /* HPURLCache.m */,
-				3ACFFD2E1CF9DD3C000312DC /* HPURLProtocol.h */,
-				3ACFFD2F1CF9DD3C000312DC /* HPURLProtocol.m */,
-				3ACFFD2A1CF9D6BF000312DC /* SDImageCache+URLCache.h */,
-				3ACFFD2B1CF9D6BF000312DC /* SDImageCache+URLCache.m */,
+				3A48EF84214E9FAB0025CE2D /* NSURLProtocol+WKWebVIew.h */,
+				3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */,
+				3A48EF85214E9FAC0025CE2D /* HybridNSURLProtocol.h */,
+				3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -1248,8 +1243,10 @@
 				3A2C3F891DDFDF9200576151 /* IGXMLNode+Children.m in Sources */,
 				3A2C3F151DDFB94200576151 /* AppDelegate.m in Sources */,
 				4DFB34D61DF946D300BD8DD5 /* CCFForumConfig.m in Sources */,
+				3A48EF89214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m in Sources */,
 				3A2C3FDC1DDFE0C900576151 /* ForumReportViewController.m in Sources */,
 				3A2C3FDD1DDFE0C900576151 /* ForumSearchViewController.m in Sources */,
+				3A48EF88214E9FAC0025CE2D /* HybridNSURLProtocol.m in Sources */,
 				4D7F74F21FBEB5FD0049BA46 /* AutoSendBackTabBar.m in Sources */,
 				3A430BAC209734FF007D3BCB /* DiscuzMessageTableViewController.m in Sources */,
 				3A2C3FD01DDFE0C900576151 /* ForumBaseStaticTableViewController.m in Sources */,
@@ -1273,7 +1270,6 @@
 				3A2C3FE51DDFE0C900576151 /* ForumThreadListForChildFormUITableViewController.m in Sources */,
 				4D1B072A2046B15F0013B6A1 /* ForumPayUITableViewController.m in Sources */,
 				3A2C3F371DDFBD2700576151 /* ForumCoreDataManager.m in Sources */,
-				3ACFFD2C1CF9D6BF000312DC /* HPURLCache.m in Sources */,
 				3A2C3FDA1DDFE0C900576151 /* ForumPrivateMessageTableViewController.m in Sources */,
 				3ACFFD341CFA641F000312DC /* NYTExamplePhoto.m in Sources */,
 				3A2C3F7F1DDFC0CD00576151 /* UIStoryboard+Forum.m in Sources */,
@@ -1299,7 +1295,6 @@
 				4DFB34D01DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m in Sources */,
 				4DF737261DDECC9600BF1896 /* Message.m in Sources */,
 				3A2C3F7C1DDFC0CD00576151 /* NSUserDefaults+Setting.m in Sources */,
-				3ACFFD301CF9DD3C000312DC /* HPURLProtocol.m in Sources */,
 				3AEDFA6920957A9700E93BB0 /* TForumLoginWebViewController.m in Sources */,
 				3A2C3FFF1DDFE30300576151 /* TranBundleUITableViewController.m in Sources */,
 				3A2C3FE61DDFE0C900576151 /* ForumThreadListTableViewController.m in Sources */,
@@ -1333,7 +1328,6 @@
 				3A2C3FE91DDFE0C900576151 /* ForumWebViewController.m in Sources */,
 				4DFB34D11DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.m in Sources */,
 				3A2C3FD21DDFE0C900576151 /* ForumFavThreadPostTableViewController.m in Sources */,
-				3ACFFD2D1CF9D6BF000312DC /* SDImageCache+URLCache.m in Sources */,
 				3A2C3F3A1DDFBF3900576151 /* BaseFourmTableViewCell.m in Sources */,
 				3A2C400A1DE0015C00576151 /* main.m in Sources */,
 				3A2C3FD91DDFE0C900576151 /* ForumCreateNewThreadViewController.m in Sources */,

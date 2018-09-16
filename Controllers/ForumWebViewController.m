@@ -7,7 +7,6 @@
 
 #import "ForumWebViewController.h"
 #import <MJRefresh.h>
-#import "SDImageCache+URLCache.h"
 #import <NYTPhotosViewController.h>
 #import <NYTPhotoViewer/NYTPhoto.h>
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -21,8 +20,10 @@
 #import "LocalForumApi.h"
 #import "ProgressDialog.h"
 #import "NYTPhotoViewerArrayDataSource.h"
+#import "NSURLProtocol+WKWebVIew.h"
 
 #import <WebKit/WebKit.h>
+#import <SDWebImage/SDImageCache.h>
 
 @interface ForumWebViewController () <UIWebViewDelegate, UIScrollViewDelegate, TransBundleDelegate, CAAnimationDelegate, WKScriptMessageHandler> {
 
@@ -162,6 +163,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [NSURLProtocol wk_registerScheme:@"http"];
+    [NSURLProtocol wk_registerScheme:@"https"];
+
     pageDic = [NSMutableDictionary dictionary];
 
     WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
@@ -244,15 +248,20 @@
             src = [absUrl stringByReplacingOccurrencesOfString:@"image://http//" withString:@"http://"];
         }
 
-        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
-        NSData *data = nil;
-        if (memCachedImage) {
-            if (!memCachedImage.images) {
-                data = UIImageJPEGRepresentation(memCachedImage, 1.f);
-            }
-        } else {
-            data = [[SDImageCache sharedImageCache] hp_imageDataFromDiskCacheForKey:src];
-            memCachedImage = [UIImage imageWithData:data];
+//        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
+//        NSData *data = nil;
+//        if (memCachedImage) {
+//            if (!memCachedImage.images) {
+//                data = UIImageJPEGRepresentation(memCachedImage, 1.f);
+//            }
+//        } else {
+//            data = [[SDImageCache sharedImageCache] hp_imageDataFromDiskCacheForKey:src];
+//            memCachedImage = [UIImage imageWithData:data];
+//        }
+
+        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:src];
+        if (!memCachedImage){
+            memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
         }
 
         NYTPhotoViewerArrayDataSource * ds = [self.class newTimesBuildingDataSource:@[memCachedImage]];

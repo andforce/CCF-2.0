@@ -12,7 +12,6 @@
 #import "ApiTestViewController.h"
 #import "NSUserDefaults+Setting.h"
 #import "UIStoryboard+Forum.h"
-#import "HPURLProtocol.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "ForumTabBarController.h"
 #import "ForumTableViewController.h"
@@ -22,6 +21,8 @@
 
 #import "ForumPushManager.h"
 #import "PayManager.h"
+
+#import "HybridNSURLProtocol.h"
 
 static BOOL API_DEBUG = NO;
 static int DB_VERSION = 11;
@@ -38,6 +39,10 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    //[NSURLProtocol registerClass:[VCCustomURLProtocol class]];
+
+    [NSURLProtocol registerClass:[HybridNSURLProtocol class]];
+    
     [self changeUserAgentForWebView];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -63,7 +68,7 @@ static BOOL PAY_DEBUG = NO;
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-    [HPURLProtocol registerURLProtocolIfNeed];
+//    [HPURLProtocol registerURLProtocolIfNeed];
 
     // 注册LeanCloud的推送服务
     _pushManager = [[ForumPushManager alloc] initWithNotificationCenterDelegate:self];
