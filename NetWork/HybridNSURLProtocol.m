@@ -96,6 +96,9 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
+        NSLog(@"《《《《《《《《《《《《《《《《《《《《《 %@", self.request.URL);
+    } else {
+        NSLog(@"》》》》》》》》》》》》》》》》》》》》》%@", self.request.URL);
     }
 
     self.connection = [NSURLConnection connectionWithRequest:mutableReqeust delegate:self];

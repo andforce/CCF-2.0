@@ -1,17 +1,41 @@
 let list = document.getElementById("list");
 
+var touched = false;
+
 list.addEventListener("touchstart", function (event) {
+    touched = true;
+
     let el = event.target;
     while (el && !el.getAttribute('data-id')) {
         el = el.parentNode;
     }
 
     if (el){
-        el.style.backgroundColor = '#F1F1F1';
+        setTimeout(changeBgColor,50);
+
+        function changeBgColor() {
+            if (touched) {
+                el.style.backgroundColor = '#F1F1F1';
+            }
+        }
     }
 });
 
 list.addEventListener("touchend", function (event) {
+    touched = false;
+
+    let el = event.target;
+    while (el && !el.getAttribute('data-id')) {
+        el = el.parentNode;
+    }
+    if (el){
+        el.style.backgroundColor = '';
+    }
+});
+
+list.addEventListener("touchmove", function (event) {
+    touched = false;
+
     let el = event.target;
     while (el && !el.getAttribute('data-id')) {
         el = el.parentNode;
