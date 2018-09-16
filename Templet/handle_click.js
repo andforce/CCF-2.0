@@ -11,7 +11,10 @@ list.addEventListener("touchstart", function (event) {
     }
 
     if (el){
-        setTimeout(changeBgColor,50);
+
+        // el.style.backgroundColor = '#F1F1F1';
+
+        setTimeout(changeBgColor,100);
 
         function changeBgColor() {
             if (touched) {
@@ -56,6 +59,17 @@ list.addEventListener("touchcancel", function (event) {
     }
 });
 
+//http://stackoverflow.com/questions/4712310/javascript-how-to-detect-if-a-word-is-highlighted
+function getSelectedText() {
+    var text = "";
+    if (typeof window.getSelection !== "undefined") {
+        text = window.getSelection().toString();
+    } else if (typeof document.selection !== "undefined" && document.selection.type === "Text") {
+        text = document.selection.createRange().text;
+    }
+    return text;
+}
+
 list.addEventListener("click", function (event) {
     let el = event.target;
 
@@ -90,6 +104,13 @@ list.addEventListener("click", function (event) {
             }
         }
         if (el) {
+            el.style.backgroundColor = '#F1F1F1';
+
+            setTimeout(changeBgColorClick,150);
+
+            function changeBgColorClick() {
+                el.style.backgroundColor = '';
+            }
             //location.href = el.getAttribute('data-id');
             webkit.messageHandlers.onPostMessageClicked.postMessage(el.getAttribute('data-id'));
         }
