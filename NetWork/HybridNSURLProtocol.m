@@ -63,9 +63,9 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
 - (void)startLoading {
 
-    NSMutableURLRequest *mutableReqeust = [[self request] mutableCopy];
+    NSMutableURLRequest *mutableURLRequest = [[self request] mutableCopy];
     //做下标记，防止递归调用
-    [NSURLProtocol setProperty:@YES forKey:KHybridNSURLProtocolHKey inRequest:mutableReqeust];
+    [NSURLProtocol setProperty:@YES forKey:KHybridNSURLProtocolHKey inRequest:mutableURLRequest];
 
     //查看本地是否已经缓存了图片
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:self.request.URL];
@@ -85,8 +85,13 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
         }
     }
 
+    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.gif"].location != NSNotFound){
+        UIImage * defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
+        data = UIImageJPEGRepresentation(defaultAvatarImage, 1.f);
+    }
+
     if (data){
-        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:mutableReqeust.URL
+        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:mutableURLRequest.URL
                                                             MIMEType:[NSData sd_contentTypeForImageData:data]
                                                expectedContentLength:data.length
                                                     textEncodingName:nil];
@@ -96,12 +101,12 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
-        NSLog(@"《《《《《《《《《《《《《《《《《《《《《 %@", self.request.URL);
+        NSLog(@"---------- ---------- ---------- ---------- ---------- 有缓存直接利用 %@", self.request.URL);
     } else {
-        NSLog(@"》》》》》》》》》》》》》》》》》》》》》%@", self.request.URL);
+        NSLog(@"--- --- --- --- --- --- --- --- --- --- --- --- --- --- 没有缓存需要请求 %@", self.request.URL);
     }
 
-    self.connection = [NSURLConnection connectionWithRequest:mutableReqeust delegate:self];
+    self.connection = [NSURLConnection connectionWithRequest:mutableURLRequest delegate:self];
 }
 
 - (void)stopLoading {
