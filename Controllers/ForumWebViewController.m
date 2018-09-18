@@ -888,7 +888,16 @@
 
     }];
 }
+
+- (void)killScroll {
+    CGPoint offset = _webView.scrollView.contentOffset;
+    offset.y -= 1.0;
+    [_webView.scrollView setContentOffset:offset animated:NO];
+}
+
 - (IBAction)firstPage:(id)sender {
+    [self killScroll];
+
     if (1 == currentShowThreadPage.pageNumber.currentPageNumber){
         [_webView.scrollView.mj_header beginRefreshing];
         return;
@@ -899,6 +908,8 @@
 }
 
 - (IBAction)lastPage:(id)sender {
+    [self killScroll];
+
     if (currentShowThreadPage.pageNumber.totalPageNumber == currentShowThreadPage.pageNumber.currentPageNumber){
         [_webView.scrollView.mj_footer beginRefreshing];
         return;
@@ -908,10 +919,14 @@
 }
 
 - (IBAction)previousPage:(id)sender {
+    [self killScroll];
+
     [_webView.scrollView.mj_header beginRefreshing];
 }
 
 - (IBAction)nextPage:(id)sender {
+    [self killScroll];
+    
     [_webView.scrollView.mj_footer beginRefreshing];
 }
 
