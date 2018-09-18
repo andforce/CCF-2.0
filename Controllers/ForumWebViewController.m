@@ -259,15 +259,7 @@
     if ([message.name isEqualToString:@"onImageClicked"]){
         NSLog(@"onImageClicked %@", message.body);
 
-        NSURL *url = [NSURL URLWithString:message.body];
-
-        NSString *absUrl = url.absoluteString;
-
-
-        NSString *src = [absUrl stringByReplacingOccurrencesOfString:@"image://https//" withString:@"https://"];
-        if ([absUrl hasPrefix:@"image://http//"]) {
-            src = [absUrl stringByReplacingOccurrencesOfString:@"image://http//" withString:@"http://"];
-        }
+        NSString *src = message.body;
 
 //        UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
 //        NSData *data = nil;
