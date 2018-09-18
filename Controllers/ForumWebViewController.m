@@ -73,7 +73,7 @@
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
+            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
                             louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
@@ -117,7 +117,7 @@
         for (Post *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
+            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
                             louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
@@ -296,8 +296,8 @@
 
         NSURL *url = [NSURL URLWithString:message.body];
 
-        NSDictionary *query = [self dictionaryFromQuery:url.query usingEncoding:NSUTF8StringEncoding];
-
+        NSData *data = [message.body dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *query = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSString *userName = [[query valueForKey:@"postuser"] replaceUnicode];
         int postId = [[query valueForKey:@"postid"] intValue];
         int louCeng = [[query valueForKey:@"postlouceng"] intValue];
@@ -442,7 +442,7 @@
 
                     NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
                     NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-                    NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
+                    NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
                                                                     louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
                     lis = [lis stringByAppendingString:postInfo];
                 }
@@ -549,7 +549,7 @@
         for (Post *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName, louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName, louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
             lis = [lis stringByAppendingString:postInfo];
         }
 
@@ -665,7 +665,7 @@
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postID, post.postUserInfo.userName,
+            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
                     louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
