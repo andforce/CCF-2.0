@@ -700,26 +700,39 @@
 
     NSMutableArray<Message *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children){
+        
         Message *message = [[Message alloc] init];
         NSString *newPm = [pmNode attribute:@"class"];
         BOOL isReaded = ![newPm isEqualToString:@"bbda cur1 cl newpm"];
-        NSString *pmId = [[pmNode attribute:@"id"] componentsSeparatedByString:@"_"].lastObject;
 
-        //*[@id="pmlist_973711"]/dd[2]/text()[1]
-        IGXMLNodeSet *dd = [pmNode queryWithXPath:@"dd[2]/text()"];
-        NSString * title = [[[dd[4] text] trim] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        NSString *fullPMID = [pmNode attribute:@"id"];
+        NSString *pmId = [fullPMID componentsSeparatedByString:@"_"].lastObject;
 
-        IGXMLNode *authorNode = [pmNode queryWithXPath:@"dd[2]/a"].firstObject;
-        NSString *authorName = [[authorNode text] trim];
-        NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
+        NSString * title = @"[客户端解析标题出错了，请联系作者：马小甲]";
+        // 系统消息 Title
 
-        IGXMLNode *timeNode = [pmNode queryWithXPath:@"dd[2]/span[2]"].firstObject;
-        NSString *time = [timeNode text];
+        NSString *time = @"1970-1-1 00:00";
+        if ([fullPMID hasPrefix:@"gpmlist_"]){
+            title = [pmNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"p_gpmid_%@\"]", pmId]].text.trim;
+            message.pmAuthor = @"系统";
+            message.pmAuthorId = @"-1";
+
+            time = [pmNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"gpmlist_%@\"]/dd[3]/span[2]", pmId]].text.trim;
+        } else if ([fullPMID hasPrefix:@"pmlist_"]){
+            title = [pmNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]", pmId]].text.trim;
+            title = [title componentsSeparatedByString:@"\r\n"][1].trim;
+
+            IGXMLNode *authorNode = [pmNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]/a", pmId]];
+            NSString *authorName = [[authorNode text] trim];
+            NSString *authorId = [[authorNode attribute:@"href"] stringWithRegular:@"\\d+"];
+            message.pmAuthor = authorName;
+            message.pmAuthorId = authorId;
+            time = [pmNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id=\"pmlist_%@\"]/dd[2]/span[2]", pmId]].text.trim;
+        }
 
         message.isReaded = isReaded;
         message.pmID = pmId;
-        message.pmAuthor = authorName;
-        message.pmAuthorId = authorId;
+
         message.pmTime = time;
         message.pmTitle = title;
 
