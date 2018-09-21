@@ -825,12 +825,14 @@
     return forumHash;
 }
 
+static BOOL SPECIAL = YES;
+
 - (BOOL) isSpecial{
     if (loginUser == nil){
         NSString * url = localApi.currentForumHost;
         loginUser = [localApi getLoginUser:url];
     }
-    return [loginUser.userName isEqualToString:@"马小甲"];
+    return SPECIAL && [loginUser.userName isEqualToString:@"马小甲"];
 }
 
 - (NSArray *) blackList{
