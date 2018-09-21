@@ -797,7 +797,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUG-5g-vNr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yza-pa-1jS">
                                         <rect key="frame" x="40" y="100" width="334" height="135"/>
@@ -903,7 +903,7 @@
                         <color key="backgroundColor" red="0.20171834529999999" green="0.26926216479999998" blue="0.49421218039999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="oKZ-Vv-1hI" firstAttribute="top" secondItem="JUG-5g-vNr" secondAttribute="bottom" id="5j2-oV-kEZ"/>
+                            <constraint firstItem="oKZ-Vv-1hI" firstAttribute="top" secondItem="JUG-5g-vNr" secondAttribute="bottom" constant="-34" id="3Cp-cG-jSw"/>
                             <constraint firstItem="JUG-5g-vNr" firstAttribute="top" secondItem="WrZ-XJ-YKY" secondAttribute="bottom" id="8DQ-wb-E0O"/>
                             <constraint firstItem="JUG-5g-vNr" firstAttribute="centerX" secondItem="CQD-JO-ONT" secondAttribute="centerX" id="Yff-w8-1tt"/>
                             <constraint firstItem="JUG-5g-vNr" firstAttribute="width" secondItem="CQD-JO-ONT" secondAttribute="width" id="uSJ-Q4-zyd"/>
@@ -934,7 +934,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ute-fr-eMa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7373.913043478261" y="-4826.902173913044"/>
+            <point key="canvasLocation" x="-7373.913043478261" y="-4827.4553571428569"/>
         </scene>
         <!--添加论坛-->
         <scene sceneID="Co0-Go-5Y9">
