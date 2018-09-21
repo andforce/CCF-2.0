@@ -39,8 +39,6 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    //[NSURLProtocol registerClass:[VCCustomURLProtocol class]];
-
     [NSURLProtocol registerClass:[HybridNSURLProtocol class]];
     
     [self changeUserAgentForWebView];

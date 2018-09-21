@@ -77,7 +77,7 @@
         [self saveUserName:userName];
     }
 
-    NSLog(@"CrskyLogin.webViewDidFinishLoad %@ ", html);
+    //NSLog(@"CrskyLogin.webViewDidFinishLoad %@ ", html);
     
     
     // 改变样式
@@ -95,7 +95,7 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 
     NSString *html = [self getResponseHTML:webView];
-    NSLog(@"CrskyLogin.webViewDidStartLoad %@ ", html);
+    //NSLog(@"CrskyLogin.webViewDidStartLoad %@ ", html);
 }
 
 
@@ -111,10 +111,14 @@
     if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]){
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 
+        NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
         // 保存Cookie
         [localForumApi saveCookie];
 
         [self.forumApi fetchUserInfo:^(BOOL isSuccess, NSString *userName, NSString *userId) {
+
+            NSLog(@"CrskyLogin.shouldStartLoadWithRequest, fetchUserInfo %@ ", urlString);
+
             if (isSuccess){
 
                 [localForumApi saveUserId:userId forHost:@"bbs.crsky.com"];
@@ -163,25 +167,5 @@
         [localForumApi clearCurrentForumURL];
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
     }
-}
-
-- (void)exitApplication {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIWindow *window = app.window;
-
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
-    rotationAnimation.delegate = self;
-
-    rotationAnimation.fillMode=kCAFillModeForwards;
-
-    rotationAnimation.removedOnCompletion = NO;
-    //旋转角度
-    rotationAnimation.toValue = @((float) (M_PI / 2));
-    //每次旋转的时间（单位秒）
-    rotationAnimation.duration = 0.5;
-    rotationAnimation.cumulative = YES;
-    //重复旋转的次数，如果你想要无数次，那么设置成MAXFLOAT
-    rotationAnimation.repeatCount = 0;
-    [window.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 @end

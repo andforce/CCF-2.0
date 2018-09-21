@@ -32,14 +32,52 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
 @implementation HybridNSURLProtocol
 
+//如果返回YES则进入该自定义加载器进行处理，如果返回NO则不进入该自定义选择器，使用系统默认行为进行处理。
+//YES 处理
+//NO 不处理
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    NSLog(@"request.URL.absoluteString = %@", request.URL.absoluteString);
-    NSString *scheme = [[request URL] scheme];
-    if (([scheme caseInsensitiveCompare:@"http"] == NSOrderedSame ||
-            [scheme caseInsensitiveCompare:@"https"] == NSOrderedSame)) {
-        //看看是否已经处理过了，防止无限循环
-        if ([NSURLProtocol propertyForKey:KHybridNSURLProtocolHKey inRequest:request])
-            return NO;
+
+    NSString *protocol = request.URL.scheme;
+
+    if (![@[@"http", @"https"] containsObject:protocol]) {
+        return NO;
+    }
+
+    if ([NSURLProtocol propertyForKey:KHybridNSURLProtocolHKey inRequest:request]) {
+        return NO;
+    }
+
+    if ([self.class shouldCache:request]) {
+        return YES;
+    }
+    return NO;
+
+//    NSLog(@"request.URL.absoluteString = %@", request.URL.absoluteString);
+//    NSString *scheme = [[request URL] scheme];
+//    if (([scheme caseInsensitiveCompare:@"http"] == NSOrderedSame || [scheme caseInsensitiveCompare:@"https"] == NSOrderedSame)) {
+//
+//        //看看是否已经处理过了，防止无限循环
+//        BOOL hasCached = [NSURLProtocol propertyForKey:KHybridNSURLProtocolHKey inRequest:request] != nil;
+//        NSString *hasCachedStr = hasCached ? @"YES" : @"NO";
+//        NSLog(@"canInitWithRequest() request.URL.absoluteString = %@ -> Cached: %@", request.URL.absoluteString, hasCachedStr);
+//
+//        //看看是否已经处理过了，防止无限循环
+//        if (hasCached) {
+//            return NO;
+//        }
+//        return YES;
+//    }
+//
+//    NSLog(@"canInitWithRequest() request.URL.absoluteString = %@ ----> Cached: %@", request.URL.absoluteString, @"NO");
+//    return NO;
+}
+
++ (BOOL)shouldCache:(NSURLRequest *)request {
+    // 1. 如果是SDWebImage的请求, request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData, SDWebImage自己会处理缓存
+    // 2. 这里是通过url后缀来判断是不是图片的, 还可以从response.MIMEType
+    NSString *absUrl = [[request.URL absoluteString] lowercaseString];
+    if (request.cachePolicy != NSURLRequestReloadIgnoringLocalCacheData &&
+            ([absUrl hasSuffix:@"&stc=1"] || [absUrl hasSuffix:@".jpg"] || [absUrl hasSuffix:@".png"] || [absUrl hasSuffix:@".jpeg"] || [absUrl hasSuffix:@".gif"])) {
         return YES;
     }
     return NO;
