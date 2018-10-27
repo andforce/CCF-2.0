@@ -351,6 +351,8 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *urlLost = @"<div style=\"margin: 10px\">没有指定 主题 。如果您来自一个有效链接，请通知<a href=\"sendmessage.php\">管理员</a></div>";
     NSString *permission = @"<li>您的账号可能没有足够的权限访问此页面或执行需要授权的操作。</li>";
 
+    NSString *accecp = @"<p><strong>您必需先接受论坛规则才能回覆主题!</strong></p>";
+
     if ([html containsString:duplicate]) {
         return @"内容重复";
     } else if ([html containsString:tooFast]) {
@@ -365,6 +367,8 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         return @"无效链接";
     } else if ([html containsString:permission]) {
         return @"无权查看";
+    } else if ([html containsString:accecp]){
+        return @"请去电脑端接受规则";
     } else {
         return nil;
     }

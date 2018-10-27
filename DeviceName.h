@@ -10,8 +10,6 @@
 
 @interface DeviceName : NSObject
 
-+ (NSString* ) deviceName;
-
 + (NSString* ) deviceNameDetail;
 
 @end
