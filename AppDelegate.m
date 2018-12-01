@@ -196,6 +196,30 @@ static BOOL PAY_DEBUG = NO;
     }
 }
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    completionHandler();  // 系统要求执行这个方法
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //从通知界面直接进入应用
+    }else{
+        //从通知设置界面进入应用
+    }
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+
+    }
+    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有 Badge、Sound、Alert 三种类型可以选择设置
+}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
