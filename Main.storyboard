@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -171,7 +171,7 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="h6s-Jp-9xf">
-                            <rect key="frame" x="90" y="7" width="234" height="30"/>
+                            <rect key="frame" x="91" y="7" width="232" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="收件箱"/>
@@ -1570,12 +1570,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="eSv-5V-fLL">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="eSv-5V-fLL">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gmr-mu-1bY">
-                                    <rect key="frame" x="0.0" y="-28" width="414" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="56" id="V5x-VL-p9O"/>
                                     </constraints>
@@ -2169,7 +2169,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="ForumUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6tN-Pg-gRW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -2460,7 +2460,7 @@
             <objects>
                 <tableViewController id="l3g-AL-GdG" customClass="ForumUserThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XcW-xB-IIx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -3819,7 +3819,7 @@
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="yNO-f5-O03">
-                            <rect key="frame" x="90" y="7" width="234" height="30"/>
+                            <rect key="frame" x="91" y="7" width="232" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="私信"/>
@@ -3918,25 +3918,25 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_account_balance_18pt" width="18" height="18"/>
-        <image name="ic_arrow_back_18pt" width="18" height="18"/>
-        <image name="ic_camera_enhance_18pt" width="18" height="18"/>
-        <image name="ic_close_18pt" width="18" height="18"/>
-        <image name="ic_grade_18pt" width="18" height="18"/>
-        <image name="ic_loupe_white_18pt" width="18" height="18"/>
-        <image name="ic_menu_18pt" width="18" height="18"/>
-        <image name="ic_mode_edit_18pt" width="18" height="18"/>
-        <image name="ic_more_horiz_18pt" width="18" height="18"/>
-        <image name="ic_perm_identity_18pt" width="18" height="18"/>
-        <image name="ic_search_18pt" width="18" height="18"/>
+        <image name="ic_account_balance_18pt" width="54" height="54"/>
+        <image name="ic_arrow_back_18pt" width="54" height="54"/>
+        <image name="ic_camera_enhance_18pt" width="54" height="54"/>
+        <image name="ic_close_18pt" width="54" height="54"/>
+        <image name="ic_grade_18pt" width="54" height="54"/>
+        <image name="ic_loupe_white_18pt" width="54" height="54"/>
+        <image name="ic_menu_18pt" width="54" height="54"/>
+        <image name="ic_mode_edit_18pt" width="54" height="54"/>
+        <image name="ic_more_horiz_18pt" width="54" height="54"/>
+        <image name="ic_perm_identity_18pt" width="54" height="54"/>
+        <image name="ic_search_18pt" width="54" height="54"/>
         <image name="paperclip.gif" width="10" height="13"/>
-        <image name="tab_message" width="18" height="18"/>
-        <image name="tab_new_post" width="18" height="18"/>
+        <image name="tab_message" width="54" height="54"/>
+        <image name="tab_new_post" width="54" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cB8-Pd-AFY"/>
-        <segue reference="blx-ak-4u5"/>
-        <segue reference="b8A-CD-rhQ"/>
+        <segue reference="wLO-He-BF0"/>
+        <segue reference="Qkn-xF-ZJG"/>
         <segue reference="FiC-V2-LqH"/>
         <segue reference="tJd-yI-EGE"/>
         <segue reference="BtX-d5-2Dd"/>
