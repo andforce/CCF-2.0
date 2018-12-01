@@ -847,7 +847,7 @@
         NSString * url = localApi.currentForumHost;
         loginUser = [localApi getLoginUser:url];
     }
-    return [loginUser.userName isEqualToString:@"chimelong"];
+    return [loginUser.userName isEqualToString:@"pobaby"];
 }
 
 - (NSArray *) blackList{
