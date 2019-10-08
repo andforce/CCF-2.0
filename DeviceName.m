@@ -66,6 +66,10 @@
     if ([platform isEqualToString:@"iPhone11,4"]) return @"iPhone XS Max";
     if ([platform isEqualToString:@"iPhone11,6"]) return @"iPhone XS Max";
     if ([platform isEqualToString:@"iPhone11,8"]) return @"iPhone XR";
+
+    if ([platform isEqualToString:@"iPhone12,1"]) return @"iPhone 11";
+    if ([platform isEqualToString:@"iPhone12,3"]) return @"iPhone 11 Pro";
+    if ([platform isEqualToString:@"iPhone12,5"]) return @"iPhone 11 Pro Max";
     
     if ([platform isEqualToString:@"i386"]) return @"Simulator";
     if ([platform isEqualToString:@"x86_64"]) return @"Simulator";
@@ -122,6 +126,23 @@
     if ([platform isEqualToString:@"iPad7,4" ]) return @"iPad Pro 10.5 Inch";
     if ([platform isEqualToString:@"iPad7,5" ]) return @"iPad 6";
     if ([platform isEqualToString:@"iPad7,6" ]) return @"iPad 6";
+
+    if ([platform isEqualToString:@"iPad7,11" ]) return @"iPad 7";
+    if ([platform isEqualToString:@"iPad7,12" ]) return @"iPad 7";
+
+    if ([platform isEqualToString:@"iPad8,1" ]) return @"iPad Pro 11 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,2" ]) return @"iPad Pro 11 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,3" ]) return @"iPad Pro 11 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,4" ]) return @"iPad Pro 11 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,5" ]) return @"iPad Pro 12.9 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,6" ]) return @"iPad Pro 12.9 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,7" ]) return @"iPad Pro 12.9 Inch 3 Gen";
+    if ([platform isEqualToString:@"iPad8,8" ]) return @"iPad Pro 12.9 Inch 3 Gen";
+
+    if ([platform isEqualToString:@"iPad11,1" ]) return @"iPad Mini 5";
+    if ([platform isEqualToString:@"iPad11,2" ]) return @"iPad Mini 5";
+    if ([platform isEqualToString:@"iPad11,4" ]) return @"iPad Air 3";
+    if ([platform isEqualToString:@"iPad11,5" ]) return @"iPad Air 3";
     
     // Apple TV
     if ([platform isEqualToString:@"AppleTV2,1"]) return @"Apple TV 2G";
@@ -138,6 +159,7 @@
     if ([platform isEqualToString:@"iPod4,1"]) return @"iPod touch 4";
     if ([platform isEqualToString:@"iPod5,1"]) return @"iPod touch 5";
     if ([platform isEqualToString:@"iPod7,1"]) return @"iPod touch 6";
+    if ([platform isEqualToString:@"iPod9,1"]) return @"iPod touch 7";
     
     return platform;
 }
