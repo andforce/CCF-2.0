@@ -25,12 +25,17 @@
         UIImage *leftImage = self.imageView.image;
 
 
-        UIImage *leftImageTint = [leftImage imageWithTintColor:blueHighLightColor];
+        UIImage *leftImageTint;
+        if (@available(iOS 13.0, *)) {
+            leftImageTint = [leftImage imageWithTintColor:blueHighLightColor];
+        } else {
+            leftImageTint = [leftImage imageWithTintColorCompat:blueHighLightColor];
+        }
 
         [self setImage:leftImage forState:UIControlStateNormal];
         [self setImage:leftImageTint forState:UIControlStateHighlighted];
         [self setImage:leftImageTint forState:UIControlStateSelected];
-
+        
         NSString *text = self.titleLabel.text;
         [self setTitle:text forState:UIControlStateNormal];
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -63,12 +68,17 @@
         UIImage *leftImage = [UIImage imageNamed:name];
 
 
-        UIImage *leftImageTint = [leftImage imageWithTintColor:blueHighLightColor];
+        UIImage *leftImageTint;
+        if (@available(iOS 13.0, *)) {
+            leftImageTint = [leftImage imageWithTintColor:blueHighLightColor];
 
+        } else {
+            leftImageTint = [leftImage imageWithTintColorCompat:blueHighLightColor];
+        }
+        
         [self setImage:leftImage forState:UIControlStateNormal];
         [self setImage:leftImageTint forState:UIControlStateHighlighted];
         [self setImage:leftImageTint forState:UIControlStateSelected];
-
 
         [self setTitle:text forState:UIControlStateNormal];
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

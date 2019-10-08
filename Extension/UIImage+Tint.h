@@ -10,7 +10,7 @@
 
 @interface UIImage (Tint)
 
-- (UIImage *)imageWithTintColor:(UIColor *)tintColor;
+- (UIImage *)imageWithTintColorCompat:(UIColor *)tintColor;
 
 - (UIImage *)scaleUIImage:(CGSize)maxSize;
 
