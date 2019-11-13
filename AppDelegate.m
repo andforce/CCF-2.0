@@ -163,7 +163,7 @@ static BOOL PAY_DEBUG = NO;
 - (void)showReloginController:(LocalForumApi *)localForumApi {
     NSString *bundleId = [localForumApi bundleIdentifier];
 
-    if ([bundleId isEqualToString:@"com.andforce.forum"]){
+    if ([bundleId isEqualToString:@"com.andforce.forums"]){
                 [localForumApi clearCurrentForumURL];
                 self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
             } else{

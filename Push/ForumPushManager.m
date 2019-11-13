@@ -13,9 +13,24 @@
 }
 
 - (void)registerPushManagerWithOptions:(NSDictionary *)launchOptions {
-    // 这地方要换成你自己的ID，别用我这个，否则签名不对你也无法收到推送
-    [AVOSCloud setApplicationId:@"N2qq6veAIOoLT8FMgStzeVMW-gzGzoHsz" clientKey:@"Wr4v3A6sMhO7HgGG41hMdzXS"];
-    [AVOSCloud setAllLogsEnabled:NO];
+    
+//    // 配置 SDK 储存
+//    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleAPI];
+//    // 配置 SDK 推送
+//    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModulePush];
+//    // 配置 SDK 云引擎（用于访问云函数，使用 API 自定义域名，而非云引擎自定义域名）
+//    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleEngine];
+//    // 配置 SDK 即时通讯
+//    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleRTM];
+//    // 配置 SDK 统计
+//    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleStatistics];
+//    // 初始化应用
+//    [AVOSCloud setApplicationId:@"6bb0jjSB7QgBIJ24q7dshAtl-gzGzoHsz" clientKey:@"tTpCum0ACwFsvEgWlNU0vkB0"];
+    
+    [AVOSCloud setApplicationId:@"6bb0jjSB7QgBIJ24q7dshAtl-gzGzoHsz"clientKey:@"tTpCum0ACwFsvEgWlNU0vkB0"
+                serverURLString:@"https://n2qq6vea.lc-cn-n1-shared.com"];
+
+    [AVOSCloud setAllLogsEnabled:YES];
 
     [self registerForRemoteNotification];
 
@@ -37,7 +52,7 @@
 
 - (void)handleRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // 向系统申请推送服务
-    [AVOSCloud handleRemoteNotificationsWithDeviceToken:deviceToken];
+    //[AVOSCloud handleRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 

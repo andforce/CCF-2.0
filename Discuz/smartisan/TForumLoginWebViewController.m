@@ -40,7 +40,7 @@
 - (BOOL)isNeedHideLeftMenu {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    return ![bundleId isEqualToString:@"com.andforce.forum"];
+    return ![bundleId isEqualToString:@"com.andforce.forums"];
 }
 
 // private
@@ -154,7 +154,7 @@
 - (IBAction)cancelLogin:(id)sender {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.forum"]) {
+    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
         [localForumApi clearCurrentForumURL];
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
     }

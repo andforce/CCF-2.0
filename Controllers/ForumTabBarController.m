@@ -60,7 +60,7 @@
 - (BOOL)isNeedHideLeftMenu {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    return ![bundleId isEqualToString:@"com.andforce.forum"];
+    return ![bundleId isEqualToString:@"com.andforce.forums"];
 }
 
 - (void)didReceiveMemoryWarning {
