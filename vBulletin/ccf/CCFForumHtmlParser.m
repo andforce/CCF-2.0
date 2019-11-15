@@ -87,6 +87,9 @@
     showThreadPage.threadTitle = fixedTitle;
 
     NSString *threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"searchthreadid\" value=\")\\d+"];
+    if (threadID == nil){
+        threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"t\" value=\")\\d+"];
+    }
     showThreadPage.threadID = [threadID intValue];
 
     PageNumber *pageNumber = [self parserPageNumber:html];
