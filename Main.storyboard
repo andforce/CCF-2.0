@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -257,7 +257,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="W0o-qo-VEi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ThreadListCellShowChildForm" textLabel="JkG-nl-mzU" rowHeight="54" style="IBUITableViewCellStyleDefault" id="TN0-61-EXD" customClass="MGSwipeTableCellWithIndexPath">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="54"/>
@@ -275,7 +275,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="afP-Oj-XhI" kind="show" identifier="ShowChildForm" id="G0C-ML-RId"/>
                                 </connections>
@@ -348,7 +347,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperclip.gif" translatesAutoresizingMaskIntoConstraints="NO" id="gwX-DE-bfn">
-                                            <rect key="frame" x="323" y="12" width="10" height="13"/>
+                                            <rect key="frame" x="313" y="5.6666666666666679" width="20" height="26"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帖子标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-ad-v1F">
                                             <rect key="frame" x="20" y="54" width="374" height="32"/>
@@ -357,7 +356,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="r2N-cl-LNu" firstAttribute="centerX" secondItem="K3F-Iw-2CI" secondAttribute="centerX" id="1T9-uw-hjp"/>
                                         <constraint firstItem="QEa-K2-7Zg" firstAttribute="top" secondItem="K3F-Iw-2CI" secondAttribute="top" id="6qk-0r-Gtm"/>
@@ -386,7 +384,6 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="avatarImage" destination="K3F-Iw-2CI" id="ZWg-Dl-KcH"/>
                                     <outlet property="threadAuthor" destination="bBZ-R7-k5T" id="xDY-TF-QMZ"/>
@@ -1058,7 +1055,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rs4-qW-nhr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SimpleThreadTableViewCell" rowHeight="97" id="kHn-A9-beJ" customClass="ForumSimpleThreadTableViewCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
@@ -1109,7 +1106,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="ghI-aL-wsr" secondAttribute="trailing" id="0Iu-ay-iSb"/>
                                         <constraint firstItem="rtj-ME-vWH" firstAttribute="leading" secondItem="CB6-OK-fmy" secondAttribute="trailing" constant="8" id="B4s-lE-b0a"/>
@@ -1125,7 +1121,6 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="ghI-aL-wsr" secondAttribute="bottom" id="wHX-gW-Pq2"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="ThreadAuthorAvatar" destination="CB6-OK-fmy" id="0lW-eT-DES"/>
                                     <outlet property="lastPostTime" destination="rtj-ME-vWH" id="YP8-kQ-X2a"/>
@@ -1162,7 +1157,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ksl-wi-MPf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection id="Hl5-8M-ilw">
                                 <cells>
@@ -1326,7 +1321,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Va9-qQ-G4a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="mlQ-qY-TJZ" customClass="ForumSearchResultCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
@@ -1383,7 +1378,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="HdQ-KK-qi4" firstAttribute="top" secondItem="BkW-lt-nwN" secondAttribute="bottom" constant="8" id="BJ8-I8-DqL"/>
                                         <constraint firstItem="oPz-Kj-GAS" firstAttribute="bottom" secondItem="kkd-DX-cKv" secondAttribute="bottom" id="C6P-FR-h6z"/>
@@ -1402,7 +1396,6 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="postAuthor" destination="2bf-c4-TLb" id="9yC-zl-TnW"/>
                                     <outlet property="postAuthorAvatar" destination="BkW-lt-nwN" id="Iku-Dp-ZYu"/>
@@ -2015,7 +2008,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8fY-Oy-iIQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="gVJ-KP-7d3" customClass="ForumThreadListCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
@@ -2093,7 +2086,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="X35-yl-o2u" firstAttribute="centerY" secondItem="CCN-HM-XPa" secondAttribute="centerY" id="398-Tj-ecO"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="sLH-nt-fh7" secondAttribute="bottom" id="3so-Uh-Jsi"/>
@@ -2119,7 +2111,6 @@
                                         <constraint firstItem="CCN-HM-XPa" firstAttribute="bottom" secondItem="oF7-bu-Yek" secondAttribute="bottom" id="z9j-bq-VS7"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="avatarImage" destination="oF7-bu-Yek" id="Ok6-kF-73l"/>
                                     <outlet property="threadAuthor" destination="pIu-r0-AEb" id="bgT-Dp-qed"/>
@@ -2164,9 +2155,9 @@
             <objects>
                 <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="ForumUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6tN-Pg-gRW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
                             <tableViewSection id="sd5-iU-6cK">
                                 <cells>
@@ -2455,9 +2446,9 @@
             <objects>
                 <tableViewController id="l3g-AL-GdG" customClass="ForumUserThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XcW-xB-IIx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="ham-ak-Tdk" customClass="ForumSearchResultCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
@@ -2514,7 +2505,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="Sqd-rq-KUH" firstAttribute="top" secondItem="ZxV-Jr-Cq8" secondAttribute="bottom" constant="8" id="37i-6X-hmB"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="pcf-97-VHk" secondAttribute="trailing" id="65w-1Z-ZQl"/>
@@ -2533,7 +2523,6 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="postAuthor" destination="3XX-4P-Uj9" id="lyJ-fe-Toh"/>
                                     <outlet property="postAuthorAvatar" destination="ZxV-Jr-Cq8" id="jXf-HP-Eym"/>
@@ -3432,7 +3421,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="79Z-m8-2AR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection id="92N-TZ-2CY">
                                 <cells>
@@ -3930,9 +3919,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cB8-Pd-AFY"/>
-        <segue reference="blx-ak-4u5"/>
-        <segue reference="Qkn-xF-ZJG"/>
-        <segue reference="lf3-Ra-lJN"/>
+        <segue reference="N1G-Ig-hUe"/>
+        <segue reference="Ysv-Xy-VAF"/>
+        <segue reference="FiC-V2-LqH"/>
         <segue reference="tJd-yI-EGE"/>
         <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
