@@ -357,7 +357,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="r2N-cl-LNu" firstAttribute="centerX" secondItem="K3F-Iw-2CI" secondAttribute="centerX" id="1T9-uw-hjp"/>
                                         <constraint firstItem="QEa-K2-7Zg" firstAttribute="top" secondItem="K3F-Iw-2CI" secondAttribute="top" id="6qk-0r-Gtm"/>
@@ -2093,7 +2092,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="X35-yl-o2u" firstAttribute="centerY" secondItem="CCN-HM-XPa" secondAttribute="centerY" id="398-Tj-ecO"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="sLH-nt-fh7" secondAttribute="bottom" id="3so-Uh-Jsi"/>
@@ -2514,7 +2512,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="Sqd-rq-KUH" firstAttribute="top" secondItem="ZxV-Jr-Cq8" secondAttribute="bottom" constant="8" id="37i-6X-hmB"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="pcf-97-VHk" secondAttribute="trailing" id="65w-1Z-ZQl"/>
