@@ -3,9 +3,10 @@
 // Copyright (c) 2017 andforce. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
 #import "PayManager.h"
 
-@interface PayManager () /*<SKPaymentTransactionObserver, SKProductsRequestDelegate>*/ {
+@interface PayManager () <SKPaymentTransactionObserver, SKProductsRequestDelegate> {
 
     NSString *_currentProductID;
 
@@ -33,7 +34,7 @@ static PayManager *_instance = nil;
 
 - (instancetype)init {
     if (self = [super init]) {
-        //[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
 
@@ -45,17 +46,17 @@ static PayManager *_instance = nil;
 
     isRestore = FALSE;
 
-//    if ([SKPaymentQueue canMakePayments]) {
-//        NSArray *product = @[productID];
-//
-//        NSSet *nsset = [NSSet setWithArray:product];
-//        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-//        request.delegate = self;
-//        [request start];
-//    } else {
-//        NSLog(@"应用没有开启内购权限");
-//        [self handleResult:FALSE];
-//    }
+    if ([SKPaymentQueue canMakePayments]) {
+        NSArray *product = @[productID];
+
+        NSSet *nsset = [NSSet setWithArray:product];
+        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+        request.delegate = self;
+        [request start];
+    } else {
+        NSLog(@"应用没有开启内购权限");
+        [self handleResult:FALSE];
+    }
 }
 
 - (void)restorePayForProductID:(NSString *)productID with:(PayHandler)handler {
@@ -63,27 +64,25 @@ static PayManager *_instance = nil;
     _currentProductID = productID;
     isRestore = YES;
 
-//    if ([SKPaymentQueue canMakePayments]) {
-//        NSArray *product = @[productID];
-//
-//        NSSet *nsset = [NSSet setWithArray:product];
-//        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-//        request.delegate = self;
-//        [request start];
-//    } else {
-//        NSLog(@"应用没有开启内购权限");
-//        [self handleResult:FALSE];
-//    }
+    if ([SKPaymentQueue canMakePayments]) {
+        NSArray *product = @[productID];
+
+        NSSet *nsset = [NSSet setWithArray:product];
+        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+        request.delegate = self;
+        [request start];
+    } else {
+        NSLog(@"应用没有开启内购权限");
+        [self handleResult:FALSE];
+    }
 }
 
 
 - (BOOL)hasPayed:(NSString *)productID {
 
-    return YES;
-
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    BOOL isPayed = [defaults boolForKey:productID];
-//    return isPayed;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isPayed = [defaults boolForKey:productID];
+    return isPayed;
 }
 
 - (void)setPayed:(BOOL)payed for:(NSString *)productID {
@@ -93,140 +92,140 @@ static PayManager *_instance = nil;
 
 // remove all payment queue
 - (void)removeTransactionObserver {
-    //[[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 
-//- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
-//    for (SKPaymentTransaction *tran in transactions) {
-//        switch (tran.transactionState) {
-//            case SKPaymentTransactionStatePurchased: {
-//                NSLog(@"交易完成");
-//                // 发送到苹果服务器验证凭证
-//                [self verifyPay:_currentProductID with:^(NSDictionary *response) {
-//                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-//
-//                    if (response == nil){
-//                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:_currentProductID];
-//                        [self handleResult:FALSE];
-//                        return;
-//                    }
-//                    int code = [response[@"status"] intValue];
-//
-//
-//                    // 保存购买购买状态
-//                    [self setPayed:code == 0 for:_currentProductID];
-//                    [self handleResult:code == 0];
-//
-//                    switch (code){
-//                        case 0:{
-////                            NSDictionary *dicReceipt = response[@"receipt"];
-////                            NSDictionary *dicInApp = [dicReceipt[@"in_app"] firstObject];
-////                            NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
-////                            //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-////                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-////                            if ([productIdentifier isEqualToString:_currentProductID]) {
-////                                NSUInteger purchasedCount = (NSUInteger) [defaults integerForKey:productIdentifier];//已购买数量
-////                                [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount + 1) forKey:productIdentifier];
-////                            } else {
-////                                [defaults setBool:YES forKey:productIdentifier];
-////                            }
-////                            //在此处对购买记录进行存储，可以存储到开发商的服务器端
-//
-//                            NSLog(@"购买成功！\t%@", response);
-//                            break;
-//                        }
-//                        case 21002:{
-//                            // 没有购买
-//                            NSLog(@"从未购买过商品");
-//                            break;
-//                        }
-//
-//                        default:{
-//                            NSLog(@"购买失败，未通过验证！");
-//                        }
-//                    }
-//
-//                }];
-//
-//
-//            }
-//                break;
-//            case SKPaymentTransactionStatePurchasing:
-//                NSLog(@"商品添加进列表");
-//                break;
-//            case SKPaymentTransactionStateRestored: {
-//                NSLog(@"已经购买过商品");
-//                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:_currentProductID];
-//                [self handleResult:YES];
-//            }
-//                break;
-//            case SKPaymentTransactionStateFailed: {
-//                NSLog(@"交易失败");
-//                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-//                [self handleResult:FALSE];
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//}
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
+    for (SKPaymentTransaction *tran in transactions) {
+        switch (tran.transactionState) {
+            case SKPaymentTransactionStatePurchased: {
+                NSLog(@"交易完成");
+                // 发送到苹果服务器验证凭证
+                [self verifyPay:_currentProductID with:^(NSDictionary *response) {
+                    [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+
+                    if (response == nil){
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:_currentProductID];
+                        [self handleResult:FALSE];
+                        return;
+                    }
+                    int code = [response[@"status"] intValue];
+
+
+                    // 保存购买购买状态
+                    [self setPayed:code == 0 for:_currentProductID];
+                    [self handleResult:code == 0];
+
+                    switch (code){
+                        case 0:{
+//                            NSDictionary *dicReceipt = response[@"receipt"];
+//                            NSDictionary *dicInApp = [dicReceipt[@"in_app"] firstObject];
+//                            NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
+//                            //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
+//                            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                            if ([productIdentifier isEqualToString:_currentProductID]) {
+//                                NSUInteger purchasedCount = (NSUInteger) [defaults integerForKey:productIdentifier];//已购买数量
+//                                [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount + 1) forKey:productIdentifier];
+//                            } else {
+//                                [defaults setBool:YES forKey:productIdentifier];
+//                            }
+//                            //在此处对购买记录进行存储，可以存储到开发商的服务器端
+
+                            NSLog(@"购买成功！\t%@", response);
+                            break;
+                        }
+                        case 21002:{
+                            // 没有购买
+                            NSLog(@"从未购买过商品");
+                            break;
+                        }
+
+                        default:{
+                            NSLog(@"购买失败，未通过验证！");
+                        }
+                    }
+
+                }];
+
+
+            }
+                break;
+            case SKPaymentTransactionStatePurchasing:
+                NSLog(@"商品添加进列表");
+                break;
+            case SKPaymentTransactionStateRestored: {
+                NSLog(@"已经购买过商品");
+                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:_currentProductID];
+                [self handleResult:YES];
+            }
+                break;
+            case SKPaymentTransactionStateFailed: {
+                NSLog(@"交易失败");
+                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                [self handleResult:FALSE];
+            }
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 // request Failed
-//- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
-//    NSLog(@"didFailWithError ：%@", error.localizedDescription);
-//}
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"didFailWithError ：%@", error.localizedDescription);
+}
 
 // request Response
-//- (void)productsRequest:(nonnull SKProductsRequest *)request didReceiveResponse:(nonnull SKProductsResponse *)response {
-//    NSArray *product = response.products;
-//    if ([product count] == 0) {
-//        return;
-//    }
-//
-//    NSLog(@"productID:%@", response.invalidProductIdentifiers);
-//    NSLog(@"产品付费数量:%lu", (unsigned long) [product count]);
-//
-//    SKProduct *p = nil;
-//    for (SKProduct *pro in product) {
-//        NSLog(@"%@", [pro description]);
-//        //NSLog(@"%@", [pro localizedTitle]);
-//        //NSLog(@"%@", [pro localizedDescription]);
-//        NSLog(@"%@", [pro price]);
-//        NSLog(@"%@", [pro productIdentifier]);
-//
-//        if ([pro.productIdentifier isEqualToString:_currentProductID]) {
-//            p = pro;
-//        }
-//    }
-//
-//    SKPayment *payment = [SKPayment paymentWithProduct:p];
-//
-//    if (isRestore){
-//        NSLog(@"发送恢复购买请求");
-//        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-//
-//    } else {
-//        NSLog(@"发送购买请求");
-//        [[SKPaymentQueue defaultQueue] addPayment:payment];
-//    }
-//
-//}
+- (void)productsRequest:(nonnull SKProductsRequest *)request didReceiveResponse:(nonnull SKProductsResponse *)response {
+    NSArray *product = response.products;
+    if ([product count] == 0) {
+        return;
+    }
+
+    NSLog(@"productID:%@", response.invalidProductIdentifiers);
+    NSLog(@"产品付费数量:%lu", (unsigned long) [product count]);
+
+    SKProduct *p = nil;
+    for (SKProduct *pro in product) {
+        NSLog(@"%@", [pro description]);
+        //NSLog(@"%@", [pro localizedTitle]);
+        //NSLog(@"%@", [pro localizedDescription]);
+        NSLog(@"%@", [pro price]);
+        NSLog(@"%@", [pro productIdentifier]);
+
+        if ([pro.productIdentifier isEqualToString:_currentProductID]) {
+            p = pro;
+        }
+    }
+
+    SKPayment *payment = [SKPayment paymentWithProduct:p];
+
+    if (isRestore){
+        NSLog(@"发送恢复购买请求");
+        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+
+    } else {
+        NSLog(@"发送购买请求");
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    }
+
+}
 
 
-//- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-//    NSLog(@"restore payment finished");
-//
-//    [self handleResult:YES];
-//}
-//
-//- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-//    NSLog(@"restore payment finished %@", error.localizedDescription);
-//
-//    [self handleResult:NO];
-//}
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    NSLog(@"restore payment finished");
+
+    [self handleResult:YES];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+    NSLog(@"restore payment finished %@", error.localizedDescription);
+
+    [self handleResult:NO];
+}
 
 - (void)handleResult:(BOOL)isSuccess {
     if (_handler) {
@@ -234,11 +233,11 @@ static PayManager *_instance = nil;
     }
 }
 
-//- (BOOL) isSandbox:(SKPaymentTransaction *)transaction{
-//    NSString * str = [[NSString alloc]initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
-//    NSString *environment=[self environmentForReceipt:str];
-//    return [environment containsString:@"environment=Sandbox"];
-//}
+- (BOOL) isSandbox:(SKPaymentTransaction *)transaction{
+    NSString * str = [[NSString alloc]initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
+    NSString *environment=[self environmentForReceipt:str];
+    return [environment containsString:@"environment=Sandbox"];
+}
 
 //收据的环境判断；
 - (NSString *)environmentForReceipt:(NSString *)str {

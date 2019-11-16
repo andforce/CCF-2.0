@@ -22,6 +22,7 @@
 #import "PayManager.h"
 
 #import "HybridNSURLProtocol.h"
+#import "ForumPayUITableViewController.h"
 
 static BOOL API_DEBUG = NO;
 static int DB_VERSION = 11;
@@ -38,26 +39,34 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    if (YES){
+        return YES;
+    }
+
     [NSURLProtocol registerClass:[HybridNSURLProtocol class]];
     
     [self changeUserAgentForWebView];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    
-    if (NO && !PAY_DEBUG) {
-        // 向服务器验证订阅情况
-        PayManager * payManager = [PayManager shareInstance];
-        [payManager verifyPay:localForumApi.currentProductID with:^(NSDictionary *response) {
-            
-            if (response == nil || [response[@"status"] intValue] != 0){
-                [payManager setPayed:FALSE for:localForumApi.currentProductID];
-                NSLog(@"not payed");
-            } else {
-                [payManager setPayed:TRUE for:localForumApi.currentProductID];
-                NSLog(@"payed success");
-            }
-        }];
-    }
+
+
+    // 向服务器验证订阅情况
+//    PayManager * payManager = [PayManager shareInstance];
+//    [payManager verifyPay:localForumApi.currentProductID with:^(NSDictionary *response) {
+//
+//        if (response == nil || [response[@"status"] intValue] != 0){
+//            [payManager setPayed:FALSE for:localForumApi.currentProductID];
+//            NSLog(@"not payed");
+//            
+//            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+//            ForumPayUITableViewController *payUiTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ForumPayUITableViewControllerID"];
+//            [self.window.rootViewController.navigationController pushViewController:payUiTableViewController animated:YES];
+//
+//        } else {
+//            [payManager setPayed:TRUE for:localForumApi.currentProductID];
+//            NSLog(@"payed success");
+//        }
+//    }];
 
 
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:200 * 1024 * 1024 diskCapacity:1024 * 1024 * 1024 diskPath:nil];

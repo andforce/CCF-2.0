@@ -133,7 +133,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -141,8 +141,6 @@
         return 3;
     } else if (section == 1) {
         return 2;
-    } else if (section == 2) {
-        return 1;
     }
     return 0;
 }

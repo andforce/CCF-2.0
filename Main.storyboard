@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KZC-NN-lJ7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dCi-2g-HNw">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -347,7 +347,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperclip.gif" translatesAutoresizingMaskIntoConstraints="NO" id="gwX-DE-bfn">
-                                            <rect key="frame" x="313" y="5.6666666666666679" width="20" height="26"/>
+                                            <rect key="frame" x="323" y="12" width="10" height="13"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帖子标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-ad-v1F">
                                             <rect key="frame" x="20" y="54" width="374" height="32"/>
@@ -3414,10 +3414,10 @@
             </objects>
             <point key="canvasLocation" x="-4729" y="1444"/>
         </scene>
-        <!--订阅全功能-->
+        <!--购买高级功能-->
         <scene sceneID="9ik-cn-DVu">
             <objects>
-                <tableViewController id="pEl-o7-5XO" customClass="ForumPayUITableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ForumPayUITableViewControllerID" id="pEl-o7-5XO" customClass="ForumPayUITableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="79Z-m8-2AR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3496,14 +3496,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购买订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dd6-HJ-a3T">
-                                                    <rect key="frame" x="172" y="16.666666666666668" width="70" height="21.000000000000004"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购买一年高级功能" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dd6-HJ-a3T">
+                                                    <rect key="frame" x="137.66666666666669" y="16.666666666666668" width="138.66666666666669" height="21.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.920589149" green="0.28459346289999998" blue="0.41174674030000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12元/年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-nn-Mxq">
-                                                    <rect key="frame" x="189.66666666666666" y="38.666666666666664" width="35" height="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仅需12元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-nn-Mxq">
+                                                    <rect key="frame" x="186.33333333333334" y="38.666666666666664" width="41.666666666666657" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -3539,41 +3539,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="lP8-Nm-I4R">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="350" id="T0t-j0-M7m" customClass="BaseFourmTableViewCell">
-                                        <rect key="frame" x="0.0" y="320" width="414" height="350"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T0t-j0-M7m" id="Wf8-R3-7bE">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMf-v8-IDs">
-                                                    <rect key="frame" x="20" y="8" width="374" height="334"/>
-                                                    <string key="text">– Payment will be charged to iTunes Account at confirmation of purchase
-– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period
-– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal
-– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase
-– Links to Your Privacy Policy and Terms of Use
-– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="LMf-v8-IDs" secondAttribute="trailing" constant="20" id="PLq-nf-GGx"/>
-                                                <constraint firstItem="LMf-v8-IDs" firstAttribute="leading" secondItem="Wf8-R3-7bE" secondAttribute="leading" constant="20" id="REa-kX-br0"/>
-                                                <constraint firstItem="LMf-v8-IDs" firstAttribute="top" secondItem="Wf8-R3-7bE" secondAttribute="top" constant="8" id="RYH-Ax-R6u"/>
-                                                <constraint firstAttribute="bottom" secondItem="LMf-v8-IDs" secondAttribute="bottom" constant="8" id="lwv-16-l8e"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="pEl-o7-5XO" id="YTF-a2-8BV"/>
@@ -3581,7 +3546,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="订阅全功能" id="bDg-wA-Cej">
+                    <navigationItem key="navigationItem" title="购买高级功能" id="bDg-wA-Cej">
                         <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="nep-21-Aev">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
