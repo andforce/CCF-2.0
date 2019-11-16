@@ -19,7 +19,6 @@
 #import "LocalForumApi.h"
 #import <UserNotifications/UserNotifications.h>
 
-#import "ForumPushManager.h"
 #import "PayManager.h"
 
 #import "HybridNSURLProtocol.h"
@@ -30,7 +29,7 @@ static int DB_VERSION = 11;
 static BOOL PAY_DEBUG = NO;
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate> {
-    ForumPushManager *_pushManager;
+
 }
 @end
 
@@ -67,10 +66,6 @@ static BOOL PAY_DEBUG = NO;
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
 //    [HPURLProtocol registerURLProtocolIfNeed];
-
-    // 注册LeanCloud的推送服务
-    _pushManager = [[ForumPushManager alloc] initWithNotificationCenterDelegate:self];
-    [_pushManager registerPushManagerWithOptions:launchOptions];
 
     application.applicationIconBadgeNumber = 0;
 
@@ -179,21 +174,6 @@ static BOOL PAY_DEBUG = NO;
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
-    if (/* DISABLES CODE */ (NO)){
-        // 首先要想LeanCloud保存installation
-//        AVInstallation *currentInstallation = [AVInstallation currentInstallation];
-//        [currentInstallation setDeviceTokenFromData:deviceToken];
-//        [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//
-//            if (!succeeded) {
-//                NSLog(@"Error-------> :%@", error);
-//            }
-//
-//        }];
-    } else {
-        // 向系统申请推送服务
-        [_pushManager handleRemoteNotificationsWithDeviceToken:deviceToken];
-    }
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {

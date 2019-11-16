@@ -24,7 +24,6 @@
 		2F34CF6094B6C2397FB0FE5C /* ForumDiscuzShowPrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C8996C973B366700F031 /* ForumDiscuzShowPrivateMessageViewController.m */; };
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* ForumShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* ForumShortCutCreateNewThreadViewController.m */; };
-		2F34CFF359980DE0DEC0C980 /* ForumPushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C1D609B2659CED986D39 /* ForumPushManager.m */; };
 		3A288A4C1DFAE47F002EBBC2 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* DrawerView.m */; };
 		3A288A4D1DFAE47F002EBBC2 /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* DrawerView.xib */; };
 		3A288A501DFC4EAF002EBBC2 /* supportForums.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */; };
@@ -172,11 +171,9 @@
 /* Begin PBXFileReference section */
 		2F34C014C33EFE301A3E9085 /* ViewMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewMessage.m; sourceTree = "<group>"; };
 		2F34C02E3940F0553AB003DA /* vBulletinConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinConfigDelegate.h; sourceTree = "<group>"; };
-		2F34C04114894D17500F95D1 /* ForumPushManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumPushManager.h; sourceTree = "<group>"; };
 		2F34C076378D371E57F0863F /* CHHForumApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHHForumApi.m; sourceTree = "<group>"; };
 		2F34C0C48D6A20923716C6EC /* ProgressDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressDialog.m; sourceTree = "<group>"; };
 		2F34C14160BC257F07318CEF /* ForumApiHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumApiHelper.m; sourceTree = "<group>"; };
-		2F34C1D609B2659CED986D39 /* ForumPushManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumPushManager.m; sourceTree = "<group>"; };
 		2F34C28405B308FEE5FC1BD0 /* ForumBaseConfigDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseConfigDelegate.h; sourceTree = "<group>"; };
 		2F34C2A567EB792DCF9E85BD /* vBulletinApiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vBulletinApiDelegate.h; sourceTree = "<group>"; };
 		2F34C2EF08CDE92A8266D169 /* CharUnicodeBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharUnicodeBlock.m; sourceTree = "<group>"; };
@@ -512,15 +509,6 @@
 				3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */,
 			);
 			path = beans;
-			sourceTree = "<group>";
-		};
-		3ACB5C1F1FDBF9F800D5339C /* Push */ = {
-			isa = PBXGroup;
-			children = (
-				2F34C1D609B2659CED986D39 /* ForumPushManager.m */,
-				2F34C04114894D17500F95D1 /* ForumPushManager.h */,
-			);
-			path = Push;
 			sourceTree = "<group>";
 		};
 		3ACB5C201FDC25A600D5339C /* Utils */ = {
@@ -1023,7 +1011,6 @@
 				3ACB5C271FDC268300D5339C /* ApiTest */,
 				3ACB5C211FDC25BE00D5339C /* SupportForums */,
 				3ACB5C201FDC25A600D5339C /* Utils */,
-				3ACB5C1F1FDBF9F800D5339C /* Push */,
 				3A2C3F8F1DDFDFEF00576151 /* Forum.pch */,
 				3A2C3F131DDFB94200576151 /* AppDelegate.h */,
 				3A2C3F141DDFB94200576151 /* AppDelegate.m */,
@@ -1193,7 +1180,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Forum/Pods-Forum-resources.sh",
-				"${PODS_ROOT}/AVOSCloud/AVOS/AVOSCloud/AVOSCloud_Art.inc",
 				"${PODS_ROOT}/CSSSelectorConverter/CSSSelectorConverter/CSSSelectorGrammar.txt",
 				"${PODS_ROOT}/CSSSelectorConverter/CSSSelectorConverter/CSSSelectorParser.plist",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -1202,7 +1188,6 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AVOSCloud_Art.inc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSSSelectorGrammar.txt",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CSSSelectorParser.plist",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
@@ -1362,7 +1347,6 @@
 				2F34CDC68B8E6EA4AB5D764B /* PageNumber.m in Sources */,
 				2F34C50DE4CFA57C8F4036DE /* CharUnicodeBlock.m in Sources */,
 				2F34C88B8603A7549BC052D5 /* LocalForumApi.m in Sources */,
-				2F34CFF359980DE0DEC0C980 /* ForumPushManager.m in Sources */,
 				C7B59B9DABEB94C6EC3B70A4 /* PayManager.m in Sources */,
 				2F34CA0802E0D84DC825B125 /* ProgressDialog.m in Sources */,
 				2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */,
