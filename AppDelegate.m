@@ -163,16 +163,16 @@ static BOOL PAY_DEBUG = NO;
 - (void)showReloginController:(LocalForumApi *)localForumApi {
     NSString *bundleId = [localForumApi bundleIdentifier];
 
-    if ([bundleId isEqualToString:@"com.andforce.forums"]){
-                [localForumApi clearCurrentForumURL];
-                self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
-            } else{
+    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
+        [localForumApi clearCurrentForumURL];
+        self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
+    } else {
 
-                id<ForumConfigDelegate> api = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
-                NSString * cId = api.loginControllerId;
-                [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId];
+        id <ForumConfigDelegate> api = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        NSString *cId = api.loginControllerId;
+        [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId];
 
-            }
+    }
 }
 
 

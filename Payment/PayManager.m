@@ -292,7 +292,7 @@ static PayManager *_instance = nil;
 }
 
 - (void)verifyWithUrl:(NSURL *)url handler:(VerifyHandler)handler {
-//从沙盒中获取交易凭证并且拼接成请求体数据
+    //从沙盒中获取交易凭证并且拼接成请求体数据
     NSURL *receiptUrl = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
     // 保证数据
@@ -327,6 +327,5 @@ static PayManager *_instance = nil;
     NSLog(@"verify->:\tverifyWithUrl() : 验证返回数据: %@", dic);
     handler(dic);
 }
-
 
 @end
