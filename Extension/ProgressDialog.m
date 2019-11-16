@@ -20,7 +20,7 @@
 }
 
 
-+(void)initHUD{
++ (void)initHUD {
     [SVProgressHUD setMinimumSize:CGSizeMake(100.0, 100.0)];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleLight];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];

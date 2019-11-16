@@ -13,7 +13,7 @@
 
 @property(weak, nonatomic) IBOutlet UITextView *message;
 @property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITextField *createWhichForum;
+@property(weak, nonatomic) IBOutlet UITextField *createWhichForum;
 
 - (IBAction)createThread:(id)sender;
 

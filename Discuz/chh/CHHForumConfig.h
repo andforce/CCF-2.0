@@ -7,5 +7,5 @@
 #import "ForumConfigDelegate.h"
 #import "DiscuzCommonConfig.h"
 
-@interface CHHForumConfig : DiscuzCommonConfig<ForumCommonConfigDelegate>
+@interface CHHForumConfig : DiscuzCommonConfig <ForumCommonConfigDelegate>
 @end

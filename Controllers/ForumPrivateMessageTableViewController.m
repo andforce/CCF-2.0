@@ -21,14 +21,14 @@
 @end
 
 
-@implementation ForumPrivateMessageTableViewController{
+@implementation ForumPrivateMessageTableViewController {
     ViewForumPage *currentForumPage;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 
@@ -135,8 +135,8 @@
 
     Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
     NSInteger delType = _messageSegmentedControl.selectedSegmentIndex;
-    [self.forumApi deletePrivateMessage:deleteMessage withType:(int)delType handler:^(BOOL isSuccess, id message) {
-        if (isSuccess){
+    [self.forumApi deletePrivateMessage:deleteMessage withType:(int) delType handler:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
             [self.dataList removeObjectAtIndex:(NSUInteger) cell.indexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2f];
@@ -146,11 +146,12 @@
     return YES;
 }
 
--(void)reloadData{
+- (void)reloadData {
     [self.tableView reloadData];
 };
 
 #pragma mark CCFThreadListCellDelegate
+
 - (void)showUserProfile:(NSIndexPath *)indexPath {
     ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
     Message *message = self.dataList[(NSUInteger) indexPath.row];
@@ -175,7 +176,7 @@
 
         TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
-        [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
+        [bundle putIntValue:(int) _messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
 
 
         [self transBundle:bundle forController:controller];
@@ -188,7 +189,7 @@
 
 - (IBAction)showLeftDrawer:(id)sender {
     ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
-    
+
     [controller showLeftDrawer];
 }
 

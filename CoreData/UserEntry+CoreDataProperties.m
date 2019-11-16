@@ -11,7 +11,7 @@
 @implementation UserEntry (CoreDataProperties)
 
 + (NSFetchRequest<UserEntry *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"UserEntry"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"UserEntry"];
 }
 
 @dynamic userAvatar;

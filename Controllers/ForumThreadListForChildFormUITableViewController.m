@@ -13,15 +13,15 @@
 #import "ForumWebViewController.h"
 #import "UIStoryboard+Forum.h"
 
-@interface ForumThreadListForChildFormUITableViewController ()<TransBundleDelegate, MGSwipeTableCellDelegate> {
+@interface ForumThreadListForChildFormUITableViewController () <TransBundleDelegate, MGSwipeTableCellDelegate> {
     NSArray *childForms;
     Forum *transForm;
 }
 
 @end
 
-@implementation ForumThreadListForChildFormUITableViewController{
-    ViewForumPage * currentForumPage;
+@implementation ForumThreadListForChildFormUITableViewController {
+    ViewForumPage *currentForumPage;
 }
 
 - (void)transBundle:(TransBundle *)bundle {
@@ -153,16 +153,16 @@
 
 - (BOOL)swipeTableCell:(MGSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *indexPath = cell.indexPath;
-    
+
     Thread *thread;
     if (indexPath.section == 0) {
         thread = self.threadTopList[(NSUInteger) indexPath.row];
     } else {
         thread = self.dataList[(NSUInteger) indexPath.row];
     }
-    
+
     [self.forumApi favoriteThreadWithId:thread.threadID handler:^(BOOL isSuccess, id message) {
-        
+
     }];
 
     return YES;
@@ -176,11 +176,11 @@
     if ([sender isKindOfClass:[UIBarButtonItem class]]) {
 
         ForumCreateNewThreadViewController *newPostController = segue.destinationViewController;
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putIntValue:transForm.forumId forKey:@"FORM_ID"];
         [bundle putObjectValue:currentForumPage forKey:@"CREATE_THREAD_IN"];
         [self transBundle:bundle forController:newPostController];
-        
+
     } else if ([sender isKindOfClass:[UITableViewCell class]]) {
 
         ForumWebViewController *controller = segue.destinationViewController;
@@ -210,7 +210,7 @@
         } else {
             thread = self.dataList[(NSUInteger) indexPath.row];
         }
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putIntValue:[thread.threadAuthorID intValue] forKey:@"UserId"];
         [self transBundle:bundle forController:controller];
     }

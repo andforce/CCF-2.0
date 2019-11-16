@@ -9,5 +9,5 @@
 #import "vBulletinApiDelegate.h"
 
 
-@interface CCFForumApi : ForumBrowser<ForumApiBaseDelegate, vBulletinApiDelegate>
+@interface CCFForumApi : ForumBrowser <ForumApiBaseDelegate, vBulletinApiDelegate>
 @end

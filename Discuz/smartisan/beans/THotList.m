@@ -40,37 +40,34 @@ NSString *const kTHotListAttachment = @"attachment";
 @synthesize attachment = _attachment;
 
 
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
-{
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
     return [[self alloc] initWithDictionary:dict];
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
-    
+
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
-    if(self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.author = [self objectOrNilForKey:kTHotListAuthor fromDictionary:dict];
-            self.dbdateline = [self objectOrNilForKey:kTHotListDbdateline fromDictionary:dict];
-            self.replies = [self objectOrNilForKey:kTHotListReplies fromDictionary:dict];
-            self.groupid = [self objectOrNilForKey:kTHotListGroupid fromDictionary:dict];
-            self.authorid = [self objectOrNilForKey:kTHotListAuthorid fromDictionary:dict];
-            self.subject = [self objectOrNilForKey:kTHotListSubject fromDictionary:dict];
-            self.views = [self objectOrNilForKey:kTHotListViews fromDictionary:dict];
-            self.groupicon = [self objectOrNilForKey:kTHotListGroupicon fromDictionary:dict];
-            self.tid = [self objectOrNilForKey:kTHotListTid fromDictionary:dict];
-            self.attachment = [self objectOrNilForKey:kTHotListAttachment fromDictionary:dict];
+    if (self && [dict isKindOfClass:[NSDictionary class]]) {
+        self.author = [self objectOrNilForKey:kTHotListAuthor fromDictionary:dict];
+        self.dbdateline = [self objectOrNilForKey:kTHotListDbdateline fromDictionary:dict];
+        self.replies = [self objectOrNilForKey:kTHotListReplies fromDictionary:dict];
+        self.groupid = [self objectOrNilForKey:kTHotListGroupid fromDictionary:dict];
+        self.authorid = [self objectOrNilForKey:kTHotListAuthorid fromDictionary:dict];
+        self.subject = [self objectOrNilForKey:kTHotListSubject fromDictionary:dict];
+        self.views = [self objectOrNilForKey:kTHotListViews fromDictionary:dict];
+        self.groupicon = [self objectOrNilForKey:kTHotListGroupicon fromDictionary:dict];
+        self.tid = [self objectOrNilForKey:kTHotListTid fromDictionary:dict];
+        self.attachment = [self objectOrNilForKey:kTHotListAttachment fromDictionary:dict];
 
     }
-    
+
     return self;
-    
+
 }
 
-- (NSDictionary *)dictionaryRepresentation
-{
+- (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     [mutableDict setValue:self.author forKey:kTHotListAuthor];
     [mutableDict setValue:self.dbdateline forKey:kTHotListDbdateline];
@@ -86,14 +83,13 @@ NSString *const kTHotListAttachment = @"attachment";
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
 
-- (NSString *)description 
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
 }
 
 #pragma mark - Helper Method
-- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
-{
+
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict {
     id object = [dict objectForKey:aKey];
     return [object isEqual:[NSNull null]] ? nil : object;
 }
@@ -101,8 +97,7 @@ NSString *const kTHotListAttachment = @"attachment";
 
 #pragma mark - NSCoding Methods
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
 
     self.author = [aDecoder decodeObjectForKey:kTHotListAuthor];
@@ -118,8 +113,7 @@ NSString *const kTHotListAttachment = @"attachment";
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
+- (void)encodeWithCoder:(NSCoder *)aCoder {
 
     [aCoder encodeObject:_author forKey:kTHotListAuthor];
     [aCoder encodeObject:_dbdateline forKey:kTHotListDbdateline];
@@ -133,10 +127,9 @@ NSString *const kTHotListAttachment = @"attachment";
     [aCoder encodeObject:_attachment forKey:kTHotListAttachment];
 }
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
     THotList *copy = [[THotList alloc] init];
-    
+
     if (copy) {
 
         copy.author = [self.author copyWithZone:zone];
@@ -150,7 +143,7 @@ NSString *const kTHotListAttachment = @"attachment";
         copy.tid = [self.tid copyWithZone:zone];
         copy.attachment = [self.attachment copyWithZone:zone];
     }
-    
+
     return copy;
 }
 

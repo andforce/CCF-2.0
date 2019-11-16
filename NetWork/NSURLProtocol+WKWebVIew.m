@@ -30,11 +30,11 @@ FOUNDATION_STATIC_INLINE SEL UnregisterSchemeSelector() {
 + (void)wk_registerScheme:(NSString *)scheme {
     Class cls = ContextControllerClass();
     SEL sel = RegisterSchemeSelector();
-    if ([(id)cls respondsToSelector:sel]) {
-    // 放弃编辑器警告
+    if ([(id) cls respondsToSelector:sel]) {
+        // 放弃编辑器警告
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [(id)cls performSelector:sel withObject:scheme];
+        [(id) cls performSelector:sel withObject:scheme];
 #pragma clang diagnostic pop
     }
 }
@@ -42,11 +42,11 @@ FOUNDATION_STATIC_INLINE SEL UnregisterSchemeSelector() {
 + (void)wk_unregisterScheme:(NSString *)scheme {
     Class cls = ContextControllerClass();
     SEL sel = UnregisterSchemeSelector();
-    if ([(id)cls respondsToSelector:sel]) {
-     // 放弃编辑器警告
+    if ([(id) cls respondsToSelector:sel]) {
+        // 放弃编辑器警告
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [(id)cls performSelector:sel withObject:scheme];
+        [(id) cls performSelector:sel withObject:scheme];
 #pragma clang diagnostic pop
     }
 }

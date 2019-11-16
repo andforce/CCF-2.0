@@ -10,7 +10,7 @@
 
 @interface ForumSettingTableViewController ()
 
-@property (strong, nonatomic) IBOutlet UILabel *version;
+@property(strong, nonatomic) IBOutlet UILabel *version;
 
 @end
 
@@ -45,7 +45,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0){
+    if (section == 0) {
         return 1;
     } else {
         return 5;

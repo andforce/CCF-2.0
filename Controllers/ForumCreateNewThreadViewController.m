@@ -24,7 +24,7 @@
         DeleteDelegate, TransBundleDelegate, UIScrollViewDelegate> {
 
 
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
     int forumId;
     UIImagePickerController *pickControl;
     NSMutableArray<UIImage *> *images;
@@ -42,12 +42,12 @@
     NSString *_seccodehash;
     NSString *_seccodeverify;
     NSDictionary *_typeidList;
-            
-            IBOutlet UITextField *secCodeTV;
-            IBOutlet UIImageView *vCodeImgV;
-            IBOutlet NSLayoutConstraint *vCodeHeight;
-            IBOutlet NSLayoutConstraint *vCodeTVHeight;
-        }
+
+    IBOutlet UITextField *secCodeTV;
+    IBOutlet UIImageView *vCodeImgV;
+    IBOutlet NSLayoutConstraint *vCodeHeight;
+    IBOutlet NSLayoutConstraint *vCodeTVHeight;
+}
 
 @end
 
@@ -60,7 +60,7 @@
 
 - (IBAction)refreshSecCode:(id)sender {
 
-    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
             NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
         _post_hash = post_hash;
@@ -74,19 +74,19 @@
         id <AFImageRequestCache> imageCache = downloader.imageCache;
         [imageCache removeImageWithIdentifier:_seccodeverify];
 
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
 
         NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
         NSDictionary *dictCookies = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
 
-        NSString * object = dictCookies[@"Cookie"];
-        [request setValue:object  forHTTPHeaderField: @"Cookie"];
+        NSString *object = dictCookies[@"Cookie"];
+        [request setValue:object forHTTPHeaderField:@"Cookie"];
 
-        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField: @"Host"];
-        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"1" forHTTPHeaderField: @"DNT"];
-        [request setValue:@"gzip, deflate" forHTTPHeaderField: @"Accept-Encoding"];
-        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
+        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField:@"Host"];
+        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"1" forHTTPHeaderField:@"DNT"];
+        [request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
         [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
@@ -95,17 +95,17 @@
 
         [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
             [view setImage:image];
-        }   failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
+        }                         failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
             NSLog(@"refreshDoor failed >> >> %@", urlRequest.allHTTPHeaderFields);
         }];
 
-        if (_typeidList != nil){
+        if (_typeidList != nil) {
             [ProgressDialog dismiss];
         } else {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    
+
 }
 
 - (void)viewDidLoad {
@@ -140,7 +140,7 @@
     _category.titleLabel.text = @"[无分类]";
     _category.enabled = NO;
 
-    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
+    [_forumApi enterCreateThreadPageFetchInfo:forumId :^(NSString *responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
             NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
         _post_hash = post_hash;
@@ -149,68 +149,68 @@
         _seccodehash = seccodehash;
         _seccodeverify = seccodeverify;
         _typeidList = typeidList;
-        
+
         AFImageDownloader *downloader = [[vCodeImgV class] sharedImageDownloader];
         id <AFImageRequestCache> imageCache = downloader.imageCache;
         [imageCache removeImageWithIdentifier:_seccodeverify];
 
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_seccodeverify]];
 
         NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
         NSDictionary *dictCookies = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
 
-        NSString * object = dictCookies[@"Cookie"];
-        [request setValue:object  forHTTPHeaderField: @"Cookie"];
+        NSString *object = dictCookies[@"Cookie"];
+        [request setValue:object forHTTPHeaderField:@"Cookie"];
 
-        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField: @"Host"];
-        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField: @"Accept"];
-        [request setValue:@"1" forHTTPHeaderField: @"DNT"];
-        [request setValue:@"gzip, deflate" forHTTPHeaderField: @"Accept-Encoding"];
-        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField: @"Accept-Language"];
+        [request setValue:@"bbs.smartisan.com" forHTTPHeaderField:@"Host"];
+        [request setValue:@"image/webp,image/apng,image/*,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+        [request setValue:@"1" forHTTPHeaderField:@"DNT"];
+        [request setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+        [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"Accept-Language"];
         NSString *referer = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=newthread&fid=%d&referer=", forumId];
         [request setValue:referer forHTTPHeaderField:@"Referer"];
         [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"User-Agent"];
 
         UIImageView *view = vCodeImgV;
-        
+
         [vCodeImgV setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, UIImage *_Nonnull image) {
             [view setImage:image];
             vCodeHeight.constant = 46.0;
             vCodeTVHeight.constant = 30.0;
-        }   failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
+        }                         failure:^(NSURLRequest *_Nonnull urlRequest, NSHTTPURLResponse *_Nullable response, NSError *_Nonnull error) {
             NSLog(@"refreshDoor failed >> >> %@", urlRequest.allHTTPHeaderFields);
             vCodeHeight.constant = 0.0;
         }];
 
-        if (_typeidList != nil){
+        if (_typeidList != nil) {
             [ProgressDialog dismiss];
         } else {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
-        
-        if ( typeidList.allKeys.count > 0){
+
+        if (typeidList.allKeys.count > 0) {
             [_category setTitle:@"[请选分类]" forState:UIControlStateNormal];
             [_category setTitle:@"[请选分类]" forState:UIControlStateDisabled];
             _category.enabled = YES;
-        } else{
+        } else {
             [_category setTitle:@"[无分类]" forState:UIControlStateNormal];
             [_category setTitle:@"[无分类]" forState:UIControlStateDisabled];
             _category.enabled = NO;
         }
     }];
-    
+
     vCodeHeight.constant = 0.0;
     vCodeTVHeight.constant = 0.0;
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    if (![_payManager hasPayed:[_localForumApi currentProductID]]){
+- (void)viewDidAppear:(BOOL)animated {
+    if (![_payManager hasPayed:[_localForumApi currentProductID]]) {
         [self showFailedMessage:@"未订阅用户无法发新帖"];
     }
 }
 
--(void) showFailedMessage:(id) message{
+- (void)showFailedMessage:(id)message {
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"操作受限" message:message preferredStyle:UIAlertControllerStyleAlert];
 
@@ -270,7 +270,7 @@
 
         NSLog(@"图片大小:   %lld", fileSize);
 
-    } failureBlock:nil];
+    }         failureBlock:nil];
 
 }
 
@@ -371,7 +371,7 @@
 
     NSString *category = self.category.titleLabel.text;
 
-    if ([category isEqualToString:@"[请选分类]"]){
+    if ([category isEqualToString:@"[请选分类]"]) {
         [ProgressDialog showError:@"请选择分类"];
         return;
     }
@@ -381,7 +381,7 @@
         return;
     }
 
-    if (vCodeHeight.constant > 1 && [[secCodeTV.text trim] isEqualToString:@""]){
+    if (vCodeHeight.constant > 1 && [[secCodeTV.text trim] isEqualToString:@""]) {
         [ProgressDialog showError:@"输入验证码"];
         return;
     }
@@ -394,7 +394,7 @@
         [uploadData addObject:data];
     }
 
-    if ([_localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"]){
+    if ([_localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"]) {
         NSString *categoryName = _typeidList.allKeys[(NSUInteger) categoryIndex];
 
         [_forumApi createNewThreadWithCategory:categoryName categoryValue:[_typeidList valueForKey:categoryName] withTitle:title
@@ -423,7 +423,6 @@
     }
 
 
-
 }
 
 - (IBAction)back:(id)sender {
@@ -438,18 +437,18 @@
 
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
-    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         } else if (buttonIndex == 2) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         }
-    } otherButtonTitleArray:@[@"相册", @"拍照"]];
-    
+    }                                        otherButtonTitleArray:@[@"相册", @"拍照"]];
+
     [itemActionSheet show];
 
 }
@@ -468,9 +467,9 @@
                 categoryIndex = selectedIndex;
 
 
-    }  cancelBlock:^(ActionSheetStringPicker *picker) {
+            }                                                            cancelBlock:^(ActionSheetStringPicker *picker) {
 
-    }  origin:sender];
+            }                                                                 origin:sender];
 
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
     cancelItem.title = @"取消";

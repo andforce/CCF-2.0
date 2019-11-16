@@ -56,16 +56,16 @@
 
     // scrollView
     self.webView.scrollView.delegate = self;
-    
+
     self.webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 
         // 0 群发公共消息 1 普通收件 2 发给别人的消息
-        
+
         int type = 1;
-        
+
         if (mType == 0) {
             type = 1;
-            if ([transPrivateMessage.pmAuthorId isEqualToString:@"-1"]){
+            if ([transPrivateMessage.pmAuthorId isEqualToString:@"-1"]) {
                 type = 0;
             }
         } else {
@@ -79,8 +79,8 @@
 
             [self.dataList addObjectsFromArray:page.viewMessages];
 
-            NSMutableString * content = [NSMutableString string];
-            for (ViewMessage * viewMessage in self.dataList) {
+            NSMutableString *content = [NSMutableString string];
+            for (ViewMessage *viewMessage in self.dataList) {
 
                 NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
                 [content appendString:postInfo];
@@ -89,7 +89,7 @@
 
             NSString *html = [NSString stringWithFormat:THREAD_PAGE, @"", content, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
             [self.webView.scrollView.mj_header endRefreshing];
@@ -213,9 +213,9 @@
     message.pmAuthor = transPrivateMessage.pmAuthor;
     message.pmTitle = transPrivateMessage.pmTitle;
 
-    for (int i = self.dataList.count - 1; i >= 0 ; i--) {
-        ViewMessage * viewMessage = self.dataList[i];
-        if ([viewMessage.pmUserInfo.userID isEqualToString:transPrivateMessage.pmAuthorId]){
+    for (int i = self.dataList.count - 1; i >= 0; i--) {
+        ViewMessage *viewMessage = self.dataList[i];
+        if ([viewMessage.pmUserInfo.userID isEqualToString:transPrivateMessage.pmAuthorId]) {
             message.pmID = viewMessage.pmID;
             break;
         }

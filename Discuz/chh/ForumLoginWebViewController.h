@@ -9,9 +9,10 @@
 
 @interface ForumLoginWebViewController : ForumApiBaseViewController
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property(weak, nonatomic) IBOutlet UIWebView *webView;
 
 - (IBAction)cancelLogin:(id)sender;
-@property (weak, nonatomic) IBOutlet UIView *maskLoadingView;
+
+@property(weak, nonatomic) IBOutlet UIView *maskLoadingView;
 
 @end

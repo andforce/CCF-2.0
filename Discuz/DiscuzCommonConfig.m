@@ -66,7 +66,7 @@
 
 
 - (NSString *)search {
-    return [NSString stringWithFormat:@"%@search.php?",_forumURL.absoluteString];
+    return [NSString stringWithFormat:@"%@search.php?", _forumURL.absoluteString];
 }
 
 - (NSString *)searchWithSearchId:(NSString *)searchId withPage:(int)page {
@@ -84,7 +84,7 @@
 }
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId {
-    return [NSString stringWithFormat:@"%@u.php?action=favor&",_forumURL.absoluteString];
+    return [NSString stringWithFormat:@"%@u.php?action=favor&", _forumURL.absoluteString];
 }
 
 - (NSString *)listFavorThreads:(int)userId withPage:(int)page {
@@ -106,7 +106,7 @@
 }
 
 - (NSString *)quoteReply:(int)fid threadId:(int)threadId postId:(int)postId {
-    return [NSString stringWithFormat:@"%@post.php?action=quote&fid=%d&tid=%d&pid=%d",  _forumURL.absoluteString,fid, threadId, postId];
+    return [NSString stringWithFormat:@"%@post.php?action=quote&fid=%d&tid=%d&pid=%d", _forumURL.absoluteString, fid, threadId, postId];
 }
 
 - (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page {
@@ -118,7 +118,7 @@
     if ([fixPostId isEqualToString:@"0"]) {
         fixPostId = @"tpc";
     }
-    return [NSString stringWithFormat:@"%@read.php?tid=%@#%@",  _forumURL.absoluteString,threadId, fixPostId];
+    return [NSString stringWithFormat:@"%@read.php?tid=%@#%@", _forumURL.absoluteString, threadId, fixPostId];
 }
 
 
@@ -175,7 +175,7 @@
 }
 
 - (NSString *)privateReplyWithMessageIdPre:(int)messageId {
-    return [NSString stringWithFormat:@"%@message.php?action=write&remid=%d",  _forumURL.absoluteString,messageId];
+    return [NSString stringWithFormat:@"%@message.php?action=write&remid=%d", _forumURL.absoluteString, messageId];
 }
 
 - (NSString *)privateReplyWithMessage {
@@ -195,7 +195,7 @@
 }
 
 - (NSString *)privateMessage:(int)page {
-    return [NSString stringWithFormat:@"%@home.php?mod=space&do=pm&filter=privatepm&page=%d",  _forumURL.absoluteString,page];
+    return [NSString stringWithFormat:@"%@home.php?mod=space&do=pm&filter=privatepm&page=%d", _forumURL.absoluteString, page];
 }
 
 - (NSString *)noticeMessage:(int)page {

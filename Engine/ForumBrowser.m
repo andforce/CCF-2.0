@@ -9,7 +9,7 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         _browser = [AFHTTPSessionManager manager];
         _browser.responseSerializer = [AFHTTPResponseSerializer serializer];
         _browser.responseSerializer.acceptableContentTypes = [_browser.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];

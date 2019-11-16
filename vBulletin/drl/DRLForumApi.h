@@ -8,5 +8,5 @@
 #import "ForumApiBaseDelegate.h"
 #import "vBulletinApiDelegate.h"
 
-@interface DRLForumApi : ForumBrowser<ForumApiBaseDelegate, vBulletinApiDelegate>
+@interface DRLForumApi : ForumBrowser <ForumApiBaseDelegate, vBulletinApiDelegate>
 @end

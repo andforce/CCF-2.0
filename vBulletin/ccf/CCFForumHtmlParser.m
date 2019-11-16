@@ -25,7 +25,7 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         localApi = [[LocalForumApi alloc] init];
     }
     return self;
@@ -87,7 +87,7 @@
     showThreadPage.threadTitle = fixedTitle;
 
     NSString *threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"searchthreadid\" value=\")\\d+"];
-    if (threadID == nil){
+    if (threadID == nil) {
         threadID = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"t\" value=\")\\d+"];
     }
     showThreadPage.threadID = [threadID intValue];
@@ -348,9 +348,9 @@
             searchThread.fromFormName = postBelongForm;
 
 
-            if ([self isSpecial]){
+            if ([self isSpecial]) {
                 NSArray *blackList = [self blackList];
-                if ([blackList containsObject:postBelongForm]){
+                if ([blackList containsObject:postBelongForm]) {
                     continue;
                 }
             }
@@ -380,7 +380,7 @@
     // message content
     ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
 
-    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+    ViewMessage *viewMessage = [[ViewMessage alloc] init];
 
 
     IGXMLNodeSet *contentNodeSet = [document queryWithXPath:@"//*[@id='post_message_']"];
@@ -488,22 +488,22 @@
 
     int replaceId = 10000;
     for (IGXMLNode *child in contents) {
-        [forms addObject:[self node2Form:child forumHost: host parentFormId:-1 replaceId:replaceId++]];
+        [forms addObject:[self node2Form:child forumHost:host parentFormId:-1 replaceId:replaceId++]];
 
     }
 
-    NSMutableArray<Forum *>* tmp = [NSMutableArray array];
+    NSMutableArray<Forum *> *tmp = [NSMutableArray array];
     for (Forum *forum in forms) {
         [tmp addObjectsFromArray:[self flatForm:forum]];
     }
 
-    if ([self isSpecial]){
+    if ([self isSpecial]) {
         NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
-        for (Forum * forum in tmp) {
+        for (Forum *forum in tmp) {
             NSArray *blackList = [self blackList];
-            if ([blackList containsObject:forum.forumName]){
+            if ([blackList containsObject:forum.forumName]) {
                 continue;
-            } else{
+            } else {
                 [needInsert addObject:forum];
             }
         }
@@ -533,7 +533,7 @@
 
     // 通过ids 过滤出Form
     ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+    LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
     NSArray *result = [manager selectData:^NSPredicate * {
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];
     }];
@@ -552,10 +552,10 @@
 
 - (PageNumber *)parserPageNumber:(NSString *)html {
     NSString *pageStr = [html stringWithRegular:@"(?<=<td class=\"vbmenu_control\" style=\"font-weight:normal\">)第 \\d+ 页，共 \\d+ 页(?=</td>)"];
-    PageNumber * pageNumber = [[PageNumber alloc] init];
+    PageNumber *pageNumber = [[PageNumber alloc] init];
     int currentPageNumber = [[[pageStr componentsSeparatedByString:@"，"][0] stringWithRegular:@"\\d+"] intValue];
     int totalPageNumber = [[[pageStr componentsSeparatedByString:@"，"][1] stringWithRegular:@"\\d+"] intValue];
-    if (currentPageNumber == 0 || totalPageNumber == 0){
+    if (currentPageNumber == 0 || totalPageNumber == 0) {
         currentPageNumber = 1;
         totalPageNumber = 1;
     }
@@ -668,28 +668,28 @@
         IGXMLNode *attImage = [postDocument queryWithXPath:xPathAttImage].firstObject;
 
         if (attImage) {
-            
+
             NSString *attImageHtml = [attImage html];
-            
+
             //<a href="attachment.php?attachmentid=725161&amp;stc=1" target="_blank">
             //<img class="attach" src="attachment.php?attachmentid=725161&amp;stc=1&amp;d=1261896941" onload="if(this.width>screen.width*0.7) {this.width=screen.width*0.7;}" border="0" alt="">
             //</a>
-            
+
             // 上传的图片，外面包了一层，影响点击事件，
             // 因此要替换成<img src="attachment.php?attachmentid=725161&amp;stc=1" /> 这种形式
             IGHTMLDocument *attImageDocument = [[IGHTMLDocument alloc] initWithHTMLString:attImageHtml error:nil];
-            
+
             IGXMLNodeSet *attImageSet = [attImageDocument queryWithXPath:@"/html/body/div/fieldset/div/a[*]"];
-            
-            
+
+
             NSString *newImagePattern = @"<img src=\"%@\" />";
             for (IGXMLNode *nodeImage in attImageSet) {
                 NSString *href = [nodeImage attribute:@"href"];
                 NSString *newImage = [NSString stringWithFormat:newImagePattern, href];
-                
+
                 attImageHtml = [attImageHtml stringByReplacingOccurrencesOfString:nodeImage.html withString:newImage];
             }
-            
+
             post.postContent = [post.postContent stringByAppendingString:attImageHtml];
         }
 
@@ -928,7 +928,7 @@
 }
 
 // private
-- (Forum *)node2Form:(IGXMLNode *)node forumHost:(NSString *) host parentFormId:(int)parentFormId replaceId:(int)replaceId {
+- (Forum *)node2Form:(IGXMLNode *)node forumHost:(NSString *)host parentFormId:(int)parentFormId replaceId:(int)replaceId {
     Forum *parent = [[Forum alloc] init];
     NSString *name = [[node childAt:0] text];
     NSString *url = [[node childAt:0] html];
@@ -944,7 +944,7 @@
         NSMutableArray<Forum *> *childForms = [NSMutableArray array];
 
         for (IGXMLNode *childNode in childSet) {
-            [childForms addObject:[self node2Form:childNode forumHost: host parentFormId:fixForumId replaceId:replaceId]];
+            [childForms addObject:[self node2Form:childNode forumHost:host parentFormId:fixForumId replaceId:replaceId]];
         }
         parent.childForums = childForms;
     }
@@ -962,17 +962,17 @@
     return resultArray;
 }
 
-- (BOOL) isSpecial{
-    if (loginUser == nil){
-        NSString * url = localApi.currentForumHost;
+- (BOOL)isSpecial {
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
         loginUser = [localApi getLoginUser:url];
     }
     return [loginUser.userName isEqualToString:@"马小甲"];
 }
 
-- (NSArray *) blackList{
-    return @[@"『影视，影评』",@"预览归档", @"匿名版", @"『精品笑话』",@"精典笑话", @"『金融财经』",@"『商品交易版』",@"【充值卡网络服务类】",@"『论坛团购』",@"『 二手闲置 』",@"归档区",@"【交易区版务】",
-    @"『TorrentCCF版务』",@"『精品音乐』",@"『放心情-热会』",@"交易",@"『 网购指南 』",@"『游戏』",@"『游戏下载』",@"MMORPG游戏分区",@"WebGame游戏分区"];
+- (NSArray *)blackList {
+    return @[@"『影视，影评』", @"预览归档", @"匿名版", @"『精品笑话』", @"精典笑话", @"『金融财经』", @"『商品交易版』", @"【充值卡网络服务类】", @"『论坛团购』", @"『 二手闲置 』", @"归档区", @"【交易区版务】",
+            @"『TorrentCCF版务』", @"『精品音乐』", @"『放心情-热会』", @"交易", @"『 网购指南 』", @"『游戏』", @"『游戏下载』", @"MMORPG游戏分区", @"WebGame游戏分区"];
 }
 
 @end

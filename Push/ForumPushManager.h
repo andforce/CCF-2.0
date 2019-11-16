@@ -10,10 +10,10 @@
 
 @interface ForumPushManager : NSObject
 
-- (instancetype) initWithNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate>)delegate;
+- (instancetype)initWithNotificationCenterDelegate:(id <UNUserNotificationCenterDelegate>)delegate;
 
-- (void) registerPushManagerWithOptions:(NSDictionary *)launchOptions;
+- (void)registerPushManagerWithOptions:(NSDictionary *)launchOptions;
 
-- (void) handleRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
+- (void)handleRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 
 @end

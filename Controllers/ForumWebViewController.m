@@ -67,14 +67,14 @@
         NSString *lis = @"";
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         for (Post *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
 
@@ -92,7 +92,7 @@
 
         NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
 
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
             pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
@@ -113,12 +113,12 @@
         NSString *lis = @"";
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
         for (Post *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
 
@@ -136,13 +136,13 @@
 
         NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
             pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
         shouldScrollEnd = YES;
-    } else if ([bundle containsKey:@"show_for_notice"]){
+    } else if ([bundle containsKey:@"show_for_notice"]) {
 
         ptid = [bundle getStringValue:@"show_for_notice_ptid"];
         pid = [bundle getStringValue:@"show_for_notice_pid"];
@@ -157,7 +157,7 @@
     }
 }
 
-- (void) updatePageTitle{
+- (void)updatePageTitle {
     NSString *title = [NSString stringWithFormat:@"%lu-%lu", (unsigned long) currentShowThreadPage.pageNumber.currentPageNumber, (unsigned long) currentShowThreadPage.pageNumber.totalPageNumber];
     self.pageTitleTextView.text = title;
 }
@@ -167,7 +167,7 @@
 
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
-    
+
     pageDic = [NSMutableDictionary dictionary];
 
     WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
@@ -177,7 +177,7 @@
 
 
     CGFloat safeBottom = 0;
-    if (@available(iOS 11.0,*)){
+    if (@available(iOS 11.0, *)) {
         UIEdgeInsets edgeInsets = [[UIApplication sharedApplication] keyWindow].safeAreaInsets;
         safeBottom = edgeInsets.bottom;
     }
@@ -256,7 +256,7 @@
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    if ([message.name isEqualToString:@"onImageClicked"]){
+    if ([message.name isEqualToString:@"onImageClicked"]) {
         NSLog(@"onImageClicked %@", message.body);
 
         NSString *src = message.body;
@@ -273,17 +273,17 @@
 //        }
 
         UIImage *memCachedImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:src];
-        if (!memCachedImage){
+        if (!memCachedImage) {
             memCachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:src];
         }
 
-        NYTPhotoViewerArrayDataSource * ds = [self.class newTimesBuildingDataSource:@[memCachedImage]];
+        NYTPhotoViewerArrayDataSource *ds = [self.class newTimesBuildingDataSource:@[memCachedImage]];
 
         NYTPhotosViewController *photosViewController = [[NYTPhotosViewController alloc] initWithDataSource:ds initialPhoto:nil delegate:nil];
 
         [self presentViewController:photosViewController animated:YES completion:nil];
 
-    } else if ([message.name isEqualToString:@"onPostMessageClicked"]){
+    } else if ([message.name isEqualToString:@"onPostMessageClicked"]) {
         NSLog(@"onPostMessageClicked %@", message.body);
 
         NSURL *url = [NSURL URLWithString:message.body];
@@ -294,7 +294,7 @@
         int postId = [[query valueForKey:@"postid"] intValue];
         int louCeng = [[query valueForKey:@"postlouceng"] intValue];
 
-        itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+        itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
 
             NSLog(@"LCActionSheet click index %ld", (long) buttonIndex);
 
@@ -324,20 +324,20 @@
             } else if (buttonIndex == 2) {
 
                 LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-                id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+                id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
                 NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:louCeng];
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = postUrl;
                 [ProgressDialog showSuccess:@"复制成功"];
-            } else if (buttonIndex == 3){
+            } else if (buttonIndex == 3) {
                 [self reportThreadPost:postId userName:userName];
             }
-        } otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
+        }                         otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
 
         [itemActionSheet show];
 
-    }else if ([message.name isEqualToString:@"onAvatarClicked"]){
+    } else if ([message.name isEqualToString:@"onAvatarClicked"]) {
         NSLog(@"onAvatarClicked %@", message.body);
 
         NSURL *url = [NSURL URLWithString:message.body];
@@ -355,30 +355,28 @@
 
         [self.navigationController pushViewController:showThreadController animated:YES];
 
-    }else if ([message.name isEqualToString:@"onLinkClicked"]){
+    } else if ([message.name isEqualToString:@"onLinkClicked"]) {
 
         NSURL *url = [NSURL URLWithString:message.body];
 
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 
-        if ([self.forumApi openUrlByClient:self request:request]){
+        if ([self.forumApi openUrlByClient:self request:request]) {
 
         } else {
             [[UIApplication sharedApplication] openURL:url];
         }
-    }
-
-    else{
+    } else {
         NSLog(@"didReceiveScriptMessage() >>>:%@, body:%@", message.name, message.body);
     }
 
 }
 
-- (void) showPreviousPageOrRefresh{
+- (void)showPreviousPageOrRefresh {
 
-    if (pid && ptid){
+    if (pid && ptid) {
         [self.forumApi showThreadWithPTid:ptid pid:pid handler:^(BOOL isSuccess, id message) {
-            if (!isSuccess){
+            if (!isSuccess) {
                 [self showFailedMessage:message];
                 return;
             }
@@ -389,7 +387,7 @@
         if (threadID == -1) {
             [self.forumApi showThreadWithP:[NSString stringWithFormat:@"%d", pId] handler:^(BOOL isSuccess, id message) {
 
-                if (!isSuccess){
+                if (!isSuccess) {
                     [self showFailedMessage:message];
                     return;
                 }
@@ -428,16 +426,16 @@
     NSString *lis = @"";
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
     for (Post *post in posts) {
 
-                    NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-                    NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-                    NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                                    louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-                    lis = [lis stringByAppendingString:postInfo];
-                }
+        NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
+        NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
+                                                        louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+        lis = [lis stringByAppendingString:postInfo];
+    }
 
     NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
@@ -445,7 +443,7 @@
     // 缓存当前页面
     pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
-    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+    LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
     [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
     [_webView.scrollView.mj_header endRefreshing];
@@ -469,7 +467,7 @@
     [[_webView layer] addAnimation:animation forKey:nil];
 }
 
--(void) showFailedMessage:(id) message{
+- (void)showFailedMessage:(id)message {
     [_webView.scrollView.mj_header endRefreshing];
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -490,7 +488,7 @@
 
     [self.forumApi showThreadWithId:threadId andPage:page handler:^(BOOL isSuccess, id message) {
 
-        if (!isSuccess){
+        if (!isSuccess) {
             [self showFailedMessage:message];
             return;
         }
@@ -507,7 +505,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
 
                 LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-                id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+                id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
                 NSURL *nsurl = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page]];
                 [[UIApplication sharedApplication] openURL:nsurl];
@@ -536,7 +534,7 @@
         NSString *lis = @"";
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         for (Post *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
@@ -548,9 +546,9 @@
         NSString *html = nil;
 
         if (page <= 1) {
-            NSString * lib = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fastclick_lib" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+            NSString *lib = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fastclick_lib" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
             [lib length];
-            
+
             html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         } else {
             html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
@@ -559,7 +557,7 @@
 
         pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
         [_webView.scrollView.mj_header endRefreshing];
@@ -598,7 +596,7 @@
     } else {
         [self.forumApi showThreadWithId:threadId andPage:currentPage handler:^(BOOL isSuccess, id message) {
 
-            if (!isSuccess){
+            if (!isSuccess) {
                 [self showFailedMessage:message];
                 return;
             }
@@ -609,7 +607,7 @@
                 NSMutableArray *posts = threadPage.postList;
 
                 LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-                id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+                id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
                 for (NSInteger i = currentShowThreadPage.postList.count; i < posts.count; i++) {
                     Post *post = posts[(NSUInteger) i];
@@ -636,8 +634,8 @@
 
 
         [ProgressDialog dismiss];
-        
-        if (!isSuccess){
+
+        if (!isSuccess) {
             [self showFailedMessage:threadPage];
             return;
         }
@@ -651,14 +649,14 @@
         NSString *lis = @"";
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         for (Post *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                    louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
 
             lis = [lis stringByAppendingString:postInfo];
 
@@ -677,8 +675,8 @@
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             pageDic[@(page)] = html;
         }
-        
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
         if (anim) {
@@ -747,17 +745,17 @@
 }
 
 - (void)reportThreadPost:(int)postId userName:(NSString *)userName {
-  UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+    UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
 
-                UINavigationController *simpleReplyController = [storyboard instantiateViewControllerWithIdentifier:@"ReportThreadPost"];
+    UINavigationController *simpleReplyController = [storyboard instantiateViewControllerWithIdentifier:@"ReportThreadPost"];
 
-                TransBundle *bundle = [[TransBundle alloc] init];
-                [bundle putIntValue:postId forKey:@"POST_ID"];
-                [bundle putStringValue:userName forKey:@"POST_USER"];
+    TransBundle *bundle = [[TransBundle alloc] init];
+    [bundle putIntValue:postId forKey:@"POST_ID"];
+    [bundle putStringValue:userName forKey:@"POST_USER"];
 
-                [self presentViewController:simpleReplyController withBundle:bundle forRootController:YES animated:YES completion:^{
+    [self presentViewController:simpleReplyController withBundle:bundle forRootController:YES animated:YES completion:^{
 
-                }];
+    }];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -780,7 +778,7 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
 
 
-        if ([self.forumApi openUrlByClient:self request:request]){
+        if ([self.forumApi openUrlByClient:self request:request]) {
             return NO;
         } else {
             [[UIApplication sharedApplication] openURL:request.URL];
@@ -793,7 +791,7 @@
 
 - (void)showChangePageActionSheet:(UIBarButtonItem *)sender {
 
-    if (currentShowThreadPage.pageNumber.totalPageNumber <= 1){
+    if (currentShowThreadPage.pageNumber.totalPageNumber <= 1) {
         return;
     }
 
@@ -845,17 +843,17 @@
 - (IBAction)showMoreAction:(UIBarButtonItem *)sender {
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
-    itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+    itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             // 复制贴链接
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            
+
             pasteboard.string = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:0];
 
             [ProgressDialog showSuccess:@"复制成功"];
-            
+
         } else if (buttonIndex == 2) {
             // 在浏览器种查看
             NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
@@ -863,8 +861,8 @@
         } else if (buttonIndex == 3) {
             [self reportThreadPost:nil userName:nil];
         }
-        
-    } otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
+
+    }                         otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
 
     [itemActionSheet show];
 }
@@ -898,7 +896,7 @@
 - (IBAction)firstPage:(id)sender {
     [self killScroll];
 
-    if (1 == currentShowThreadPage.pageNumber.currentPageNumber){
+    if (1 == currentShowThreadPage.pageNumber.currentPageNumber) {
         [_webView.scrollView.mj_header beginRefreshing];
         return;
     }
@@ -910,7 +908,7 @@
 - (IBAction)lastPage:(id)sender {
     [self killScroll];
 
-    if (currentShowThreadPage.pageNumber.totalPageNumber == currentShowThreadPage.pageNumber.currentPageNumber){
+    if (currentShowThreadPage.pageNumber.totalPageNumber == currentShowThreadPage.pageNumber.currentPageNumber) {
         [_webView.scrollView.mj_footer beginRefreshing];
         return;
     }
@@ -926,20 +924,20 @@
 
 - (IBAction)nextPage:(id)sender {
     [self killScroll];
-    
+
     [_webView.scrollView.mj_footer beginRefreshing];
 }
 
 + (NYTPhotoViewerArrayDataSource *)newTimesBuildingDataSource:(NSArray *)images {
     NSMutableArray *photos = [NSMutableArray array];
-    
-    for (UIImage * image in images) {
+
+    for (UIImage *image in images) {
         NYTExamplePhoto *photo = [[NYTExamplePhoto alloc] init];
         photo.attributedCaptionTitle = [[NSAttributedString alloc] initWithString:@"1" attributes:nil];
         photo.image = image;
         [photos addObject:photo];
     }
-    
+
     return [NYTPhotoViewerArrayDataSource dataSourceWithPhotos:photos];
 }
 @end

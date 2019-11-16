@@ -17,9 +17,9 @@
 
 - (void)changeRootViewControllerToController:(UIViewController *)controller;
 
-- (void)changeRootViewControllerTo:(NSString *)identifier withAnim:(UIViewAnimationOptions) anim;
+- (void)changeRootViewControllerTo:(NSString *)identifier withAnim:(UIViewAnimationOptions)anim;
 
-- (void)changeRootViewControllerToController:(UIViewController *)controller withAnim:(UIViewAnimationOptions) anim;
+- (void)changeRootViewControllerToController:(UIViewController *)controller withAnim:(UIViewAnimationOptions)anim;
 
 - (UIViewController *)finControllerById:(NSString *)controllerId;
 

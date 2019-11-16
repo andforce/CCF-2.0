@@ -20,5 +20,5 @@
 
 - (id)getObjectValue:(NSString *)key;
 
-- (BOOL) containsKey:(NSString *)key;
+- (BOOL)containsKey:(NSString *)key;
 @end

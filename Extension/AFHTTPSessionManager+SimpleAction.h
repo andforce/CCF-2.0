@@ -18,10 +18,10 @@ typedef NS_ENUM(NSInteger, Charset) {
 
 @interface AFHTTPSessionManager (SimpleAction)
 
-- (void)GETWithURLString:(NSString *)url parameters:(NSDictionary *)parameters charset:(Charset) charset requestCallback:(RequestCallback)callback;
+- (void)GETWithURLString:(NSString *)url parameters:(NSDictionary *)parameters charset:(Charset)charset requestCallback:(RequestCallback)callback;
 
-- (void)POSTWithURLString:(NSString *)url parameters:(id)parameters charset:(Charset) charset requestCallback:(RequestCallback)callback;
+- (void)POSTWithURLString:(NSString *)url parameters:(id)parameters charset:(Charset)charset requestCallback:(RequestCallback)callback;
 
-- (void)POSTWithURLString:(NSString *)url parameters:(id)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block charset:(Charset) charset requestCallback:(RequestCallback)callback;
+- (void)POSTWithURLString:(NSString *)url parameters:(id)parameters constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block charset:(Charset)charset requestCallback:(RequestCallback)callback;
 
 @end

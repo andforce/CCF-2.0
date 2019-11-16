@@ -34,7 +34,7 @@
 }
 */
 
-- (UIViewController *)childViewControllerForStatusBarStyle{
+- (UIViewController *)childViewControllerForStatusBarStyle {
     return self.topViewController;
 }
 

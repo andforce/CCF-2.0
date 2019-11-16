@@ -27,8 +27,8 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     NSMutableDictionary *listUserThreadRedirectUrlDictionary;
 
-    DRLForumConfig* forumConfig;
-    DRLForumHtmlParser* forumParser;
+    DRLForumConfig *forumConfig;
+    DRLForumHtmlParser *forumParser;
 }
 
 - (instancetype)init {
@@ -800,6 +800,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         }
     }];
 }
+
 - (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
     int pmId = [privateMessage.pmID intValue];

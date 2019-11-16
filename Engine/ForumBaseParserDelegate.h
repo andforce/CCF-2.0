@@ -22,18 +22,18 @@
 
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html;
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int) type;
+- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type;
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *) avatarBase noavatar:(NSString *) avatarNO;
+- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO;
 
 - (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId;
 
-- (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *) host;
+- (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *)host;
 
 - (NSMutableArray<Forum *> *)parseFavForumFromHtml:(NSString *)html;
 
 // 动作相关
-- (PageNumber *) parserPageNumber:(NSString *)html;
+- (PageNumber *)parserPageNumber:(NSString *)html;
 
 - (NSString *)parseUserAvatar:(NSString *)html userId:(NSString *)userId;
 

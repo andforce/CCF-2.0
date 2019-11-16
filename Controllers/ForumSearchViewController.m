@@ -29,7 +29,7 @@
 
 @end
 
-@implementation ForumSearchViewController{
+@implementation ForumSearchViewController {
     ViewSearchForumPage *currentSearchForumPage;
 }
 
@@ -52,13 +52,13 @@
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    if (![_payManager hasPayed:[_localForumApi currentProductID]]){
+- (void)viewDidAppear:(BOOL)animated {
+    if (![_payManager hasPayed:[_localForumApi currentProductID]]) {
         [self showFailedMessage:@"未订阅用户无法搜索"];
     }
 }
 
--(void) showFailedMessage:(id) message{
+- (void)showFailedMessage:(id)message {
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"操作受限" message:message preferredStyle:UIAlertControllerStyleAlert];
 
@@ -92,7 +92,7 @@
 - (BOOL)isZhanNeiSearch {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.CHH"]){
+    if ([bundleId isEqualToString:@"com.andforce.CHH"]) {
         return YES;
     } else {
         return [localForumApi.currentForumHost containsString:@"chiphell"];
@@ -154,7 +154,7 @@
             [self.tableView reloadData];
         } else {
             NSLog(@"searchBarSearchButtonClicked   ERROR %@", message);
-            NSString * msg = (id)message;
+            NSString *msg = (id) message;
             [ProgressDialog showError:msg];
         }
     }];
@@ -177,7 +177,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (isZhanNeiSearch){
+    if (isZhanNeiSearch) {
         static NSString *QuoteCellIdentifier = @"ZhanNeiSearchViewCell";
 
         ZhanNeiSearchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:QuoteCellIdentifier];
@@ -255,7 +255,8 @@
 
         [self transBundle:transBundle forController:controller];
 
-    } if ([segue.identifier isEqualToString:@"ZhanNeiSearchViewCell"]) {
+    }
+    if ([segue.identifier isEqualToString:@"ZhanNeiSearchViewCell"]) {
 
         ForumWebViewController *controller = segue.destinationViewController;
         [controller setHidesBottomBarWhenPushed:YES];

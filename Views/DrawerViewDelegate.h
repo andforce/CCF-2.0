@@ -11,13 +11,15 @@
 @protocol DrawerViewDelegate <NSObject>
 
 @optional
--(void)leftDrawerDidOpened;
--(void)leftDrawerDidClosed;
--(void)rightDrawerDidOpened;
--(void)rightDrawerDidClosed;
+- (void)leftDrawerDidOpened;
 
--(void)didDrawerMoveToSuperview:(NSInteger) index;
+- (void)leftDrawerDidClosed;
 
+- (void)rightDrawerDidOpened;
+
+- (void)rightDrawerDidClosed;
+
+- (void)didDrawerMoveToSuperview:(NSInteger)index;
 
 
 @end

@@ -26,6 +26,6 @@
 
 
 #pragma for PhpWind
-@property (nonatomic, strong) NSString *quickReplyTitle;            // 10. quick reply title
+@property(nonatomic, strong) NSString *quickReplyTitle;            // 10. quick reply title
 
 @end

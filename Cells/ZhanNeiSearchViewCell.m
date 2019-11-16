@@ -7,7 +7,7 @@
 
 #import "ZhanNeiSearchViewCell.h"
 
-@implementation ZhanNeiSearchViewCell{
+@implementation ZhanNeiSearchViewCell {
     NSIndexPath *selectIndexPath;
 }
 

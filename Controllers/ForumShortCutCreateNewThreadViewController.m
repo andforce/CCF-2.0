@@ -17,11 +17,11 @@
         DeleteDelegate, TransBundleDelegate, UIScrollViewDelegate> {
 
 
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
     int forumId;
     UIImagePickerController *pickControl;
     NSMutableArray<UIImage *> *images;
-    Forum * createForum;
+    Forum *createForum;
 }
 
 @end
@@ -195,8 +195,8 @@
         [ProgressDialog showError:@"标题太短"];
         return;
     }
-    
-    if (self.createWhichForum.text.length == 0){
+
+    if (self.createWhichForum.text.length == 0) {
         [ProgressDialog showError:@"标题太短"];
         return;
     }
@@ -209,7 +209,7 @@
         [uploadData addObject:data];
     }
 
-    ViewForumPage * viewForumPage = [[ViewForumPage alloc] init];
+    ViewForumPage *viewForumPage = [[ViewForumPage alloc] init];
     viewForumPage.forumId = forumId;
 
     [_forumApi createNewThreadWithCategory:title categoryIndex:0 withTitle:title andMessage:message withImages:[uploadData copy] inPage:viewForumPage handler:^(BOOL isSuccess, id message) {
@@ -237,17 +237,17 @@
 
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
-    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         } else if (buttonIndex == 2) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         }
-    } otherButtonTitleArray:@[@"相册", @"拍照"]];
+    }                                        otherButtonTitleArray:@[@"相册", @"拍照"]];
 
     [itemActionSheet show];
 
@@ -257,42 +257,42 @@
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     [_forumApi listAllForums:^(BOOL isSuccess, id message) {
         NSArray<Forum *> *all = message;
-        
-        NSMutableArray<Forum *> * canCreateThreadFrums = [NSMutableArray array];
-        
-        NSMutableArray<NSString *> * forumNames = [NSMutableArray array];
-        
-        for (Forum * forum in all) {
+
+        NSMutableArray<Forum *> *canCreateThreadFrums = [NSMutableArray array];
+
+        NSMutableArray<NSString *> *forumNames = [NSMutableArray array];
+
+        for (Forum *forum in all) {
             if (forum.parentForumId != -1) {
                 [canCreateThreadFrums addObject:forum];
                 [forumNames addObject:[forum forumName]];
             }
         }
-        
+
         ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择板块" rows:forumNames initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-            
+
             self.createWhichForum.text = forumNames[(NSUInteger) selectedIndex];
             createForum = canCreateThreadFrums[(NSUInteger) selectedIndex];
-            
+
             forumId = createForum.forumId;
 
-        } cancelBlock:^(ActionSheetStringPicker *picker) {
-            
-        } origin:sender];
-        
+        }                                                                    cancelBlock:^(ActionSheetStringPicker *picker) {
+
+        }                                                                         origin:sender];
+
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
         cancelItem.title = @"取消";
         [picker setCancelButton:cancelItem];
-        
+
         UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
         queding.title = @"确定";
         [picker setDoneButton:queding];
-        
-        
+
+
         [picker showActionSheetPicker];
-        
+
     }];
-    
+
 }
 
 - (IBAction)showCategory:(UIButton *)sender {

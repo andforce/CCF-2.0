@@ -25,9 +25,9 @@
 
 typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttime);
 
-@implementation TForumApi{
-    TForumConfig* forumConfig;
-    TForumHtmlParser* forumParser;
+@implementation TForumApi {
+    TForumConfig *forumConfig;
+    TForumHtmlParser *forumParser;
 
     NSArray *toUploadImages;
     HandlerWithBool _handlerWithBool;
@@ -39,32 +39,32 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         forumConfig = [[TForumConfig alloc] init];
-        forumParser = [[TForumHtmlParser alloc]init];
+        forumParser = [[TForumHtmlParser alloc] init];
     }
     return self;
 }
 
-- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback {
     NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
 
-    if (parameters){
+    if (parameters) {
         [defParameters addEntriesFromDictionary:parameters];
     }
 
     [self.browser GETWithURLString:url parameters:defParameters charset:UTF_8 requestCallback:callback];
 }
 
-- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback {
     [self GET:url parameters:nil requestCallback:callback];
 }
 
 - (void)listAllForums:(HandlerWithBool)handler {
-    NSString * url = forumConfig.archive;
+    NSString *url = forumConfig.archive;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            NSString * host = forumConfig.forumURL.host;
+            NSString *host = forumConfig.forumURL.host;
             NSArray<Forum *> *parserForums = [forumParser parserForums:html forumHost:host];
             if (parserForums != nil && parserForums.count > 0) {
                 handler(YES, parserForums);
@@ -87,19 +87,19 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
         if (isSuccess) {
 
-            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
-            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
-            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+            NSString *post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString *forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString *posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString *seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
-            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
             IGXMLNode *typeidNode = [document queryNodeWithXPath:@"//*[@id=\"typeid\"]"];
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
             for (int i = 0; i < typeidNode.childrenCount; i++) {
                 IGXMLNode *child = [typeidNode childAt:i];
-                if (![[child attribute:@"value"] isEqualToString:@"0"]){
+                if (![[child attribute:@"value"] isEqualToString:@"0"]) {
                     [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
                 }
             }
@@ -109,9 +109,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             NSString *secUrl = [NSString stringWithFormat:secUrlTemple, seccodehash, randomStr];
 
             [self GET:secUrl parameters:nil requestCallback:^(BOOL success, NSString *resultHtml) {
-                if (success){
+                if (success) {
                     NSString *update = [resultHtml stringWithRegular:@"(?<=update=)\\d+"];
-                    NSString * seccodeverify = [NSString stringWithFormat:@"http://bbs.smartisan.com/misc.php?mod=seccode&update=%@&idhash=%@", update, seccodehash];
+                    NSString *seccodeverify = [NSString stringWithFormat:@"http://bbs.smartisan.com/misc.php?mod=seccode&update=%@&idhash=%@", update, seccodehash];
                     callback(html, post_hash, forum_hash, posttime, seccodehash, seccodeverify, typeidDic);
                 } else {
                     callback(nil, nil, nil, nil, nil, nil, nil);
@@ -127,23 +127,23 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 - (void)unFavouriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
     NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
-    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
 
-    NSString * data = [store stringForKey:key];
-    NSArray * favForumIds = [data componentsSeparatedByString:@","];
+    NSString *data = [store stringForKey:key];
+    NSArray *favForumIds = [data componentsSeparatedByString:@","];
     NSLog(@"favoriteForumsWithId \t%@", favForumIds);
-    if ([favForumIds containsObject:forumId]){
-        NSMutableArray * array = [favForumIds mutableCopy];
+    if ([favForumIds containsObject:forumId]) {
+        NSMutableArray *array = [favForumIds mutableCopy];
         [array removeObject:forumId];
 
         // 存到云端
-        NSString * newForums = [array componentsJoinedByString:@","];
+        NSString *newForums = [array componentsJoinedByString:@","];
         [store setString:newForums forKey:key];
         [store synchronize];
 
         // 存到本地
-        NSMutableArray * ids = [NSMutableArray array];
-        for (NSString *fid in favForumIds){
+        NSMutableArray *ids = [NSMutableArray array];
+        for (NSString *fid in favForumIds) {
             [ids addObject:@([fid intValue])];
         }
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -228,7 +228,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     if (images == nil || images.count == 0) {
         [self doPostThread:fId withSubject:title andMessage:message postHash:posthash formHash:formhash
                secCodeHash:seccodehash seccodeverify:seccodeverify postTime:postTime
-                    typeid:categoryValue handler:^(BOOL isSuccess, NSString * result) {
+                    typeid:categoryValue handler:^(BOOL isSuccess, NSString *result) {
                     if (isSuccess) {
                         NSString *error = [self checkError:result];
                         if (error != nil) {
@@ -279,12 +279,12 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 - (void)listFavoriteForums:(HandlerWithBool)handler {
     NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
-    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
 
-    NSString * data = [store stringForKey:key];
-    NSArray * favForumIds = [data componentsSeparatedByString:@","];
-    NSMutableArray * ids = [NSMutableArray array];
-    for (NSString *forumId in favForumIds){
+    NSString *data = [store stringForKey:key];
+    NSArray *favForumIds = [data componentsSeparatedByString:@","];
+    NSMutableArray *ids = [NSMutableArray array];
+    for (NSString *forumId in favForumIds) {
         [ids addObject:@([forumId intValue])];
     }
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -350,9 +350,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 // private
-- (void)listFavoriteForums:(int ) page handler:(HandlerWithBool)handler {
-    NSString * baseUrl = forumConfig.favoriteForums;
-    NSString * favForumsURL = [NSString stringWithFormat:@"%@&page=%d",baseUrl,page];
+- (void)listFavoriteForums:(int)page handler:(HandlerWithBool)handler {
+    NSString *baseUrl = forumConfig.favoriteForums;
+    NSString *favForumsURL = [NSString stringWithFormat:@"%@&page=%d", baseUrl, page];
 
     [self GET:favForumsURL requestCallback:^(BOOL isSuccess, NSString *html) {
         handler(isSuccess, html);
@@ -401,7 +401,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
     NSString *baseUrl = [forumConfig searchThreadWithUserId:[NSString stringWithFormat:@"%d", userId]];
 
-    NSString * url = [baseUrl stringByAppendingFormat:@"%d", page];
+    NSString *url = [baseUrl stringByAppendingFormat:@"%d", page];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -456,7 +456,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-    handler(YES,@"");
+    handler(YES, @"");
 }
 
 - (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request {
@@ -465,7 +465,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)enterSeniorReplyPageFetchInfo:(int)forumId tid:(int)tid pid:(int)pid handler:(EnterNewThreadCallBack)callback {
     NSString *url = [NSString stringWithFormat:@"http://bbs.smartisan.com//forum.php?mod=post&action=reply&fid=%d&extra=&tid=%d&repquote=%d", forumId, tid, pid];
-    if (pid == -1){
+    if (pid == -1) {
         url = [NSString stringWithFormat:@"http://bbs.smartisan.com//forum.php?mod=post&action=reply&fid=%d&tid=%d", forumId, tid];
     }
 
@@ -473,19 +473,19 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
         if (isSuccess) {
 
-            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
-            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
-            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+            NSString *post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString *forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString *posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString *seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
-            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
             IGXMLNode *typeidNode = [document queryNodeWithXPath:@"//*[@id=\"typeid\"]"];
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
             for (int i = 0; i < typeidNode.childrenCount; ++i) {
                 IGXMLNode *child = [typeidNode childAt:i];
-                if (![[child attribute:@"value"] isEqualToString:@"0"]){
+                if (![[child attribute:@"value"] isEqualToString:@"0"]) {
                     [typeidDic setValue:[child attribute:@"value"] forKey:[[child text] trim]];
                 }
             }
@@ -499,7 +499,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote
-        handler:(HandlerWithBool)handler {
+                 handler:(HandlerWithBool)handler {
 
     NSString *msg = message;
 
@@ -512,15 +512,15 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     int threadId = threadPage.threadID;
     int forumId = threadPage.forumId;
 
-    if (images == nil || images.count == 0){
+    if (images == nil || images.count == 0) {
         [self doReply:handler msg:msg replyPostId:replyPostId token:forumHash threadId:threadId forumId:forumId];
     } else {
         [self enterSeniorReplyPageFetchInfo:forumId tid:threadId pid:replyPostId handler:^(NSString *responseHtml, NSString *post_hash,
                 NSString *forum_hash, NSString *posttime, NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList) {
 
-            if (hasUploadImages == nil){
+            if (hasUploadImages == nil) {
                 hasUploadImages = [NSMutableArray array];
-            } else{
+            } else {
                 [hasUploadImages removeAllObjects];
             }
 
@@ -538,9 +538,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             [[NSNotificationCenter defaultCenter] postNotificationName:@"REPLYTHREADUPLOADIMAGES" object:self
                                                               userInfo:@{@"uploadTime": posttime,
                                                                       @"fId": @(forumId),
-                                                                      @"forumHash":forumHash,
-                                                                      @"replyPostId" :@(replyPostId),
-                                                                      @"threadId" :@(threadId),
+                                                                      @"forumHash": forumHash,
+                                                                      @"replyPostId": @(replyPostId),
+                                                                      @"threadId": @(threadId),
                                                                       @"uid": uid,
                                                                       @"uploadHash": uploadHash,
                                                                       @"imageId": @(0)}];
@@ -581,9 +581,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             [[NSNotificationCenter defaultCenter] postNotificationName:@"REPLYTHREADUPLOADIMAGES" object:self
                                                               userInfo:@{@"uploadTime": posttime,
                                                                       @"fId": @(forumId),
-                                                                      @"forumHash":forumHash,
-                                                                      @"replyPostId" :@(replyPostId),
-                                                                      @"threadId" :@(threadId),
+                                                                      @"forumHash": forumHash,
+                                                                      @"replyPostId": @(replyPostId),
+                                                                      @"threadId": @(threadId),
                                                                       @"uid": uid,
                                                                       @"uploadHash": uploadHash,
                                                                       @"imageId": @(imageId + 1)}];
@@ -597,7 +597,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)doReply:(HandlerWithBool)handler msg:(NSString *)message replyPostId:(int)replyPostId token:(NSString *)formhash threadId:(int)threadId forumId:(int)forumId {
-    if (replyPostId != -1){     // 表示回复的某一个楼层
+    if (replyPostId != -1) {     // 表示回复的某一个楼层
 
         NSString *preReplyUrl = [NSString stringWithFormat:@"http://bbs.smartisan.com/forum.php?mod=post&action=reply&fid=%d&extra=page%%3D1&tid=%d&repquote=%d", forumId, threadId, replyPostId];
 
@@ -612,11 +612,11 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                 NSString *reppid = nil;
                 NSString *reppost = nil;
 
-                IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithXMLString:html error:nil];
+                IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithXMLString:html error:nil];
 
                 IGXMLNode *paramNode = [document queryNodeWithXPath:@"//*[@id='ct']"];
                 for (IGXMLNode *node  in paramNode.children) {
-                    NSString * nodeName = [node attribute:@"name"];
+                    NSString *nodeName = [node attribute:@"name"];
 
                     if ([nodeName isEqualToString:@"formhash"]) {
                         formHash = [node attribute:@"value"];
@@ -624,19 +624,17 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                         posttime = [node attribute:@"value"];
                     } else if ([nodeName isEqualToString:@"wysiwyg"]) {
                         wysiwyg = [node attribute:@"value"];
-                    } else if([nodeName isEqualToString:@"noticeauthor"]){
+                    } else if ([nodeName isEqualToString:@"noticeauthor"]) {
                         noticeauthor = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"noticetrimstr"]){
+                    } else if ([nodeName isEqualToString:@"noticetrimstr"]) {
                         noticetrimstr = [node attribute:@"value"];
-                    } else if ([nodeName isEqualToString:@"noticeauthormsg"]){
+                    } else if ([nodeName isEqualToString:@"noticeauthormsg"]) {
                         noticeauthormsg = [node attribute:@"value"];
-                    }else if ([nodeName isEqualToString:@"reppid"]){
+                    } else if ([nodeName isEqualToString:@"reppid"]) {
                         reppid = [node attribute:@"value"];
-                    }else if ([nodeName isEqualToString:@"reppost"]){
+                    } else if ([nodeName isEqualToString:@"reppost"]) {
                         reppost = [node attribute:@"value"];
-                    }
-
-                    else {
+                    } else {
                         continue;
                     }
                 }
@@ -658,10 +656,10 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                 [parameters setValue:@"" forKey:@"subject"];
                 [parameters setValue:@"" forKey:@"save"];
 
-                if (hasUploadImages != nil && hasUploadImages.count > 0){
-                    NSMutableString * newMessage = [NSMutableString string];
+                if (hasUploadImages != nil && hasUploadImages.count > 0) {
+                    NSMutableString *newMessage = [NSMutableString string];
                     [newMessage appendString:message];
-                    for (NSString *image in hasUploadImages){
+                    for (NSString *image in hasUploadImages) {
                         NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
                         [newMessage appendString:format];
 
@@ -703,10 +701,10 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         [parameters setValue:@"" forKey:@"subject"];
         [parameters setValue:@"0" forKey:@"save"];
 
-        if (hasUploadImages != nil && hasUploadImages.count > 0){
-            NSMutableString * newMessage = [NSMutableString string];
+        if (hasUploadImages != nil && hasUploadImages.count > 0) {
+            NSMutableString *newMessage = [NSMutableString string];
             [newMessage appendString:message];
-            for (NSString *image in hasUploadImages){
+            for (NSString *image in hasUploadImages) {
                 NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
                 [newMessage appendString:format];
 
@@ -722,7 +720,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
         [self.browser POSTWithURLString:url parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
             ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
 
-            if (hasUploadImages != nil){
+            if (hasUploadImages != nil) {
                 [hasUploadImages removeAllObjects];
             }
 
@@ -776,10 +774,10 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     [parameters setValue:@"1" forKey:@"allownoticeauthor"];
     [parameters setValue:@"" forKey:@"save"];
 
-    if (images != nil && images.count > 0){
-        NSMutableString * newMessage = [NSMutableString string];
+    if (images != nil && images.count > 0) {
+        NSMutableString *newMessage = [NSMutableString string];
         [newMessage appendString:message];
-        for (NSString *image in images){
+        for (NSString *image in images) {
             NSString *format = [NSString stringWithFormat:@"\r\n[attachimg]%@[/attachimg]", image];
             [newMessage appendString:format];
 
@@ -794,7 +792,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     NSString *forumId = [NSString stringWithFormat:@"%d", fId];
     NSString *url = [forumConfig createNewThreadWithForumId:forumId];
 
-    [self.browser POSTWithURLString: url
+    [self.browser POSTWithURLString:url
                          parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
 
                 if (isSuccess) {
@@ -809,8 +807,8 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                          andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page
                             handler:(HandlerWithBool)handler {
 
-    NSString * subject = [category stringByAppendingString:title];
-    if ([category isEqualToString:@"[无分类]"]){
+    NSString *subject = [category stringByAppendingString:title];
+    if ([category isEqualToString:@"[无分类]"]) {
         subject = title;
     }
 
@@ -848,9 +846,9 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             }];
         } else {
 
-            if (hasUploadImages == nil){
+            if (hasUploadImages == nil) {
                 hasUploadImages = [NSMutableArray array];
-            } else{
+            } else {
                 [hasUploadImages removeAllObjects];
             }
 
@@ -866,7 +864,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             _subject = subject;
 
             [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
-                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash":forumHash, @"uid": uid, @"uploadHash": uploadHash, @"imageId": @(0)}];
+                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash": forumHash, @"uid": uid, @"uploadHash": uploadHash, @"imageId": @(0)}];
         }
     }];
 }
@@ -898,7 +896,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
             [NSThread sleepForTimeInterval:2.0f];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"CREATE_THREAD_UPLOAD_IMAGE" object:self
-                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash":forumHash,@"uid": uid, @"uploadHash": uploadHash, @"imageId": @(imageId + 1)}];
+                                                              userInfo:@{@"uploadTime": posttime, @"fId": @(fId), @"forumHash": forumHash, @"uid": uid, @"uploadHash": uploadHash, @"imageId": @(imageId + 1)}];
         }];
     } else {
 
@@ -978,7 +976,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     // add image data
     if (imageData) {
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"Filedata[]", name]dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"Filedata[]", name] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:imageData];
         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -1018,7 +1016,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)searchWithKeyWord:(NSString *)keyWord forType:(int)type handler:(HandlerWithBool)handler {
 
-    NSString* encodedString = [keyWord stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedString = [keyWord stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *searchUrl = nil;
     if (type == 0) {
         searchUrl = [NSString stringWithFormat:@"http://zhannei.baidu.com/cse/search?q=%@&s=13836577039777088209&area=1", encodedString];
@@ -1039,18 +1037,18 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)showPrivateMessageContentWithId:(int)pmId withType:(int)type handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig privateShowWithMessageId:pmId withType:type];
+    NSString *url = [forumConfig privateShowWithMessageId:pmId withType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            ViewMessage * viewMessage = content.viewMessages.firstObject;
+            ViewMessage *viewMessage = content.viewMessages.firstObject;
 
-            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]){
+            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]) {
                 [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
                     viewMessage.pmUserInfo.userAvatar = message;
                     handler(YES, content);
                 }];
-            } else{
+            } else {
                 viewMessage.pmUserInfo.userAvatar = forumConfig.avatarNo;
                 handler(YES, content);
             }
@@ -1067,7 +1065,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
         NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
-        if (isSuccess){
+        if (isSuccess) {
             NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
             [parameters setValue:@"true" forKey:@"pmsubmit"];
             [parameters setValue:user.userID forKey:@"touid"];
@@ -1080,7 +1078,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
                 handler(isSuccess, @"");
             }];
         } else {
-           handler(NO, @"ERROR");
+            handler(NO, @"ERROR");
         }
 
     }];
@@ -1102,17 +1100,17 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 - (void)favoriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
 
-    NSString * fetchForumHashUrl = [forumConfig forumDisplayWithId:forumId];
+    NSString *fetchForumHashUrl = [forumConfig forumDisplayWithId:forumId];
     [self GET:fetchForumHashUrl requestCallback:^(BOOL isSuccess, NSString *html) {
-        if (isSuccess){
-            NSString * forumHash = [forumParser parseSecurityToken:html];
+        if (isSuccess) {
+            NSString *forumHash = [forumParser parseSecurityToken:html];
             // fav forum with forumID & forumHash
             NSString *url = [forumConfig favForumWithId:forumId];
-            NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
             [dictionary setValue:forumHash forKey:@"formhash"];
             [self GET:url parameters:dictionary requestCallback:^(BOOL isSuccess, NSString *favHtml) {
                 BOOL isFavSuccess = [favHtml containsString:@"<p>信息收藏成功 <script"] || [favHtml containsString:@"<p>抱歉，您已收藏，请勿重复收藏</p>"];
-                if (isFavSuccess){
+                if (isFavSuccess) {
                     handler(YES, @"");
                 } else {
                     handler(NO, @"收藏失败");
@@ -1129,7 +1127,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
     [self GET:[forumConfig privateMessage:1] requestCallback:^(BOOL isSuccess, NSString *html) {
 
-        if (isSuccess){
+        if (isSuccess) {
             NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
 
             NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -1142,7 +1140,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
             [self.browser POSTWithURLString:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=delete&folder="
                                  parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
 
-                        if (isSuccess){
+                        if (isSuccess) {
                             handler(isSuccess, html);
                         } else {
                             handler(NO, @"");
@@ -1157,7 +1155,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type handler:(HandlerWithBool)handler {
-    NSString* encodedString = [keyWord stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedString = [keyWord stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *searchUrl = nil;
     if (type == 0) {
         searchUrl = [NSString stringWithFormat:@"http://zhannei.baidu.com/cse/search?q=%@&p=%d&s=13836577039777088209&area=1", encodedString, page];
@@ -1178,14 +1176,14 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 - (void)fetchUserInfo:(UserInfoHandler)handler {
-    NSString * url = forumConfig.forumURL.absoluteString;
+    NSString *url = forumConfig.forumURL.absoluteString;
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-            IGXMLNode * uidNode = [document queryWithCSS:@"#um > div.ui-login-toggle > span.user-avatar"][0];
+            IGXMLNode *uidNode = [document queryWithCSS:@"#um > div.ui-login-toggle > span.user-avatar"][0];
             NSString *uid = [uidNode.html stringWithRegular:@"(?<=uid=)\\d+"];
 
             IGXMLNode *nameNode = [document queryWithCSS:@"#um > div.ui-login-toggle > span.user-name.hide-row"][0];
@@ -1221,7 +1219,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     [parameters setValue:@"" forKey:@"save"];
 
     NSString *url = [forumConfig createNewThreadWithForumId:[NSString stringWithFormat:@"%d", fId]];
-    [self.browser POSTWithURLString: url
+    [self.browser POSTWithURLString:url
                          parameters:parameters charset:UTF_8 requestCallback:^(BOOL isSuccess, NSString *html) {
 
                 if (isSuccess) {

@@ -13,7 +13,7 @@
 #import "UIStoryboard+Forum.h"
 #import "LocalForumApi.h"
 
-@interface CrskyLoginViewController ()<UIWebViewDelegate>{
+@interface CrskyLoginViewController () <UIWebViewDelegate> {
 
 }
 
@@ -27,16 +27,16 @@
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.delegate = self;
-    self.webView.scalesPageToFit=NO;
+    self.webView.scalesPageToFit = NO;
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
-    NSDictionary*dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
+    NSDictionary *dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bbs.crsky.com/login.php"]]];
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 }
@@ -50,12 +50,12 @@
 // private
 - (void)saveUserName:(NSString *)name {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> config = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
     [localForumApi saveUserName:name forHost:config.forumURL.host];
 }
 
 // private
-- (NSString*) getResponseHTML:(UIWebView *)webView {
+- (NSString *)getResponseHTML:(UIWebView *)webView {
     NSString *lJs = @"document.documentElement.outerHTML";
     NSString *html = [webView stringByEvaluatingJavaScriptFromString:lJs];
     return html;
@@ -70,7 +70,7 @@
     NSLog(@"CrskyLogin.webViewDidFinishLoad->%@", currentURL);
 
     // 使用JS注入获取用户输入的密码
-    NSString * userName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('pwuser')[0].value"];
+    NSString *userName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('pwuser')[0].value"];
     NSLog(@"CrskyLogin.userName->%@", userName);
     if (userName != nil && ![userName isEqualToString:@""]) {
         // 保存用户名
@@ -78,17 +78,17 @@
     }
 
     //NSLog(@"CrskyLogin.webViewDidFinishLoad %@ ", html);
-    
-    
+
+
     // 改变样式
     NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    
+
     [webView stringByEvaluatingJavaScriptFromString:js];
-    
+
     [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 }
-    
-- (void)hideMaskView{
+
+- (void)hideMaskView {
     self.maskLoadingView.hidden = YES;
 }
 
@@ -108,7 +108,7 @@
         return NO;
     }
 
-    if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]){
+    if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]) {
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
@@ -119,7 +119,7 @@
 
             NSLog(@"CrskyLogin.shouldStartLoadWithRequest, fetchUserInfo %@ ", urlString);
 
-            if (isSuccess){
+            if (isSuccess) {
 
                 [localForumApi saveUserId:userId forHost:@"bbs.crsky.com"];
                 [localForumApi saveUserName:userName forHost:@"bbs.crsky.com"];
@@ -139,7 +139,7 @@
                             newsInfo.forumId = [src valueForKey:@"forumId"];
                             newsInfo.forumName = [src valueForKey:@"forumName"];
                             newsInfo.parentForumId = [src valueForKey:@"parentForumId"];
-                            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
                             newsInfo.forumHost = localeForumApi.currentForumHost;
 
                         }];
@@ -163,7 +163,7 @@
 - (IBAction)cancelLogin:(id)sender {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.forums"]){
+    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
         [localForumApi clearCurrentForumURL];
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
     }

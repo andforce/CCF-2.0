@@ -8,16 +8,17 @@
 #import <Foundation/Foundation.h>
 
 
-
 @interface Forums : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *url;
+@property(nonatomic, strong) NSString *name;
+@property(nonatomic, strong) NSString *url;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
 - (NSDictionary *)dictionaryRepresentation;
 
-- (NSString*) host;
+- (NSString *)host;
 
 @end

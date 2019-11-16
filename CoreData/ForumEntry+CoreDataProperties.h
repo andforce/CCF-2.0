@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<ForumEntry *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSNumber *forumId;
-@property (nullable, nonatomic, copy) NSString *forumName;
-@property (nullable, nonatomic, copy) NSNumber *parentForumId;
-@property (nullable, nonatomic, copy) NSString *forumHost;
+@property(nullable, nonatomic, copy) NSNumber *forumId;
+@property(nullable, nonatomic, copy) NSString *forumName;
+@property(nullable, nonatomic, copy) NSNumber *parentForumId;
+@property(nullable, nonatomic, copy) NSString *forumHost;
 
 @end
 

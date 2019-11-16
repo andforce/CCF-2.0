@@ -228,8 +228,8 @@ static PayManager *_instance = nil;
 //    [self handleResult:NO];
 //}
 
-- (void)handleResult:(BOOL) isSuccess{
-    if (_handler){
+- (void)handleResult:(BOOL)isSuccess {
+    if (_handler) {
         _handler(isSuccess);
     }
 }
@@ -241,21 +241,21 @@ static PayManager *_instance = nil;
 //}
 
 //收据的环境判断；
--(NSString * )environmentForReceipt:(NSString * )str {
-    str= [str stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-    
+- (NSString *)environmentForReceipt:(NSString *)str {
+    str = [str stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
+
     str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
+
     str = [str stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    str=[str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    
-    NSArray * arr=[str componentsSeparatedByString:@";"];
-    
+
+    str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    str = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+
+    NSArray *arr = [str componentsSeparatedByString:@";"];
+
     //存储收据环境的变量
-    NSString * environment=arr[2];
+    NSString *environment = arr[2];
     return environment;
 }
 
@@ -271,11 +271,11 @@ static PayManager *_instance = nil;
     NSLog(@"verify->:\tproductID:%@", _currentProductID);
 
     [self verifyWithUrl:[NSURL URLWithString:AppStore] handler:^(NSDictionary *response) {
-        if (response){
+        if (response) {
             NSLog(@"verify->:\tAppStore 环境:%@", response);
 
             // 21007 说明是沙河下的收据却拿到正式环境进行了验证，因此需要重新在沙河下进行验证
-            if ([response[@"status"] intValue] == 21007){
+            if ([response[@"status"] intValue] == 21007) {
                 [self verifyWithUrl:[NSURL URLWithString:SANDBOX] handler:^(NSDictionary *response) {
                     NSLog(@"verify->:\tSandbox 环境:%@", response);
                     handler(response);
@@ -291,12 +291,12 @@ static PayManager *_instance = nil;
 
 }
 
-- (void)verifyWithUrl:(NSURL *)url handler:(VerifyHandler)handler{
+- (void)verifyWithUrl:(NSURL *)url handler:(VerifyHandler)handler {
 //从沙盒中获取交易凭证并且拼接成请求体数据
     NSURL *receiptUrl = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
     // 保证数据
-    if (!receiptData){
+    if (!receiptData) {
         NSLog(@"verify->:\tverifyWithUrl() : 没有任何收据，无需再次验证了");
         handler(nil);
         return;

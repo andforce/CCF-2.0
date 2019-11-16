@@ -16,13 +16,13 @@
 
     [self GET:[url absoluteString] parameters:parameters progress:nil success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
 
-        if (charset == GBK){
+        if (charset == GBK) {
 
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            NSString * encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
+            NSString *encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
 //            NSString *encodeStr = [responseObject gbkString];
             callback(YES, encodeStr);
-        } else{
+        } else {
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
             if (html == nil) {
@@ -41,11 +41,11 @@
 
     [self POST:[url absoluteString] parameters:parameters progress:nil success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
 
-        if (charset == GBK){
+        if (charset == GBK) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            NSString * encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
+            NSString *encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
             callback(YES, encodeStr);
-        } else{
+        } else {
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
 
@@ -69,11 +69,11 @@
 
     }  success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
 
-        if (charset == GBK){
+        if (charset == GBK) {
             NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            NSString * encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
+            NSString *encodeStr = [[NSString alloc] initWithBytes:[responseObject bytes] length:[responseObject length] encoding:enc];
             callback(YES, encodeStr);
-        } else{
+        } else {
             NSString *orgHtml = [responseObject utf8String];
             NSString *html = [orgHtml replaceUnicode];
 

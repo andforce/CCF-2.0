@@ -22,12 +22,12 @@
 
     UIImagePickerController *pickControl;
     NSMutableArray<UIImage *> *images;
-    NSString * userName;
+    NSString *userName;
     NSString *securityToken;
 
     int forumId;
     int threadId;
-    NSString * postId;
+    NSString *postId;
 
     ViewThreadPage *replyThread;
 
@@ -87,13 +87,13 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    if (![_payManager hasPayed:[_localForumApi currentProductID]]){
+- (void)viewDidAppear:(BOOL)animated {
+    if (![_payManager hasPayed:[_localForumApi currentProductID]]) {
         [self showFailedMessage:@"未订阅用户无法回帖"];
     }
 }
 
--(void) showFailedMessage:(id) message{
+- (void)showFailedMessage:(id)message {
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"操作受限" message:message preferredStyle:UIAlertControllerStyleAlert];
 
@@ -235,18 +235,18 @@
 
 - (IBAction)insertPhoto:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    
-    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+
+    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         } else if (buttonIndex == 2) {
             [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
-            
+
             [self presentViewController:pickControl animated:YES completion:nil];
         }
-    } otherButtonTitleArray:@[@"相册", @"拍照"]];
+    }                                        otherButtonTitleArray:@[@"相册", @"拍照"]];
 
     [itemActionSheet show];
 

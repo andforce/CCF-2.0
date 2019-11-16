@@ -13,7 +13,7 @@
 
 @end
 
-@implementation ForumMyThreadTableViewController{
+@implementation ForumMyThreadTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -46,7 +46,7 @@
 }
 
 - (void)onLoadMore {
-    int  toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
+    int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
     [self.forumApi listMyAllThreadsWithPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
         [self.tableView.mj_footer endRefreshing];
 

@@ -8,7 +8,7 @@
 #import "DiscuzConfigDelegate.h"
 
 
-@interface DiscuzCommonConfig : NSObject<ForumBaseConfigDelegate, DiscuzConfigDelegate>
+@interface DiscuzCommonConfig : NSObject <ForumBaseConfigDelegate, DiscuzConfigDelegate>
 
 @property NSURL *forumURL;
 

@@ -9,6 +9,7 @@
 @protocol DiscuzApiDelegate <NSObject>
 
 #pragma 短消息相关
+
 - (void)listPrivateMessage:(int)page handler:(HandlerWithBool)handler;
 
 - (void)listNoticeMessage:(int)page handler:(HandlerWithBool)handler;
@@ -21,7 +22,7 @@
                           withTitle:(NSString *)title
                          andMessage:(NSString *)message
                          withImages:(NSArray *)images
-                             inPage:(ViewForumPage *) page
+                             inPage:(ViewForumPage *)page
 
                            postHash:(NSString *)posthash
                            formHash:(NSString *)formhash

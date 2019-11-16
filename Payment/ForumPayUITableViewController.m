@@ -12,7 +12,7 @@
 #import "LocalForumApi.h"
 #import "ProgressDialog.h"
 
-@interface ForumPayUITableViewController (){
+@interface ForumPayUITableViewController () {
     LocalForumApi *_localForumApi;
     PayManager *_payManager;
 }
@@ -24,16 +24,16 @@
 - (IBAction)backOrDismiss:(UIBarButtonItem *)sender {
     [_payManager removeTransactionObserver];
 
-    if (self.canBack){
+    if (self.canBack) {
         UINavigationController *navigationController = self.navigationController;
         [navigationController popViewControllerAnimated:YES];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil  ];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 
-- (BOOL) canBack{
+- (BOOL)canBack {
 //    UIViewController * c = self.navigationController.presentingViewController;
 //    return c != nil;
 //    return self.navigationController.topViewController == self;
@@ -68,7 +68,7 @@
 
 - (IBAction)pay:(UIBarButtonItem *)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]){
+    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
         [ProgressDialog showSuccess:@"您已订阅"];
         return;
     }
@@ -76,7 +76,7 @@
     [ProgressDialog show];
 
     [_payManager payForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
-        if (isSuccess){
+        if (isSuccess) {
             //[restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
             [ProgressDialog showSuccess:@"订阅成功"];
         } else {
@@ -88,14 +88,14 @@
 
 - (IBAction)restorePay:(id)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]){
+    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
         [ProgressDialog showStatus:@"您已订阅"];
         return;
     }
     [ProgressDialog show];
 
     [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
-        if (isSuccess){
+        if (isSuccess) {
             //[restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
             [ProgressDialog showSuccess:@"订阅成功"];
         } else {
@@ -108,10 +108,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:FALSE];
 
-    if (indexPath.section == 1){
-        if (indexPath.row == 0){
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
             [self pay:nil];
-        } else if (indexPath.row == 2){
+        } else if (indexPath.row == 2) {
             [self restorePay:nil];
         }
     }
@@ -137,22 +137,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0){
+    if (section == 0) {
         return 3;
-    } else if (section == 1){
+    } else if (section == 1) {
         return 2;
-    } else if (section == 2){
+    } else if (section == 2) {
         return 1;
     }
     return 0;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSString * type = segue.identifier;
+    NSString *type = segue.identifier;
     if ([type isEqualToString:@"ShowTermsOfUse"] || [type isEqualToString:@"ShowPolicy"] || [type isEqualToString:@"ShowMore"]) {
         ForumShowPrivatePolicyUiViewController *controller = segue.destinationViewController;
 
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putStringValue:segue.identifier forKey:@"ShowType"];
         [self transBundle:bundle forController:controller];
 

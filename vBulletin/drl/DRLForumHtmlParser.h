@@ -8,5 +8,5 @@
 #import "vBulletinParserDelegate.h"
 
 
-@interface DRLForumHtmlParser : NSObject<ForumBaseParserDelegate,vBulletinParserDelegate>
+@interface DRLForumHtmlParser : NSObject <ForumBaseParserDelegate, vBulletinParserDelegate>
 @end

@@ -231,8 +231,8 @@ typedef NS_ENUM(NSInteger, UnicodeBlock) {
 
 @interface CharUnicodeBlock : NSObject
 
-    extern int const blocks[];
-    extern int const blockStarts[];
+extern int const blocks[];
+extern int const blockStarts[];
 
 + (UnicodeBlock)unicodeBlockOf:(unichar)c;
 

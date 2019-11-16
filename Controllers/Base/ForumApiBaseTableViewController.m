@@ -63,7 +63,7 @@
 
 - (NSString *)currentForumHost {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    NSString * urlStr = [localForumApi currentForumURL];
+    NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
 }

@@ -11,7 +11,8 @@
 @interface ForumTableViewController : ForumApiBaseTableViewController
 - (IBAction)showLeftDrawer:(id)sender;
 
-- (void) showControllerByShortCutItemType:(NSString *) shortCutItemType;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
+- (void)showControllerByShortCutItemType:(NSString *)shortCutItemType;
+
+@property(weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
 
 @end

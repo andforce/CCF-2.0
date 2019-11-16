@@ -24,7 +24,7 @@
 
 @end
 
-@implementation ForumThreadListTableViewController{
+@implementation ForumThreadListTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -83,7 +83,7 @@
 
 - (void)onLoadMore {
 
-    int toLoadPage = currentForumPage == nil ? 1: currentForumPage.pageNumber.currentPageNumber + 1;
+    int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
     [self.forumApi forumDisplayWithId:transForm.forumId andPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *page) {
 
         [self.tableView.mj_footer endRefreshing];
@@ -158,7 +158,7 @@
         Forum *form = childForms[(NSUInteger) indexPath.row];
         cell.textLabel.text = form.forumName;
 
-        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,16,0,16);
+        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
         [cell setSeparatorInset:edgeInsets];
         [cell setLayoutMargins:UIEdgeInsetsZero];
 
@@ -247,7 +247,7 @@
     Thread *thread = nil;
 
     NSInteger section = indexPath.section;
-    
+
     if (section == 0) {
         // 子论坛列表
     } else if (section == 1) {
@@ -255,9 +255,9 @@
     } else {
         thread = self.dataList[(NSUInteger) indexPath.row];
     }
-    
+
     if (thread) {
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putIntValue:[thread.threadAuthorID intValue] forKey:@"UserId"];
         [self transBundle:bundle forController:controller];
     }
@@ -275,11 +275,10 @@
     if ([sender isKindOfClass:[UIBarButtonItem class]]) {
 
         ForumCreateNewThreadViewController *newPostController = segue.destinationViewController;
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putIntValue:transForm.forumId forKey:@"FORM_ID"];
         [bundle putObjectValue:currentForumPage forKey:@"CREATE_THREAD_IN"];
         [self transBundle:bundle forController:newPostController];
-
 
 
     } else if ([segue.identifier isEqualToString:@"ShowThreadPosts"]) {
@@ -306,10 +305,10 @@
         ForumThreadListForChildFormUITableViewController *controller = segue.destinationViewController;
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        int row = (int)indexPath.row;
-        Forum * forum = childForms[(NSUInteger) row];
-        TransBundle * bundle = [[TransBundle alloc] init];
-        [bundle putObjectValue: forum forKey:@"TransForm"];
+        int row = (int) indexPath.row;
+        Forum *forum = childForms[(NSUInteger) row];
+        TransBundle *bundle = [[TransBundle alloc] init];
+        [bundle putObjectValue:forum forKey:@"TransForm"];
         [self transBundle:bundle forController:controller];
 
     } else if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
@@ -324,7 +323,7 @@
         } else {
             thread = self.dataList[(NSUInteger) indexPath.row];
         }
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putIntValue:[thread.threadAuthorID intValue] forKey:@"UserId"];
         [self transBundle:bundle forController:controller];
     }

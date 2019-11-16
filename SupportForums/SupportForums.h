@@ -11,10 +11,12 @@
 
 @interface SupportForums : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, strong) NSArray<Forums *> *forums;
+@property(nonatomic, strong) NSArray<Forums *> *forums;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
 - (NSDictionary *)dictionaryRepresentation;
 
 @end

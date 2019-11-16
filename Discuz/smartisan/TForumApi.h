@@ -12,6 +12,6 @@
 #import "DiscuzApiDelegate.h"
 
 
-@interface TForumApi : ForumBrowser<ForumApiBaseDelegate, DiscuzApiDelegate>
+@interface TForumApi : ForumBrowser <ForumApiBaseDelegate, DiscuzApiDelegate>
 
 @end

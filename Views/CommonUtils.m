@@ -72,7 +72,7 @@
 }
 
 + (NSString *)timeForShort:(NSString *)timeStamp {
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[timeStamp integerValue]];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timeStamp integerValue]];
 
     NSTimeInterval intervalTime = date.timeIntervalSinceNow;
 

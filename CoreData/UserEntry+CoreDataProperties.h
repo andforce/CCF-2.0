@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<UserEntry *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *userAvatar;
-@property (nullable, nonatomic, copy) NSString *userID;
-@property (nullable, nonatomic, copy) NSString *forumHost;
+@property(nullable, nonatomic, copy) NSString *userAvatar;
+@property(nullable, nonatomic, copy) NSString *userID;
+@property(nullable, nonatomic, copy) NSString *forumHost;
 
 @end
 

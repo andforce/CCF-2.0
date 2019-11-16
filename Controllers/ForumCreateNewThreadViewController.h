@@ -16,8 +16,8 @@
 @property(weak, nonatomic) IBOutlet UITextField *subject;
 
 @property(weak, nonatomic) IBOutlet UITextView *message;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIButton *category;
+@property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property(weak, nonatomic) IBOutlet UIButton *category;
 
 - (IBAction)createThread:(id)sender;
 

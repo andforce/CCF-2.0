@@ -10,7 +10,7 @@
 #import "ForumConfigDelegate.h"
 #import "vBulletinCommonConfig.h"
 
-@interface DRLForumConfig : vBulletinCommonConfig<ForumCommonConfigDelegate>
+@interface DRLForumConfig : vBulletinCommonConfig <ForumCommonConfigDelegate>
 
 
 @end

@@ -19,7 +19,7 @@
     int userId;
     UIImage *defaultAvatarImage;
     ForumCoreDataManager *coreDateManager;
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
     NSMutableDictionary *avatarCache;
     NSMutableArray<UserEntry *> *cacheUsers;
 
@@ -47,7 +47,7 @@
     if (cacheUsers == nil) {
         cacheUsers = [[coreDateManager selectData:^NSPredicate * {
 
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
         }] copy];
     }
@@ -131,7 +131,7 @@
     if (avatarInArray == nil) {
 
         [_forumApi getAvatarWithUserId:profileUserId handler:^(BOOL isSuccess, NSString *avatar) {
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             // 存入数据库
             [coreDateManager insertOneData:^(id src) {
                 UserEntry *user = (UserEntry *) src;
@@ -152,7 +152,7 @@
     } else {
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];
@@ -170,7 +170,7 @@
     if (indexPath.section == 1 && indexPath.row == 1) {
         UINavigationController *controller = (id) [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"CreatePM"];
         TransBundle *bundle = [[TransBundle alloc] init];
-        User * user = [[User alloc] init];
+        User *user = [[User alloc] init];
         user.userID = userProfile.profileUserId;
         user.userName = userProfile.profileName;
 

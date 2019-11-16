@@ -9,11 +9,11 @@
 
 @implementation ForumPushManager {
 
-    id<UNUserNotificationCenterDelegate> _delegate;
+    id <UNUserNotificationCenterDelegate> _delegate;
 }
 
 - (void)registerPushManagerWithOptions:(NSDictionary *)launchOptions {
-    
+
 //    // 配置 SDK 储存
 //    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleAPI];
 //    // 配置 SDK 推送
@@ -26,8 +26,8 @@
 //    [AVOSCloud setServerURLString:@"https://n2qq6vea.lc-cn-n1-shared.com" forServiceModule:AVServiceModuleStatistics];
 //    // 初始化应用
 //    [AVOSCloud setApplicationId:@"6bb0jjSB7QgBIJ24q7dshAtl-gzGzoHsz" clientKey:@"tTpCum0ACwFsvEgWlNU0vkB0"];
-    
-    [AVOSCloud setApplicationId:@"6bb0jjSB7QgBIJ24q7dshAtl-gzGzoHsz"clientKey:@"tTpCum0ACwFsvEgWlNU0vkB0"
+
+    [AVOSCloud setApplicationId:@"6bb0jjSB7QgBIJ24q7dshAtl-gzGzoHsz" clientKey:@"tTpCum0ACwFsvEgWlNU0vkB0"
                 serverURLString:@"https://n2qq6vea.lc-cn-n1-shared.com"];
 
     [AVOSCloud setAllLogsEnabled:YES];
@@ -38,13 +38,13 @@
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 }
 
--(instancetype)init {
+- (instancetype)init {
     // 禁止调用原来的init方法
     return nil;
 }
 
 - (instancetype)initWithNotificationCenterDelegate:(id <UNUserNotificationCenterDelegate>)delegate {
-    if (self = [super init]){
+    if (self = [super init]) {
         _delegate = delegate;
     };
     return self;
@@ -67,14 +67,14 @@
         // 监听回调事件
         [uncenter setDelegate:_delegate];
         //iOS10 使用以下方法注册，才能得到授权
-        [uncenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert+UNAuthorizationOptionBadge+UNAuthorizationOptionSound)
-                                completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        [uncenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionBadge + UNAuthorizationOptionSound)
+                                completionHandler:^(BOOL granted, NSError *_Nullable error) {
                                     [[UIApplication sharedApplication] registerForRemoteNotifications];
                                     //授权状态改变
-                                    NSLog(@"是否允许推送消息？ \t%@" , granted ? @"授权成功" : @"授权失败");
+                                    NSLog(@"是否允许推送消息？ \t%@", granted ? @"授权成功" : @"授权失败");
                                 }];
         // 获取当前的通知授权状态, UNNotificationSettings
-        [uncenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        [uncenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
             //NSLog(@"%s\nline:%@\n-----\n%@\n\n", __func__, @(__LINE__), settings);
             /*
              UNAuthorizationStatusNotDetermined : 没有做出选择
@@ -108,8 +108,6 @@
     }
 #pragma clang diagnostic pop
 }
-
-
 
 
 @end

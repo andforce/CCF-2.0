@@ -100,7 +100,7 @@
 }
 
 - (NSString *)encodeWithGBKEncoding {
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *encoded = [self stringByAddingPercentEscapesUsingEncoding:enc];
     return encoded;
 }
@@ -108,14 +108,14 @@
 - (NSString *)decodeWithGBKEncoding {
     NSString *cleanString = [self stringByReplacingOccurrencesOfString:@"%" withString:@""];
 
-    NSData * data = [self stringFromHexStringNew:cleanString];
-    NSStringEncoding encoding =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString* decoded = [[NSString alloc]initWithData:data encoding:encoding];
+    NSData *data = [self stringFromHexStringNew:cleanString];
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSString *decoded = [[NSString alloc] initWithData:data encoding:encoding];
     return decoded;
 }
 
 - (NSData *)dataForGBK {
-    NSString * encodeStr = [[self encodeWithGBKEncoding] stringByReplacingOccurrencesOfString:@"%" withString:@""];
+    NSString *encodeStr = [[self encodeWithGBKEncoding] stringByReplacingOccurrencesOfString:@"%" withString:@""];
 
     return [self stringFromHexStringNew:encodeStr];
 }
@@ -130,12 +130,12 @@
 
     for (int i = 0; i < [hexString length] - 1; i += 2) {
 
-        NSString * hexCharStr = [hexString substringWithRange:NSMakeRange(i, 2)];
-        NSString * temp10 = [NSString stringWithFormat:@"%lu",strtoul([hexCharStr UTF8String],0,16)];
-        NSLog(@"心跳数字 10进制 %@",temp10);
+        NSString *hexCharStr = [hexString substringWithRange:NSMakeRange(i, 2)];
+        NSString *temp10 = [NSString stringWithFormat:@"%lu", strtoul([hexCharStr UTF8String], 0, 16)];
+        NSLog(@"心跳数字 10进制 %@", temp10);
         //转成数字
         int cycleNumber = [temp10 intValue];
-        NSLog(@"心跳数字 ：%d",cycleNumber);
+        NSLog(@"心跳数字 ：%d", cycleNumber);
 
         [resData appendBytes:&cycleNumber length:1];
     }

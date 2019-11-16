@@ -17,8 +17,8 @@ typedef NS_ENUM(NSInteger, ForumType) {
 
 - (void)showLeftDrawer;
 
-- (void) bringLeftDrawerToFront;
+- (void)bringLeftDrawerToFront;
 
-- (void) changeMessageUITabController:(ForumType) forumType;
+- (void)changeMessageUITabController:(ForumType)forumType;
 
 @end

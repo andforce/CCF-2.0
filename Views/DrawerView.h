@@ -11,9 +11,9 @@
 #import "LeftDrawerItem.h"
 
 
-typedef CGFloat(^TouchX) (CGFloat x, CGFloat maxX);
+typedef CGFloat(^TouchX)(CGFloat x, CGFloat maxX);
 
-typedef void (^Done) ();
+typedef void (^Done)();
 
 
 typedef NS_ENUM(NSInteger, DrawerViewType) {
@@ -28,64 +28,68 @@ typedef NS_ENUM(NSInteger, DrawerIndex) {
     DrawerIndexRight,
 };
 
-@interface DrawerView : UIView{
+@interface DrawerView : UIView {
 
 }
 
-@property (nonatomic, weak) id<DrawerViewDelegate> delegate;
+@property(nonatomic, weak) id <DrawerViewDelegate> delegate;
 
-@property (strong, nonatomic) IBOutlet UIView *leftDrawerView;
-@property (strong, nonatomic) IBOutlet UIView *rightDrawerView;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
-@property (nonatomic, assign) BOOL leftDrawerOpened;
-@property (nonatomic, assign) BOOL leftDrawerEnadbled;
-
-@property (nonatomic, assign) BOOL rightDrawerOpened;
-@property (nonatomic, assign) BOOL rightDrawerEnadbled;
+@property(strong, nonatomic) IBOutlet UIView *leftDrawerView;
+@property(strong, nonatomic) IBOutlet UIView *rightDrawerView;
+@property(weak, nonatomic) IBOutlet UITableView *tableView;
 
 
-@property (nonatomic, assign) DrawerViewType drawerType;
+@property(nonatomic, assign) BOOL leftDrawerOpened;
+@property(nonatomic, assign) BOOL leftDrawerEnadbled;
 
--(UIView *) findDrawerWithDrawerIndex:(DrawerIndex)type;
+@property(nonatomic, assign) BOOL rightDrawerOpened;
+@property(nonatomic, assign) BOOL rightDrawerEnadbled;
 
--(id)initWithDrawerType:(DrawerViewType)drawerType;
 
--(id)initWithDrawerType:(DrawerViewType)drawerType andXib:(NSString *)name;
+@property(nonatomic, assign) DrawerViewType drawerType;
 
--(id)init;
+- (UIView *)findDrawerWithDrawerIndex:(DrawerIndex)type;
 
--(void)openLeftDrawer:(Done) done;
--(void)closeLeftDrawer:(Done) done;
+- (id)initWithDrawerType:(DrawerViewType)drawerType;
 
--(void)openRightDrawer:(Done) done;
--(void)closeRightDrawer:(Done) done;
+- (id)initWithDrawerType:(DrawerViewType)drawerType andXib:(NSString *)name;
 
--(void)openLeftDrawer;
--(void)closeLeftDrawer;
+- (id)init;
 
--(void)openRightDrawer;
--(void)closeRightDrawer;
+- (void)openLeftDrawer:(Done)done;
+
+- (void)closeLeftDrawer:(Done)done;
+
+- (void)openRightDrawer:(Done)done;
+
+- (void)closeRightDrawer:(Done)done;
+
+- (void)openLeftDrawer;
+
+- (void)closeLeftDrawer;
+
+- (void)openRightDrawer;
+
+- (void)closeRightDrawer;
 
 - (IBAction)showAddForumController:(id)sender;
 
 - (IBAction)showMyProfile:(id)sender;
 
-- (void) bringDrawerToFront;
+- (void)bringDrawerToFront;
 
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *favForm;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *allForm;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *message;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *favThread;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *showNewThread;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *myPost;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *myThread;
-@property (weak, nonatomic) IBOutlet LeftDrawerItem *todayNewThreadPost;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *favForm;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *allForm;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *message;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *favThread;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *showNewThread;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *myPost;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *myThread;
+@property(weak, nonatomic) IBOutlet LeftDrawerItem *todayNewThreadPost;
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *avatarUIImageView;
-@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property(weak, nonatomic) IBOutlet UIImageView *avatarUIImageView;
+@property(weak, nonatomic) IBOutlet UILabel *userName;
 
 
 @end

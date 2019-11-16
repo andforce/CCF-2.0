@@ -11,11 +11,13 @@
 
 @interface THotData : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, strong) THotPage *page;
-@property (nonatomic, strong) NSArray *list;
+@property(nonatomic, strong) THotPage *page;
+@property(nonatomic, strong) NSArray *list;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
 - (NSDictionary *)dictionaryRepresentation;
 
 @end

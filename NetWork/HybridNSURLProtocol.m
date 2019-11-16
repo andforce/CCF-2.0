@@ -112,23 +112,23 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
     NSData *data = nil;
 
-    if (memCachedImage){
+    if (memCachedImage) {
         if (!memCachedImage.images) {
             data = UIImageJPEGRepresentation(memCachedImage, 1.f);
         }
     } else {
         UIImage *diskCache = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
-        if (diskCache){
+        if (diskCache) {
             data = UIImageJPEGRepresentation(memCachedImage, 1.f);
         }
     }
 
-    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.gif"].location != NSNotFound){
-        UIImage * defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
+    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.gif"].location != NSNotFound) {
+        UIImage *defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
         data = UIImageJPEGRepresentation(defaultAvatarImage, 1.f);
     }
 
-    if (data){
+    if (data) {
         NSURLResponse *response = [[NSURLResponse alloc] initWithURL:mutableURLRequest.URL
                                                             MIMEType:[NSData sd_contentTypeForImageData:data]
                                                expectedContentLength:data.length

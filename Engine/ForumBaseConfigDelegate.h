@@ -41,7 +41,7 @@
 
 - (NSString *)unFavorThreadWithId:(NSString *)threadId;
 
-- (NSString *)listFavorThreads:(int)userId withPage:(int) page;
+- (NSString *)listFavorThreads:(int)userId withPage:(int)page;
 
 // FormDisplay
 - (NSString *)forumDisplayWithId:(NSString *)forumId;
@@ -61,7 +61,7 @@
 - (NSString *)showThreadWithThreadId:(NSString *)threadId withPage:(int)page;
 
 // 复制
-- (NSString *)copyThreadUrl:(NSString *) threadId withPostId:(NSString *)postId withPostCout:(int)postCount;
+- (NSString *)copyThreadUrl:(NSString *)threadId withPostId:(NSString *)postId withPostCout:(int)postCount;
 
 // 头像
 - (NSString *)avatar:(NSString *)avatar;
@@ -94,6 +94,6 @@
 - (NSString *)privateShowWithMessageId:(int)messageId withType:(int)type;
 
 @optional
-- (NSString *) listUserThreads:(NSString *) userId withPage:(int) page;
+- (NSString *)listUserThreads:(NSString *)userId withPage:(int)page;
 
 @end

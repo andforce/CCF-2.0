@@ -18,7 +18,7 @@
 
 @end
 
-@implementation ForumFavThreadPostTableViewController{
+@implementation ForumFavThreadPostTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -30,7 +30,7 @@
 
 - (void)onPullRefresh {
     LocalForumApi *forumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
+    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
     LoginUser *user = [forumApi getLoginUser:config.forumURL.host];
     int userId = [user.userID intValue];
     [self.forumApi listFavoriteThreads:userId withPage:1 handler:^(BOOL isSuccess, ViewForumPage *resultPage) {
@@ -49,9 +49,9 @@
 }
 
 - (void)onLoadMore {
-    int toLoadPage = currentForumPage == nil ? 1: currentForumPage.pageNumber.currentPageNumber + 1;
+    int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
     LocalForumApi *forumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
+    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
     LoginUser *user = [forumApi getLoginUser:config.forumURL.host];
     int userId = [user.userID intValue];
     [self.forumApi listFavoriteThreads:userId withPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *resultPage) {

@@ -9,6 +9,6 @@
 #import "BaseFourmTableViewCell.h"
 
 @interface ZhanNeiSearchViewCell : BaseFourmTableViewCell
-@property (strong, nonatomic) IBOutlet UILabel *threadTitle;
+@property(strong, nonatomic) IBOutlet UILabel *threadTitle;
 
 @end

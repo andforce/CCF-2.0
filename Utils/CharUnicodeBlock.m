@@ -541,7 +541,7 @@ int const blocks[] = {
         current = (top + bottom) / 2;
     }
 
-    int  a = blocks[current];
+    int a = blocks[current];
     return (UnicodeBlock) blocks[current];
 }
 

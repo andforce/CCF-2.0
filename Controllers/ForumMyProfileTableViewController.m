@@ -45,7 +45,7 @@
 }
 
 - (void)initProfileData {
-    
+
     defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
 
     avatarCache = [NSMutableDictionary dictionary];
@@ -70,11 +70,11 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 97.0;
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,16,0,16);
+    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
     [self.tableView setSeparatorInset:edgeInsets];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
 }
@@ -94,7 +94,7 @@
 - (void)onPullRefresh {
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> config = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
     NSString *currentUserId = [[[LocalForumApi alloc] init] getLoginUser:config.forumURL.host].userID;
 
     [self.forumApi showProfileWithUserId:currentUserId handler:^(BOOL isSuccess, UserProfile *message) {
@@ -107,7 +107,7 @@
             [self showAvatar:_prifileAvatar userId:userProfile.profileUserId];
             _profileName.text = userProfile.profileName;
             _profileRank.text = userProfile.profileRank;
-            
+
             _registerDate.text = userProfile.profileRegisterDate;
             _lastLoginTime.text = userProfile.profileRecentLoginDate;
             _postCount.text = userProfile.profileTotalPostCount;
@@ -129,7 +129,7 @@
         [self.forumApi getAvatarWithUserId:userId handler:^(BOOL isSuccess, NSString *avatar) {
 
             if (isSuccess) {
-                LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
                 // 存入数据库
                 [coreDateManager insertOneData:^(id src) {
                     UserEntry *user = (UserEntry *) src;
@@ -155,7 +155,7 @@
     } else {
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];
@@ -171,7 +171,7 @@
 
             [avatarImageView sd_setImageWithURL:avatarUrl placeholderImage:defaultAvatarImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if (error) {
-                    [coreDateManager deleteData:^NSPredicate *{
+                    [coreDateManager deleteData:^NSPredicate * {
                         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID = %@", self.currentForumHost, userId];
                     }];
                 }
@@ -190,8 +190,8 @@
         [forumApi logout];
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
-        NSString * id = forumConfig.loginControllerId;
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        NSString *id = forumConfig.loginControllerId;
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:id];
 
     }
@@ -201,7 +201,7 @@
 
 - (IBAction)showLeftDrawer:(id)sender {
     ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
-    
+
     [controller showLeftDrawer];
 }
 

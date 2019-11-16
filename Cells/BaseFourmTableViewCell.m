@@ -13,7 +13,7 @@
     UIImage *defaultAvatarImage;
 
     ForumCoreDataManager *coreDateManager;
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
 
     NSMutableDictionary *avatarCache;
 
@@ -35,7 +35,7 @@
 }
 
 - (void)initData {
-    
+
     defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -68,7 +68,7 @@
 - (NSString *)currentForumHost {
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    NSString * urlStr = [localForumApi currentForumURL];
+    NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
 }
@@ -87,7 +87,7 @@
         [_forumApi getAvatarWithUserId:userId handler:^(BOOL isSuccess, NSString *avatar) {
 
             if (isSuccess) {
-                LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
                 // 存入数据库
                 [coreDateManager insertOneData:^(id src) {
                     UserEntry *user = (UserEntry *) src;
@@ -113,7 +113,7 @@
     } else {
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];

@@ -32,56 +32,56 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 @implementation ForumApiHelper
 + (id <ForumApiDelegate>)forumApi:(NSString *)host {
 
-    if ([host isEqualToString:CCF_HOST]){
+    if ([host isEqualToString:CCF_HOST]) {
 
-        CCFForumApi * ccfForumApi = [[CCFForumApi alloc] init];
+        CCFForumApi *ccfForumApi = [[CCFForumApi alloc] init];
         return ccfForumApi;
 
-    } else if ([host isEqualToString:DRL_HOST]){
+    } else if ([host isEqualToString:DRL_HOST]) {
 
-        DRLForumApi * drlForumApi = [[DRLForumApi alloc] init];
+        DRLForumApi *drlForumApi = [[DRLForumApi alloc] init];
         return drlForumApi;
 
-    } else if ([host isEqualToString:CRSKY_HOST]){
+    } else if ([host isEqualToString:CRSKY_HOST]) {
 
         CrskyForumApi *crskyForumApi = [[CrskyForumApi alloc] init];
         return crskyForumApi;
 
-    } else if([host isEqualToString:CHIPHELL_HOST]){
+    } else if ([host isEqualToString:CHIPHELL_HOST]) {
 
-        CHHForumApi * chhForumApi = [[CHHForumApi alloc] init];
+        CHHForumApi *chhForumApi = [[CHHForumApi alloc] init];
         return chhForumApi;
 
-    } else if ([host isEqualToString:SMARTISAN]){
-        TForumApi * tForumApi = [[TForumApi alloc] init];
+    } else if ([host isEqualToString:SMARTISAN]) {
+        TForumApi *tForumApi = [[TForumApi alloc] init];
         return tForumApi;
     }
     return nil;
 }
 
 + (id <ForumConfigDelegate>)forumConfig:(NSString *)host {
-    if ([host isEqualToString:CCF_HOST]){
+    if ([host isEqualToString:CCF_HOST]) {
 
-        CCFForumConfig * ccfForumApi = [[CCFForumConfig alloc] init];
+        CCFForumConfig *ccfForumApi = [[CCFForumConfig alloc] init];
         return ccfForumApi;
 
-    } else if ([host isEqualToString:DRL_HOST]){
+    } else if ([host isEqualToString:DRL_HOST]) {
 
-        DRLForumConfig * drlForumApi = [[DRLForumConfig alloc] init];
+        DRLForumConfig *drlForumApi = [[DRLForumConfig alloc] init];
         return drlForumApi;
 
-    } else if ([host isEqualToString:CRSKY_HOST]){
+    } else if ([host isEqualToString:CRSKY_HOST]) {
 
         CrskyForumConfig *crskyForumApi = [[CrskyForumConfig alloc] init];
         return crskyForumApi;
 
-    } else if([host isEqualToString:CHIPHELL_HOST]){
+    } else if ([host isEqualToString:CHIPHELL_HOST]) {
 
-        CHHForumConfig * chhForumApi = [[CHHForumConfig alloc] init];
+        CHHForumConfig *chhForumApi = [[CHHForumConfig alloc] init];
         return chhForumApi;
 
-    } else if ([host isEqualToString:SMARTISAN]){
-        TForumConfig * tForumConfig = [[TForumConfig alloc] init];
+    } else if ([host isEqualToString:SMARTISAN]) {
+        TForumConfig *tForumConfig = [[TForumConfig alloc] init];
         return tForumConfig;
     }
 
@@ -92,30 +92,30 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 + (id <ForumConfigDelegate>)forumConfig {
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    NSString * host = localForumApi.currentForumHost;
+    NSString *host = localForumApi.currentForumHost;
 
-    if ([bundleId isEqualToString:@"com.andforce.et8"] || [host isEqualToString:CCF_HOST]){
+    if ([bundleId isEqualToString:@"com.andforce.et8"] || [host isEqualToString:CCF_HOST]) {
 
-        CCFForumConfig * ccfForumApi = [[CCFForumConfig alloc] init];
+        CCFForumConfig *ccfForumApi = [[CCFForumConfig alloc] init];
         return ccfForumApi;
 
-    } else if ([bundleId isEqualToString:@"com.andforce.DRL"] || [host isEqualToString:DRL_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.DRL"] || [host isEqualToString:DRL_HOST]) {
 
-        DRLForumConfig * drlForumApi = [[DRLForumConfig alloc] init];
+        DRLForumConfig *drlForumApi = [[DRLForumConfig alloc] init];
         return drlForumApi;
 
-    } else if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:CRSKY_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:CRSKY_HOST]) {
 
         CrskyForumConfig *crskyForumApi = [[CrskyForumConfig alloc] init];
         return crskyForumApi;
 
-    } else if([bundleId isEqualToString:@"com.andforce.CHH"] || [host isEqualToString:@"www.chiphell.com"] || [host isEqualToString:CHIPHELL_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.CHH"] || [host isEqualToString:@"www.chiphell.com"] || [host isEqualToString:CHIPHELL_HOST]) {
 
-        CHHForumConfig * chhForumApi = [[CHHForumConfig alloc] init];
+        CHHForumConfig *chhForumApi = [[CHHForumConfig alloc] init];
         return chhForumApi;
 
-    } else if ([host isEqualToString:SMARTISAN]){
-        TForumConfig * tForumConfig = [[TForumConfig alloc] init];
+    } else if ([host isEqualToString:SMARTISAN]) {
+        TForumConfig *tForumConfig = [[TForumConfig alloc] init];
         return tForumConfig;
     }
 
@@ -126,30 +126,30 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    NSString * host = localForumApi.currentForumHost;
+    NSString *host = localForumApi.currentForumHost;
 
-    if ([bundleId isEqualToString:@"com.andforce.et8"] || [host isEqualToString:CCF_HOST]){
+    if ([bundleId isEqualToString:@"com.andforce.et8"] || [host isEqualToString:CCF_HOST]) {
 
-        CCFForumApi * ccfForumApi = [[CCFForumApi alloc] init];
+        CCFForumApi *ccfForumApi = [[CCFForumApi alloc] init];
         return ccfForumApi;
 
-    } else if ([bundleId isEqualToString:@"com.andforce.DRL"] || [host isEqualToString:DRL_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.DRL"] || [host isEqualToString:DRL_HOST]) {
 
-        DRLForumApi * drlForumApi = [[DRLForumApi alloc] init];
+        DRLForumApi *drlForumApi = [[DRLForumApi alloc] init];
         return drlForumApi;
 
-    } else if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:CRSKY_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:CRSKY_HOST]) {
 
         CrskyForumApi *crskyForumApi = [[CrskyForumApi alloc] init];
         return crskyForumApi;
 
-    } else if([bundleId isEqualToString:@"com.andforce.CHH"] || [host isEqualToString:@"www.chiphell.com"] || [host isEqualToString:CHIPHELL_HOST]){
+    } else if ([bundleId isEqualToString:@"com.andforce.CHH"] || [host isEqualToString:@"www.chiphell.com"] || [host isEqualToString:CHIPHELL_HOST]) {
 
-        CHHForumApi * chhForumApi = [[CHHForumApi alloc] init];
+        CHHForumApi *chhForumApi = [[CHHForumApi alloc] init];
         return chhForumApi;
 
-    } else if ([host isEqualToString:SMARTISAN]){
-        TForumApi * tForumApi = [[TForumApi alloc] init];
+    } else if ([host isEqualToString:SMARTISAN]) {
+        TForumApi *tForumApi = [[TForumApi alloc] init];
         return tForumApi;
     }
 

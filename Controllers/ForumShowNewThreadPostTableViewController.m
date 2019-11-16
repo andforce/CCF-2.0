@@ -19,7 +19,7 @@
 
 @end
 
-@implementation ForumShowNewThreadPostTableViewController{
+@implementation ForumShowNewThreadPostTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -90,7 +90,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 
@@ -119,7 +119,7 @@
 
 - (void)showUserProfile:(NSIndexPath *)indexPath {
     ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
-    TransBundle * bundle = [[TransBundle alloc] init];
+    TransBundle *bundle = [[TransBundle alloc] init];
     Thread *thread = self.dataList[(NSUInteger) indexPath.row];
     [bundle putIntValue:[thread.threadAuthorID intValue] forKey:@"UserId"];
     [self transBundle:bundle forController:controller];
@@ -151,7 +151,7 @@
 - (IBAction)showLeftDrawer:(id)sender {
 
     ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
-    
+
     [controller showLeftDrawer];
 }
 

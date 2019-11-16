@@ -21,7 +21,7 @@
     [super viewDidLoad];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
     self.navigationBar.barTintColor = forumConfig.themeColor;
 }
 
@@ -40,7 +40,7 @@
 }
 */
 
-- (UIViewController *)childViewControllerForStatusBarStyle{
+- (UIViewController *)childViewControllerForStatusBarStyle {
     return self.topViewController;
 }
 

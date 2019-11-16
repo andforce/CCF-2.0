@@ -50,7 +50,7 @@
 - (void)showUserAvatar {
 
     LocalForumApi *forumApi = [[LocalForumApi alloc] init];
-    id<ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
+    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
     LoginUser *loginUser = [forumApi getLoginUser:config.forumURL.host];
 
     [self showAvatar:_avatarUIImageView userId:loginUser.userID];
@@ -69,14 +69,14 @@
     NSString *avatarInArray = [avatarCache valueForKey:userId];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    id <ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
 
     if (avatarInArray == nil) {
 
         [forumApi getAvatarWithUserId:userId handler:^(BOOL isSuccess, NSString *avatar) {
 
             if (isSuccess) {
-                LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
                 // 存入数据库
                 [coreDateManager insertOneData:^(id src) {
                     UserEntry *user = (UserEntry *) src;
@@ -101,7 +101,7 @@
         }];
     } else {
 
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];
@@ -152,10 +152,10 @@
 
         coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         if (cacheUsers == nil) {
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             cacheUsers = (NSMutableArray<UserEntry *> *) [[coreDateManager selectData:^NSPredicate * {
-                            return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
-                        }] copy];
+                return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
+            }] copy];
         }
 
         for (UserEntry *user in cacheUsers) {
@@ -232,7 +232,7 @@
         if ([forumApi isHaveLogin:url.host]) {
             ForumTabBarController *rootViewController = (ForumTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
 
-            if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]){
+            if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]) {
                 [rootViewController changeMessageUITabController:vBulletin];
             } else {
                 [rootViewController changeMessageUITabController:Discuz];
@@ -518,15 +518,15 @@
 - (void)bringDrawerToFront {
     [self.superview bringSubviewToFront:self];
 
-    if (_drawerType == DrawerIndexLeft && _leftDrawerView){
+    if (_drawerType == DrawerIndexLeft && _leftDrawerView) {
         [self.superview bringSubviewToFront:_leftDrawerView];
     }
 
-    if (_drawerType == DrawerIndexRight && _rightDrawerView){
+    if (_drawerType == DrawerIndexRight && _rightDrawerView) {
         [self.superview bringSubviewToFront:_rightDrawerView];
     }
 
-    if (_drawerType == DrawerViewTypeLeftAndRight && _leftDrawerView && _rightDrawerView){
+    if (_drawerType == DrawerViewTypeLeftAndRight && _leftDrawerView && _rightDrawerView) {
         [self.superview bringSubviewToFront:_leftDrawerView];
         [self.superview bringSubviewToFront:_rightDrawerView];
     }

@@ -9,6 +9,6 @@
 #import "ForumApiBaseViewController.h"
 
 @interface ForumShowPrivatePolicyUiViewController : ForumApiBaseViewController
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property(strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end

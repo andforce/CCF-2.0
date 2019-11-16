@@ -24,42 +24,42 @@
 #import "ForumWebViewController.h"
 #import "ViewMessage.h"
 
-@implementation CrskyForumApi{
-    CrskyForumConfig* forumConfig;
-    CrskyForumHtmlParser* forumParser;
+@implementation CrskyForumApi {
+    CrskyForumConfig *forumConfig;
+    CrskyForumHtmlParser *forumParser;
 }
 
 
 - (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         forumConfig = [[CrskyForumConfig alloc] init];
-        forumParser = [[CrskyForumHtmlParser alloc]init];
+        forumParser = [[CrskyForumHtmlParser alloc] init];
     }
     return self;
 }
 
-- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback {
     NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
     [defParameters setValue:@"2" forKey:@"styleid"];
     [defParameters setValue:@"1" forKey:@"langid"];
 
-    if (parameters){
+    if (parameters) {
         [defParameters addEntriesFromDictionary:parameters];
     }
 
     [self.browser GETWithURLString:url parameters:defParameters charset:GBK requestCallback:callback];
 }
 
-- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback {
     [self GET:url parameters:nil requestCallback:callback];
 }
 
 - (void)listAllForums:(HandlerWithBool)handler {
-    NSString * url = forumConfig.archive;
+    NSString *url = forumConfig.archive;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            NSString * host = forumConfig.forumURL.host;
+            NSString *host = forumConfig.forumURL.host;
             NSArray<Forum *> *parserForums = [forumParser parserForums:html forumHost:host];
             if (parserForums != nil && parserForums.count > 0) {
                 handler(YES, parserForums);
@@ -74,13 +74,13 @@
 
 
 - (void)fetchUserInfo:(UserInfoHandler)handler {
-    NSString * url = forumConfig.forumURL.absoluteString;
+    NSString *url = forumConfig.forumURL.absoluteString;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-            IGXMLNode * nameNode = [document queryNodeWithXPath:@"//*[@id=\"user-login\"]/a[1]"];
+            IGXMLNode *nameNode = [document queryNodeWithXPath:@"//*[@id=\"user-login\"]/a[1]"];
 
             NSString *name = nameNode.text.trim;
             NSString *uid = [html stringWithRegular:@"(?<=UID: )\\d+"];
@@ -93,18 +93,18 @@
 
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
 
-    NSString * url = [NSString stringWithFormat:@"http://bbs.crsky.com/post.php?fid=%d", forumId];
+    NSString *url = [NSString stringWithFormat:@"http://bbs.crsky.com/post.php?fid=%d", forumId];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
         if (isSuccess) {
 
-            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
-            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
-            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+            NSString *post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString *forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString *posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString *seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
-            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
             IGXMLNode *typeidNode = [document queryNodeWithClassName:@"fr gray"].firstChild;
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
@@ -170,7 +170,7 @@
         [formData appendPartWithFormData:[@"0" dataForUTF8] name:@"att_special2"];
         [formData appendPartWithFormData:[@"money" dataForUTF8] name:@"att_ctype2"];
 
-        if (images){
+        if (images) {
             for (int i = 0; i < images.count; ++i) {
                 NSString *type = [self contentTypeForImageData:images[(NSUInteger) i]];
                 NSString *extNmae = [type stringByReplacingOccurrencesOfString:@"image/" withString:@""];
@@ -182,7 +182,7 @@
         }
 
 
-    } charset:GBK requestCallback:^(BOOL isSuccess, NSString *html) {
+    }                       charset:GBK requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
@@ -198,10 +198,10 @@
 
 }
 
--(NSData *)buildContent:(NSString *)message{
-    NSMutableData * contentData = [[NSMutableData alloc] init];
-    NSMutableString * eng = [NSMutableString string];
-    NSMutableString * chn = [NSMutableString string];
+- (NSData *)buildContent:(NSString *)message {
+    NSMutableData *contentData = [[NSMutableData alloc] init];
+    NSMutableString *eng = [NSMutableString string];
+    NSMutableString *chn = [NSMutableString string];
 
     BOOL isEng = YES;
 
@@ -210,11 +210,11 @@
         range = [message rangeOfComposedCharacterSequenceAtIndex:(NSUInteger) i];
 
         unichar c = [message characterAtIndex:range.location];
-        if (range.length == 1){
+        if (range.length == 1) {
 
             NSString *s = [message substringWithRange:range];
-            if ([CharUtils isChinese:c]){
-                if (isEng && eng.length != 0){
+            if ([CharUtils isChinese:c]) {
+                if (isEng && eng.length != 0) {
                     [contentData appendData:[eng dataForUTF8]];
                     eng = [NSMutableString string];
                 }
@@ -222,7 +222,7 @@
                 isEng = NO;
 
             } else {
-                if (!isEng && chn.length != 0){
+                if (!isEng && chn.length != 0) {
                     [contentData appendData:[chn dataForGBK]];
                     chn = [NSMutableString string];
                 }
@@ -234,11 +234,11 @@
         }
     }
 
-    if (eng.length != 0){
+    if (eng.length != 0) {
         [contentData appendData:[eng dataForUTF8]];
     }
 
-    if (chn.length != 0){
+    if (chn.length != 0) {
         [contentData appendData:[chn dataForGBK]];
     }
     return [contentData copy];
@@ -254,14 +254,14 @@
         message = [message stringByAppendingString:[forumConfig signature]];
     }
 
-    NSData * contentData = [self buildContent:message];
+    NSData *contentData = [self buildContent:message];
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     self.browser.requestSerializer.stringEncoding = kCFStringEncodingGB_18030_2000;
     [self.browser POSTWithURLString:url parameters:parameters constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
 
-        NSString * reTitle = [@"Re:" stringByAppendingString:threadPage.threadTitle];
+        NSString *reTitle = [@"Re:" stringByAppendingString:threadPage.threadTitle];
 
         [formData appendPartWithFormData:[@"" dataForUTF8] name:@"magicname"];
         [formData appendPartWithFormData:[@"" dataForUTF8] name:@"magicid"];
@@ -293,7 +293,7 @@
         [formData appendPartWithFormData:[@"0" dataForUTF8] name:@"att_special2"];
         [formData appendPartWithFormData:[@"money" dataForUTF8] name:@"att_ctype2"];
 
-        if (images){
+        if (images) {
             for (int i = 0; i < images.count; ++i) {
                 NSString *type = [self contentTypeForImageData:images[(NSUInteger) i]];
                 NSString *extNmae = [type stringByReplacingOccurrencesOfString:@"image/" withString:@""];
@@ -305,7 +305,7 @@
         }
 
 
-    } charset:GBK requestCallback:^(BOOL isSuccess, NSString *html) {
+    }                       charset:GBK requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
             ViewThreadPage *thread = [forumParser parseShowThreadWithHtml:html];
@@ -324,7 +324,7 @@
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler {
 
     NSString *replyUrl = nil;
-    if (quote){
+    if (quote) {
         replyUrl = [forumConfig quoteReply:threadPage.forumId threadId:threadPage.threadID postId:[postId intValue]];
     } else {
         replyUrl = [forumConfig replyWithThreadId:threadPage.threadID forForumId:threadPage.forumId replyPostId:[postId intValue]];
@@ -333,7 +333,7 @@
     [self GET:replyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
-            NSString * replyContent = [NSString stringWithFormat:@"%@ %@", @"", message];
+            NSString *replyContent = [NSString stringWithFormat:@"%@ %@", @"", message];
             [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {
@@ -358,7 +358,8 @@
         case 0x49:
         case 0x4D:
             return @"image/tiff";
-        default:break;
+        default:
+            break;
     }
     return nil;
 }
@@ -366,22 +367,22 @@
 
 - (void)searchWithKeyWord:(NSString *)keyWord forType:(int)type handler:(HandlerWithBool)handler {
 
-    NSLog(@"searchWithKeyWord-->\t%@",  keyWord);
+    NSLog(@"searchWithKeyWord-->\t%@", keyWord);
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setValue:@"2" forKey:@"step"];
 
     [parameters setValue:@"OR" forKey:@"method"];
 
-    if (type == 0){         // search tile
+    if (type == 0) {         // search tile
         [parameters setValue:@"0" forKey:@"sch_area"];
         [parameters setValue:keyWord forKey:@"keyword"];
         [parameters setValue:@"" forKey:@"pwuser"];
-    } else if(type == 1){   // search content
+    } else if (type == 1) {   // search content
         [parameters setValue:@"2" forKey:@"sch_area"];
         [parameters setValue:keyWord forKey:@"keyword"];
         [parameters setValue:@"" forKey:@"pwuser"];
-    } else{                 //  search user
+    } else {                 //  search user
         [parameters setValue:@"0" forKey:@"sch_area"];
         [parameters setValue:@"" forKey:@"keyword"];
         [parameters setValue:keyWord forKey:@"pwuser"];
@@ -409,18 +410,18 @@
 
 - (void)showPrivateMessageContentWithId:(int)pmId withType:(int)type handler:(HandlerWithBool)handler {
 
-    NSString * url = [forumConfig privateShowWithMessageId:pmId withType:type];
+    NSString *url = [forumConfig privateShowWithMessageId:pmId withType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            ViewMessage * viewMessage = content.viewMessages.firstObject;
+            ViewMessage *viewMessage = content.viewMessages.firstObject;
 
-            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]){
+            if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]) {
                 [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
                     viewMessage.pmUserInfo.userAvatar = message;
                     handler(YES, content);
                 }];
-            } else{
+            } else {
                 viewMessage.pmUserInfo.userAvatar = forumConfig.avatarNo;
                 handler(YES, content);
             }
@@ -431,13 +432,13 @@
 }
 
 - (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-    NSString *url =forumConfig.privateNewPre;
+    NSString *url = forumConfig.privateNewPre;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
 
             [self.browser POSTWithURLString:forumConfig.privateReplyWithMessage parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-                [formData appendPartWithFormData:[@"write" dataForUTF8]  name:@"action"];
+                [formData appendPartWithFormData:[@"write" dataForUTF8] name:@"action"];
                 [formData appendPartWithFormData:[@"2" dataForUTF8] name:@"step"];
                 [formData appendPartWithFormData:[token dataForUTF8] name:@"verify"];
                 LoginUser *touser = [[[LocalForumApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
@@ -448,7 +449,7 @@
                 [formData appendPartWithFormData:[@"" dataForUTF8] name:@"color"];
                 [formData appendPartWithFormData:[self buildContent:message] name:@"atc_content"];
                 [formData appendPartWithFormData:[@"Y" dataForUTF8] name:@"ifsave"];
-            } charset:GBK requestCallback:^(BOOL success, NSString *result) {
+            }                       charset:GBK requestCallback:^(BOOL success, NSString *result) {
                 if (success) {
                     handler(YES, @"");
                 } else {
@@ -469,7 +470,7 @@
             NSString *token = [forumParser parseSecurityToken:html];
 
             IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-            IGXMLNode * node = [document queryNodeWithXPath:@"//*[@id=\"atc_content\"]"];
+            IGXMLNode *node = [document queryNodeWithXPath:@"//*[@id=\"atc_content\"]"];
             NSString *repContent = node.text;
 
             [self.browser POSTWithURLString:forumConfig.privateReplyWithMessage parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
@@ -504,42 +505,42 @@
 
     NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
-    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
 
-    NSString * data = [store stringForKey:key];
+    NSString *data = [store stringForKey:key];
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 
-    if (data){
-        NSArray * favForumIds = [data componentsSeparatedByString:@","];
+    if (data) {
+        NSArray *favForumIds = [data componentsSeparatedByString:@","];
         NSLog(@"favoriteForumsWithId \t%@", favForumIds);
-        if (![favForumIds containsObject:forumId]){
-            NSMutableArray * array = [favForumIds mutableCopy];
+        if (![favForumIds containsObject:forumId]) {
+            NSMutableArray *array = [favForumIds mutableCopy];
             [array addObject:forumId];
 
             // 存到云端
-            NSString * newForums = [array componentsJoinedByString:@","];
+            NSString *newForums = [array componentsJoinedByString:@","];
             [store setString:newForums forKey:key];
             [store synchronize];
 
             // 存到本地
-            NSMutableArray * ids = [NSMutableArray array];
-            for (NSString *fid in favForumIds){
+            NSMutableArray *ids = [NSMutableArray array];
+            for (NSString *fid in favForumIds) {
                 [ids addObject:@([fid intValue])];
             }
             [localForumApi saveFavFormIds:ids];
         }
     } else {
-        NSMutableArray * array = [NSMutableArray array];
+        NSMutableArray *array = [NSMutableArray array];
         [array addObject:forumId];
 
         // 存到云端
-        NSString * newForums = [array componentsJoinedByString:@","];
+        NSString *newForums = [array componentsJoinedByString:@","];
         [store setString:newForums forKey:key];
         [store synchronize];
 
         // 存到本地
-        NSMutableArray * ids = [NSMutableArray array];
+        NSMutableArray *ids = [NSMutableArray array];
 
         [ids addObject:@([forumId intValue])];
         [localForumApi saveFavFormIds:ids];
@@ -552,23 +553,23 @@
 - (void)unFavouriteForumWithId:(NSString *)forumId handler:(HandlerWithBool)handler {
     NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
-    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
 
-    NSString * data = [store stringForKey:key];
-    NSArray * favForumIds = [data componentsSeparatedByString:@","];
+    NSString *data = [store stringForKey:key];
+    NSArray *favForumIds = [data componentsSeparatedByString:@","];
     NSLog(@"favoriteForumsWithId \t%@", favForumIds);
-    if ([favForumIds containsObject:forumId]){
-        NSMutableArray * array = [favForumIds mutableCopy];
+    if ([favForumIds containsObject:forumId]) {
+        NSMutableArray *array = [favForumIds mutableCopy];
         [array removeObject:forumId];
 
         // 存到云端
-        NSString * newForums = [array componentsJoinedByString:@","];
+        NSString *newForums = [array componentsJoinedByString:@","];
         [store setString:newForums forKey:key];
         [store synchronize];
 
         // 存到本地
-        NSMutableArray * ids = [NSMutableArray array];
-        for (NSString *fid in favForumIds){
+        NSMutableArray *ids = [NSMutableArray array];
+        for (NSString *fid in favForumIds) {
             [ids addObject:@([fid intValue])];
         }
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -611,7 +612,7 @@
                 [formData appendPartWithFormData:[threadPostId dataForUTF8] name:@"selid[]"];
                 [formData appendPartWithFormData:[@"0" dataForUTF8] name:@"type"];
                 [formData appendPartWithFormData:[@"clear" dataForUTF8] name:@"job"];
-            }   charset:GBK requestCallback:^(BOOL success, NSString *result) {
+            }                       charset:GBK requestCallback:^(BOOL success, NSString *result) {
                 if (success) {
                     handler(YES, @"");
                 } else {
@@ -637,22 +638,22 @@
 }
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig deletePrivateWithType:type];
+    NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
 
             NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
             [parameters setValue:token forKey:@"verify"];
-            
+
             if ([privateMessage.pmAuthorId isEqualToString:@"-1"]) {
                 [parameters setValue:[NSString stringWithFormat:@"%@", privateMessage.pmID] forKey:@"pdelid[]"];
             } else {
                 [parameters setValue:[NSString stringWithFormat:@"%@", privateMessage.pmID] forKey:@"delid[]"];
             }
-            
 
-            if (type == 0){
+
+            if (type == 0) {
                 [parameters setValue:@"receivebox" forKey:@"towhere"];
             } else {
                 [parameters setValue:@"sendbox" forKey:@"towhere"];
@@ -694,6 +695,7 @@
 }
 
 #pragma private
+
 - (NSDictionary *)dictionaryFromQuery:(NSString *)query usingEncoding:(NSStringEncoding)encoding {
     NSCharacterSet *delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
     NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
@@ -717,12 +719,12 @@
 
     NSString *key = [forumConfig.forumURL.host stringByAppendingString:@"-favForums"];
 
-    NSUbiquitousKeyValueStore * store = [NSUbiquitousKeyValueStore defaultStore];
+    NSUbiquitousKeyValueStore *store = [NSUbiquitousKeyValueStore defaultStore];
 
-    NSString * data = [store stringForKey:key];
-    NSArray * favForumIds = [data componentsSeparatedByString:@","];
-    NSMutableArray * ids = [NSMutableArray array];
-    for (NSString *forumId in favForumIds){
+    NSString *data = [store stringForKey:key];
+    NSArray *favForumIds = [data componentsSeparatedByString:@","];
+    NSMutableArray *ids = [NSMutableArray array];
+    for (NSString *forumId in favForumIds) {
         [ids addObject:@([forumId intValue])];
     }
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -802,7 +804,7 @@
 }
 
 - (void)listAllUserThreads:(int)userId withPage:(int)page handler:(HandlerWithBool)handler {
-    NSString * uid = [NSString stringWithFormat:@"%d", userId];
+    NSString *uid = [NSString stringWithFormat:@"%d", userId];
 
     NSString *url = [forumConfig listUserThreads:uid withPage:page];
 
@@ -817,7 +819,7 @@
 }
 
 - (void)showThreadWithId:(int)threadId andPage:(int)page handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page];
+    NSString *url = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewThreadPage *detail = [forumParser parseShowThreadWithHtml:html];
@@ -843,7 +845,7 @@
 }
 
 - (void)getAvatarWithUserId:(NSString *)userId handler:(HandlerWithBool)handler {
-    if (userId == nil || [userId isEqualToString:@"-1"]){
+    if (userId == nil || [userId isEqualToString:@"-1"]) {
         handler(YES, forumConfig.avatarNo);
         return;
     }
@@ -853,7 +855,7 @@
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *avatar = [forumParser parseUserAvatar:html userId:userId];
-            if (!avatar){
+            if (!avatar) {
                 avatar = forumConfig.avatarNo;
             }
             handler(YES, avatar);
@@ -899,7 +901,7 @@
 }
 
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler {
-    handler(YES,@"");
+    handler(YES, @"");
 }
 
 @end

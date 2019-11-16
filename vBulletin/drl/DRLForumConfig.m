@@ -25,8 +25,9 @@
 
 
 #pragma mark ForumCommonConfigDelegate
+
 - (UIColor *)themeColor {
-    return [[UIColor alloc] initWithRed:111.f/255.f green:134.f/255.f blue:160.f/255.f alpha:1];
+    return [[UIColor alloc] initWithRed:111.f / 255.f green:134.f / 255.f blue:160.f / 255.f alpha:1];
 }
 
 - (NSString *)cookieUserIdKey {

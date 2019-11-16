@@ -20,8 +20,7 @@
 #define POST_MESSAGE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post_message" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 #define PRIVATE_MESSAGE [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"private_message" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil]
 
-@protocol ForumConfigDelegate <ForumBaseConfigDelegate,ForumCommonConfigDelegate, DiscuzConfigDelegate, PhpWindConfigDelegage, vBulletinConfigDelegate>
-
+@protocol ForumConfigDelegate <ForumBaseConfigDelegate, ForumCommonConfigDelegate, DiscuzConfigDelegate, PhpWindConfigDelegage, vBulletinConfigDelegate>
 
 
 @end

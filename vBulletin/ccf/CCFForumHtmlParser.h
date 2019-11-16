@@ -9,5 +9,5 @@
 #import "vBulletinParserDelegate.h"
 
 
-@interface CCFForumHtmlParser : NSObject<ForumBaseParserDelegate,vBulletinParserDelegate>
+@interface CCFForumHtmlParser : NSObject <ForumBaseParserDelegate, vBulletinParserDelegate>
 @end

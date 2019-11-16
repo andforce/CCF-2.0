@@ -20,13 +20,14 @@ typedef enum {
     NoticeMessage
 } MessageType;
 
-@interface DiscuzMessageTableViewController ()<ThreadListCellDelegate, MGSwipeTableCellDelegate> {
+@interface DiscuzMessageTableViewController () <ThreadListCellDelegate, MGSwipeTableCellDelegate> {
     MessageType _messageType;
     UIStoryboardSegue *selectSegue;
 }
 
 @end
-@implementation DiscuzMessageTableViewController{
+
+@implementation DiscuzMessageTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -34,13 +35,13 @@ typedef enum {
     [super viewDidLoad];
     _messageType = PrivateMessage;
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
-    
+
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 97.0;
-    
+
     [self.messageSegmentedControl addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -72,7 +73,7 @@ typedef enum {
 
 - (void)refreshMessage:(int)page {
 
-    switch (_messageType){
+    switch (_messageType) {
         case PrivateMessage: {
             [self.forumApi listPrivateMessage:page handler:^(BOOL isSuccess, ViewForumPage *message) {
                 [self.tableView.mj_header endRefreshing];
@@ -125,7 +126,7 @@ typedef enum {
 - (void)onLoadMore {
 
     int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
-    switch (_messageType){
+    switch (_messageType) {
         case PrivateMessage: {
             [self.forumApi listPrivateMessage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
                 [self.tableView.mj_footer endRefreshing];
@@ -165,7 +166,6 @@ typedef enum {
     }
 
 
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -173,15 +173,15 @@ typedef enum {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     static NSString *identifier = @"PrivateMessageTableViewCell";
     PrivateMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
+
     cell.indexPath = indexPath;
     cell.delegate = self;
     cell.showUserProfileDelegate = self;
 
-    if (_messageType == PrivateMessage){
+    if (_messageType == PrivateMessage) {
         cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor lightGrayColor]]];
         cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
     } else {
@@ -190,9 +190,9 @@ typedef enum {
 
 
     Message *message = self.dataList[(NSUInteger) indexPath.row];
-    
+
     [cell setData:message forIndexPath:indexPath];
-    
+
     [cell setData:self.dataList[(NSUInteger) indexPath.row]];
     return cell;
 }
@@ -204,8 +204,8 @@ typedef enum {
 
     Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
     NSInteger delType = _messageSegmentedControl.selectedSegmentIndex;
-    [self.forumApi deletePrivateMessage:deleteMessage withType:(int)delType handler:^(BOOL isSuccess, id message) {
-        if (isSuccess){
+    [self.forumApi deletePrivateMessage:deleteMessage withType:(int) delType handler:^(BOOL isSuccess, id message) {
+        if (isSuccess) {
             [self.dataList removeObjectAtIndex:(NSUInteger) cell.indexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2f];
@@ -215,11 +215,12 @@ typedef enum {
     return YES;
 }
 
--(void)reloadData{
+- (void)reloadData {
     [self.tableView reloadData];
 };
 
 #pragma mark CCFThreadListCellDelegate
+
 - (void)showUserProfile:(NSIndexPath *)indexPath {
     ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
     Message *message = self.dataList[(NSUInteger) indexPath.row];
@@ -232,7 +233,7 @@ typedef enum {
 #pragma mark Controller跳转
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(nullable id)sender {
-    if (_messageType == PrivateMessage){
+    if (_messageType == PrivateMessage) {
         return YES;
     } else {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -257,7 +258,7 @@ typedef enum {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+
     if ([sender isKindOfClass:[UITableViewCell class]]) {
 
         ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
@@ -269,12 +270,12 @@ typedef enum {
 
         TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
-        [bundle putIntValue:(int)_messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
+        [bundle putIntValue:(int) _messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
 
 
         [self transBundle:bundle forController:controller];
 
-        
+
     } else if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
         selectSegue = segue;
     }
@@ -283,16 +284,16 @@ typedef enum {
 
 - (IBAction)showLeftDrawer:(id)sender {
     ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
-    
+
     [controller showLeftDrawer];
 }
 
 - (IBAction)writePrivateMessage:(UIBarButtonItem *)sender {
     UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-    
+
     UINavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CreatePM"];
     [self.navigationController presentViewController:controller animated:YES completion:^{
-        
+
     }];
 }
 

@@ -8,5 +8,5 @@
 #import "ForumApiBaseDelegate.h"
 #import "DiscuzApiDelegate.h"
 
-@interface CHHForumApi : ForumBrowser<ForumApiBaseDelegate, DiscuzApiDelegate>
+@interface CHHForumApi : ForumBrowser <ForumApiBaseDelegate, DiscuzApiDelegate>
 @end

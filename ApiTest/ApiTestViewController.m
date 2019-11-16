@@ -21,7 +21,7 @@
 @implementation ApiTestViewController
 
 - (NSString *)currentForumHost {
-    LocalForumApi * localForumApi = [[LocalForumApi alloc] init];
+    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
@@ -32,7 +32,7 @@
 
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id<ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    id <ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
 
     [forumApi listAllForums:^(BOOL isSuccess, id message) {
 
@@ -40,9 +40,6 @@
 
 
 }
-
-
-
 
 
 @end

@@ -25,11 +25,11 @@
 
 - (NSArray *)arrayWithRegular:(NSString *)regular;
 
-- (NSString *) encodeWithGBKEncoding;
+- (NSString *)encodeWithGBKEncoding;
 
-- (NSString *) decodeWithGBKEncoding;
+- (NSString *)decodeWithGBKEncoding;
 
-- (NSData *) dataForGBK;
+- (NSData *)dataForGBK;
 
-- (NSData *) dataForUTF8;
+- (NSData *)dataForUTF8;
 @end

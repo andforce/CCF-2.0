@@ -10,6 +10,6 @@
 #import "ForumBaseParserDelegate.h"
 #import "PhpWindParserDelegate.h"
 
-@interface CrskyForumHtmlParser : NSObject<ForumBaseParserDelegate, PhpWindParserDelegate>
+@interface CrskyForumHtmlParser : NSObject <ForumBaseParserDelegate, PhpWindParserDelegate>
 
 @end

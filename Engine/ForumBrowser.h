@@ -13,6 +13,6 @@
 
 @interface ForumBrowser : NSObject
 
-@property (nonatomic, strong) AFHTTPSessionManager *browser;
+@property(nonatomic, strong) AFHTTPSessionManager *browser;
 
 @end

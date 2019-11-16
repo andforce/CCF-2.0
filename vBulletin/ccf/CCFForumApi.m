@@ -34,32 +34,32 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *_message;
     NSString *_subject;
 
-    CCFForumConfig * forumConfig;
-    CCFForumHtmlParser * forumParser;
+    CCFForumConfig *forumConfig;
+    CCFForumHtmlParser *forumParser;
 }
 
 - (instancetype)init {
     self = [super init];
-    if (self){
-        forumConfig =  [[CCFForumConfig alloc] init];
-        forumParser = [[CCFForumHtmlParser alloc]init];
+    if (self) {
+        forumConfig = [[CCFForumConfig alloc] init];
+        forumParser = [[CCFForumHtmlParser alloc] init];
     }
     return self;
 }
 
-- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url parameters:(NSDictionary *)parameters requestCallback:(RequestCallback)callback {
     NSMutableDictionary *defParameters = [NSMutableDictionary dictionary];
     [defParameters setValue:@"2" forKey:@"styleid"];
     [defParameters setValue:@"1" forKey:@"langid"];
 
-    if (parameters){
+    if (parameters) {
         [defParameters addEntriesFromDictionary:parameters];
     }
 
     [self.browser GETWithURLString:url parameters:defParameters charset:UTF_8 requestCallback:callback];
 }
 
-- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback{
+- (void)GET:(NSString *)url requestCallback:(RequestCallback)callback {
     [self GET:url parameters:nil requestCallback:callback];
 }
 
@@ -143,18 +143,18 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
         if (isSuccess) {
 
-            NSString * post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
-            NSString * forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
-            NSString * posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
-            NSString * seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
+            NSString *post_hash = [html stringWithRegular:@"(?<=<input name=\"post_hash\" type=\"hidden\" value=\")\\w+(?=\" />)"];
+            NSString *forum_hash = [html stringWithRegular:@"(?<=name=\"formhash\" id=\"formhash\" value=\")\\w+(?=\" />)"];
+            NSString *posttime = [html stringWithRegular:@"(?<=name=\"posttime\" id=\"posttime\" value=\")\\d+(?=\" />)"];
+            NSString *seccodehash = [html stringWithRegular:@"(?<=<span id=\"seccode_)\\w+(?=\">)"];
 
-            IGHTMLDocument * document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
             IGXMLNodeSet *typeidNodeSet = [document queryWithClassName:@"bginput"];
 
             NSMutableDictionary *typeidDic = [NSMutableDictionary dictionary];
 
-            for (IGXMLNode * node in typeidNodeSet) {
-                if ([node.tag isEqualToString:@"select"]){
+            for (IGXMLNode *node in typeidNodeSet) {
+                if ([node.tag isEqualToString:@"select"]) {
 
                     for (int i = 1; i < node.childrenCount; i++) {
                         IGXMLNode *child = [node childAt:i];
@@ -174,7 +174,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
 - (void)createNewThreadWithCategory:(NSString *)category categoryIndex:(int)index withTitle:(NSString *)title
                          andMessage:(NSString *)message withImages:(NSArray *)images inPage:(ViewForumPage *)page handler:(HandlerWithBool)handler {
-    NSString * subject = [category stringByAppendingString:title];
+    NSString *subject = [category stringByAppendingString:title];
     [self createNewThreadWithForumId:page.forumId withSubject:subject andMessage:message withImages:images handler:handler];
 }
 
@@ -367,7 +367,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         return @"无效链接";
     } else if ([html containsString:permission]) {
         return @"无权查看";
-    } else if ([html containsString:accecp]){
+    } else if ([html containsString:accecp]) {
         return @"请去电脑端接受规则";
     } else {
         return nil;
@@ -570,7 +570,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 - (void)replyWithMessage:(NSString *)message withImages:(NSArray *)images toPostId:(NSString *)postId thread:(ViewThreadPage *)threadPage isQoute:(BOOL)quote handler:(HandlerWithBool)handler {
 
     NSString *replyUrl = nil;
-    if (quote){
+    if (quote) {
         replyUrl = [forumConfig quoteReply:threadPage.forumId threadId:threadPage.threadID postId:[postId intValue]];
     } else {
         replyUrl = [forumConfig replyWithThreadId:threadPage.threadID forForumId:threadPage.forumId replyPostId:[postId intValue]];
@@ -578,9 +578,9 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [self GET:replyUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
-            NSString * quoteString = [forumParser parseQuote:html];
+            NSString *quoteString = [forumParser parseQuote:html];
 
-            NSString * replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
+            NSString *replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
             [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {
@@ -1038,7 +1038,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
 - (void)listPrivateMessageWithType:(int)type andPage:(int)page handler:(HandlerWithBool)handler {
 
-    NSString * url = [forumConfig privateWithType:type withPage:page];
+    NSString *url = [forumConfig privateWithType:type withPage:page];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             ViewForumPage *viewForumPage = [forumParser parsePrivateMessageFromHtml:html forType:type];
@@ -1050,7 +1050,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 - (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
-    NSString * url = [forumConfig deletePrivateWithType:type];
+    NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
@@ -1362,6 +1362,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 #pragma private
+
 - (NSDictionary *)dictionaryFromQuery:(NSString *)query usingEncoding:(NSStringEncoding)encoding {
     NSCharacterSet *delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&;"];
     NSMutableDictionary *pairs = [NSMutableDictionary dictionary];

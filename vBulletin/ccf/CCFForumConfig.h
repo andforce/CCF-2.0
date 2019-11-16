@@ -10,7 +10,7 @@
 #import "ForumConfigDelegate.h"
 #import "vBulletinCommonConfig.h"
 
-@interface CCFForumConfig : vBulletinCommonConfig<ForumCommonConfigDelegate>
+@interface CCFForumConfig : vBulletinCommonConfig <ForumCommonConfigDelegate>
 
 
 @end

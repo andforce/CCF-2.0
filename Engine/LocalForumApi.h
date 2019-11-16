@@ -16,7 +16,7 @@
 - (LoginUser *)getLoginUser:(NSString *)host;
 
 // 获取当前登录的账户信息
-- (BOOL)isHaveLogin:(NSString *) host;
+- (BOOL)isHaveLogin:(NSString *)host;
 
 // 获取当前登录的账户信息
 - (BOOL)isHaveLoginForum;
@@ -28,19 +28,19 @@
 
 - (NSString *)currentForumHost;
 
-- (NSArray<Forums *> *) supportForums;
+- (NSArray<Forums *> *)supportForums;
 
-- (NSArray<Forums *> *) loginedSupportForums;
+- (NSArray<Forums *> *)loginedSupportForums;
 
 - (NSString *)currentForumBaseUrl;
 
-- (NSString *) bundleIdentifier;
+- (NSString *)bundleIdentifier;
 
 //---------------------------------------
 
 - (NSArray<NSHTTPCookie *> *)loadCookie;
 
-- (NSString*)loadCookieString;
+- (NSString *)loadCookieString;
 
 - (void)saveCookie;
 
@@ -66,8 +66,8 @@
 
 - (NSString *)currentProductID;
 
-- (void) saveCurrentForumURL:(NSString*) url;
+- (void)saveCurrentForumURL:(NSString *)url;
 
-- (void) clearCurrentForumURL;
+- (void)clearCurrentForumURL;
 
 @end

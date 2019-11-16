@@ -11,7 +11,7 @@
 @implementation ForumEntry (CoreDataProperties)
 
 + (NSFetchRequest<ForumEntry *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"ForumEntry"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"ForumEntry"];
 }
 
 @dynamic forumId;

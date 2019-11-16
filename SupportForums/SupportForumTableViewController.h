@@ -10,6 +10,7 @@
 
 @interface SupportForumTableViewController : ForumApiBaseTableViewController
 - (IBAction)showLeftDrawer:(id)sender;
+
 - (IBAction)cancel:(id)sender;
 
 @end

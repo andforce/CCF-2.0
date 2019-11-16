@@ -11,7 +11,7 @@
 #import "ForumShowPrivatePolicyUiViewController.h"
 #import "ProgressDialog.h"
 
-@interface PayViewController (){
+@interface PayViewController () {
     LocalForumApi *_localForumApi;
     PayManager *_payManager;
 
@@ -24,7 +24,7 @@
 
 - (IBAction)pay:(UIBarButtonItem *)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]){
+    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
         [ProgressDialog showSuccess:@"您已订阅"];
         return;
     }
@@ -32,7 +32,7 @@
     [ProgressDialog show];
 
     [_payManager payForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
-        if (isSuccess){
+        if (isSuccess) {
             [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
             [ProgressDialog showSuccess:@"订阅成功"];
         } else {
@@ -44,14 +44,14 @@
 
 - (IBAction)restorePay:(UIButton *)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]){
+    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
         [ProgressDialog showStatus:@"您已订阅"];
         return;
     }
     [ProgressDialog show];
 
     [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
-        if (isSuccess){
+        if (isSuccess) {
             [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
             [ProgressDialog showSuccess:@"订阅成功"];
         } else {
@@ -63,15 +63,15 @@
 - (IBAction)backOrDismiss:(UIBarButtonItem *)sender {
     [_payManager removeTransactionObserver];
 
-    if (self.canBack){
+    if (self.canBack) {
         UINavigationController *navigationController = self.navigationController;
         [navigationController popViewControllerAnimated:YES];
     } else {
-        [self dismissViewControllerAnimated:YES completion:nil  ];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
-- (BOOL) canBack{
+- (BOOL)canBack {
 //    UIViewController * c = self.navigationController.presentingViewController;
 //    return c != nil;
 //    return self.navigationController.topViewController == self;
@@ -86,7 +86,7 @@
     // payManager
     _payManager = [PayManager shareInstance];
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]){
+    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
         [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
     } else {
         [restorePayBtn setTitle:@"恢复之前的订阅" forState:UIControlStateNormal];
@@ -107,11 +107,11 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSString * type = segue.identifier;
+    NSString *type = segue.identifier;
     if ([type isEqualToString:@"ShowTermsOfUse"] || [type isEqualToString:@"ShowPolicy"]) {
         ForumShowPrivatePolicyUiViewController *controller = segue.destinationViewController;
 
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putStringValue:segue.identifier forKey:@"ShowType"];
         [self transBundle:bundle forController:controller];
 

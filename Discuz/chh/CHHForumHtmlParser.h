@@ -8,5 +8,5 @@
 #import "DiscuzParserDelegate.h"
 
 
-@interface CHHForumHtmlParser : NSObject<ForumBaseParserDelegate,DiscuzParserDelegate>
+@interface CHHForumHtmlParser : NSObject <ForumBaseParserDelegate, DiscuzParserDelegate>
 @end

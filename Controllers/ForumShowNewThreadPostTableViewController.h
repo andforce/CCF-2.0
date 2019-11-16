@@ -15,6 +15,6 @@
 
 - (IBAction)showLeftDrawer:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
 
 @end

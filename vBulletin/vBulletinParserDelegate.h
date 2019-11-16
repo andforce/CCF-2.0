@@ -21,6 +21,6 @@
 
 - (NSString *)parseQuickReplyTo:(NSString *)html;
 
-- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int) type;
+- (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html forType:(int)type;
 
 @end

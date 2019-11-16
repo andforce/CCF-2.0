@@ -67,13 +67,13 @@
     self.toWho.enabled = NO;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    if (![_payManager hasPayed:[_localForumApi currentProductID]]){
+- (void)viewDidAppear:(BOOL)animated {
+    if (![_payManager hasPayed:[_localForumApi currentProductID]]) {
         [self showFailedMessage:@"未订阅用户无法使用私信"];
     }
 }
 
--(void) showFailedMessage:(id) message{
+- (void)showFailedMessage:(id)message {
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"操作受限" message:message preferredStyle:UIAlertControllerStyleAlert];
 
@@ -133,7 +133,7 @@
 
         if (isReply) {
 
-            [self.forumApi replyPrivateMessage:_privateMessage andReplyContent:self.privateMessageContent.text handler:^(BOOL isSuccess, id message){
+            [self.forumApi replyPrivateMessage:_privateMessage andReplyContent:self.privateMessageContent.text handler:^(BOOL isSuccess, id message) {
                 [ProgressDialog dismiss];
 
                 if (isSuccess) {

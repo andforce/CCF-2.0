@@ -12,7 +12,7 @@
 @implementation ForumThreadListCell {
 
     ForumCoreDataManager *_coreDateManager;
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
     NSIndexPath *selectIndexPath;
 }
 

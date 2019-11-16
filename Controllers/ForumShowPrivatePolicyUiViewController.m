@@ -8,7 +8,7 @@
 
 #import "ForumShowPrivatePolicyUiViewController.h"
 
-@interface ForumShowPrivatePolicyUiViewController ()<TransBundleDelegate>{
+@interface ForumShowPrivatePolicyUiViewController () <TransBundleDelegate> {
     NSString *_title;
     NSString *_html;
 }
@@ -19,16 +19,16 @@
 
 - (void)transBundle:(TransBundle *)bundle {
 
-    NSString * type = [bundle getStringValue:@"ShowType"];
+    NSString *type = [bundle getStringValue:@"ShowType"];
     NSLog(@"ShowType %@", type);
 
-    if ([type isEqualToString:@"ShowTermsOfUse"]){
+    if ([type isEqualToString:@"ShowTermsOfUse"]) {
         _title = @"使用条款";
         _html = @"terms_of_use";
-    } else if ([type isEqualToString:@"ShowPolicy"]){
+    } else if ([type isEqualToString:@"ShowPolicy"]) {
         _title = @"隐私政策";
         _html = @"privacy";
-    } else if ([type isEqualToString:@"ShowMore"]){
+    } else if ([type isEqualToString:@"ShowMore"]) {
         _title = @"了解更多";
         _html = @"more";
     }
@@ -36,7 +36,7 @@
 
 
 - (IBAction)close:(id)sender {
-    
+
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
 }
@@ -46,20 +46,20 @@
     [super viewDidLoad];
 
     self.navigationItem.title = _title;
-    
+
     [self.webView setScalesPageToFit:YES];
     self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     //self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
-    
+
     for (UIView *view in [[self.webView subviews][0] subviews]) {
         if ([view isKindOfClass:[UIImageView class]]) {
             view.hidden = YES;
         }
     }
     [self.webView setOpaque:NO];
-    
+
     NSString *filePath = [[NSBundle mainBundle] pathForResource:_html ofType:@"html"];
     NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     NSURL *url = [[NSURL alloc] initWithString:filePath];

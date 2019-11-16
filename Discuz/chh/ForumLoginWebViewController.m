@@ -52,8 +52,8 @@
 
     REFERER = [LOG_IN_URL stringWithRegular:@"(?<=referer=).*"];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]]];
-    
-    if ([self isNeedHideLeftMenu]){
+
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 }
@@ -64,13 +64,13 @@
     return ![bundleId isEqualToString:@"com.andforce.forums"];
 }
 
-- (NSString*) getResponseHTML:(UIWebView *)webView {
+- (NSString *)getResponseHTML:(UIWebView *)webView {
     NSString *lJs = @"document.documentElement.outerHTML";
     NSString *html = [webView stringByEvaluatingJavaScriptFromString:lJs];
     return html;
 }
 
-- (void)hideMaskView{
+- (void)hideMaskView {
     self.maskLoadingView.hidden = YES;
 }
 
@@ -79,7 +79,7 @@
     NSString *html = [self getResponseHTML:webView];
 
     NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-    if ([currentURL isEqualToString:LOG_IN_URL]){
+    if ([currentURL isEqualToString:LOG_IN_URL]) {
         // 改变样式
         NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"chhlogin" ofType:@"js"]
                                                  encoding:NSUTF8StringEncoding error:nil];
@@ -87,7 +87,7 @@
 
         [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
-    } else if ([currentURL isEqualToString:REFERER]){
+    } else if ([currentURL isEqualToString:REFERER]) {
 
         IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
@@ -95,7 +95,7 @@
         NSString *userName = [[logined text] trim];
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-        id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
         if (userName != nil && ![userName isEqualToString:@""]) {
             // 保存Cookie
             [localForumApi saveCookie];
@@ -112,7 +112,7 @@
                     return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;
                 }];
 
-                LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
 
                 [formManager insertData:needInsert operation:^(NSManagedObject *target, id src) {
                     ForumEntry *newsInfo = (ForumEntry *) target;
@@ -154,20 +154,20 @@
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.forums"]){
+    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
         [localForumApi clearCurrentForumURL];
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
     }
 }
 
 - (void)exitApplication {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UIWindow *window = app.window;
 
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
     rotationAnimation.delegate = self;
 
-    rotationAnimation.fillMode=kCAFillModeForwards;
+    rotationAnimation.fillMode = kCAFillModeForwards;
 
     rotationAnimation.removedOnCompletion = NO;
     //旋转角度

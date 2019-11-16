@@ -27,8 +27,8 @@
     [super didMoveToWindow];
     self.clipsToBounds = NO;
 
-     id controller = (ForumTabBarController *) self.superview.nextResponder;
-    if ([controller isKindOfClass:[ForumTabBarController class]]){
+    id controller = (ForumTabBarController *) self.superview.nextResponder;
+    if ([controller isKindOfClass:[ForumTabBarController class]]) {
         [controller bringLeftDrawerToFront];
     }
 }

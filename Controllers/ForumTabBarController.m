@@ -20,18 +20,18 @@
 
 @implementation ForumTabBarController
 
-- (void)changeMessageUITabController:(ForumType) forumType {
+- (void)changeMessageUITabController:(ForumType)forumType {
 
-    UIStoryboard * storyboard  = [UIStoryboard mainStoryboard];
-    ForumNavigationViewController * controller = (ForumNavigationViewController *)
-            (forumType == Discuz ? [storyboard finControllerById:@"DiscuzNavID"]: [storyboard finControllerById:@"vBulletinNavID"]);
+    UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+    ForumNavigationViewController *controller = (ForumNavigationViewController *)
+            (forumType == Discuz ? [storyboard finControllerById:@"DiscuzNavID"] : [storyboard finControllerById:@"vBulletinNavID"]);
 
     NSMutableArray *withDiscuzControllers = [NSMutableArray new];
 
-    NSArray * currentControllers = self.viewControllers;
+    NSArray *currentControllers = self.viewControllers;
 
-    for (NSUInteger i = 0; i < currentControllers.count; i++){
-        if (i == 3){
+    for (NSUInteger i = 0; i < currentControllers.count; i++) {
+        if (i == 3) {
             [withDiscuzControllers addObject:controller];
         } else {
             [withDiscuzControllers addObject:currentControllers[i]];
@@ -44,13 +44,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (![self isNeedHideLeftMenu]){
+    if (![self isNeedHideLeftMenu]) {
         _leftDrawerView = [[DrawerView alloc] initWithDrawerType:DrawerViewTypeLeft andXib:@"DrawerView"];
         [self.view addSubview:_leftDrawerView];
     }
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    if ([localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]){
+    if ([localForumApi.currentForumHost isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]) {
         [self changeMessageUITabController:Discuz];
     } else {
         [self changeMessageUITabController:vBulletin];
@@ -67,12 +67,12 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)showLeftDrawer{
+- (void)showLeftDrawer {
     [_leftDrawerView openLeftDrawer];
 }
 
 - (void)bringLeftDrawerToFront {
-    if (![self isNeedHideLeftMenu]){
+    if (![self isNeedHideLeftMenu]) {
         [_leftDrawerView bringDrawerToFront];
     }
 }

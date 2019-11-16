@@ -10,8 +10,9 @@
 
 @interface ForumReportViewController : ForumApiBaseViewController
 - (IBAction)back:(id)sender;
+
 - (IBAction)reportThreadPost:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIAutoResizeTextView *reportMessage;
+@property(weak, nonatomic) IBOutlet UIAutoResizeTextView *reportMessage;
 
 @end

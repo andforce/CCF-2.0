@@ -14,7 +14,7 @@
 
 @implementation CloseViewController
 - (IBAction)close:(id)sender {
-   
+
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
 }

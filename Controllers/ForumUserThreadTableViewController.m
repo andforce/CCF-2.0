@@ -15,7 +15,7 @@
 
 @end
 
-@implementation ForumUserThreadTableViewController{
+@implementation ForumUserThreadTableViewController {
     ViewForumPage *currentForumPage;
 }
 
@@ -49,7 +49,7 @@
 
 - (void)onLoadMore {
 
-    int toLoadPage = currentForumPage == nil ? 1: currentForumPage.pageNumber.currentPageNumber + 1;
+    int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
     int userId = [userProfile.profileUserId intValue];
     [self.forumApi listAllUserThreads:userId withPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *message) {
         [self.tableView.mj_footer endRefreshing];

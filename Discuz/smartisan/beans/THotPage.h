@@ -8,15 +8,16 @@
 #import <Foundation/Foundation.h>
 
 
-
 @interface THotPage : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, assign) double pageSize;
-@property (nonatomic, assign) double pageCount;
-@property (nonatomic, assign) double pageTotal;
+@property(nonatomic, assign) double pageSize;
+@property(nonatomic, assign) double pageCount;
+@property(nonatomic, assign) double pageTotal;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
 - (NSDictionary *)dictionaryRepresentation;
 
 @end

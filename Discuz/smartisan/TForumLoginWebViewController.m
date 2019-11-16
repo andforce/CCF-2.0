@@ -100,7 +100,7 @@
     NSString *urlString = [[request URL] absoluteString];
     NSLog(@"TForumLogin.shouldStartLoadWithRequest %@ ", urlString);
 
-    NSString * rUrl = request.URL.absoluteString;
+    NSString *rUrl = request.URL.absoluteString;
     if ([rUrl isEqualToString:@"http://bbs.smartisan.com/forum.php"]) {
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 

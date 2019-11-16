@@ -28,7 +28,7 @@
 - (NSArray<Forum *> *)selectFavForums:(NSArray *)ids {
 
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];
     }];
 
@@ -46,9 +46,9 @@
 
 - (NSArray<Forum *> *)selectAllForums {
 
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND parentForumId = %d", localeForumApi.currentForumHost, -1];
     }];
 
@@ -74,7 +74,7 @@
 - (NSArray<Forum *> *)selectChildForumsById:(int)forumId {
 
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND parentForumId = %d", localeForumApi.currentForumHost, forumId];
     }];
 

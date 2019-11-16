@@ -26,6 +26,6 @@
 
 @property(weak, nonatomic) IBOutlet UILabel *postCount;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem *leftMenu;
 
 @end

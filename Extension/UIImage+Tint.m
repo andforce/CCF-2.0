@@ -28,28 +28,28 @@
 
 }
 
--(UIImage *)scaleUIImage:(CGSize)maxSize{
+- (UIImage *)scaleUIImage:(CGSize)maxSize {
     CGSize size = self.size;
-    
+
     if (size.height > maxSize.height || size.width > maxSize.width) {
         CGFloat heightScale = maxSize.height / size.height;
         CGFloat widthScale = maxSize.width / size.width;
-        
+
         CGFloat scale = heightScale > widthScale ? widthScale : heightScale;
-        
+
         CGFloat width = size.width;
         CGFloat height = size.height;
-        
+
         CGFloat scaledWidth = width * scale;
         CGFloat scaledHeight = height * scale;
-        
+
         CGSize newSize = CGSizeMake(scaledWidth, scaledHeight);
         UIGraphicsBeginImageContext(newSize);//thiswillcrop
         [self drawInRect:CGRectMake(0, 0, scaledWidth, scaledHeight)];
         UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return newImage;
-        
+
     } else {
         return self;
     }

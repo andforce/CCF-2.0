@@ -10,6 +10,6 @@
 #import "ForumConfigDelegate.h"
 #import "DiscuzCommonConfig.h"
 
-@interface TForumConfig : DiscuzCommonConfig<ForumCommonConfigDelegate>
+@interface TForumConfig : DiscuzCommonConfig <ForumCommonConfigDelegate>
 
 @end

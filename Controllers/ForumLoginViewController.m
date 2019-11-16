@@ -18,7 +18,7 @@
 
     CGRect screenSize;
 
-    id<ForumApiDelegate> _forumApi;
+    id <ForumApiDelegate> _forumApi;
 
 }
 
@@ -30,7 +30,6 @@
     [super viewDidLoad];
 
 
-    
     _userName.delegate = self;
     _password.delegate = self;
     _vCode.delegate = self;
@@ -47,10 +46,10 @@
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     _forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
 
-    id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+    id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
     self.rootView.backgroundColor = forumConfig.themeColor;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
@@ -58,7 +57,7 @@
 
     self.title = [forumConfig.forumURL.host uppercaseString];
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
 }
@@ -161,7 +160,7 @@
                         return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;
                     }];
 
-                    LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+                    LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
 
                     [formManager insertData:needInsert operation:^(NSManagedObject *target, id src) {
                         ForumEntry *newsInfo = (ForumEntry *) target;
@@ -178,16 +177,16 @@
                 }
 
             }];
-            
-            
+
+
         } else {
             [ProgressDialog dismiss];
-            
+
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:message preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-            
+
             [alert addAction:action];
-            
+
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
@@ -204,20 +203,20 @@
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
     [localForumApi logout];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.forums"]){
+    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
         [localForumApi clearCurrentForumURL];
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
     }
 }
 
 - (void)exitApplication {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UIWindow *window = app.window;
 
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
     rotationAnimation.delegate = self;
 
-    rotationAnimation.fillMode=kCAFillModeForwards;
+    rotationAnimation.fillMode = kCAFillModeForwards;
 
     rotationAnimation.removedOnCompletion = NO;
     //旋转角度

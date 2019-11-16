@@ -61,6 +61,6 @@
 
 #define LIST_USER_THREAD BBS_HOST@"u.php?action=topic&uid=%@&page=%d"
 
-@interface CrskyForumConfig : NSObject<ForumConfigDelegate>
+@interface CrskyForumConfig : NSObject <ForumConfigDelegate>
 
 @end

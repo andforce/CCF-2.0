@@ -35,13 +35,13 @@
 }
 
 
--(void)changeRootViewControllerTo:(NSString *)identifier withAnim:(UIViewAnimationOptions)anim{
+- (void)changeRootViewControllerTo:(NSString *)identifier withAnim:(UIViewAnimationOptions)anim {
     UITabBarController *rootViewController = [self instantiateViewControllerWithIdentifier:identifier];
-    
+
     [[UIApplication sharedApplication].keyWindow setRootViewController:rootViewController];
-    
+
     AppDelegate *app = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
+
     [UIView transitionWithView:app.window
                       duration:0.5
                        options:anim
@@ -51,11 +51,11 @@
                     completion:nil];
 }
 
--(void)changeRootViewControllerToController:(UIViewController *)controller withAnim:(UIViewAnimationOptions)anim{
+- (void)changeRootViewControllerToController:(UIViewController *)controller withAnim:(UIViewAnimationOptions)anim {
     [[UIApplication sharedApplication].keyWindow setRootViewController:controller];
-    
+
     AppDelegate *app = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
+
     [UIView transitionWithView:app.window
                       duration:0.5
                        options:anim

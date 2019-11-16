@@ -26,53 +26,52 @@
 
 - (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         localApi = [[LocalForumApi alloc] init];
     }
     return self;
 }
 
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
-    NSString * fixedImage = [self fixedImage:html];
+    NSString *fixedImage = [self fixedImage:html];
 
-    NSString * fixFontSizeHTML = [self fixedFontSize:fixedImage];
-    NSString * fixedCodeBlock = [self fixedCodeBlodk:fixFontSizeHTML];
+    NSString *fixFontSizeHTML = [self fixedFontSize:fixedImage];
+    NSString *fixedCodeBlock = [self fixedCodeBlodk:fixFontSizeHTML];
 
-    NSString * fixedQuoteHeight = [self fixedQuote:fixedCodeBlock];
-    NSString * fixedHtml = [self fixedLink:fixedQuoteHeight];
+    NSString *fixedQuoteHeight = [self fixedQuote:fixedCodeBlock];
+    NSString *fixedHtml = [self fixedLink:fixedQuoteHeight];
 
 
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:fixedHtml error:nil];
 
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:fixedHtml error:nil];
-
-    ViewThreadPage * showThreadPage = [[ViewThreadPage alloc]init];
+    ViewThreadPage *showThreadPage = [[ViewThreadPage alloc] init];
     // origin html
     showThreadPage.originalHtml = [self postMessages:fixedHtml];
 
     // forum Id
-    NSString * forumId = [[fixedHtml stringWithRegular:@"<option value=\"\\d+\" class=\".*\" selected=\"selected\">" andChild:@"value=\"\\d+\""] stringWithRegular:@"\\d+"];
+    NSString *forumId = [[fixedHtml stringWithRegular:@"<option value=\"\\d+\" class=\".*\" selected=\"selected\">" andChild:@"value=\"\\d+\""] stringWithRegular:@"\\d+"];
     showThreadPage.forumId = [forumId intValue];
 
     // token 【失败】
-    NSString * securityToken = [self parseSecurityToken:html];
+    NSString *securityToken = [self parseSecurityToken:html];
     showThreadPage.securityToken = securityToken;
 
     // ajax  【失败】
-    NSString * ajaxLastPost = [self parseAjaxLastPost:html];
+    NSString *ajaxLastPost = [self parseAjaxLastPost:html];
     showThreadPage.ajaxLastPost = ajaxLastPost;
 
     // all posts
     showThreadPage.postList = [self parseShowThreadPosts:document];
 
     // title
-    IGXMLNode * titleNode = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/strong"].firstObject;
+    IGXMLNode *titleNode = [document queryWithXPath:@"//*[@id='table1']/tr/td[1]/div/strong"].firstObject;
 
     if (titleNode != nil) {
-        NSString * fixedTitle = [titleNode.text trim];
-        if ([fixedTitle hasPrefix:@"【"]){
+        NSString *fixedTitle = [titleNode.text trim];
+        if ([fixedTitle hasPrefix:@"【"]) {
             fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"【" withString:@"["];
             fixedTitle = [fixedTitle stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
-        } else{
+        } else {
             fixedTitle = [@"讨论" stringByAppendingString:fixedTitle];
         }
         showThreadPage.threadTitle = fixedTitle;
@@ -83,7 +82,7 @@
 
     // page number
 
-    PageNumber * pageNumber = [self pageNumber:html];
+    PageNumber *pageNumber = [self pageNumber:html];
 
     showThreadPage.pageNumber = pageNumber;
 
@@ -204,7 +203,7 @@
     forumDisplayPage.token = [self parseSecurityToken:html];
 
     // 总页数
-    PageNumber * pageNumber = [self pageNumber:html];
+    PageNumber *pageNumber = [self pageNumber:html];
 
     forumDisplayPage.pageNumber = pageNumber;
 
@@ -237,7 +236,7 @@
             IGXMLNode *threadTitleNode = threadListNode.children[2];
             NSString *titleText = [[[threadTitleNode text] trim] componentsSeparatedByString:@"\n"].firstObject;
 
-            if (! ([titleText hasPrefix:@"["] && [titleText containsString:@"]"])){
+            if (!([titleText hasPrefix:@"["] && [titleText containsString:@"]"])) {
                 if ([titleText hasPrefix:@"【"]) {
                     titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
                     titleText = [titleText stringByReplacingOccurrencesOfString:@"】" withString:@"]"];
@@ -248,7 +247,7 @@
             simpleThread.threadTitle = titleText;
 
             // Thread Id
-            NSString * threadStrig = [[threadTitleNode attribute:@"id"] stringWithRegular:@"\\d+"];
+            NSString *threadStrig = [[threadTitleNode attribute:@"id"] stringWithRegular:@"\\d+"];
             simpleThread.threadID = threadStrig;
 
             //  Author
@@ -281,17 +280,17 @@
 }
 
 - (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
 
-    IGXMLNodeSet * searchNodeSet = [document queryWithXPath:@"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]"];
+    IGXMLNodeSet *searchNodeSet = [document queryWithXPath:@"/html/body/table/tr/td/div[*]/div/div/table[*]/tr[position()>1]"];
 
     if (searchNodeSet == nil || searchNodeSet.count == 0) {
         return nil;
     }
 
 
-    ViewSearchForumPage * resultPage = [[ViewSearchForumPage alloc]init];
+    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
 
 
     // 总页数 和 当前页数
@@ -299,36 +298,36 @@
 
     resultPage.pageNumber = pageNumber;
 
-    NSMutableArray<Thread*>* post = [NSMutableArray array];
+    NSMutableArray<Thread *> *post = [NSMutableArray array];
 
     for (IGXMLNode *node in searchNodeSet) {
 
         if (node.children.count == 9) {
             // 9个节点是正确的输出结果
-            Thread * searchThread = [[Thread alloc]init];
+            Thread *searchThread = [[Thread alloc] init];
 
-            IGXMLNode * postForNode = [node childAt:2];
+            IGXMLNode *postForNode = [node childAt:2];
 
-            NSString * postIdNode = [postForNode html];
-            NSString * postId = [postIdNode stringWithRegular:@"t=\\d+" andChild:@"\\d+"];
+            NSString *postIdNode = [postForNode html];
+            NSString *postId = [postIdNode stringWithRegular:@"t=\\d+" andChild:@"\\d+"];
 
-            NSString * postTitle = @"[标题解析错误请联系@马小甲]";
+            NSString *postTitle = @"[标题解析错误请联系@马小甲]";
 
-            IGXMLNodeSet * realNodeSet = postForNode.firstChild.children;
-            for (IGXMLNode * realNode in realNodeSet) {
-                if ([realNode.tag isEqualToString:@"a"] && [[realNode attribute:@"href"] hasPrefix:@"showthread.php?t="]){
+            IGXMLNodeSet *realNodeSet = postForNode.firstChild.children;
+            for (IGXMLNode *realNode in realNodeSet) {
+                if ([realNode.tag isEqualToString:@"a"] && [[realNode attribute:@"href"] hasPrefix:@"showthread.php?t="]) {
                     postTitle = realNode.text.trim;
                 }
             }
 
-            NSString * postAuthor = [[[node childAt:3] text] trim];
-            NSString * postAuthorId = [[node.children[3] html] stringWithRegular:@"=\\d+" andChild:@"\\d+"];
-            NSString * postTime = [[node.children[4] text] trim];
-            NSString * postBelongForm = [node.children[8] text];
+            NSString *postAuthor = [[[node childAt:3] text] trim];
+            NSString *postAuthorId = [[node.children[3] html] stringWithRegular:@"=\\d+" andChild:@"\\d+"];
+            NSString *postTime = [[node.children[4] text] trim];
+            NSString *postBelongForm = [node.children[8] text];
 
             searchThread.threadID = postId;
 
-            NSString * titleText = [postTitle trim];
+            NSString *titleText = [postTitle trim];
 
             if ([titleText hasPrefix:@"【"]) {
                 titleText = [titleText stringByReplacingOccurrencesOfString:@"【" withString:@"["];
@@ -343,9 +342,9 @@
             searchThread.lastPostTime = [postTime trim];
             searchThread.fromFormName = postBelongForm;
 
-            if ([self isSpecial]){
+            if ([self isSpecial]) {
                 NSArray *blackList = [self blackList];
-                if ([blackList containsObject:postBelongForm]){
+                if ([blackList containsObject:postBelongForm]) {
                     continue;
                 }
             }
@@ -367,7 +366,7 @@
 
     ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
 
-    ViewMessage * viewMessage = [[ViewMessage alloc] init];
+    ViewMessage *viewMessage = [[ViewMessage alloc] init];
     // ===== message content =====
 
     // PM Title
@@ -400,7 +399,7 @@
     pmAuthor.userID = userId;
 
     // 用户头像
-    IGXMLNode * userAvatarNode = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[2]/a/img"];
+    IGXMLNode *userAvatarNode = [document queryNodeWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form/table[2]/tr[2]/td[1]/div[2]/a/img"];
     NSString *userAvatar = [userAvatarNode attribute:@"src"];//[[userAvatarNode attribute:@"src"] componentsSeparatedByString:@"customavatars"].lastObject;
     if (userAvatar == nil) {
         userAvatar = avatarNO;
@@ -441,7 +440,7 @@
     // 注册日期                    /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/div/div
     NSString *signDatePattern = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/div/div";
 
-    profile.profileRegisterDate = [[[[[document queryWithXPath:signDatePattern].firstObject text] trim ] componentsSeparatedByString:@": "]lastObject];
+    profile.profileRegisterDate = [[[[[document queryWithXPath:signDatePattern].firstObject text] trim] componentsSeparatedByString:@": "] lastObject];
 
     // 最近活动时间
     NSString *lastLoginDayXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[2]/td[2]/div[1]";
@@ -456,7 +455,7 @@
 
     // 帖子总数                   /html/body/table/tr/td/div[2]/div/div/table[5]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td
     NSString *postCountXPath = @"/html/body/table/tr/td/div[2]/div/div/table[*]/tr[2]/td[1]/div/div/fieldset/table/tr[1]/td";
-    NSString * postCount = [[[document queryWithXPath:postCountXPath].firstObject text] componentsSeparatedByString:@": "].lastObject;
+    NSString *postCount = [[[document queryWithXPath:postCountXPath].firstObject text] componentsSeparatedByString:@": "].lastObject;
     profile.profileTotalPostCount = postCount;
 
     profile.profileUserId = userId;
@@ -464,34 +463,34 @@
 }
 
 - (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *)host {
-    IGHTMLDocument *document = [[IGHTMLDocument alloc]initWithHTMLString:html error:nil];
+    IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     //                   /html/body/table/tr/td/div[3]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]
-    NSString * xPath = @"/html/body/table/tr/td/div[*]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]";
+    NSString *xPath = @"/html/body/table/tr/td/div[*]/div/div/table[5]/tr/td[2]/div/form/select/optgroup[2]";
 
-    IGXMLNode * contents = [document queryNodeWithXPath:xPath];
+    IGXMLNode *contents = [document queryNodeWithXPath:xPath];
 
-    NSMutableArray<Forum *> * needInsert = [NSMutableArray array];
+    NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
 
     int parentForumIDForTH1 = -1;
     int parentForumIDForTH2 = -1;
-    for (IGXMLNode * child in contents.children) {
+    for (IGXMLNode *child in contents.children) {
 
-        Forum * forum = [[Forum alloc] init];
+        Forum *forum = [[Forum alloc] init];
 
-        NSString * classType = [child attribute:@"class"];
+        NSString *classType = [child attribute:@"class"];
         int forumID = [[child attribute:@"value"] intValue];
-        NSString * forumName = [[child text] trim];
+        NSString *forumName = [[child text] trim];
 
 
         if ([classType isEqualToString:@"fjsel"] || [classType isEqualToString:@"fjdpth0"]) {
             parentForumIDForTH1 = forumID;
             forum.parentForumId = -1;
-        } else if([classType isEqualToString:@"fjdpth1"]){
+        } else if ([classType isEqualToString:@"fjdpth1"]) {
             forum.parentForumId = parentForumIDForTH1;
             parentForumIDForTH2 = forumID;
 
-        } else if ([classType isEqualToString:@"fjdpth2"]){
+        } else if ([classType isEqualToString:@"fjdpth2"]) {
             forum.parentForumId = parentForumIDForTH2;
         }
 
@@ -507,13 +506,13 @@
 //    }
 
 
-    if ([self isSpecial]){
+    if ([self isSpecial]) {
         NSMutableArray<Forum *> *realMeedInsert = [NSMutableArray array];
-        for (Forum * forum in needInsert) {
+        for (Forum *forum in needInsert) {
             NSArray *blackList = [self blackList];
-            if ([blackList containsObject:forum.forumName]){
+            if ([blackList containsObject:forum.forumName]) {
                 continue;
-            } else{
+            } else {
                 [realMeedInsert addObject:forum];
             }
         }
@@ -543,8 +542,8 @@
     // 通过ids 过滤出Form
     ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     NSArray *result = [manager selectData:^NSPredicate * {
-        NSString * host = localForumApi.currentForumHost;
-        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", host ,ids];
+        NSString *host = localForumApi.currentForumHost;
+        return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", host, ids];
     }];
 
     NSMutableArray<Forum *> *forms = [NSMutableArray arrayWithCapacity:result.count];
@@ -564,13 +563,13 @@
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    IGXMLNode * pageNode = [document queryNodeWithClassName:@"pg"];
+    IGXMLNode *pageNode = [document queryNodeWithClassName:@"pg"];
 
-    if (pageNode == nil){
+    if (pageNode == nil) {
         pageNumber.currentPageNumber = 1;
         pageNumber.totalPageNumber = 1;
-    } else{
-        NSString * text = [pageNode text];
+    } else {
+        NSString *text = [pageNode text];
         NSLog(@"%@", text);
     }
     return pageNumber;
@@ -620,13 +619,13 @@
 // private
 - (NSString *)postMessages:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    
+
     IGXMLNodeSet *postMessages = [document queryWithXPath:@"//*[@id='posts']/div[*]/div/div/div/table/tr[2]/td[2]/div"];
     if (postMessages.count == 0) {
         postMessages = [document queryWithXPath:@"//*[@id='posts']/div/div/div/table/tr[2]/td[2]/div"];
     }
-    NSMutableString * messages = [NSMutableString string];
-    
+    NSMutableString *messages = [NSMutableString string];
+
     for (IGXMLNode *node in postMessages) {
         [messages appendString:node.text];
     }
@@ -643,73 +642,73 @@
 
 // private
 - (NSMutableArray<Post *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
-    
+
     NSMutableArray<Post *> *posts = [NSMutableArray array];
-    
+
     // 发帖的整个楼层 包含UserInfo 和 发帖内容
     IGXMLNodeSet *postMessages = [document queryWithXPath:@"//*[@id='posts']/div[*]"];
-    
+
     for (IGXMLNode *node in postMessages) {
-        
+
         // 重新构建Document 方便再次使用xPath 查询
         IGXMLDocument *postDocument = [[IGHTMLDocument alloc] initWithHTMLString:node.html error:nil];
-        
+
         //======= Post Conent======//
         Post *post = [[Post alloc] init];
-        
+
         // postId
-        IGXMLNode * postIdNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[1]/div[1]"].firstObject;
+        IGXMLNode *postIdNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[1]/div[1]"].firstObject;
         if (postIdNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             postIdNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[1]/div[1]"].firstObject;
         }
-        
+
         NSString *postId = [[[postIdNode attribute:@"id"] componentsSeparatedByString:@"postmenu_"] lastObject];
         post.postID = postId;
-        
+
         // post Time
         IGXMLNode *timeNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[1]/td[1]"].firstObject;
         if (timeNode == nil || timeNode.html.length < 50) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             timeNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[1]/td[1]"].firstObject;
         }
-        NSString * time = [[timeNode text] trim];
+        NSString *time = [[timeNode text] trim];
         post.postTime = [CommonUtils timeForShort:time withFormat:@"MM-dd-yyyy, HH:mm"];
         //post.postTime = time;
-        
+
         // post Louceng
-        IGXMLNode * loucengNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[1]/td[2]"].firstObject;
+        IGXMLNode *loucengNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[1]/td[2]"].firstObject;
         if (loucengNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             loucengNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[1]/td[2]"].firstObject;
         }
-        NSString * louceng = [[loucengNode text] trim];
+        NSString *louceng = [[loucengNode text] trim];
         post.postLouCeng = louceng;
-        
-        
+
+
         // post Content
         // 帖子内容 有三部分组成 1、message 2、attachments 3、edit note
-        IGXMLNode * messageNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[1]"].firstObject;
+        IGXMLNode *messageNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[1]"].firstObject;
         if (messageNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             messageNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[2]/div"].firstObject;
         }
-        NSString * message = [messageNode html];
-        
-        IGXMLNode * attchmentsNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[2]"].firstObject;
+        NSString *message = [messageNode html];
+
+        IGXMLNode *attchmentsNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[2]"].firstObject;
         if (attchmentsNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             attchmentsNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[2]/div[2]"].firstObject;
         }
-        NSString * attchments = [attchmentsNode html];
-        
-        IGXMLNode * editNoteNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[3]"].firstObject;
+        NSString *attchments = [attchmentsNode html];
+
+        IGXMLNode *editNoteNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[2]/div[3]"].firstObject;
         if (editNoteNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
             editNoteNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[2]/div[3]"].firstObject;
         }
-        NSString * editNote = [editNoteNode html];
-        NSString * postContent = message;
+        NSString *editNote = [editNoteNode html];
+        NSString *postContent = message;
         if (attchments != nil) {
             postContent = [postContent stringByAppendingString:attchments];
         }
@@ -717,109 +716,109 @@
             postContent = [postContent stringByAppendingString:editNote];
         }
         post.postContent = postContent;
-        
+
         //=======User Info======//
-        User * userInfo = [[User alloc] init];
-        
+        User *userInfo = [[User alloc] init];
+
         // user name
-        NSString * userNameXPath = [NSString stringWithFormat:@"//*[@id='postmenu_%@']/a", postId];
-        IGXMLNode * userNameNode = [postDocument queryWithXPath:userNameXPath].firstObject;
-        NSString * userName = [[userNameNode text] trim];
+        NSString *userNameXPath = [NSString stringWithFormat:@"//*[@id='postmenu_%@']/a", postId];
+        IGXMLNode *userNameNode = [postDocument queryWithXPath:userNameXPath].firstObject;
+        NSString *userName = [[userNameNode text] trim];
         userInfo.userName = userName;
-        
+
         // user id
-        NSString * userId = [[userNameNode attribute:@"href"] stringWithRegular:@"\\d+"];
+        NSString *userId = [[userNameNode attribute:@"href"] stringWithRegular:@"\\d+"];
         userInfo.userID = userId;
-        
+
         //*[@id="posts"]/div[*]/div/div/div/table/tr[2]/td[1]/div[4]/a/img
         //*[@id="posts"]/div[*]/div/div/div/table/tr[2]/td[1]/div[4]/a/img
         // user avatar                                          /html/body/div/div/div/table/tr[2]/td[1]/div[4]/a/img
-        
-        IGXMLNode * avatarNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[1]/div[2]/a/img"].firstObject;
+
+        IGXMLNode *avatarNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[1]/div[2]/a/img"].firstObject;
         if (avatarNode == nil) {
             // /html/body/div/div/div/table/tr[2]/td[1]/div[2]/a/img
             avatarNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[1]/div[*]/a/img"].firstObject;
         }
         if (avatarNode == nil) {
             userInfo.userAvatar = @"/no_avatar.gif";;
-        } else{
+        } else {
             NSString *avatar = [avatarNode attribute:@"src"];
             userInfo.userAvatar = [avatar componentsSeparatedByString:@"customavatars"].lastObject;
         }
-        
+
         post.postUserInfo = userInfo;
-        
+
         // 添加数据
         [posts addObject:post];
     }
-    
+
     return posts;
 }
 
 // private 修改字体大小统一为2
--(NSString *) fixedFontSize:(NSString *) html{
-    NSArray * fontSetString = [html arrayWithRegular:@"<font size=\"\\d+\">"];
-    
-    NSString * fixFontSizeHTML= html;
-    for (NSString * tmp in fontSetString) {
+- (NSString *)fixedFontSize:(NSString *)html {
+    NSArray *fontSetString = [html arrayWithRegular:@"<font size=\"\\d+\">"];
+
+    NSString *fixFontSizeHTML = html;
+    for (NSString *tmp in fontSetString) {
         fixFontSizeHTML = [fixFontSizeHTML stringByReplacingOccurrencesOfString:tmp withString:@"<font size=\"\2\">"];
     }
     return fixFontSizeHTML;
 }
 
 // private 修改链接
--(NSString *) fixedLink:(NSString *) html{
+- (NSString *)fixedLink:(NSString *)html {
     // 去掉_http hxxp
-    NSString * fuxkHttp = html;
-    NSArray * httpArray = [html arrayWithRegular:@"(_http|hxxp|_https|hxxps)://[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?"];
-    NSString * httpPattern = @"<a href=\"%@\" target=\"_blank\">%@</a>";
-    for (NSString * http in httpArray) {
-        NSString * fixedHttp = [http stringByReplacingOccurrencesOfString:@"_http://" withString:@"http://"];
+    NSString *fuxkHttp = html;
+    NSArray *httpArray = [html arrayWithRegular:@"(_http|hxxp|_https|hxxps)://[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?"];
+    NSString *httpPattern = @"<a href=\"%@\" target=\"_blank\">%@</a>";
+    for (NSString *http in httpArray) {
+        NSString *fixedHttp = [http stringByReplacingOccurrencesOfString:@"_http://" withString:@"http://"];
         fixedHttp = [fixedHttp stringByReplacingOccurrencesOfString:@"hxxp://" withString:@"http://"];
         fixedHttp = [fixedHttp stringByReplacingOccurrencesOfString:@"hxxps://" withString:@"https://"];
         fixedHttp = [fixedHttp stringByReplacingOccurrencesOfString:@"_https://" withString:@"https://"];
-        
-        NSString * patterned = [NSString stringWithFormat:httpPattern, fixedHttp, fixedHttp];
+
+        NSString *patterned = [NSString stringWithFormat:httpPattern, fixedHttp, fixedHttp];
         fuxkHttp = [fuxkHttp stringByReplacingOccurrencesOfString:http withString:patterned];
-        
+
     }
     return fuxkHttp;
 }
 
 // private
-- (NSString *) fixedCodeBlodk:(NSString *)html{
-    
+- (NSString *)fixedCodeBlodk:(NSString *)html {
+
     NSString *fixed = [html stringByReplacingOccurrencesOfString:@"<div style=\"margin:20px; margin-top:5px\">" withString:@"<div style=\"overflow-x: hidden\"><div style=\"margin:20px; margin-top:5px\">"];
     return fixed;
 }
 
 // private
-- (NSString*) fixedImage:(NSString *)html{
-    
+- (NSString *)fixedImage:(NSString *)html {
+
     NSString *fixedImage = html;
-    
-    NSArray * images = [html arrayWithRegular:@"<a href=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" target=\"_blank\"><img class=\"attach\" src=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" border=\"0\" alt=\"\" /></a>"];
-    
-    for (NSString * image in images) {
-        NSString * imageSrc = [image stringWithRegular:@"<img class=\"attach\" src=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" border=\"0\" alt=\"\" />"];
+
+    NSArray *images = [html arrayWithRegular:@"<a href=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" target=\"_blank\"><img class=\"attach\" src=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" border=\"0\" alt=\"\" /></a>"];
+
+    for (NSString *image in images) {
+        NSString *imageSrc = [image stringWithRegular:@"<img class=\"attach\" src=\"attachment.php\\?attachmentid=\\d+&amp;stc=1\" border=\"0\" alt=\"\" />"];
         fixedImage = [fixedImage stringByReplacingOccurrencesOfString:image withString:imageSrc];
     }
     return fixedImage;
 }
 
 // private
-- (NSString *) fixedQuote:(NSString *)html{
+- (NSString *)fixedQuote:(NSString *)html {
 
     NSString *result = [html stringByReplacingOccurrencesOfString:@"<div style=\"overflow: auto; height: 100px; padding: 2px;\" id=\"quote_d\">" withString:@"<div id=\"quote_d\">"];
     return result;
 }
 
-- (PageNumber *) pageNumber:(NSString *) html{
+- (PageNumber *)pageNumber:(NSString *)html {
     NSString *pageStr = [html stringWithRegular:@"(?<=/> -->)第\\d+页 共\\d+页(?=</td>)"];
-    PageNumber * pageNumber = [[PageNumber alloc] init];
+    PageNumber *pageNumber = [[PageNumber alloc] init];
     int currentPageNumber = [[[pageStr componentsSeparatedByString:@" "][0] stringWithRegular:@"\\d+"] intValue];
     int totalPageNumber = [[[pageStr componentsSeparatedByString:@" "][1] stringWithRegular:@"\\d+"] intValue];
-    if (currentPageNumber == 0 || totalPageNumber == 0){
+    if (currentPageNumber == 0 || totalPageNumber == 0) {
         currentPageNumber = 1;
         totalPageNumber = 1;
     }
@@ -858,11 +857,11 @@
 // private
 - (NSString *)parseTitle:(NSString *)html {
     NSString *searchText = html;
-    
+
     NSString *pattern = @"<a href=\"showthread.php\\?t.*";
-    
+
     NSRange range = [searchText rangeOfString:pattern options:NSRegularExpressionSearch];
-    
+
     if (range.location != NSNotFound) {
         //NSLog(@"%@", [searchText substringWithRange:range]);
         return [searchText substringWithRange:range];
@@ -872,9 +871,9 @@
 
 - (NSString *)parseSecurityToken:(NSString *)html {
     NSString *searchText = html;
-    
+
     NSRange range = [searchText rangeOfString:@"\\d{10}-\\S{40}" options:NSRegularExpressionSearch];
-    
+
     if (range.location != NSNotFound) {
         NSLog(@"parseSecurityToken   %@", [searchText substringWithRange:range]);
         return [searchText substringWithRange:range];
@@ -884,20 +883,20 @@
 
 - (NSString *)parsePostHash:(NSString *)html {
     NSString *hash = [html stringWithRegular:@"<input type=\"hidden\" name=\"posthash\" value=\"\\w{32}\" />" andChild:@"\\w{32}"];
-    
+
     return hash;
 }
 
 // for drl
 - (NSString *)parserPostStartTime:(NSString *)html {
-    NSString * startTime = [html stringWithRegular:@"<input type=\"hidden\" name=\"poststarttime\" value=\"\\d+\" />" andChild:@"\\d+"];
+    NSString *startTime = [html stringWithRegular:@"<input type=\"hidden\" name=\"poststarttime\" value=\"\\d+\" />" andChild:@"\\d+"];
     return startTime;
 }
 
 - (NSString *)parseLoginErrorMessage:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNodeSet *contents = [document queryWithXPath:@"/html/body/div[2]/div/div/table[3]/tr[2]/td/div/div/div"];
-    
+
     return contents.firstObject.text;
 }
 
@@ -910,9 +909,9 @@
 // for drl
 - (ViewForumPage *)parsePrivateMessageFromHtml:(NSString *)html {
     ViewForumPage *page = [[ViewForumPage alloc] init];
-    
+
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    
+
 
     PageNumber *pageNumber = [self pageNumber:html];
 
@@ -926,28 +925,28 @@
         if (childCount == 4) {
             // 有4个节点说明是正常的站内短信
             Message *message = [[Message alloc] init];
-            
+
             IGXMLNodeSet *children = [node children];
             // 1. 是不是未读短信
             IGXMLNode *unreadFlag = children[0];
             message.isReaded = ![[unreadFlag html] containsString:@"pm_new.gif"];
-            
+
             // 2. 标题
             IGXMLNode *title = [children[2] children][0];
             NSString *titleStr = [[title children][1] text];
             message.pmTitle = titleStr;
-            
+
             NSString *messageLink = [[[title children][1] attribute:@"href"] stringWithRegular:@"\\d+"];
             message.pmID = messageLink;
-            
-            
+
+
             NSString *timeDay = [[title children][0] text];
-            
+
             // 3. 发送PM作者
             IGXMLNode *author = [children[2] children][1];
             NSString *authorText = [[author children][1] text];
             message.pmAuthor = [authorText trim];
-            
+
             // 4. 发送者ID
             NSString *authorId;
             if (message.isReaded) {
@@ -960,18 +959,18 @@
                 authorId = [authorId stringWithRegular:@"\\d+"];
             }
             message.pmAuthorId = authorId;
-            
+
             // 5. 时间
             NSString *timeHour = [[author children][0] text];
             message.pmTime = [[timeDay stringByAppendingString:@" "] stringByAppendingString:timeHour];
-            
+
             [messagesList addObject:message];
-            
+
         }
     }
-    
+
     page.dataList = messagesList;
-    
+
     return page;
 }
 
@@ -992,17 +991,17 @@
     parent.forumId = fixForumId;
     parent.parentForumId = parentFormId;
     parent.forumName = name;
-    
+
     if (node.childrenCount == 2) {
         IGXMLNodeSet *childSet = [node childAt:1].children;
         NSMutableArray<Forum *> *childForms = [NSMutableArray array];
-        
+
         for (IGXMLNode *childNode in childSet) {
             [childForms addObject:[self node2Form:childNode parentFormId:fixForumId replaceId:replaceId]];
         }
         parent.childForums = childForms;
     }
-    
+
     return parent;
 }
 
@@ -1016,18 +1015,16 @@
     return resultArray;
 }
 
-- (BOOL) isSpecial{
-    if (loginUser == nil){
-        NSString * url = localApi.currentForumHost;
+- (BOOL)isSpecial {
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
         loginUser = [localApi getLoginUser:url];
     }
     return [loginUser.userName isEqualToString:@"马小甲"];
 }
 
-- (NSArray *) blackList{
-    return @[@"〖软件会员区〗",@"软件会员区精华",@"〖影视会员区〗",@"DVDR 介绍区",@"连续剧介绍区",@"动漫介绍区",@"影视讨论精华区",@"高清影视",@"〖交易信息〗",@"团购及商业性交易"
-            ,@"优惠快讯版",@"身份备案",@"Archive",@"争议协调",@"DRL-X 讨论",@"0day warez介绍",@"〖杰出会员评选〗",@"〖羊毛〗"
-                                                                                         ,@"〖补档交流区〗",@"Archive",@"〖FTP资源〗",@"DRL-X",@"【论坛工作区】"];
+- (NSArray *)blackList {
+    return @[@"〖软件会员区〗", @"软件会员区精华", @"〖影视会员区〗", @"DVDR 介绍区", @"连续剧介绍区", @"动漫介绍区", @"影视讨论精华区", @"高清影视", @"〖交易信息〗", @"团购及商业性交易", @"优惠快讯版", @"身份备案", @"Archive", @"争议协调", @"DRL-X 讨论", @"0day warez介绍", @"〖杰出会员评选〗", @"〖羊毛〗", @"〖补档交流区〗", @"Archive", @"〖FTP资源〗", @"DRL-X", @"【论坛工作区】"];
 }
 
 @end

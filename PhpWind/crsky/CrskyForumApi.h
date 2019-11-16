@@ -9,6 +9,6 @@
 #import "ForumBrowser.h"
 #import "ForumApiDelegate.h"
 
-@interface CrskyForumApi : ForumBrowser<ForumApiDelegate>
+@interface CrskyForumApi : ForumBrowser <ForumApiDelegate>
 
 @end

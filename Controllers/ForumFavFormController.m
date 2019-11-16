@@ -46,8 +46,8 @@
             self.dataList = message;
             [self.tableView reloadData];
 
-            NSMutableArray * ids = [NSMutableArray array];
-            for (Forum *forum in message){
+            NSMutableArray *ids = [NSMutableArray array];
+            for (Forum *forum in message) {
                 [ids addObject:@(forum.forumId)];
             }
             LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -64,7 +64,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 97.0;
 
-    if ([self isNeedHideLeftMenu]){
+    if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
     }
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
@@ -73,8 +73,8 @@
             self.dataList = message;
             [self.tableView reloadData];
 
-            NSMutableArray * ids = [NSMutableArray array];
-            for (Forum *forum in message){
+            NSMutableArray *ids = [NSMutableArray array];
+            for (Forum *forum in message) {
                 [ids addObject:@(forum.forumId)];
             }
             [localForumApi saveFavFormIds:ids];
@@ -136,7 +136,7 @@
 
     cell.textLabel.text = form.forumName;
 
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,16,0,16);
+    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
     [cell setSeparatorInset:edgeInsets];
     [cell setLayoutMargins:UIEdgeInsetsZero];
 
@@ -155,7 +155,7 @@
 
     [self.forumApi unFavouriteForumWithId:[NSString stringWithFormat:@"%d", parent.forumId] handler:^(BOOL isSuccess, id message) {
 
-        if (isSuccess){
+        if (isSuccess) {
             [self.dataList removeObjectAtIndex:(NSUInteger) cell.indexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2f];
@@ -166,7 +166,7 @@
     return YES;
 }
 
--(void)reloadData{
+- (void)reloadData {
     [self.tableView reloadData];
 };
 

@@ -56,16 +56,16 @@
 
     // scrollView
     self.webView.scrollView.delegate = self;
-    
+
     self.webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 
         // 0 群发公共消息 1 普通收件 2 发给别人的消息
-        
+
         int type = 1;
-        
+
         if (mType == 0) {
             type = 1;
-            if ([transPrivateMessage.pmAuthorId isEqualToString:@"-1"]){
+            if ([transPrivateMessage.pmAuthorId isEqualToString:@"-1"]) {
                 type = 0;
             }
         } else {
@@ -75,14 +75,14 @@
         [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmID intValue] withType:type handler:^(BOOL isSuccess, id message) {
 
             ViewMessagePage *content = message;
-            ViewMessage * oneMessage = content.viewMessages.firstObject;
+            ViewMessage *oneMessage = content.viewMessages.firstObject;
 
             NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, oneMessage.pmUserInfo.userID, oneMessage.pmUserInfo.userAvatar,
-                    oneMessage.pmUserInfo.userName, oneMessage.pmTime, oneMessage.pmContent];
+                                                            oneMessage.pmUserInfo.userName, oneMessage.pmTime, oneMessage.pmContent];
 
             NSString *html = [NSString stringWithFormat:THREAD_PAGE, oneMessage.pmTitle, postInfo, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
-            LocalForumApi * localeForumApi = [[LocalForumApi alloc] init];
+            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
             [self.webView.scrollView.mj_header endRefreshing];

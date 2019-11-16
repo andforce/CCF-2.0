@@ -35,7 +35,7 @@
         [self setImage:leftImage forState:UIControlStateNormal];
         [self setImage:leftImageTint forState:UIControlStateHighlighted];
         [self setImage:leftImageTint forState:UIControlStateSelected];
-        
+
         NSString *text = self.titleLabel.text;
         [self setTitle:text forState:UIControlStateNormal];
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -75,7 +75,7 @@
         } else {
             leftImageTint = [leftImage imageWithTintColorCompat:blueHighLightColor];
         }
-        
+
         [self setImage:leftImage forState:UIControlStateNormal];
         [self setImage:leftImageTint forState:UIControlStateHighlighted];
         [self setImage:leftImageTint forState:UIControlStateSelected];
@@ -106,7 +106,7 @@
 
 
 - (void)didMoveToSuperview {
-    
+
     UIView *superView = [self superview];
     CGRect rect = superView.frame;
 

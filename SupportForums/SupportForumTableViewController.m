@@ -16,7 +16,7 @@
 #import "PayManager.h"
 #import "ForumSupportNavigationController.h"
 
-@interface SupportForumTableViewController ()<CAAnimationDelegate>{
+@interface SupportForumTableViewController () <CAAnimationDelegate> {
     LocalForumApi *localForumApi;
 }
 
@@ -44,7 +44,7 @@
         } else {
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
             UIViewController *rootViewController = window.rootViewController;
-            if ([rootViewController isKindOfClass:[ForumSupportNavigationController class]]){
+            if ([rootViewController isKindOfClass:[ForumSupportNavigationController class]]) {
                 self.navigationItem.leftBarButtonItem.image = nil;
                 self.navigationItem.leftBarButtonItem.title = @"";
             } else {
@@ -59,7 +59,7 @@
 
 }
 
-- (BOOL) canBack{
+- (BOOL)canBack {
     return self.presentingViewController != nil;
 }
 
@@ -98,11 +98,11 @@
 
     cell.textLabel.text = forums.name;
 
-    NSString * login = [localForumApi isHaveLogin:forums.host] ? @"已登录" : @"未登录";
+    NSString *login = [localForumApi isHaveLogin:forums.host] ? @"已登录" : @"未登录";
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\t~\t%@", forums.host.uppercaseString, login];
     forums.host;
 
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,16,0,16);
+    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
     [cell setSeparatorInset:edgeInsets];
     [cell setLayoutMargins:UIEdgeInsetsZero];
     return cell;
@@ -121,14 +121,14 @@
         Forum *select = self.dataList[(NSUInteger) path.section];
         Forum *child = select.childForums[(NSUInteger) path.row];
 
-        TransBundle * bundle = [[TransBundle alloc] init];
+        TransBundle *bundle = [[TransBundle alloc] init];
         [bundle putObjectValue:child forKey:@"TransForm"];
         [self transBundle:bundle forController:controller];
 
     }
 }
 
-- (BOOL)isUserHasLogin:(NSString*)host {
+- (BOOL)isUserHasLogin:(NSString *)host {
     // 判断是否登录
     return [[[LocalForumApi alloc] init] isHaveLogin:host];
 }
@@ -136,12 +136,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+
 
     if (YES) {
         Forums *forums = self.dataList[(NSUInteger) indexPath.row];
 
-        NSURL * url = [NSURL URLWithString:forums.url];
+        NSURL *url = [NSURL URLWithString:forums.url];
 
         LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
         [localForumApi saveCurrentForumURL:forums.url];
@@ -151,11 +151,11 @@
             UIStoryboard *mainStoryboard = [UIStoryboard mainStoryboard];
             [mainStoryboard changeRootViewControllerTo:@"ForumTabBarControllerId"];
 
-        } else{
+        } else {
 
-            id<ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+            id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
 
-            NSString * cId = forumConfig.loginControllerId;
+            NSString *cId = forumConfig.loginControllerId;
             [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId withAnim:UIViewAnimationOptionTransitionFlipFromTop];
         }
     } else {
@@ -177,18 +177,18 @@
 
     LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
 
-    if (![localForumApi isHaveLogin:localForumApi.currentForumHost]){
-        NSArray<Forums *> * loginForums = localForumApi.loginedSupportForums;
-        if(loginForums != nil && loginForums.count >0){
+    if (![localForumApi isHaveLogin:localForumApi.currentForumHost]) {
+        NSArray<Forums *> *loginForums = localForumApi.loginedSupportForums;
+        if (loginForums != nil && loginForums.count > 0) {
             [localForumApi saveCurrentForumURL:loginForums.firstObject.url];
         }
     }
 
-    if ([localForumApi isHaveLoginForum]){
-        if (self.canBack){
+    if ([localForumApi isHaveLoginForum]) {
+        if (self.canBack) {
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [self dismissViewControllerAnimated:YES completion:nil  ];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     } else {
         //[self exitApplication];
@@ -196,14 +196,14 @@
 }
 
 - (void)exitApplication {
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    AppDelegate *app = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UIWindow *window = app.window;
-    
-    CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
+
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
     rotationAnimation.delegate = self;
 
-    rotationAnimation.fillMode=kCAFillModeForwards;
-    
+    rotationAnimation.fillMode = kCAFillModeForwards;
+
     rotationAnimation.removedOnCompletion = NO;
     //旋转角度
     rotationAnimation.toValue = @((float) (M_PI / 2));
@@ -215,7 +215,7 @@
     [window.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
--(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     exit(0);
 }
 

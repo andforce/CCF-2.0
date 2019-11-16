@@ -14,7 +14,7 @@
 
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
-typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
+typedef void (^EnterNewThreadCallBack)(NSString *responseHtml, NSString *post_hash, NSString *forum_hash, NSString *posttime,
         NSString *seccodehash, NSString *seccodeverify, NSDictionary *typeidList);
 
 @protocol ForumApiBaseDelegate <NSObject>
@@ -38,7 +38,7 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 - (void)listFavoriteForums:(HandlerWithBool)handler;
 
 // 获取收藏的主题帖子
-- (void)listFavoriteThreads:(int)userId withPage:(int) page handler:(HandlerWithBool)handler;
+- (void)listFavoriteThreads:(int)userId withPage:(int)page handler:(HandlerWithBool)handler;
 
 // 显示我发表的主题
 - (void)listMyAllThreadsWithPage:(int)page handler:(HandlerWithBool)handler;
@@ -68,13 +68,13 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 // 查看新帖
 - (void)listNewThreadWithPage:(int)page handler:(HandlerWithBool)handler;
 
-- (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type  handler:(HandlerWithBool)handler;
+- (void)listSearchResultWithSearchId:(NSString *)searchId keyWord:(NSString *)keyWord andPage:(int)page type:(int)type handler:(HandlerWithBool)handler;
 
 
 // 举报违规帖子
 - (void)reportThreadPost:(int)postId andMessage:(NSString *)message handler:(HandlerWithBool)handler;
 
-- (BOOL) openUrlByClient:(ForumWebViewController *) controller request:(NSURLRequest *)request;
+- (BOOL)openUrlByClient:(ForumWebViewController *)controller request:(NSURLRequest *)request;
 
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback;
 
@@ -84,7 +84,7 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
 
 // 根据PM ID 显示一条私信内容
 // 0 系统短信   1 正常私信
-- (void)showPrivateMessageContentWithId:(int)pmId withType:(int ) type handler:(HandlerWithBool)handler;
+- (void)showPrivateMessageContentWithId:(int)pmId withType:(int)type handler:(HandlerWithBool)handler;
 
 // 发送站内短信
 - (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
@@ -97,7 +97,7 @@ typedef void (^EnterNewThreadCallBack)(NSString * responseHtml, NSString *post_h
                           withTitle:(NSString *)title
                          andMessage:(NSString *)message
                          withImages:(NSArray *)images
-                             inPage:(ViewForumPage *) page
+                             inPage:(ViewForumPage *)page
                             handler:(HandlerWithBool)handler;
 
 @end

@@ -13,6 +13,6 @@
 
 - (NSString *)cookieExpTimeKey;
 
-- (NSString *) signature;
+- (NSString *)signature;
 
 @end
