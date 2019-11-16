@@ -10,7 +10,6 @@
 #import <AFNetworking/AFImageDownloader.h>
 #import "LCActionSheet.h"
 #import "ActionSheetStringPicker.h"
-#import "AFNetworking.h"
 #import "UIImage+Tint.h"
 #import "LocalForumApi.h"
 #import "PayManager.h"

@@ -14,7 +14,6 @@
 #import "UIStoryboard+Forum.h"
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
-#import "ViewMessage.h"
 
 @interface ForumDiscuzShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TransBundleDelegate> {
 

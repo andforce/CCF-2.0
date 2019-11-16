@@ -9,7 +9,6 @@
 #import <MJRefresh.h>
 #import <NYTPhotosViewController.h>
 #import <NYTPhotoViewer/NYTPhoto.h>
-#import <SVProgressHUD/SVProgressHUD.h>
 #import "NYTExamplePhoto.h"
 #import "LCActionSheet.h"
 #import "UIStoryboard+Forum.h"

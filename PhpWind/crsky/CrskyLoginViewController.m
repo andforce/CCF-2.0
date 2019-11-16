@@ -9,7 +9,6 @@
 #import "CrskyLoginViewController.h"
 #import "ForumEntry+CoreDataClass.h"
 #import "ForumCoreDataManager.h"
-#import "AppDelegate.h"
 #import "UIStoryboard+Forum.h"
 #import "LocalForumApi.h"
 

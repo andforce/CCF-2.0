@@ -16,7 +16,6 @@
 #import "LocalForumApi.h"
 #import "Message.h"
 #import "CommonUtils.h"
-#import "ViewMessage.h"
 #import "IGXMLNode+QueryNode.h"
 #import "LoginUser.h"
 

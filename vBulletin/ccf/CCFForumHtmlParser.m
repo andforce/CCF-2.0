@@ -15,7 +15,6 @@
 #import "AppDelegate.h"
 #import "LocalForumApi.h"
 #import "CommonUtils.h"
-#import "ViewMessage.h"
 
 @implementation CCFForumHtmlParser {
 

@@ -4,7 +4,6 @@
 //
 
 #import "ViewMessage.h"
-#import "User.h"
 
 
 @implementation ViewMessage {

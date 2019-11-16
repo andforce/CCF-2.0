@@ -15,7 +15,6 @@
 #import "CommonUtils.h"
 #import "Message.h"
 #import "LoginUser.h"
-#import "ViewMessage.h"
 
 @implementation CrskyForumHtmlParser {
     LocalForumApi *localApi;

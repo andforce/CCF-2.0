@@ -22,7 +22,6 @@
 #import "TransBundle.h"
 #import "UIStoryboard+Forum.h"
 #import "ForumWebViewController.h"
-#import "ViewMessage.h"
 
 @implementation CrskyForumApi {
     CrskyForumConfig *forumConfig;

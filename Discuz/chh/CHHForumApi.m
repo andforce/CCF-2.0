@@ -15,7 +15,6 @@
 #import "LocalForumApi.h"
 #import "NSString+Extensions.h"
 #import "IGXMLNode+Children.h"
-#import "ViewMessage.h"
 
 typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttime);
 
