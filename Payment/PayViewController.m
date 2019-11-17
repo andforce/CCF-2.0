@@ -25,7 +25,7 @@
 - (IBAction)pay:(UIBarButtonItem *)sender {
 
     if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [ProgressDialog showSuccess:@"您已订阅"];
+        [ProgressDialog showSuccess:@"您已解锁"];
         return;
     }
 
@@ -33,10 +33,10 @@
 
     [_payManager payForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
         if (isSuccess) {
-            [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
-            [ProgressDialog showSuccess:@"订阅成功"];
+            [restorePayBtn setTitle:@"您已解锁" forState:UIControlStateNormal];
+            [ProgressDialog showSuccess:@"解锁成功"];
         } else {
-            [ProgressDialog showError:@"订阅失败"];
+            [ProgressDialog showError:@"解锁失败"];
         }
     }];
 
@@ -45,17 +45,17 @@
 - (IBAction)restorePay:(UIButton *)sender {
 
     if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [ProgressDialog showStatus:@"您已订阅"];
+        [ProgressDialog showStatus:@"您已解锁"];
         return;
     }
     [ProgressDialog show];
 
     [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
         if (isSuccess) {
-            [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
-            [ProgressDialog showSuccess:@"订阅成功"];
+            [restorePayBtn setTitle:@"您已解锁" forState:UIControlStateNormal];
+            [ProgressDialog showSuccess:@"解锁成功"];
         } else {
-            [ProgressDialog showError:@"订阅失败"];
+            [ProgressDialog showError:@"解锁失败"];
         }
     }];
 }
@@ -87,9 +87,9 @@
     _payManager = [PayManager shareInstance];
 
     if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
+        [restorePayBtn setTitle:@"您已解锁" forState:UIControlStateNormal];
     } else {
-        [restorePayBtn setTitle:@"恢复之前的订阅" forState:UIControlStateNormal];
+        [restorePayBtn setTitle:@"恢复之前的购买" forState:UIControlStateNormal];
     }
 
     if (self.canBack) {

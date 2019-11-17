@@ -205,7 +205,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     if (![_payManager hasPayed:[_localForumApi currentProductID]]) {
-        [self showFailedMessage:@"未订阅用户无法发新帖"];
+        [self showFailedMessage:@"发新帖需要解锁高级功能"];
     }
 }
 
@@ -214,7 +214,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"操作受限" message:message preferredStyle:UIAlertControllerStyleAlert];
 
 
-    UIAlertAction *showPayPage = [UIAlertAction actionWithTitle:@"订阅" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *showPayPage = [UIAlertAction actionWithTitle:@"解锁" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 
         UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowPayPage"];
 

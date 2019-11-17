@@ -51,11 +51,6 @@
 
     }];
 
-//    if ([_payManager hasPayed:_localForumApi.currentProductID]){
-//        [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
-//    } else {
-//        [restorePayBtn setTitle:@"恢复之前的订阅" forState:UIControlStateNormal];
-//    }
     if (self.canBack) {
         self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"ic_arrow_back_18pt"];
     } else {
@@ -72,19 +67,13 @@
 
 - (IBAction)pay:(UIBarButtonItem *)sender {
 
-//    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-//        [ProgressDialog showSuccess:@"您已订阅"];
-//        return;
-//    }
-
     [ProgressDialog show];
 
     [_payManager payForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
         if (isSuccess) {
-            //[restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
-            [ProgressDialog showSuccess:@"订阅成功"];
+            [ProgressDialog showSuccess:@"解锁成功"];
         } else {
-            [ProgressDialog showError:@"订阅失败"];
+            [ProgressDialog showError:@"解锁失败"];
         }
     }];
 
@@ -93,17 +82,16 @@
 - (IBAction)restorePay:(id)sender {
 
     if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [ProgressDialog showStatus:@"您已订阅"];
+        [ProgressDialog showStatus:@"您已解锁"];
         return;
     }
     [ProgressDialog show];
 
     [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
         if (isSuccess) {
-            //[restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
-            [ProgressDialog showSuccess:@"订阅成功"];
+            [ProgressDialog showSuccess:@"解锁成功"];
         } else {
-            [ProgressDialog showError:@"订阅失败"];
+            [ProgressDialog showError:@"解锁失败"];
         }
     }];
 }
