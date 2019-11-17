@@ -10,12 +10,16 @@
 
 typedef void (^PayHandler)(BOOL isSuccess);
 
+typedef void (^StatusHandler)(int status);
+
+typedef void (^TimeHaveHandler)(long timeHave);
+
 typedef void (^VerifyHandler)(NSDictionary *response);
 
 + (instancetype)shareInstance;
 
 
-- (void)verifyPay:(NSString *)productID with:(VerifyHandler)handler;
+- (void)verifyPay:(NSString *)productID with:(TimeHaveHandler)handler;
 
 - (void)payForProductID:(NSString *)productID with:(PayHandler)handler;
 

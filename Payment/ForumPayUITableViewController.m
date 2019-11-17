@@ -46,6 +46,10 @@
     _localForumApi = [[LocalForumApi alloc] init];
     // payManager
     _payManager = [PayManager shareInstance];
+    
+    [_payManager verifyPay:_localForumApi.currentProductID with:^(long timeHave) {
+
+    }];
 
 //    if ([_payManager hasPayed:_localForumApi.currentProductID]){
 //        [restorePayBtn setTitle:@"您已订阅" forState:UIControlStateNormal];
@@ -68,10 +72,10 @@
 
 - (IBAction)pay:(UIBarButtonItem *)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [ProgressDialog showSuccess:@"您已订阅"];
-        return;
-    }
+//    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
+//        [ProgressDialog showSuccess:@"您已订阅"];
+//        return;
+//    }
 
     [ProgressDialog show];
 

@@ -47,22 +47,22 @@ static BOOL PAY_DEBUG = NO;
 
 
     // 向服务器验证订阅情况
-//    PayManager * payManager = [PayManager shareInstance];
-//    [payManager verifyPay:localForumApi.currentProductID with:^(NSDictionary *response) {
-//
-//        if (response == nil || [response[@"status"] intValue] != 0){
-//            [payManager setPayed:FALSE for:localForumApi.currentProductID];
-//            NSLog(@"not payed");
-//            
+    PayManager * payManager = [PayManager shareInstance];
+    [payManager verifyPay:localForumApi.currentProductID with:^(long timeHave) {
+
+        if (timeHave == 0){
+            [payManager setPayed:FALSE for:localForumApi.currentProductID];
+            NSLog(@"not payed");
+
 //            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
 //            ForumPayUITableViewController *payUiTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ForumPayUITableViewControllerID"];
 //            [self.window.rootViewController.navigationController pushViewController:payUiTableViewController animated:YES];
-//
-//        } else {
-//            [payManager setPayed:TRUE for:localForumApi.currentProductID];
-//            NSLog(@"payed success");
-//        }
-//    }];
+
+        } else {
+            [payManager setPayed:TRUE for:localForumApi.currentProductID];
+            NSLog(@"payed success");
+        }
+    }];
 
 
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:200 * 1024 * 1024 diskCapacity:1024 * 1024 * 1024 diskPath:nil];

@@ -79,7 +79,6 @@ static PayManager *_instance = nil;
 
 
 - (BOOL)hasPayed:(NSString *)productID {
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL isPayed = [defaults boolForKey:productID];
     return isPayed;
@@ -95,6 +94,7 @@ static PayManager *_instance = nil;
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
+#pragma mark - SKPaymentTransactionObserver
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
     for (SKPaymentTransaction *tran in transactions) {
@@ -102,23 +102,16 @@ static PayManager *_instance = nil;
             case SKPaymentTransactionStatePurchased: {
                 NSLog(@"交易完成");
                 // 发送到苹果服务器验证凭证
-                [self verifyPay:_currentProductID with:^(NSDictionary *response) {
+
+                [self checkPay:_currentProductID with:^(int code) {
                     [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-
-                    if (response == nil){
-                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:_currentProductID];
-                        [self handleResult:FALSE];
-                        return;
-                    }
-                    int code = [response[@"status"] intValue];
-
 
                     // 保存购买购买状态
                     [self setPayed:code == 0 for:_currentProductID];
                     [self handleResult:code == 0];
 
-                    switch (code){
-                        case 0:{
+                    switch (code) {
+                        case 0: {
 //                            NSDictionary *dicReceipt = response[@"receipt"];
 //                            NSDictionary *dicInApp = [dicReceipt[@"in_app"] firstObject];
 //                            NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
@@ -132,23 +125,20 @@ static PayManager *_instance = nil;
 //                            }
 //                            //在此处对购买记录进行存储，可以存储到开发商的服务器端
 
-                            NSLog(@"购买成功！\t%@", response);
+                            NSLog(@"购买成功!");
                             break;
                         }
-                        case 21002:{
+                        case 21002: {
                             // 没有购买
                             NSLog(@"从未购买过商品");
                             break;
                         }
 
-                        default:{
+                        default: {
                             NSLog(@"购买失败，未通过验证！");
                         }
                     }
-
                 }];
-
-
             }
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -178,7 +168,8 @@ static PayManager *_instance = nil;
     NSLog(@"didFailWithError ：%@", error.localizedDescription);
 }
 
-// request Response
+#pragma mark - SKProductsRequestDelegate
+
 - (void)productsRequest:(nonnull SKProductsRequest *)request didReceiveResponse:(nonnull SKProductsResponse *)response {
     NSArray *product = response.products;
     if ([product count] == 0) {
@@ -203,7 +194,7 @@ static PayManager *_instance = nil;
 
     SKPayment *payment = [SKPayment paymentWithProduct:p];
 
-    if (isRestore){
+    if (isRestore) {
         NSLog(@"发送恢复购买请求");
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 
@@ -211,7 +202,6 @@ static PayManager *_instance = nil;
         NSLog(@"发送购买请求");
         [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
-
 }
 
 
@@ -233,9 +223,9 @@ static PayManager *_instance = nil;
     }
 }
 
-- (BOOL) isSandbox:(SKPaymentTransaction *)transaction{
-    NSString * str = [[NSString alloc]initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
-    NSString *environment=[self environmentForReceipt:str];
+- (BOOL)isSandbox:(SKPaymentTransaction *)transaction {
+    NSString *str = [[NSString alloc] initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
+    NSString *environment = [self environmentForReceipt:str];
     return [environment containsString:@"environment=Sandbox"];
 }
 
@@ -264,30 +254,103 @@ static PayManager *_instance = nil;
 #define AppStore @"https://buy.itunes.apple.com/verifyReceipt"
 
 // 验证购买，避免越狱软件模拟苹果请求达到非法购买问题, 先验证Appstore版本，如果失败了再验证沙盒
-- (void)verifyPay:(NSString *)productID with:(VerifyHandler)handler {
+- (void)verifyPay:(NSString *)productID with:(TimeHaveHandler)handler {
     _currentProductID = productID;
 
     NSLog(@"verify->:\tproductID:%@", _currentProductID);
 
-    [self verifyWithUrl:[NSURL URLWithString:AppStore] handler:^(NSDictionary *response) {
-        if (response) {
-            NSLog(@"verify->:\tAppStore 环境:%@", response);
+    [PayManager getInternetDateWithSuccess:SANDBOX handle:^(NSDate *netDate) {
+        [self verifyWithUrl:[NSURL URLWithString:AppStore] handler:^(NSDictionary *response) {
+            if (response) {
+                NSLog(@"verify->:\tAppStore 环境:%@", response);
 
-            // 21007 说明是沙河下的收据却拿到正式环境进行了验证，因此需要重新在沙河下进行验证
-            if ([response[@"status"] intValue] == 21007) {
-                [self verifyWithUrl:[NSURL URLWithString:SANDBOX] handler:^(NSDictionary *response) {
-                    NSLog(@"verify->:\tSandbox 环境:%@", response);
-                    handler(response);
-                }];
-                return;
+                // 21007 说明是沙河下的收据却拿到正式环境进行了验证，因此需要重新在沙河下进行验证
+                if ([response[@"status"] intValue] == 21007) {
+                    [self verifyWithUrl:[NSURL URLWithString:SANDBOX] handler:^(NSDictionary *responseSandbox) {
+                        NSLog(@"verify->:\tSandbox 环境:%@", responseSandbox);
+                        if ([responseSandbox[@"status"] intValue] == 0){
+                            NSDictionary * receipt = responseSandbox[@"receipt"];
+                            if (receipt == nil){
+                                handler(0L);
+                            } else {{
+                                NSArray *in_app = receipt[@"in_app"];
+                                if (in_app == nil || in_app.count == 0){
+                                    handler(0L);
+                                } else {
+                                    long first = 0;
+                                    for (int i = 0; i < in_app.count; ++i) {
+                                        NSDictionary *one = in_app[(NSUInteger) i];
+                                        NSString * purchase_date_ms = one[@"purchase_date_ms"];
+                                        long dateMs = [purchase_date_ms longLongValue];
+                                        if (first == 0){
+                                            first = dateMs;
+                                        } else if (dateMs < first){
+                                            first = dateMs;
+                                        }
+                                    }
+
+                                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:first / 1000];
+                                    NSCalendar *calendar = nil;
+                                    if ([UIDevice currentDevice].systemVersion.doubleValue >= 8.0) {
+                                        calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+                                    } else {
+                                        calendar = [NSCalendar currentCalendar];
+                                    }
+                                    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear fromDate:date];
+                                    [dateComponents setYear:+ in_app.count];
+
+                                    NSDate *newdate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
+                                    if ([newdate compare:netDate] == NSOrderedAscending){
+                                        handler(0);
+                                    } else {
+                                        NSTimeInterval interval = [newdate timeIntervalSinceDate:netDate];
+                                        NSLog(@"verify->:\tAppStore 环境:%ld", (long)interval);
+                                        handler((long)interval);
+                                    }
+                                }
+
+                            }}
+                        } else {
+                            handler(0L);
+                        }
+
+                    }];
+                }
+            } else {
+                NSLog(@"verifyPay: response is nil.");
+                handler(0);
             }
-        } else {
-            NSLog(@"verifyPay: response is nil.");
-        }
-
-        handler(response);
+        }];
+    } failure:^(NSError *error) {
+        handler(0);
     }];
+}
 
+- (void)checkPay:(NSString *)productID with:(StatusHandler)handler {
+    _currentProductID = productID;
+
+    NSLog(@"verify->:\tproductID:%@", _currentProductID);
+
+    [PayManager getInternetDateWithSuccess:SANDBOX handle:^(NSDate *netDate) {
+        [self verifyWithUrl:[NSURL URLWithString:AppStore] handler:^(NSDictionary *response) {
+            if (response) {
+                NSLog(@"verify->:\tAppStore 环境:%@", response);
+
+                // 21007 说明是沙河下的收据却拿到正式环境进行了验证，因此需要重新在沙河下进行验证
+                if ([response[@"status"] intValue] == 21007) {
+                    [self verifyWithUrl:[NSURL URLWithString:SANDBOX] handler:^(NSDictionary *responseSandbox) {
+                        NSLog(@"verify->:\tSandbox 环境:%@", responseSandbox);
+                        handler([responseSandbox[@"status"] intValue]);
+                    }];
+                }
+            } else {
+                NSLog(@"verifyPay: response is nil.");
+                handler(-1);
+            }
+        }];
+    } failure:^(NSError *error) {
+        handler(-1);
+    }];
 }
 
 - (void)verifyWithUrl:(NSURL *)url handler:(VerifyHandler)handler {
@@ -304,27 +367,98 @@ static PayManager *_instance = nil;
     //转化为base64字符串
     NSString *receiptString = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 
-    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\", \"password\":\"%@\"}",
-                                                      receiptString, @"b3189c215c0b423d985bc8d2548bb91a"];//拼接请求数据
+    //http://cwqqq.com/2017/12/05/ios_in-app_pay_server_side_code
+    //NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\", \"password\":\"%@\"}",
+    //                                                  receiptString, @"b3189c215c0b423d985bc8d2548bb91a"];
+
+    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receiptString];
     NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
 
     //创建请求到苹果官方进行购买验证
+    //1.创建NSURLSession对象（可以获取单例对象）
+    NSURLSession *session = [NSURLSession sharedSession];
+
+    //2.根据NSURLSession对象创建一个Task
 
     NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:url];
     requestM.HTTPBody = bodyData;
     requestM.HTTPMethod = @"POST";
 
-    //创建连接并发送同步请求
-    NSError *error = nil;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:&error];
-    if (error) {
-        NSLog(@"verify->:\tverifyWithUrl() : 验证发生错误: %@", error.localizedDescription);
-        handler(nil);
-        return;
-    }
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-    NSLog(@"verify->:\tverifyWithUrl() : 验证返回数据: %@", dic);
-    handler(dic);
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:requestM completionHandler:^(NSData *__nullable data,
+            NSURLResponse *__nullable response, NSError *__nullable error) {
+
+        if (error) {
+            NSLog(@"verify->:\tverifyWithUrl() : 验证发生错误: %@", error.localizedDescription);
+            handler(nil);
+            return;
+        }
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        NSLog(@"verify->:\tverifyWithUrl() : 验证返回数据: %@", dic);
+        handler(dic);
+    }];
+
+    //3.执行Task
+    //注意：刚创建出来的task默认是挂起状态的，需要调用该方法来启动任务（执行任务）
+    [dataTask resume];
 }
 
++ (void)getInternetDateWithSuccess:(NSString *) urlString handle:(void (^)(NSDate *netDate))success failure:(void (^)(NSError *error))failure {
+
+    //1.创建URL
+    urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
+    //2.创建request请求对象
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:urlString]];
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [request setTimeoutInterval:5];
+    [request setHTTPShouldHandleCookies:FALSE];
+    [request setHTTPMethod:@"GET"];
+
+    //3.创建URLSession对象
+    NSURLSession *session = [NSURLSession sharedSession];
+    //4.设置数据返回回调的block
+
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+        if (error == nil && response != nil) {
+
+            //这么做的原因是简体中文下的手机不能识别“MMM”，只能识别“MM”
+            NSArray *monthEnglishArray = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sept", @"Sep", @"Oct", @"Nov", @"Dec"];
+            NSArray *monthNumArray = @[@"01", @"02", @"03", @"04", @"05", @"06", @"07", @"08", @"09", @"09", @"10", @"11", @"12"];
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            NSDictionary *allHeaderFields = [httpResponse allHeaderFields];
+            NSString *dateStr = allHeaderFields[@"Date"];
+            dateStr = [dateStr substringFromIndex:5];
+            dateStr = [dateStr substringToIndex:[dateStr length] - 4];
+            dateStr = [dateStr stringByAppendingString:@" +0000"];
+            //当前语言是中文的话，识别不了英文缩写
+            for (NSInteger i = 0; i < monthEnglishArray.count; i++) {
+                NSString *monthEngStr = monthEnglishArray[i];
+                NSString *monthNumStr = monthNumArray[i];
+                dateStr = [dateStr stringByReplacingOccurrencesOfString:monthEngStr withString:monthNumStr];
+            }
+
+            NSDateFormatter *dMatter = [[NSDateFormatter alloc] init];
+            [dMatter setDateFormat:@"dd MM yyyy HH:mm:ss Z"];
+            NSDate *netDate = [dMatter dateFromString:dateStr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                success(netDate);
+            });
+
+        } else {
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure(error);
+            });
+
+        }
+
+    }];
+
+    //5、执行网络请求
+
+    [task resume];
+
+}
 @end
