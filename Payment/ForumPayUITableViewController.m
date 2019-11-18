@@ -81,10 +81,6 @@
 
 - (IBAction)restorePay:(id)sender {
 
-    if ([_payManager hasPayed:_localForumApi.currentProductID]) {
-        [ProgressDialog showStatus:@"您已解锁"];
-        return;
-    }
     [ProgressDialog show];
 
     [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {

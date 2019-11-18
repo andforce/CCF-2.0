@@ -52,7 +52,7 @@ static BOOL PAY_DEBUG = NO;
 
         if (timeHave == 0){
             [payManager setPayed:FALSE for:localForumApi.currentProductID];
-            NSLog(@"not payed");
+            NSLog(@"AppDelegate --> not payed");
 
 //            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
 //            ForumPayUITableViewController *payUiTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ForumPayUITableViewControllerID"];
@@ -60,7 +60,7 @@ static BOOL PAY_DEBUG = NO;
 
         } else {
             [payManager setPayed:TRUE for:localForumApi.currentProductID];
-            NSLog(@"payed success");
+            NSLog(@"AppDelegate --> payed success");
         }
     }];
 
@@ -76,10 +76,10 @@ static BOOL PAY_DEBUG = NO;
 
     if (API_DEBUG) {
         NSDictionary *dic = [[NSBundle mainBundle] infoDictionary];
-        NSLog(@"infoDictionary %@",dic);
+        NSLog(@"AppDelegate --> infoDictionary %@",dic);
 
         NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        NSLog(@"versionCode %@",versionCode);
+        NSLog(@"AppDelegate --> versionCode %@",versionCode);
         
         ApiTestViewController *testController = [[ApiTestViewController alloc] init];
         self.window.rootViewController = testController;
@@ -89,7 +89,7 @@ static BOOL PAY_DEBUG = NO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];//Documents目录
 
-    NSLog(@"文件路径: %@", documentsDirectory);
+    NSLog(@"AppDelegate --> 文件路径: %@", documentsDirectory);
 
     // 设置默认数值
     NSUserDefaults *setting = [NSUserDefaults standardUserDefaults];
@@ -143,10 +143,10 @@ static BOOL PAY_DEBUG = NO;
 
 
     if (launchOptions[@"UIApplicationLaunchOptionsShortcutItemKey"] == nil) {
-        NSLog(@"UIApplicationLaunchOptionsShortcutItemKey yes");
+        NSLog(@"AppDelegate --> UIApplicationLaunchOptionsShortcutItemKey yes");
         return YES;
     } else {
-        NSLog(@"UIApplicationLaunchOptionsShortcutItemKey no");
+        NSLog(@"AppDelegate --> UIApplicationLaunchOptionsShortcutItemKey no");
         return NO;
     }
     
@@ -182,13 +182,13 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     completionHandler();  // 系统要求执行这个方法
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
     NSDictionary * userInfo = notification.request.content.userInfo;
     if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //从通知界面直接进入应用
@@ -198,7 +198,7 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
     NSDictionary * userInfo = notification.request.content.userInfo;
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
 
@@ -217,9 +217,9 @@ static BOOL PAY_DEBUG = NO;
         localNotification.alertBody = [userInfo[@"aps"] objectForKey:@"alert"];
         localNotification.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification   createLocale");
+        NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification   createLocale");
     } else {
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification  remote");
+        NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification  remote");
         //[AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
 }
@@ -300,7 +300,7 @@ static BOOL PAY_DEBUG = NO;
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"AppDelegate --> Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 
@@ -331,7 +331,7 @@ static BOOL PAY_DEBUG = NO;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            NSLog(@"AppDelegate --> Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
