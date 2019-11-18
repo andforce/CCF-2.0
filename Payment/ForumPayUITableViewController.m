@@ -103,7 +103,7 @@
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             [self pay:nil];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             [self restorePay:nil];
         }
     }
