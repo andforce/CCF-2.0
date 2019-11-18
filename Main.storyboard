@@ -2077,7 +2077,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paperclip.gif" translatesAutoresizingMaskIntoConstraints="NO" id="0Sh-7g-pjH">
-                                            <rect key="frame" x="323" y="12" width="10" height="13"/>
+                                            <rect key="frame" x="313" y="5.6666666666666679" width="20" height="26"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="帖子标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sLH-nt-fh7">
                                             <rect key="frame" x="20" y="54" width="374" height="32"/>
@@ -3563,7 +3563,7 @@
         <!--自己-->
         <scene sceneID="Kma-gt-uwP">
             <objects>
-                <navigationController storyboardIdentifier="ShowPayPage" id="dCi-2g-HNw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ShowPayPage" modalPresentationStyle="fullScreen" id="dCi-2g-HNw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自己" image="ic_perm_identity_18pt" id="YuW-pX-A5q"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="47V-LD-ogP">
