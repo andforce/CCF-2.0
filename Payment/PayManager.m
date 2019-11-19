@@ -270,42 +270,58 @@ static PayManager *_instance = nil;
     }
 }
 
-- (long)checkReceiptTimeHave:(NSDate *)currentTime receipt:(NSDictionary *)responseSandbox {
-    if (responseSandbox && currentTime) {
-        NSDictionary *receipt = responseSandbox[@"receipt"];
-        NSArray *in_app = receipt[@"in_app"];
+- (long)checkReceiptTimeHave:(NSDate *)currentTime receipt:(NSDictionary *)receipt {
+    if (receipt && currentTime) {
+        NSDictionary *receiptDic = receipt[@"receipt"];
+        NSArray *inApps = receiptDic[@"in_app"];
 
-        if (receipt && in_app) {
-            long first = 0;
-            for (int i = 0; i < in_app.count; ++i) {
-                NSDictionary *one = in_app[(NSUInteger) i];
-                NSString *purchase_date_ms = one[@"purchase_date_ms"];
-                long purchase_date = [purchase_date_ms longLongValue];
-                if (first == 0) {
-                    first = purchase_date;
-                } else if (purchase_date < first) {
-                    first = purchase_date;
+        if (receiptDic && inApps) {
+
+            NSArray *sortedArray = [inApps sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+
+                long value1 = [obj1[@"purchase_date_ms"] longLongValue];
+                long value2 = [obj2[@"purchase_date_ms"] longLongValue];
+
+                // 升序，即从小到大
+                if (value1 > value2) {
+                    return (NSComparisonResult) NSOrderedDescending;
+                } else if (value1 < value2) {
+                    return (NSComparisonResult) NSOrderedAscending;
+                } else {
+                    return (NSComparisonResult) NSOrderedSame;
+                }
+            }];
+
+            NSMutableArray *filterArrary = [NSMutableArray array];
+            for (int i = 0; i < sortedArray.count; ++i){
+                NSDictionary *one = sortedArray[(NSUInteger) i];
+
+                long purchase_date_ms = [one[@"purchase_date_ms"] longLongValue];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:purchase_date_ms / 1000];
+                NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear fromDate:date];
+                [dateComponents setYear:+1];
+                NSDate *newdate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
+                if ([newdate compare:currentTime] != NSOrderedAscending) {
+                    [filterArrary addObject:one];
                 }
             }
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:first / 1000];
-            NSCalendar *calendar = nil;
-            if ([UIDevice currentDevice].systemVersion.doubleValue >= 8.0) {
-                calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-            } else {
-                calendar = [NSCalendar currentCalendar];
-            }
-            NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear fromDate:date];
-            [dateComponents setYear:+in_app.count];
 
-            NSDate *newdate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
-            if ([newdate compare:currentTime] == NSOrderedAscending) {
-                NSLog(@"PayManager --> checkReceiptTimeHave: 验证SandBox in_app，购买过期了，验证失败");
+            if (filterArrary.count == 0){
                 return 0;
-            } else {
-                NSTimeInterval interval = [newdate timeIntervalSinceDate:currentTime];
-                NSLog(@"PayManager --> checkReceiptTimeHave: 验证SandBox in_app，购买过，还没有过期，剩余 %ld", (long) interval);
-                return (long) interval;
             }
+
+            NSDictionary *one = filterArrary.firstObject;
+            long purchase_date = [one[@"purchase_date_ms"] longLongValue];
+
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:purchase_date / 1000];
+            NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear fromDate:date];
+            [dateComponents setYear:+filterArrary.count];
+            NSDate *newdate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
+            NSTimeInterval interval = [newdate timeIntervalSinceDate:currentTime];
+            NSLog(@"PayManager --> checkReceiptTimeHave: 购买过，还没有过期，剩余 %ld 秒", (long) interval);
+            return (long) interval;
         }
     }
 
