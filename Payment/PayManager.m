@@ -89,6 +89,13 @@ static PayManager *_instance = nil;
     [[NSUserDefaults standardUserDefaults] setBool:payed forKey:productID];
 }
 
+- (NSNumber *)getPayedExpireDate:(NSString *)productID {
+    if (![self hasPayed:productID]){
+        return @0L;
+    }
+    NSNumber * result = [[NSUserDefaults standardUserDefaults] objectForKey:[productID stringByAppendingString:@"exp_time"]];
+    return result;
+}
 
 // remove all payment queue
 - (void)removeTransactionObserver {
@@ -319,6 +326,8 @@ static PayManager *_instance = nil;
             NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear fromDate:date];
             [dateComponents setYear:+filterArrary.count];
             NSDate *newdate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
+            NSTimeInterval newTimeInterval = newdate.timeIntervalSince1970;
+            [[NSUserDefaults standardUserDefaults] setObject:@(newTimeInterval) forKey:[_currentProductID stringByAppendingString:@"exp_time"]];
             NSTimeInterval interval = [newdate timeIntervalSinceDate:currentTime];
             NSLog(@"PayManager --> checkReceiptTimeHave: 购买过，还没有过期，剩余 %ld 秒", (long) interval);
             return (long) interval;

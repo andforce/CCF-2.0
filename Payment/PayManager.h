@@ -29,6 +29,8 @@ typedef void (^VerifyHandler)(NSDictionary *response);
 
 - (void)setPayed:(BOOL)payed for:(NSString *)productID;
 
+- (NSNumber *)getPayedExpireDate:(NSString *)productID;
+
 - (void)removeTransactionObserver;
 
 @end

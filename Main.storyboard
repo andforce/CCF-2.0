@@ -3572,6 +3572,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="_restoreLabel" destination="HXa-c9-ToU" id="Ueu-xG-gQZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9rr-w9-95i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

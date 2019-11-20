@@ -15,6 +15,7 @@
 @interface ForumPayUITableViewController () {
     LocalForumApi *_localForumApi;
     PayManager *_payManager;
+    IBOutlet UILabel *_restoreLabel;
 }
 
 @end
@@ -41,6 +42,20 @@
     return self.navigationController.viewControllers.count > 1;
 }
 
+- (NSDate *)getLocalDateFormatAnyDate:(NSDate *)anyDate {
+    NSTimeZone *sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];//或GMT
+    NSTimeZone *desTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:anyDate];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [desTimeZone secondsFromGMTForDate:anyDate];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:anyDate];
+    return destinationDateNow;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _localForumApi = [[LocalForumApi alloc] init];
@@ -57,6 +72,20 @@
         self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"ic_close_18pt"];
     }
 
+    NSNumber *expTime = [_payManager getPayedExpireDate:[_localForumApi currentProductID]];
+    long exptimeLong = [expTime intValue];
+    if (exptimeLong != 0){
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:exptimeLong];
+        NSDate *localDate = [self getLocalDateFormatAnyDate:date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设置格式：zzz表示时区
+        [dateFormatter setDateFormat:@"yyyy/MM/dd"];
+        //NSDate转NSString
+        NSString *currentDateString = [dateFormatter stringFromDate:localDate];
+        _restoreLabel.text = [NSString stringWithFormat:@"高级功能到期:%@", currentDateString];
+    } else {
+        _restoreLabel.text = @"恢复之前购买";
+    }
 
 }
 
