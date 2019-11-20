@@ -104,6 +104,7 @@
     [_payManager payForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
         if (isSuccess) {
             [ProgressDialog showSuccess:@"解锁成功"];
+            [self setExpTime];
         } else {
             [ProgressDialog showError:@"解锁失败"];
         }
