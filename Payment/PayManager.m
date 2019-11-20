@@ -110,7 +110,8 @@ static PayManager *_instance = nil;
             case SKPaymentTransactionStatePurchased: {
                 NSLog(@"PayManager --> 交易完成");
                 // 发送到苹果服务器验证凭证
-
+                [self handleResult:YES];
+                
                 [self checkPay:_currentProductID with:^(int code) {
                     [[SKPaymentQueue defaultQueue] finishTransaction:tran];
 
@@ -121,24 +122,18 @@ static PayManager *_instance = nil;
                     switch (code) {
                         case 0: {
                             NSLog(@"PayManager --> 购买成功!");
-                            if (_handler){
-                                _handler(YES);
-                            }
+                            [self handleResult:YES];
                             break;
                         }
                         case 21002: {
-                            if (_handler){
-                                _handler(NO);
-                            }
+                             [self handleResult:NO];
                             // 没有购买
                             NSLog(@"PayManager --> 从未购买过商品");
                             break;
                         }
 
                         default: {
-                            if (_handler){
-                                _handler(NO);
-                            }
+                             [self handleResult:NO];
                             NSLog(@"PayManager --> 购买失败，未通过验证！");
                         }
                     }
@@ -158,7 +153,7 @@ static PayManager *_instance = nil;
             case SKPaymentTransactionStateFailed: {
                 NSLog(@"PayManager --> 交易失败");
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                [self handleResult:FALSE];
+                [self handleResult:NO];
             }
                 break;
             default:
