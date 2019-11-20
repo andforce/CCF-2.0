@@ -72,6 +72,10 @@
         self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"ic_close_18pt"];
     }
 
+    [self setExpTime];
+}
+
+-(void) setExpTime {
     NSNumber *expTime = [_payManager getPayedExpireDate:[_localForumApi currentProductID]];
     long exptimeLong = [expTime intValue];
     if (exptimeLong != 0){
@@ -86,7 +90,6 @@
     } else {
         _restoreLabel.text = @"恢复之前购买";
     }
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -110,15 +113,19 @@
 
 - (IBAction)restorePay:(id)sender {
 
-    [ProgressDialog show];
+    if ([_restoreLabel.text isEqualToString:@"恢复之前购买"]){
+        [ProgressDialog show];
 
-    [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
-        if (isSuccess) {
-            [ProgressDialog showSuccess:@"解锁成功"];
-        } else {
-            [ProgressDialog showError:@"解锁失败"];
-        }
-    }];
+        [_payManager restorePayForProductID:_localForumApi.currentProductID with:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [ProgressDialog showSuccess:@"恢复成功"];
+                [self setExpTime];
+            } else {
+                [ProgressDialog showError:@"恢复失败"];
+            }
+        }];
+    }
+
 }
 
 

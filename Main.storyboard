@@ -3514,23 +3514,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购买一年高级功能" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dd6-HJ-a3T">
-                                                    <rect key="frame" x="137.66666666666669" y="16.666666666666668" width="138.66666666666669" height="21.000000000000004"/>
+                                                    <rect key="frame" x="137.66666666666669" y="8" width="138.66666666666669" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.920589149" green="0.28459346289999998" blue="0.41174674030000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仅需12元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-nn-Mxq">
-                                                    <rect key="frame" x="186.33333333333334" y="38.666666666666664" width="41.666666666666657" height="12"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仅需12元一年，可重复多次购买" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-nn-Mxq">
+                                                    <rect key="frame" x="107.00000000000001" y="33" width="200.33333333333337" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="dd6-HJ-a3T" firstAttribute="centerY" secondItem="no0-0p-HHT" secondAttribute="centerY" id="VNt-Qd-5Fc"/>
                                                 <constraint firstItem="mkR-nn-Mxq" firstAttribute="centerX" secondItem="dd6-HJ-a3T" secondAttribute="centerX" id="cdh-jL-wGe"/>
+                                                <constraint firstItem="dd6-HJ-a3T" firstAttribute="top" secondItem="no0-0p-HHT" secondAttribute="top" constant="8" id="i9f-so-KZI"/>
                                                 <constraint firstItem="dd6-HJ-a3T" firstAttribute="centerX" secondItem="no0-0p-HHT" secondAttribute="centerX" id="raV-MP-pJi"/>
-                                                <constraint firstItem="mkR-nn-Mxq" firstAttribute="top" secondItem="dd6-HJ-a3T" secondAttribute="bottom" constant="1" id="tWV-nz-Em9"/>
+                                                <constraint firstItem="mkR-nn-Mxq" firstAttribute="top" secondItem="dd6-HJ-a3T" secondAttribute="bottom" constant="4" id="tWV-nz-Em9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
