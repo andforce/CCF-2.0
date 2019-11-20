@@ -493,6 +493,17 @@
         [self hideRightDrawerWithAnim:_rightDrawerView];
     }
 }
+- (IBAction)showPayController:(id)sender {
+    [self closeLeftDrawer];
+
+    ForumTabBarController *root = (ForumTabBarController *) self.window.rootViewController;
+
+    UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowPayPage"];
+
+    [root presentViewController:controller animated:YES completion:^{
+
+    }];
+}
 
 - (IBAction)showAddForumController:(id)sender {
     [self closeLeftDrawer];

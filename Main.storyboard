@@ -1150,7 +1150,7 @@
             </objects>
             <point key="canvasLocation" x="-1538.4000000000001" y="547.37631184407803"/>
         </scene>
-        <!--论坛设置-->
+        <!--全局设置选项-->
         <scene sceneID="jCf-dU-ha4">
             <objects>
                 <tableViewController id="9se-A7-pwf" customClass="ForumSettingTableViewController" sceneMemberID="viewController">
@@ -1295,7 +1295,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="论坛设置" id="Rgi-Rb-bAW">
+                    <navigationItem key="navigationItem" title="全局设置选项" id="Rgi-Rb-bAW">
                         <barButtonItem key="leftBarButtonItem" image="ic_close_18pt" id="VbH-HO-oMM">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
