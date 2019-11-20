@@ -194,7 +194,15 @@
         NSString *id = forumConfig.loginControllerId;
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:id];
 
+    } else if(indexPath.section == 3 && indexPath.row == 1){
+        UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowPayPage"];
+
+        [self presentViewController:controller animated:YES completion:^{
+
+        }];
     }
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
 }
