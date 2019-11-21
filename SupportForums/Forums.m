@@ -1,6 +1,4 @@
 //
-//
-//
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 //
