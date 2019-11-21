@@ -12,7 +12,6 @@ typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
 @optional
 
-// user's name & id
 - (void)fetchUserInfo:(UserInfoHandler)handler;
 
 @end

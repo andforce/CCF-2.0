@@ -45,8 +45,6 @@ static BOOL PAY_DEBUG = NO;
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
-
-    // 向服务器验证订阅情况
     BBSPayManager * payManager = [BBSPayManager shareInstance];
     [payManager verifyPay:localForumApi.currentProductID with:^(long timeHave) {
 
@@ -64,8 +62,6 @@ static BOOL PAY_DEBUG = NO;
     [NSURLCache setSharedURLCache:cache];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-
-//    [HPURLProtocol registerURLProtocolIfNeed];
 
     application.applicationIconBadgeNumber = 0;
 
@@ -149,7 +145,6 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)changeUserAgentForWebView {
-
 //    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
 //    NSDictionary *dictionary = @{@"UserAgent": newAgent, @"User-Agent":newAgent,@"useragent":newAgent, @"user-agent":newAgent};
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];

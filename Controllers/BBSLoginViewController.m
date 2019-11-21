@@ -85,7 +85,6 @@
 
 - (void)keyboardWillShow:(id)sender {
     CGRect keyboardFrame;
-    //    UIKeyboardBoundsUserInfoKey
     [[((NSNotification *) sender) userInfo][UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
 
     CGRect focusedFrame = _loginbgview.frame;
@@ -94,7 +93,6 @@
     int keyboardTop = (int) (CGRectGetHeight(screenSize) - CGRectGetHeight(keyboardFrame));
 
     if (bottom >= keyboardTop) {
-        // 键盘被挡住了
         [UIView animateWithDuration:0.2 animations:^{
             CGRect frame = self.rootView.frame;
             frame.origin.y -= (bottom - keyboardTop) + 50;
