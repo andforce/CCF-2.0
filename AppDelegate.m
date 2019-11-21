@@ -1,6 +1,4 @@
 //
-//  AppDelegate.m
-//
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
@@ -15,7 +13,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "BBSTabBarController.h"
 #import "BBSTableViewController.h"
-#import "Forums.h"
+#import "WorkedBBS.h"
 #import "BBSLocalApi.h"
 #import <UserNotifications/UserNotifications.h>
 
@@ -103,8 +101,8 @@ static BOOL PAY_DEBUG = NO;
         
         [localForumApi setDBVersion:DB_VERSION];
 
-        NSArray<Forums *> * forums = localForumApi.supportForums;
-        for (Forums * f in forums) {
+        NSArray<WorkedBBS *> * forums = localForumApi.supportForums;
+        for (WorkedBBS * f in forums) {
             [localForumApi logout:f.url];
         }
         
@@ -115,7 +113,7 @@ static BOOL PAY_DEBUG = NO;
     NSString *currentSelectForumHost = localForumApi.currentForumHost;
     if (currentSelectForumHost){
         if (![localForumApi isHaveLogin:localForumApi.currentForumHost]){
-            NSArray<Forums *> * loginForums = localForumApi.loginedSupportForums;
+            NSArray<WorkedBBS *> * loginForums = localForumApi.loginedSupportForums;
             if(loginForums != nil && loginForums.count >0){
                 [localForumApi saveCurrentForumURL:loginForums.firstObject.url];
             }

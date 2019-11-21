@@ -94,7 +94,7 @@
 }
 
 
-- (BOOL)swipeTableCell:(SwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+- (BOOL)swipeTableCell:(BBSSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
 
     Thread *list = self.dataList[(NSUInteger) cell.indexPath.row];
 

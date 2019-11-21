@@ -1,22 +1,22 @@
 //
 //  Created by Diyuan Wang on 2019/11/21.
-//  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "Forums.h"
+#import "WorkedBBS.h"
 
 
 NSString *const kForumsName = @"name";
 NSString *const kForumsUrl = @"url";
 
 
-@interface Forums ()
+@interface WorkedBBS ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation Forums
+@implementation WorkedBBS
 
 @synthesize name = _name;
 @synthesize url = _url;
@@ -83,7 +83,7 @@ NSString *const kForumsUrl = @"url";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    Forums *copy = [[Forums alloc] init];
+    WorkedBBS *copy = [[WorkedBBS alloc] init];
 
     if (copy) {
 

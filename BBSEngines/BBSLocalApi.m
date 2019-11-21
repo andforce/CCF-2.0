@@ -9,8 +9,8 @@
 #import "BBSConfigDelegate.h"
 #import "BBSApiHelper.h"
 #import "AppDelegate.h"
-#import "Forums.h"
-#import "SupportForums.h"
+#import "WorkedBBS.h"
+#import "HaveWorkedBBS.h"
 
 
 @implementation BBSLocalApi {
@@ -138,7 +138,7 @@
     NSArray *fs = [self supportForums];
     int size = (int) fs.count;
     for (int i = 0; i < size; ++i) {
-        Forums *forums = fs[(NSUInteger) i];
+        WorkedBBS *forums = fs[(NSUInteger) i];
         NSURL *url = [NSURL URLWithString:forums.url];
         if ([self isHaveLogin:url.host]) {
             return YES;
@@ -209,22 +209,22 @@
     return url.host;
 }
 
-- (NSArray<Forums *> *)supportForums {
+- (NSArray<WorkedBBS *> *)supportForums {
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"supportForums" ofType:@"json"]];
 
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions) kNilOptions error:nil];
 
-    SupportForums *supportForums = [SupportForums modelObjectWithDictionary:dictionary];
+    HaveWorkedBBS *supportForums = [HaveWorkedBBS modelObjectWithDictionary:dictionary];
     return supportForums.forums;
 }
 
-- (NSArray<Forums *> *)loginedSupportForums {
+- (NSArray<WorkedBBS *> *)loginedSupportForums {
 
     NSArray *support = [self supportForums];
 
     NSMutableArray *result = [NSMutableArray array];
 
-    for (Forums *forums in support) {
+    for (WorkedBBS *forums in support) {
         NSURL *url = [NSURL URLWithString:forums.url];
         if ([self isHaveLogin:url.host]) {
             [result addObject:forums];

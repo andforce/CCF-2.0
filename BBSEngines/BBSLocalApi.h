@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class LoginUser;
-@class Forums;
+@class WorkedBBS;
 @class BBSWebViewController;
 
 
@@ -28,9 +28,9 @@
 
 - (NSString *)currentForumHost;
 
-- (NSArray<Forums *> *)supportForums;
+- (NSArray<WorkedBBS *> *)supportForums;
 
-- (NSArray<Forums *> *)loginedSupportForums;
+- (NSArray<WorkedBBS *> *)loginedSupportForums;
 
 - (NSString *)currentForumBaseUrl;
 

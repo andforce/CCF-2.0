@@ -10,7 +10,7 @@
 #import "ForumListHeaderView.h"
 #import "XibInflater.h"
 #import "MGSwipeTableCell.h"
-#import "SwipeTableCellWithIndexPath.h"
+#import "BBSSwipeTableCellWithIndexPath.h"
 #import "BBSTabBarController.h"
 #import "UIStoryboard+Forum.h"
 
@@ -119,7 +119,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SwipeTableCellWithIndexPath *cell = (SwipeTableCellWithIndexPath *) [tableView dequeueReusableCellWithIdentifier:@"DRLForumCell"];
+    BBSSwipeTableCellWithIndexPath *cell = (BBSSwipeTableCellWithIndexPath *) [tableView dequeueReusableCellWithIdentifier:@"DRLForumCell"];
 
     cell.indexPath = indexPath;
     cell.delegate = self;
@@ -139,7 +139,7 @@
     return cell;
 }
 
-- (BOOL)swipeTableCell:(SwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+- (BOOL)swipeTableCell:(BBSSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
 
     Forum *parent = self.dataList[cell.indexPath.section];
     Forum *child = parent.childForums[cell.indexPath.row];

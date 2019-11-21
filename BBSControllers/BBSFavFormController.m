@@ -7,7 +7,7 @@
 #import "BBSCoreDataManager.h"
 #import "BBSThreadListTableViewController.h"
 #import "BBSTabBarController.h"
-#import "SwipeTableCellWithIndexPath.h"
+#import "BBSSwipeTableCellWithIndexPath.h"
 #import "BBSLocalApi.h"
 
 //订阅论坛
@@ -121,7 +121,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *ID = @"FavFormControllerCell";
-    SwipeTableCellWithIndexPath *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    BBSSwipeTableCellWithIndexPath *cell = [tableView dequeueReusableCellWithIdentifier:ID];
 
     cell.indexPath = indexPath;
     cell.delegate = self;
@@ -146,7 +146,7 @@
     return 54;
 }
 
-- (BOOL)swipeTableCell:(SwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+- (BOOL)swipeTableCell:(BBSSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
 
 
     Forum *parent = self.dataList[(NSUInteger) cell.indexPath.row];

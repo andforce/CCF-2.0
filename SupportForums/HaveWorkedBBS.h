@@ -1,22 +1,20 @@
 //
 //  Created by Diyuan Wang on 2019/11/21.
-//  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "WorkedBBS.h"
 
 
-@interface Forums : NSObject <NSCoding, NSCopying>
+@interface HaveWorkedBBS : NSObject <NSCoding, NSCopying>
 
-@property(nonatomic, strong) NSString *name;
-@property(nonatomic, strong) NSString *url;
+@property(nonatomic, strong) NSArray<WorkedBBS *> *forums;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (NSDictionary *)dictionaryRepresentation;
-
-- (NSString *)host;
 
 @end

@@ -1,26 +1,25 @@
-//  DRL
 //
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "SupportForumTableViewController.h"
+#import "BBSWorkedTableViewController.h"
 #import "BBSThreadListTableViewController.h"
 #import "BBSTabBarController.h"
 #import "UIStoryboard+Forum.h"
-#import "SupportForums.h"
+#import "HaveWorkedBBS.h"
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 #import "BBSPayManager.h"
 #import "BBSSupportNavigationController.h"
 
-@interface SupportForumTableViewController () <CAAnimationDelegate> {
+@interface BBSWorkedTableViewController () <CAAnimationDelegate> {
     BBSLocalApi *localForumApi;
 }
 
 @end
 
-@implementation SupportForumTableViewController
+@implementation BBSWorkedTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,7 +91,7 @@
     UITableViewCell *cell = (UITableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SupportForum"];
 
 
-    Forums *forums = self.dataList[(NSUInteger) indexPath.row];
+    WorkedBBS *forums = self.dataList[(NSUInteger) indexPath.row];
 
     cell.textLabel.text = forums.name;
 
@@ -137,7 +136,7 @@
 
 
     if (YES) {
-        Forums *forums = self.dataList[(NSUInteger) indexPath.row];
+        WorkedBBS *forums = self.dataList[(NSUInteger) indexPath.row];
 
         NSURL *url = [NSURL URLWithString:forums.url];
 
@@ -171,7 +170,7 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
     if (![localForumApi isHaveLogin:localForumApi.currentForumHost]) {
-        NSArray<Forums *> *loginForums = localForumApi.loginedSupportForums;
+        NSArray<WorkedBBS *> *loginForums = localForumApi.loginedSupportForums;
         if (loginForums != nil && loginForums.count > 0) {
             [localForumApi saveCurrentForumURL:loginForums.firstObject.url];
         }

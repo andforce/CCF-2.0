@@ -17,7 +17,7 @@
 #import "BBSApiHelper.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSTabBarController.h"
-#import "SupportForums.h"
+#import "HaveWorkedBBS.h"
 #import "BBSLocalApi.h"
 
 @interface DrawerView () <UITableViewDelegate, UITableViewDataSource> {
@@ -189,7 +189,7 @@
 
     UITableViewCell *cell = nib.lastObject;
 
-    Forums *forums = _haveLoginForums[(NSUInteger) indexPath.row];
+    WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     if ([forums.host isEqualToString:[localForumApi currentForumHost]]) {
@@ -215,7 +215,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
 
-    Forums *forums = _haveLoginForums[(NSUInteger) indexPath.row];
+    WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
     NSURL *url = [NSURL URLWithString:forums.url];
 

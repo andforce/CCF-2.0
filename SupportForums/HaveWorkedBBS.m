@@ -1,24 +1,22 @@
 //
-//  SupportForums.m
-//
 //  Created by Diyuan Wang on 2019/11/21.
-//  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "SupportForums.h"
-#import "Forums.h"
+#import "HaveWorkedBBS.h"
+#import "WorkedBBS.h"
 
 
 NSString *const kSupportForumsForums = @"forums";
 
 
-@interface SupportForums ()
+@interface HaveWorkedBBS ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation SupportForums
+@implementation HaveWorkedBBS
 
 @synthesize forums = _forums;
 
@@ -38,11 +36,11 @@ NSString *const kSupportForumsForums = @"forums";
         if ([receivedForums isKindOfClass:[NSArray class]]) {
             for (NSDictionary *item in (NSArray *) receivedForums) {
                 if ([item isKindOfClass:[NSDictionary class]]) {
-                    [parsedForums addObject:[Forums modelObjectWithDictionary:item]];
+                    [parsedForums addObject:[WorkedBBS modelObjectWithDictionary:item]];
                 }
             }
         } else if ([receivedForums isKindOfClass:[NSDictionary class]]) {
-            [parsedForums addObject:[Forums modelObjectWithDictionary:(NSDictionary *) receivedForums]];
+            [parsedForums addObject:[WorkedBBS modelObjectWithDictionary:(NSDictionary *) receivedForums]];
         }
 
         self.forums = [NSArray arrayWithArray:parsedForums];
@@ -97,7 +95,7 @@ NSString *const kSupportForumsForums = @"forums";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    SupportForums *copy = [[SupportForums alloc] init];
+    HaveWorkedBBS *copy = [[HaveWorkedBBS alloc] init];
 
     if (copy) {
 

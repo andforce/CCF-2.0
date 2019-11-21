@@ -144,7 +144,7 @@
     if (indexPath.section == 0) {
         // 子论坛
         static NSString *reusedIdentifierForm = @"ThreadListCellShowChildForm";
-        SwipeTableCellWithIndexPath *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifierForm];
+        BBSSwipeTableCellWithIndexPath *cell = [tableView dequeueReusableCellWithIdentifier:reusedIdentifierForm];
 
         cell.indexPath = indexPath;
 
@@ -213,7 +213,7 @@
 }
 
 
-- (BOOL)swipeTableCell:(SwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
+- (BOOL)swipeTableCell:(BBSSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *indexPath = cell.indexPath;
     if (indexPath.section == 0) {
         Forum *parent = childForms[(NSUInteger) cell.indexPath.section];

@@ -1,14 +1,11 @@
 //
-//  MGSwipeTableCellWithIndexPath.m
-//  DRL
-//
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "SwipeTableCellWithIndexPath.h"
+#import "BBSSwipeTableCellWithIndexPath.h"
 
-@implementation SwipeTableCellWithIndexPath
+@implementation BBSSwipeTableCellWithIndexPath
 
 /*
 // Only override drawRect: if you perform custom drawing.
