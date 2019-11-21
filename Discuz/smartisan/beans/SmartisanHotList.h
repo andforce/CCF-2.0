@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface THotList : NSObject <NSCoding, NSCopying>
+@interface SmartisanHotList : NSObject <NSCoding, NSCopying>
 
 @property(nonatomic, strong) NSString *author;
 @property(nonatomic, strong) NSString *dbdateline;

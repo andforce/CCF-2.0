@@ -4,9 +4,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
-@interface BBSShowPrivatePolicyUiViewController : ForumApiBaseViewController
+@interface BBSShowPrivatePolicyUiViewController : BBSApiBaseViewController
 @property(strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end

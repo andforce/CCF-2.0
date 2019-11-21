@@ -6,7 +6,7 @@
 
 #import "SmartisanLoginWebViewController.h"
 #import "ForumEntry+CoreDataClass.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
@@ -116,7 +116,7 @@
                 [self.forumApi listAllForums:^(BOOL success, id msg) {
                     if (success) {
                         NSMutableArray<Forum *> *needInsert = msg;
-                        ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+                        BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
                         // 需要先删除之前的老数据
                         [formManager deleteData:^NSPredicate * {
                             return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;

@@ -5,22 +5,22 @@
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 
-#import "THotData.h"
-#import "THotPage.h"
-#import "THotList.h"
+#import "SmartisanHotData.h"
+#import "SmartisanHotPage.h"
+#import "SmartisanHotList.h"
 
 
 NSString *const kTHotDataPage = @"page";
 NSString *const kTHotDataList = @"list";
 
 
-@interface THotData ()
+@interface SmartisanHotData ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation THotData
+@implementation SmartisanHotData
 
 @synthesize page = _page;
 @synthesize list = _list;
@@ -36,17 +36,17 @@ NSString *const kTHotDataList = @"list";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
-        self.page = [THotPage modelObjectWithDictionary:[dict objectForKey:kTHotDataPage]];
+        self.page = [SmartisanHotPage modelObjectWithDictionary:[dict objectForKey:kTHotDataPage]];
         NSObject *receivedTHotList = [dict objectForKey:kTHotDataList];
         NSMutableArray *parsedTHotList = [NSMutableArray array];
         if ([receivedTHotList isKindOfClass:[NSArray class]]) {
             for (NSDictionary *item in (NSArray *) receivedTHotList) {
                 if ([item isKindOfClass:[NSDictionary class]]) {
-                    [parsedTHotList addObject:[THotList modelObjectWithDictionary:item]];
+                    [parsedTHotList addObject:[SmartisanHotList modelObjectWithDictionary:item]];
                 }
             }
         } else if ([receivedTHotList isKindOfClass:[NSDictionary class]]) {
-            [parsedTHotList addObject:[THotList modelObjectWithDictionary:(NSDictionary *) receivedTHotList]];
+            [parsedTHotList addObject:[SmartisanHotList modelObjectWithDictionary:(NSDictionary *) receivedTHotList]];
         }
 
         self.list = [NSArray arrayWithArray:parsedTHotList];
@@ -104,7 +104,7 @@ NSString *const kTHotDataList = @"list";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THotData *copy = [[THotData alloc] init];
+    SmartisanHotData *copy = [[SmartisanHotData alloc] init];
 
     if (copy) {
 

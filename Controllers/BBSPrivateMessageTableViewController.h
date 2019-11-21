@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
 
-@interface BBSPrivateMessageTableViewController : ForumApiBaseTableViewController
+@interface BBSPrivateMessageTableViewController : BBSApiBaseTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;
 

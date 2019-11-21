@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
 
-@interface BBSLoginViewController : ForumApiBaseViewController
+@interface BBSLoginViewController : BBSApiBaseViewController
 
 @property(weak, nonatomic) IBOutlet UITextField *userName;
 @property(weak, nonatomic) IBOutlet UITextField *password;

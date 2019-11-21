@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
 
-@interface BBSSeniorNewPostViewController : ForumApiBaseViewController
+@interface BBSSeniorNewPostViewController : BBSApiBaseViewController
 
 
 @property(weak, nonatomic) IBOutlet UITextView *replyContent;

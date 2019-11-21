@@ -5,10 +5,10 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "CoreDataManager.h"
+#import "BBSDataManager.h"
 #import "ForumEntry+CoreDataClass.h"
 
-@implementation CoreDataManager {
+@implementation BBSDataManager {
     NSString *_xcdatamodeld;
     NSString *_persistent;
     NSString *_entry;

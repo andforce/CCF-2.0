@@ -7,7 +7,7 @@
 
 #import "NSString+Extensions.h"
 #import "UIImageView+AFNetworking.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "UserEntry+CoreDataProperties.h"
 #import "BBSApiHelper.h"
 #import "BaseBBSTableViewCell.h"

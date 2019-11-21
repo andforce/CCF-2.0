@@ -9,7 +9,7 @@
 
 @implementation BBSThreadListCell {
 
-    ForumCoreDataManager *_coreDateManager;
+    BBSCoreDataManager *_coreDateManager;
     id <BBSApiDelegate> _forumApi;
     NSIndexPath *selectIndexPath;
 }
@@ -27,7 +27,7 @@
 
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         _forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
-        _coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+        _coreDateManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
 
         [self.avatarImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
         self.avatarImage.contentMode = UIViewContentModeScaleAspectFit;

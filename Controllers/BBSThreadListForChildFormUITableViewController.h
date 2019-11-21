@@ -3,11 +3,11 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
 
-@interface BBSThreadListForChildFormUITableViewController : ForumApiBaseTableViewController
+@interface BBSThreadListForChildFormUITableViewController : BBSApiBaseTableViewController
 
 // 置顶
 @property(nonatomic, strong) NSMutableArray *threadTopList;

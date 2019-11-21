@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
 
-@interface BBSThreadListTableViewController : ForumApiBaseTableViewController
+@interface BBSThreadListTableViewController : BBSApiBaseTableViewController
 
 
 // 置顶

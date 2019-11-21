@@ -3,10 +3,10 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 #import "UIAutoResizeTextView.h"
 
-@interface BBSReportViewController : ForumApiBaseViewController
+@interface BBSReportViewController : BBSApiBaseViewController
 - (IBAction)back:(id)sender;
 
 - (IBAction)reportThreadPost:(id)sender;

@@ -3,10 +3,10 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 #import "BBSLocalApi.h"
 
-@interface ForumApiBaseTableViewController () {
+@interface BBSApiBaseTableViewController () {
     BOOL disablePullrefresh;
 
     BOOL disableLoadMore;
@@ -14,7 +14,7 @@
 
 @end
 
-@implementation ForumApiBaseTableViewController
+@implementation BBSApiBaseTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

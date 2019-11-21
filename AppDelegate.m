@@ -8,7 +8,7 @@
 #import "AppDelegate.h"
 #import "BBSLoginViewController.h"
 
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "BBSApiTestViewController.h"
 #import "NSUserDefaults+Setting.h"
 #import "UIStoryboard+Forum.h"
@@ -93,12 +93,12 @@ static BOOL PAY_DEBUG = NO;
     BOOL isClearDB = NO;
     if ([localForumApi dbVersion] != DB_VERSION) {
         
-        ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+        BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
         
         // 清空数据库
         [formManager deleteData];
         
-        ForumCoreDataManager *userManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+        BBSCoreDataManager *userManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         [userManager deleteData];
         
         [localForumApi setDBVersion:DB_VERSION];

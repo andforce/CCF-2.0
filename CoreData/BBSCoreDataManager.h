@@ -3,7 +3,7 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "CoreDataManager.h"
+#import "BBSDataManager.h"
 #import "Forum.h"
 
 typedef NS_ENUM(NSInteger, EntryType) {
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, EntryType) {
 
 #define kUserEntry @"UserEntry"
 
-@interface ForumCoreDataManager : CoreDataManager
+@interface BBSCoreDataManager : BBSDataManager
 
 - (instancetype)initWithEntryType:(EntryType)enrty;
 

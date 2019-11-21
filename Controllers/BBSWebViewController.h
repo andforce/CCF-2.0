@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
 
-@interface BBSWebViewController : ForumApiBaseViewController
+@interface BBSWebViewController : BBSApiBaseViewController
 //@property(weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property(nonatomic, strong) UIImageView *animatedFromView;

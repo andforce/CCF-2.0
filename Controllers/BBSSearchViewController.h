@@ -4,9 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSSearchViewController : ForumApiBaseTableViewController
+@interface BBSSearchViewController : BBSApiBaseTableViewController
 
 
 @property(weak, nonatomic) IBOutlet UISearchBar *searchBar;

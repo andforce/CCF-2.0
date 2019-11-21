@@ -1,5 +1,5 @@
 //
-//  THotTHotThreadPage.h
+//  THotPage.h
 //
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
@@ -7,13 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class THotData;
 
-@interface THotTHotThreadPage : NSObject <NSCoding, NSCopying>
+@interface SmartisanHotPage : NSObject <NSCoding, NSCopying>
 
-@property(nonatomic, strong) NSString *message;
-@property(nonatomic, strong) THotData *data;
-@property(nonatomic, strong) NSString *code;
+@property(nonatomic, assign) double pageSize;
+@property(nonatomic, assign) double pageCount;
+@property(nonatomic, assign) double pageTotal;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 

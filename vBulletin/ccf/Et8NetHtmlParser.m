@@ -8,7 +8,7 @@
 #import "IGXMLNode+Children.h"
 
 #import "ForumEntry+CoreDataClass.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "NSString+Extensions.h"
 
 #import "IGHTMLDocument+QueryNode.h"
@@ -531,7 +531,7 @@
 
 
     // 通过ids 过滤出Form
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
     NSArray *result = [manager selectData:^NSPredicate * {
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];

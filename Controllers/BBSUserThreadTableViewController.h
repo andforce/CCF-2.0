@@ -3,9 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSUserThreadTableViewController : ForumApiBaseTableViewController
+@interface BBSUserThreadTableViewController : BBSApiBaseTableViewController
 - (IBAction)back:(id)sender;
 
 @end

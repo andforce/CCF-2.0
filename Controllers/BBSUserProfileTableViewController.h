@@ -3,9 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSUserProfileTableViewController : ForumApiBaseTableViewController
+@interface BBSUserProfileTableViewController : BBSApiBaseTableViewController
 
 @property(weak, nonatomic) IBOutlet UIImageView *userAvatar;
 @property(weak, nonatomic) IBOutlet UILabel *userName;

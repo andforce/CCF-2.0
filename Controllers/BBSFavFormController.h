@@ -4,9 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSFavFormController : ForumApiBaseTableViewController
+@interface BBSFavFormController : BBSApiBaseTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;
 

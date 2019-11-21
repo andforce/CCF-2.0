@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
-@interface BBSPayViewController : ForumApiBaseViewController
+@interface BBSPayViewController : BBSApiBaseViewController
 
 @end

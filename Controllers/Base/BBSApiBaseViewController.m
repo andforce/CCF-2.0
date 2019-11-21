@@ -3,14 +3,14 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 #import "BBSLocalApi.h"
 
-@interface ForumApiBaseViewController ()
+@interface BBSApiBaseViewController ()
 
 @end
 
-@implementation ForumApiBaseViewController
+@implementation BBSApiBaseViewController
 
 #pragma mark initData
 

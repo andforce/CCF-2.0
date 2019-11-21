@@ -4,12 +4,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
 @protocol TranslateDataDelegate;
 @class TranslateData;
 
-@interface BBSShowNewThreadPostTableViewController : ForumApiBaseTableViewController
+@interface BBSShowNewThreadPostTableViewController : BBSApiBaseTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;
 

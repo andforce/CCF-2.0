@@ -4,7 +4,7 @@
 //
 
 #import "BBSFavFormController.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "BBSThreadListTableViewController.h"
 #import "BBSTabBarController.h"
 #import "SwipeTableCellWithIndexPath.h"
@@ -79,7 +79,7 @@
 
         }];
     } else {
-        ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+        BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
         NSArray *forms = [[manager selectFavForums:localForumApi.favFormIds] mutableCopy];
 
         [self.dataList addObjectsFromArray:forms];

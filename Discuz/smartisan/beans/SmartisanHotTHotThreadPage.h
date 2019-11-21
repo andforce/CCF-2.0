@@ -1,18 +1,17 @@
 //
-//  THotPage.h
-//
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
+@class SmartisanHotData;
 
-@interface THotPage : NSObject <NSCoding, NSCopying>
+@interface SmartisanHotTHotThreadPage : NSObject <NSCoding, NSCopying>
 
-@property(nonatomic, assign) double pageSize;
-@property(nonatomic, assign) double pageCount;
-@property(nonatomic, assign) double pageTotal;
+@property(nonatomic, strong) NSString *message;
+@property(nonatomic, strong) SmartisanHotData *data;
+@property(nonatomic, strong) NSString *code;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 

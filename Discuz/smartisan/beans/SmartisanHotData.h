@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class THotPage;
+@class SmartisanHotPage;
 
-@interface THotData : NSObject <NSCoding, NSCopying>
+@interface SmartisanHotData : NSObject <NSCoding, NSCopying>
 
-@property(nonatomic, strong) THotPage *page;
+@property(nonatomic, strong) SmartisanHotPage *page;
 @property(nonatomic, strong) NSArray *list;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;

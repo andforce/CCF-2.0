@@ -5,8 +5,8 @@
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 
-#import "THotTHotThreadPage.h"
-#import "THotData.h"
+#import "SmartisanHotTHotThreadPage.h"
+#import "SmartisanHotData.h"
 
 
 NSString *const kTHotTHotThreadPageMessage = @"message";
@@ -14,13 +14,13 @@ NSString *const kTHotTHotThreadPageData = @"data";
 NSString *const kTHotTHotThreadPageCode = @"code";
 
 
-@interface THotTHotThreadPage ()
+@interface SmartisanHotTHotThreadPage ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation THotTHotThreadPage
+@implementation SmartisanHotTHotThreadPage
 
 @synthesize message = _message;
 @synthesize data = _data;
@@ -38,7 +38,7 @@ NSString *const kTHotTHotThreadPageCode = @"code";
     // passed into the model class doesn't break the parsing.
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
         self.message = [self objectOrNilForKey:kTHotTHotThreadPageMessage fromDictionary:dict];
-        self.data = [THotData modelObjectWithDictionary:[dict objectForKey:kTHotTHotThreadPageData]];
+        self.data = [SmartisanHotData modelObjectWithDictionary:[dict objectForKey:kTHotTHotThreadPageData]];
         self.code = [self objectOrNilForKey:kTHotTHotThreadPageCode fromDictionary:dict];
 
     }
@@ -87,7 +87,7 @@ NSString *const kTHotTHotThreadPageCode = @"code";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THotTHotThreadPage *copy = [[THotTHotThreadPage alloc] init];
+    SmartisanHotTHotThreadPage *copy = [[SmartisanHotTHotThreadPage alloc] init];
 
     if (copy) {
 

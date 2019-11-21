@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "UserEntry+CoreDataProperties.h"
 #import "BBSApiHelper.h"
 #import "TranslateDataTableViewCell.h"

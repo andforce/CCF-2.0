@@ -4,8 +4,8 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSPayUITableViewController : ForumApiBaseTableViewController
+@interface BBSPayUITableViewController : BBSApiBaseTableViewController
 
 @end

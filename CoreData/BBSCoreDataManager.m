@@ -3,12 +3,12 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "ForumEntry+CoreDataClass.h"
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 
-@implementation ForumCoreDataManager
+@implementation BBSCoreDataManager
 
 - (instancetype)initWithEntryType:(EntryType)enrty {
     if (enrty == EntryTypeForm) {

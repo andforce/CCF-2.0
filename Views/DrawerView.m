@@ -12,7 +12,7 @@
 #import "LoginUser.h"
 
 #import <UIImageView+WebCache.h>
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "UserEntry+CoreDataProperties.h"
 #import "BBSApiHelper.h"
 #import "UIStoryboard+Forum.h"
@@ -26,7 +26,7 @@
 
     UIView *_rightEageView;
 
-    ForumCoreDataManager *coreDateManager;
+    BBSCoreDataManager *coreDateManager;
     NSArray *_haveLoginForums;
 
     UIImage *defaultAvatar;
@@ -147,7 +147,7 @@
         avatarCache = [NSMutableDictionary dictionary];
 
 
-        coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+        coreDateManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         if (cacheUsers == nil) {
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             cacheUsers = (NSMutableArray<UserEntry *> *) [[coreDateManager selectData:^NSPredicate * {

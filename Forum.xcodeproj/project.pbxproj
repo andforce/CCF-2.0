@@ -43,8 +43,8 @@
 		3A2C3F1E1DDFBAD000576151 /* post_view_notitle.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F1B1DDFBAD000576151 /* post_view_notitle.html */; };
 		3A2C3F1F1DDFBAD000576151 /* post_view.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F1C1DDFBAD000576151 /* post_view.html */; };
 		3A2C3F211DDFBADA00576151 /* private_message.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F201DDFBADA00576151 /* private_message.html */; };
-		3A2C3F321DDFBCE800576151 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F2D1DDFBCE800576151 /* CoreDataManager.m */; };
-		3A2C3F371DDFBD2700576151 /* ForumCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F361DDFBD2700576151 /* ForumCoreDataManager.m */; };
+		3A2C3F321DDFBCE800576151 /* BBSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */; };
+		3A2C3F371DDFBD2700576151 /* BBSCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F361DDFBD2700576151 /* BBSCoreDataManager.m */; };
 		3A2C3F3A1DDFBF3900576151 /* BaseBBSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F391DDFBF3900576151 /* BaseBBSTableViewCell.m */; };
 		3A2C3F4B1DDFBF5900576151 /* BBSProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F3C1DDFBF5900576151 /* BBSProfileTableViewCell.m */; };
 		3A2C3F4C1DDFBF5900576151 /* BBSSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F3E1DDFBF5900576151 /* BBSSearchResultCell.m */; };
@@ -73,9 +73,9 @@
 		3A2C3F891DDFDF9200576151 /* IGXMLNode+Children.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F861DDFDF9200576151 /* IGXMLNode+Children.m */; };
 		3A2C3F8D1DDFDFC000576151 /* BBSApiTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F8B1DDFDFC000576151 /* BBSApiTestViewController.m */; };
 		3A2C3F8E1DDFDFC000576151 /* ApiTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F8C1DDFDFC000576151 /* ApiTestViewController.xib */; };
-		3A2C3FCE1DDFE0C900576151 /* ForumApiBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F941DDFE0C900576151 /* ForumApiBaseTableViewController.m */; };
-		3A2C3FCF1DDFE0C900576151 /* ForumApiBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F961DDFE0C900576151 /* ForumApiBaseViewController.m */; };
-		3A2C3FD01DDFE0C900576151 /* ForumBaseStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F981DDFE0C900576151 /* ForumBaseStaticTableViewController.m */; };
+		3A2C3FCE1DDFE0C900576151 /* BBSApiBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F941DDFE0C900576151 /* BBSApiBaseTableViewController.m */; };
+		3A2C3FCF1DDFE0C900576151 /* BBSApiBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F961DDFE0C900576151 /* BBSApiBaseViewController.m */; };
+		3A2C3FD01DDFE0C900576151 /* BBSBaseStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F981DDFE0C900576151 /* BBSBaseStaticTableViewController.m */; };
 		3A2C3FD11DDFE0C900576151 /* BBSFavFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F9A1DDFE0C900576151 /* BBSFavFormController.m */; };
 		3A2C3FD21DDFE0C900576151 /* BBSFavThreadPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F9C1DDFE0C900576151 /* BBSFavThreadPostTableViewController.m */; };
 		3A2C3FD31DDFE0C900576151 /* BBSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F9E1DDFE0C900576151 /* BBSLoginViewController.m */; };
@@ -129,10 +129,10 @@
 		3AEDFA632095790500E93BB0 /* SmartisanConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA622095790500E93BB0 /* SmartisanConfig.m */; };
 		3AEDFA662095791B00E93BB0 /* SmartisanHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA652095791B00E93BB0 /* SmartisanHtmlParser.m */; };
 		3AEDFA6920957A9700E93BB0 /* SmartisanLoginWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA6820957A9700E93BB0 /* SmartisanLoginWebViewController.m */; };
-		3AEDFA802095AE5B00E93BB0 /* THotTHotThreadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */; };
-		3AEDFA812095AE5B00E93BB0 /* THotData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7C2095AE5B00E93BB0 /* THotData.m */; };
-		3AEDFA822095AE5B00E93BB0 /* THotList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7D2095AE5B00E93BB0 /* THotList.m */; };
-		3AEDFA832095AE5B00E93BB0 /* THotPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */; };
+		3AEDFA802095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7A2095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m */; };
+		3AEDFA812095AE5B00E93BB0 /* SmartisanHotData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7C2095AE5B00E93BB0 /* SmartisanHotData.m */; };
+		3AEDFA822095AE5B00E93BB0 /* SmartisanHotList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7D2095AE5B00E93BB0 /* SmartisanHotList.m */; };
+		3AEDFA832095AE5B00E93BB0 /* SmartisanHotPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7F2095AE5B00E93BB0 /* SmartisanHotPage.m */; };
 		4D0D87251DE40C7900DA9034 /* BBSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0D87241DE40C7900DA9034 /* BBSNavigationViewController.m */; };
 		4D1B072120456F1D0013B6A1 /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B072020456F1D0013B6A1 /* privacy.html */; };
 		4D1B0724204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B0723204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m */; };
@@ -245,10 +245,10 @@
 		3A2C3F1B1DDFBAD000576151 /* post_view_notitle.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = post_view_notitle.html; sourceTree = "<group>"; };
 		3A2C3F1C1DDFBAD000576151 /* post_view.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = post_view.html; sourceTree = "<group>"; };
 		3A2C3F201DDFBADA00576151 /* private_message.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = private_message.html; sourceTree = "<group>"; };
-		3A2C3F2C1DDFBCE800576151 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
-		3A2C3F2D1DDFBCE800576151 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
-		3A2C3F351DDFBD2700576151 /* ForumCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumCoreDataManager.h; sourceTree = "<group>"; };
-		3A2C3F361DDFBD2700576151 /* ForumCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumCoreDataManager.m; sourceTree = "<group>"; };
+		3A2C3F2C1DDFBCE800576151 /* BBSDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSDataManager.h; sourceTree = "<group>"; };
+		3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSDataManager.m; sourceTree = "<group>"; };
+		3A2C3F351DDFBD2700576151 /* BBSCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSCoreDataManager.h; sourceTree = "<group>"; };
+		3A2C3F361DDFBD2700576151 /* BBSCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSCoreDataManager.m; sourceTree = "<group>"; };
 		3A2C3F381DDFBF3900576151 /* BaseBBSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseBBSTableViewCell.h; sourceTree = "<group>"; };
 		3A2C3F391DDFBF3900576151 /* BaseBBSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseBBSTableViewCell.m; sourceTree = "<group>"; };
 		3A2C3F3B1DDFBF5900576151 /* BBSProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -303,12 +303,12 @@
 		3A2C3F8B1DDFDFC000576151 /* BBSApiTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSApiTestViewController.m; sourceTree = "<group>"; };
 		3A2C3F8C1DDFDFC000576151 /* ApiTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApiTestViewController.xib; sourceTree = "<group>"; };
 		3A2C3F8F1DDFDFEF00576151 /* Forum.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forum.pch; sourceTree = "<group>"; };
-		3A2C3F931DDFE0C900576151 /* ForumApiBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumApiBaseTableViewController.h; sourceTree = "<group>"; };
-		3A2C3F941DDFE0C900576151 /* ForumApiBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumApiBaseTableViewController.m; sourceTree = "<group>"; };
-		3A2C3F951DDFE0C900576151 /* ForumApiBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumApiBaseViewController.h; sourceTree = "<group>"; };
-		3A2C3F961DDFE0C900576151 /* ForumApiBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumApiBaseViewController.m; sourceTree = "<group>"; };
-		3A2C3F971DDFE0C900576151 /* ForumBaseStaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumBaseStaticTableViewController.h; sourceTree = "<group>"; };
-		3A2C3F981DDFE0C900576151 /* ForumBaseStaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumBaseStaticTableViewController.m; sourceTree = "<group>"; };
+		3A2C3F931DDFE0C900576151 /* BBSApiBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSApiBaseTableViewController.h; sourceTree = "<group>"; };
+		3A2C3F941DDFE0C900576151 /* BBSApiBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSApiBaseTableViewController.m; sourceTree = "<group>"; };
+		3A2C3F951DDFE0C900576151 /* BBSApiBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSApiBaseViewController.h; sourceTree = "<group>"; };
+		3A2C3F961DDFE0C900576151 /* BBSApiBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSApiBaseViewController.m; sourceTree = "<group>"; };
+		3A2C3F971DDFE0C900576151 /* BBSBaseStaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSBaseStaticTableViewController.h; sourceTree = "<group>"; };
+		3A2C3F981DDFE0C900576151 /* BBSBaseStaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSBaseStaticTableViewController.m; sourceTree = "<group>"; };
 		3A2C3F991DDFE0C900576151 /* BBSFavFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSFavFormController.h; sourceTree = "<group>"; };
 		3A2C3F9A1DDFE0C900576151 /* BBSFavFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSFavFormController.m; sourceTree = "<group>"; };
 		3A2C3F9B1DDFE0C900576151 /* BBSFavThreadPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSFavThreadPostTableViewController.h; sourceTree = "<group>"; };
@@ -407,14 +407,14 @@
 		3AEDFA652095791B00E93BB0 /* SmartisanHtmlParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartisanHtmlParser.m; sourceTree = "<group>"; };
 		3AEDFA6720957A9700E93BB0 /* SmartisanLoginWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartisanLoginWebViewController.h; sourceTree = "<group>"; };
 		3AEDFA6820957A9700E93BB0 /* SmartisanLoginWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartisanLoginWebViewController.m; sourceTree = "<group>"; };
-		3AEDFA772095AE5B00E93BB0 /* THotPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotPage.h; sourceTree = "<group>"; };
-		3AEDFA792095AE5B00E93BB0 /* THotTHotThreadPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotTHotThreadPage.h; sourceTree = "<group>"; };
-		3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotTHotThreadPage.m; sourceTree = "<group>"; };
-		3AEDFA7B2095AE5B00E93BB0 /* THotData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotData.h; sourceTree = "<group>"; };
-		3AEDFA7C2095AE5B00E93BB0 /* THotData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotData.m; sourceTree = "<group>"; };
-		3AEDFA7D2095AE5B00E93BB0 /* THotList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotList.m; sourceTree = "<group>"; };
-		3AEDFA7E2095AE5B00E93BB0 /* THotList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THotList.h; sourceTree = "<group>"; };
-		3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THotPage.m; sourceTree = "<group>"; };
+		3AEDFA772095AE5B00E93BB0 /* SmartisanHotPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartisanHotPage.h; sourceTree = "<group>"; };
+		3AEDFA792095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartisanHotTHotThreadPage.h; sourceTree = "<group>"; };
+		3AEDFA7A2095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartisanHotTHotThreadPage.m; sourceTree = "<group>"; };
+		3AEDFA7B2095AE5B00E93BB0 /* SmartisanHotData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartisanHotData.h; sourceTree = "<group>"; };
+		3AEDFA7C2095AE5B00E93BB0 /* SmartisanHotData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartisanHotData.m; sourceTree = "<group>"; };
+		3AEDFA7D2095AE5B00E93BB0 /* SmartisanHotList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartisanHotList.m; sourceTree = "<group>"; };
+		3AEDFA7E2095AE5B00E93BB0 /* SmartisanHotList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartisanHotList.h; sourceTree = "<group>"; };
+		3AEDFA7F2095AE5B00E93BB0 /* SmartisanHotPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartisanHotPage.m; sourceTree = "<group>"; };
 		4D0D87231DE40C7900DA9034 /* BBSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSNavigationViewController.h; sourceTree = "<group>"; };
 		4D0D87241DE40C7900DA9034 /* BBSNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSNavigationViewController.m; sourceTree = "<group>"; };
 		4D1B072020456F1D0013B6A1 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
@@ -502,14 +502,14 @@
 		2F34CDC2EC8AA190D43950B0 /* beans */ = {
 			isa = PBXGroup;
 			children = (
-				3AEDFA7B2095AE5B00E93BB0 /* THotData.h */,
-				3AEDFA7C2095AE5B00E93BB0 /* THotData.m */,
-				3AEDFA7E2095AE5B00E93BB0 /* THotList.h */,
-				3AEDFA7D2095AE5B00E93BB0 /* THotList.m */,
-				3AEDFA772095AE5B00E93BB0 /* THotPage.h */,
-				3AEDFA7F2095AE5B00E93BB0 /* THotPage.m */,
-				3AEDFA792095AE5B00E93BB0 /* THotTHotThreadPage.h */,
-				3AEDFA7A2095AE5B00E93BB0 /* THotTHotThreadPage.m */,
+				3AEDFA7B2095AE5B00E93BB0 /* SmartisanHotData.h */,
+				3AEDFA7C2095AE5B00E93BB0 /* SmartisanHotData.m */,
+				3AEDFA7E2095AE5B00E93BB0 /* SmartisanHotList.h */,
+				3AEDFA7D2095AE5B00E93BB0 /* SmartisanHotList.m */,
+				3AEDFA772095AE5B00E93BB0 /* SmartisanHotPage.h */,
+				3AEDFA7F2095AE5B00E93BB0 /* SmartisanHotPage.m */,
+				3AEDFA792095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.h */,
+				3AEDFA7A2095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m */,
 			);
 			path = beans;
 			sourceTree = "<group>";
@@ -769,11 +769,11 @@
 				4DFB34CC1DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.m */,
 				4DFB34CD1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.h */,
 				4DFB34CE1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m */,
-				3A2C3F351DDFBD2700576151 /* ForumCoreDataManager.h */,
-				3A2C3F361DDFBD2700576151 /* ForumCoreDataManager.m */,
+				3A2C3F351DDFBD2700576151 /* BBSCoreDataManager.h */,
+				3A2C3F361DDFBD2700576151 /* BBSCoreDataManager.m */,
 				3A2C3FEC1DDFE10900576151 /* forum1.xcdatamodeld */,
-				3A2C3F2C1DDFBCE800576151 /* CoreDataManager.h */,
-				3A2C3F2D1DDFBCE800576151 /* CoreDataManager.m */,
+				3A2C3F2C1DDFBCE800576151 /* BBSDataManager.h */,
+				3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -983,12 +983,12 @@
 		4D1B07272046AF030013B6A1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				3A2C3F931DDFE0C900576151 /* ForumApiBaseTableViewController.h */,
-				3A2C3F941DDFE0C900576151 /* ForumApiBaseTableViewController.m */,
-				3A2C3F971DDFE0C900576151 /* ForumBaseStaticTableViewController.h */,
-				3A2C3F981DDFE0C900576151 /* ForumBaseStaticTableViewController.m */,
-				3A2C3F951DDFE0C900576151 /* ForumApiBaseViewController.h */,
-				3A2C3F961DDFE0C900576151 /* ForumApiBaseViewController.m */,
+				3A2C3F931DDFE0C900576151 /* BBSApiBaseTableViewController.h */,
+				3A2C3F941DDFE0C900576151 /* BBSApiBaseTableViewController.m */,
+				3A2C3F971DDFE0C900576151 /* BBSBaseStaticTableViewController.h */,
+				3A2C3F981DDFE0C900576151 /* BBSBaseStaticTableViewController.m */,
+				3A2C3F951DDFE0C900576151 /* BBSApiBaseViewController.h */,
+				3A2C3F961DDFE0C900576151 /* BBSApiBaseViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1238,7 +1238,7 @@
 				3A48EF88214E9FAC0025CE2D /* HybridNSURLProtocol.m in Sources */,
 				4D7F74F21FBEB5FD0049BA46 /* AutoSendBackTabBar.m in Sources */,
 				3A430BAC209734FF007D3BCB /* DiscuzMessageTableViewController.m in Sources */,
-				3A2C3FD01DDFE0C900576151 /* ForumBaseStaticTableViewController.m in Sources */,
+				3A2C3FD01DDFE0C900576151 /* BBSBaseStaticTableViewController.m in Sources */,
 				3A2C3F4C1DDFBF5900576151 /* BBSSearchResultCell.m in Sources */,
 				3A288A621DFD14D8002EBBC2 /* DreamLandApi.m in Sources */,
 				4DF7371B1DDECC8D00BF1896 /* Forum.m in Sources */,
@@ -1258,7 +1258,7 @@
 				4D1B0724204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m in Sources */,
 				3A2C3FE51DDFE0C900576151 /* BBSThreadListForChildFormUITableViewController.m in Sources */,
 				4D1B072A2046B15F0013B6A1 /* BBSPayUITableViewController.m in Sources */,
-				3A2C3F371DDFBD2700576151 /* ForumCoreDataManager.m in Sources */,
+				3A2C3F371DDFBD2700576151 /* BBSCoreDataManager.m in Sources */,
 				3A2C3FDA1DDFE0C900576151 /* BBSPrivateMessageTableViewController.m in Sources */,
 				3ACFFD341CFA641F000312DC /* BBSPhoto.m in Sources */,
 				3A2C3F7F1DDFC0CD00576151 /* UIStoryboard+Forum.m in Sources */,
@@ -1280,7 +1280,7 @@
 				4DA372A41FC2DFD60094E655 /* BBSZhanNeiSearchViewCell.m in Sources */,
 				3A2C3FEE1DDFE10900576151 /* forum1.xcdatamodeld in Sources */,
 				3A288A641DFD14D8002EBBC2 /* DreamLandHtmlParser.m in Sources */,
-				3AEDFA802095AE5B00E93BB0 /* THotTHotThreadPage.m in Sources */,
+				3AEDFA802095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m in Sources */,
 				4DFB34D01DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m in Sources */,
 				4DF737261DDECC9600BF1896 /* Message.m in Sources */,
 				3A2C3F7C1DDFC0CD00576151 /* NSUserDefaults+Setting.m in Sources */,
@@ -1288,7 +1288,7 @@
 				3A2C3FFF1DDFE30300576151 /* TransDataUITableViewController.m in Sources */,
 				3A2C3FE61DDFE0C900576151 /* BBSThreadListTableViewController.m in Sources */,
 				3A2C3F7D1DDFC0CD00576151 /* UIColor+MyColor.m in Sources */,
-				3AEDFA832095AE5B00E93BB0 /* THotPage.m in Sources */,
+				3AEDFA832095AE5B00E93BB0 /* SmartisanHotPage.m in Sources */,
 				3A2C3FD61DDFE0C900576151 /* BBSMyThreadPostTableViewController.m in Sources */,
 				3A2C3F5F1DDFBFC500576151 /* XibInflater.m in Sources */,
 				3A2C3F801DDFC0CD00576151 /* UIView+Corner.m in Sources */,
@@ -1303,12 +1303,12 @@
 				4DFB34CF1DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.m in Sources */,
 				3A2C3FD51DDFE0C900576151 /* BBSMyProfileTableViewController.m in Sources */,
 				4DF737191DDECC8D00BF1896 /* Post.m in Sources */,
-				3A2C3FCE1DDFE0C900576151 /* ForumApiBaseTableViewController.m in Sources */,
+				3A2C3FCE1DDFE0C900576151 /* BBSApiBaseTableViewController.m in Sources */,
 				4DF737061DDECC8500BF1896 /* ViewSearchForumPage.m in Sources */,
 				3A288A631DFD14D8002EBBC2 /* DreamLandConfig.m in Sources */,
 				4DF7371C1DDECC8D00BF1896 /* Thread.m in Sources */,
 				3A2C3FE81DDFE0C900576151 /* BBSUserThreadTableViewController.m in Sources */,
-				3AEDFA812095AE5B00E93BB0 /* THotData.m in Sources */,
+				3AEDFA812095AE5B00E93BB0 /* SmartisanHotData.m in Sources */,
 				3A2C3F501DDFBF5900576151 /* BBSMessageTableViewCell.m in Sources */,
 				3A2C3FE41DDFE0C900576151 /* BBSTableViewController.m in Sources */,
 				4DF737211DDECC8D00BF1896 /* ViewForumPage.m in Sources */,
@@ -1322,20 +1322,20 @@
 				3A2C3FD91DDFE0C900576151 /* BBSCreateNewThreadViewController.m in Sources */,
 				3A2C3FDE1DDFE0C900576151 /* BBSSeniorNewPostViewController.m in Sources */,
 				3A2C3FEB1DDFE0C900576151 /* BBSWritePMViewController.m in Sources */,
-				3A2C3FCF1DDFE0C900576151 /* ForumApiBaseViewController.m in Sources */,
+				3A2C3FCF1DDFE0C900576151 /* BBSApiBaseViewController.m in Sources */,
 				3A2C3FD31DDFE0C900576151 /* BBSLoginViewController.m in Sources */,
 				3A2C3F7E1DDFC0CD00576151 /* UIImage+Tint.m in Sources */,
 				3A6B4F611EB705A600B9CD79 /* DeviceName.m in Sources */,
 				3A2C3F6A1DDFC03400576151 /* LeftDrawerItem.m in Sources */,
 				3A92CD9F1F2C7E6000E41573 /* FeiFanConfig.m in Sources */,
 				3A2C3F691DDFC03400576151 /* CommonUtils.m in Sources */,
-				3A2C3F321DDFBCE800576151 /* CoreDataManager.m in Sources */,
+				3A2C3F321DDFBCE800576151 /* BBSDataManager.m in Sources */,
 				3A2C3F881DDFDF9200576151 /* IGHTMLDocument+QueryNode.m in Sources */,
 				4DFB34D21DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m in Sources */,
 				4DF737271DDECC9600BF1896 /* ViewMessagePage.m in Sources */,
 				3A2C3F4E1DDFBF5900576151 /* BBSThreadListCell.m in Sources */,
 				3A2C3FE71DDFE0C900576151 /* BBSUserProfileTableViewController.m in Sources */,
-				3AEDFA822095AE5B00E93BB0 /* THotList.m in Sources */,
+				3AEDFA822095AE5B00E93BB0 /* SmartisanHotList.m in Sources */,
 				3A2C3F5B1DDFBFC500576151 /* ForumListHeaderView.m in Sources */,
 				3AEDFA662095791B00E93BB0 /* SmartisanHtmlParser.m in Sources */,
 				C7B59D8E9D44A593D270BE03 /* NSData+UTF8.m in Sources */,

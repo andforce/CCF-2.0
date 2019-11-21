@@ -7,7 +7,7 @@
 #import "BBSApiHelper.h"
 #import "TransBundleUIViewController.h"
 
-@interface ForumApiBaseViewController : TransBundleUIViewController
+@interface BBSApiBaseViewController : TransBundleUIViewController
 
 @property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 

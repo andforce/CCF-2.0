@@ -9,12 +9,12 @@
 #import "BBSParserDelegate.h"
 #import "SmartisanHtmlParser.h"
 #import "IGXMLNode+Children.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "NSString+Extensions.h"
-#import "THotTHotThreadPage.h"
-#import "THotData.h"
-#import "THotPage.h"
-#import "THotList.h"
+#import "SmartisanHotTHotThreadPage.h"
+#import "SmartisanHotData.h"
+#import "SmartisanHotPage.h"
+#import "SmartisanHotList.h"
 #import "CommonUtils.h"
 #import "IGHTMLDocument+QueryNode.h"
 #import "BBSLocalApi.h"
@@ -335,15 +335,15 @@
 
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions) kNilOptions error:nil];
 
-    THotTHotThreadPage *hotTHotThreadPage = [THotTHotThreadPage modelObjectWithDictionary:dictionary];
+    SmartisanHotTHotThreadPage *hotTHotThreadPage = [SmartisanHotTHotThreadPage modelObjectWithDictionary:dictionary];
 
     PageNumber *pageNumber = [[PageNumber alloc] init];
     pageNumber.currentPageNumber = 1;
     pageNumber.totalPageNumber = (int) hotTHotThreadPage.data.page.pageTotal;
-    NSArray<THotList *> *list = hotTHotThreadPage.data.list;
+    NSArray<SmartisanHotList *> *list = hotTHotThreadPage.data.list;
 
     NSMutableArray<Thread *> *dataList = [NSMutableArray array];
-    for (THotList *tHotList in list) {
+    for (SmartisanHotList *tHotList in list) {
         Thread *thread = [[Thread alloc] init];
         thread.threadTitle = tHotList.subject;
         thread.threadAuthorID = tHotList.authorid;
@@ -587,7 +587,7 @@
     }
 
     // 通过ids 过滤出Form
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
     NSArray *result = [manager selectData:^NSPredicate * {
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];

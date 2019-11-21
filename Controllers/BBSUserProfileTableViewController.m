@@ -16,7 +16,7 @@
     UserProfile *userProfile;
     int userId;
     UIImage *defaultAvatarImage;
-    ForumCoreDataManager *coreDateManager;
+    BBSCoreDataManager *coreDateManager;
     id <BBSApiDelegate> _forumApi;
     NSMutableDictionary *avatarCache;
     NSMutableArray<UserEntry *> *cacheUsers;
@@ -39,7 +39,7 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     _forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
 
-    coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+    coreDateManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
     avatarCache = [NSMutableDictionary dictionary];
 
     if (cacheUsers == nil) {

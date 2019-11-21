@@ -3,20 +3,18 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "BBSApiHelper.h"
 #import "MJRefresh.h"
 
-#import "TransDataUITableViewController.h"
-
-@interface ForumApiBaseTableViewController : TransDataUITableViewController
+@interface BBSBaseStaticTableViewController : UITableViewController
 
 @property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;
-@property(nonatomic, strong) PageNumber *pageNumber;
+@property(nonatomic, assign) int currentPage;
+@property(nonatomic, assign) int totalPage;
 
 - (void)onPullRefresh;
+
 
 - (void)onLoadMore;
 
@@ -27,7 +25,5 @@
 - (BOOL)autoPullfresh;
 
 - (NSString *)currentForumHost;
-
-- (BOOL)isNeedHideLeftMenu;
 
 @end

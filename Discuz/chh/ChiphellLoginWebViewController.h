@@ -4,10 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
 
-@interface ChiphellLoginWebViewController : ForumApiBaseViewController
+@interface ChiphellLoginWebViewController : BBSApiBaseViewController
 
 @property(weak, nonatomic) IBOutlet UIWebView *webView;
 

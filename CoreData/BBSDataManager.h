@@ -16,7 +16,7 @@ typedef void(^InsertOperation)(id src);
 typedef NSPredicate *(^Predicate)();
 
 
-@interface CoreDataManager : NSObject
+@interface BBSDataManager : NSObject
 
 @property(readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property(readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -27,12 +27,9 @@ typedef NSPredicate *(^Predicate)();
 - (void)saveContext;
 
 //插入数据
-//- (void)insertData:(NSMutableArray*)dataArray;
-
 - (void)insertData:(NSMutableArray *)dataArray operation:(Operation)operation;
 
 - (void)insertOneData:(InsertOperation)operation;
-
 
 // 取出所有的数据
 - (NSArray *)selectData;
@@ -40,7 +37,6 @@ typedef NSPredicate *(^Predicate)();
 - (NSArray *)selectData:(Predicate)operation;
 
 - (void)deleteData:(Predicate)operation;
-
 
 //查询
 - (NSArray *)selectData:(int)pageSize andOffset:(int)currentPage;

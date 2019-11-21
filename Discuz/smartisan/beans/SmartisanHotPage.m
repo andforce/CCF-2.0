@@ -5,7 +5,7 @@
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 
-#import "THotPage.h"
+#import "SmartisanHotPage.h"
 
 
 NSString *const kTHotPagePageSize = @"pageSize";
@@ -13,13 +13,13 @@ NSString *const kTHotPagePageCount = @"pageCount";
 NSString *const kTHotPagePageTotal = @"pageTotal";
 
 
-@interface THotPage ()
+@interface SmartisanHotPage ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation THotPage
+@implementation SmartisanHotPage
 
 @synthesize pageSize = _pageSize;
 @synthesize pageCount = _pageCount;
@@ -86,7 +86,7 @@ NSString *const kTHotPagePageTotal = @"pageTotal";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THotPage *copy = [[THotPage alloc] init];
+    SmartisanHotPage *copy = [[SmartisanHotPage alloc] init];
 
     if (copy) {
 

@@ -3,10 +3,10 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumBaseStaticTableViewController.h"
+#import "BBSBaseStaticTableViewController.h"
 #import "BBSLocalApi.h"
 
-@interface ForumBaseStaticTableViewController () {
+@interface BBSBaseStaticTableViewController () {
     BOOL disablePullrefresh;
 
     BOOL disableLoadMore;
@@ -14,7 +14,7 @@
 
 @end
 
-@implementation ForumBaseStaticTableViewController
+@implementation BBSBaseStaticTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

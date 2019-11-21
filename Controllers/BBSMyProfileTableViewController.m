@@ -5,7 +5,7 @@
 
 #import "BBSMyProfileTableViewController.h"
 #import <UIImageView+WebCache.h>
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "UserEntry+CoreDataProperties.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSTabBarController.h"
@@ -17,7 +17,7 @@
 
     UIImage *defaultAvatarImage;
 
-    ForumCoreDataManager *coreDateManager;
+    BBSCoreDataManager *coreDateManager;
 
     NSMutableDictionary *avatarCache;
 
@@ -49,7 +49,7 @@
     avatarCache = [NSMutableDictionary dictionary];
 
 
-    coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+    coreDateManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
     if (cacheUsers == nil) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         cacheUsers = [[coreDateManager selectData:^NSPredicate * {

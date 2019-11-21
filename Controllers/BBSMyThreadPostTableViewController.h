@@ -4,9 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface BBSMyThreadPostTableViewController : ForumApiBaseTableViewController
+@interface BBSMyThreadPostTableViewController : BBSApiBaseTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;
 

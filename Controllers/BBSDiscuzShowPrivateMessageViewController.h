@@ -4,10 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
 
-@interface BBSDiscuzShowPrivateMessageViewController : ForumApiBaseViewController
+@interface BBSDiscuzShowPrivateMessageViewController : BBSApiBaseViewController
 
 
 @property(nonatomic, strong) NSMutableArray<ViewMessagePage *> *dataList;

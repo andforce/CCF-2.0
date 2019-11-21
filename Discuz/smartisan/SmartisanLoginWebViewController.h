@@ -4,9 +4,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
-@interface SmartisanLoginWebViewController : ForumApiBaseViewController
+@interface SmartisanLoginWebViewController : BBSApiBaseViewController
 
 @property(weak, nonatomic) IBOutlet UIWebView *webView;
 

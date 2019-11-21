@@ -4,9 +4,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
-@interface FeiFanLoginViewController : ForumApiBaseViewController
+@interface FeiFanLoginViewController : BBSApiBaseViewController
 
 @property(weak, nonatomic) IBOutlet UIWebView *webView;
 

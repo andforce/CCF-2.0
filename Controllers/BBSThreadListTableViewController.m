@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     childForms = [[manager selectChildForumsById:transForm.forumId] mutableCopy];
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;

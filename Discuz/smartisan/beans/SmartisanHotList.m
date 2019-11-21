@@ -5,7 +5,7 @@
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 
-#import "THotList.h"
+#import "SmartisanHotList.h"
 
 
 NSString *const kTHotListAuthor = @"author";
@@ -20,13 +20,13 @@ NSString *const kTHotListTid = @"tid";
 NSString *const kTHotListAttachment = @"attachment";
 
 
-@interface THotList ()
+@interface SmartisanHotList ()
 
 - (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end
 
-@implementation THotList
+@implementation SmartisanHotList
 
 @synthesize author = _author;
 @synthesize dbdateline = _dbdateline;
@@ -128,7 +128,7 @@ NSString *const kTHotListAttachment = @"attachment";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    THotList *copy = [[THotList alloc] init];
+    SmartisanHotList *copy = [[SmartisanHotList alloc] init];
 
     if (copy) {
 

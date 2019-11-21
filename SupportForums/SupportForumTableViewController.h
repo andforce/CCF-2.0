@@ -4,9 +4,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseTableViewController.h"
+#import "BBSApiBaseTableViewController.h"
 
-@interface SupportForumTableViewController : ForumApiBaseTableViewController
+@interface SupportForumTableViewController : BBSApiBaseTableViewController
 - (IBAction)showLeftDrawer:(id)sender;
 
 - (IBAction)cancel:(id)sender;

@@ -8,7 +8,7 @@
 #import "BBSParserDelegate.h"
 #import "AFHTTPSessionManager+SimpleAction.h"
 #import "NSUserDefaults+Setting.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "NSString+Extensions.h"
 #import "CharUtils.h"
 #import "IGHTMLDocument.h"
@@ -726,7 +726,7 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     [localForumApi saveFavFormIds:ids];
 
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     NSArray *forms = [[manager selectFavForums:ids] mutableCopy];
 
     handler(YES, forms);

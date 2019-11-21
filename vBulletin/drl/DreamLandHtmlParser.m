@@ -8,7 +8,7 @@
 #import "IGXMLNode+Children.h"
 
 #import "ForumEntry+CoreDataClass.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "NSString+Extensions.h"
 
 #import "IGHTMLDocument+QueryNode.h"
@@ -534,7 +534,7 @@
     [localForumApi saveFavFormIds:ids];
 
     // 通过ids 过滤出Form
-    ForumCoreDataManager *manager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *manager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
     NSArray *result = [manager selectData:^NSPredicate * {
         NSString *host = localForumApi.currentForumHost;
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", host, ids];

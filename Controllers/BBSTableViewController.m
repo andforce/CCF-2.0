@@ -5,7 +5,7 @@
 //
 
 #import "BBSTableViewController.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "BBSThreadListTableViewController.h"
 #import "ForumListHeaderView.h"
 #import "XibInflater.h"
@@ -35,7 +35,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 97.0;
 
-    ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+    BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
 
     [self.dataList removeAllObjects];
 
@@ -65,7 +65,7 @@
 
         if (isSuccess) {
             NSMutableArray<Forum *> *needInsert = message;
-            ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+            BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
             // 需要先删除之前的老数据
             [formManager deleteData:^NSPredicate * {
                 return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;

@@ -7,7 +7,7 @@
 #import "AppDelegate.h"
 
 #import "UIStoryboard+Forum.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "ForumEntry+CoreDataClass.h"
 #import "BBSLocalApi.h"
 #import "ProgressDialog.h"
@@ -150,7 +150,7 @@
                 [ProgressDialog dismiss];
                 if (success) {
                     NSMutableArray<Forum *> *needInsert = msg;
-                    ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+                    BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
                     // 需要先删除之前的老数据
                     [formManager deleteData:^NSPredicate * {
                         return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;

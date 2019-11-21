@@ -3,9 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiBaseViewController.h"
+#import "BBSApiBaseViewController.h"
 
-@interface BBSWritePMViewController : ForumApiBaseViewController
+@interface BBSWritePMViewController : BBSApiBaseViewController
 - (IBAction)back:(id)sender;
 
 @property(weak, nonatomic) IBOutlet UITextField *toWho;

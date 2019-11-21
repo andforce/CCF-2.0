@@ -12,7 +12,7 @@
 @implementation BaseBBSTableViewCell {
     UIImage *defaultAvatarImage;
 
-    ForumCoreDataManager *coreDateManager;
+    BBSCoreDataManager *coreDateManager;
     id <BBSApiDelegate> _forumApi;
 
     NSMutableDictionary *avatarCache;
@@ -44,7 +44,7 @@
     avatarCache = [NSMutableDictionary dictionary];
 
 
-    coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+    coreDateManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
     if (cacheUsers == nil) {
         cacheUsers = [[coreDateManager selectData:^NSPredicate * {
             return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", self.currentForumHost, 0];

@@ -4,9 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumBaseStaticTableViewController.h"
+#import "BBSBaseStaticTableViewController.h"
 
-@interface BBSMyProfileTableViewController : ForumBaseStaticTableViewController
+@interface BBSMyProfileTableViewController : BBSBaseStaticTableViewController
 
 - (IBAction)showLeftDrawer:(id)sender;
 

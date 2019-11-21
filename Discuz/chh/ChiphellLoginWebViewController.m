@@ -7,7 +7,7 @@
 #import "IGXMLNode+Children.h"
 
 #import "ForumEntry+CoreDataClass.h"
-#import "ForumCoreDataManager.h"
+#import "BBSCoreDataManager.h"
 #import "NSString+Extensions.h"
 
 #import "IGHTMLDocument+QueryNode.h"
@@ -106,7 +106,7 @@
         [self.forumApi listAllForums:^(BOOL isSuccess, id msg) {
             if (isSuccess) {
                 NSMutableArray<Forum *> *needInsert = msg;
-                ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+                BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
                 // 需要先删除之前的老数据
                 [formManager deleteData:^NSPredicate * {
                     return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;
