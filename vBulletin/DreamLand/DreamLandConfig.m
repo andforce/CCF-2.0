@@ -5,7 +5,7 @@
 //
 
 #import "DreamLandConfig.h"
-#import "DeviceName.h"
+#import "iOSDeviceName.h"
 
 @implementation DreamLandConfig
 
@@ -37,7 +37,7 @@
 }
 
 - (NSString *)signature {
-    NSString *phoneName = [DeviceName deviceNameDetail];
+    NSString *phoneName = [iOSDeviceName deviceName];
     NSString *signature = [NSString stringWithFormat:@"\n\n发自 %@ 使用 DRL客户端", phoneName];
     return signature;
 }

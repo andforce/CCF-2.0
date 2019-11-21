@@ -3,11 +3,11 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "DeviceName.h"
+#import "iOSDeviceName.h"
 
 #import <sys/utsname.h>
 
-@implementation DeviceName
+@implementation iOSDeviceName
 
 + (NSString *)platform{
     struct utsname systemInfo;
@@ -17,7 +17,7 @@
     return platform;
 }
 
-+ (NSString *)deviceNameDetail{
++ (NSString *)deviceName{
     return [self platformDetailString:[self platform]];
 }
 

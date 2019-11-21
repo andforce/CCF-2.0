@@ -5,7 +5,7 @@
 //
 
 #import "SmartisanConfig.h"
-#import "DeviceName.h"
+#import "iOSDeviceName.h"
 #import "UIColor+MyColor.h"
 
 @implementation SmartisanConfig
@@ -32,7 +32,7 @@
 }
 
 - (NSString *)signature {
-    NSString *phoneName = [DeviceName deviceNameDetail];
+    NSString *phoneName = [iOSDeviceName deviceName];
     NSString *signature = [NSString stringWithFormat:@"\n\n发自 %@ 使用 iOS客户端", phoneName];
     return signature;
 }

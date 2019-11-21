@@ -9,7 +9,7 @@
 @implementation CharUtils
 
 
-+ (BOOL)isChinese:(unichar)c {
++ (BOOL)isCNCharCode:(unichar)c {
     UnicodeBlock ub = [CharUnicodeBlock unicodeBlockOf:c];
     if (ub == CJK_UNIFIED_IDEOGRAPHS || ub == CJK_COMPATIBILITY_IDEOGRAPHS
             || ub == CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A || ub == CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B

@@ -5,13 +5,13 @@
 //
 
 #import "BBSTabBarController.h"
-#import "DrawerView.h"
+#import "SlideDrawerView.h"
 #import "BBSLocalApi.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSNavigationViewController.h"
 
 @interface BBSTabBarController () {
-    DrawerView *_leftDrawerView;
+    SlideDrawerView *_leftDrawerView;
 }
 
 @end
@@ -43,7 +43,7 @@
     [super viewDidLoad];
 
     if (![self isNeedHideLeftMenu]) {
-        _leftDrawerView = [[DrawerView alloc] initWithDrawerType:DrawerViewTypeLeft andXib:@"DrawerView"];
+        _leftDrawerView = [[SlideDrawerView alloc] initWithDrawerType:DrawerViewTypeLeft andXib:@"SlideDrawerView"];
         [self.view addSubview:_leftDrawerView];
     }
 

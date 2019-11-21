@@ -8,6 +8,6 @@
 
 @interface CharUtils : NSObject
 
-+ (BOOL)isChinese:(unichar)c;
++ (BOOL)isCNCharCode:(unichar)c;
 
 @end

@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HybridNSURLProtocol : NSURLProtocol
+@interface iOSDeviceName : NSObject
+
++ (NSString* )deviceName;
 
 @end
+

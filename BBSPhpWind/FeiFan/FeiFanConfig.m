@@ -5,7 +5,7 @@
 //
 
 #import "FeiFanConfig.h"
-#import "DeviceName.h"
+#import "iOSDeviceName.h"
 
 @implementation FeiFanConfig {
     NSURL *_forumURL;
@@ -167,7 +167,7 @@
 }
 
 - (NSString *)signature {
-    NSString *phoneName = [DeviceName deviceNameDetail];
+    NSString *phoneName = [iOSDeviceName deviceName];
     NSString *signature = [NSString stringWithFormat:@"\n\n发自 %@ 使用 霏凡客户端", phoneName];
     return signature;
 }

@@ -19,7 +19,7 @@
 
 #import "BBSPayManager.h"
 
-#import "HybridNSURLProtocol.h"
+#import "BBSNSURLProtocol.h"
 #import "BBSPayUITableViewController.h"
 
 static BOOL API_DEBUG = NO;
@@ -37,7 +37,7 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [NSURLProtocol registerClass:[HybridNSURLProtocol class]];
+    [NSURLProtocol registerClass:[BBSNSURLProtocol class]];
     
     [self changeUserAgentForWebView];
 

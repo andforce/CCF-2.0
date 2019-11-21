@@ -24,8 +24,8 @@
 		2F34CF6094B6C2397FB0FE5C /* BBSDiscuzShowPrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C8996C973B366700F031 /* BBSDiscuzShowPrivateMessageViewController.m */; };
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* BBSShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* BBSShortCutCreateNewThreadViewController.m */; };
-		3A288A4C1DFAE47F002EBBC2 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* DrawerView.m */; };
-		3A288A4D1DFAE47F002EBBC2 /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* DrawerView.xib */; };
+		3A288A4C1DFAE47F002EBBC2 /* SlideDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */; };
+		3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */; };
 		3A288A501DFC4EAF002EBBC2 /* supportForums.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */; };
 		3A288A561DFC534D002EBBC2 /* WorkedBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A531DFC534D002EBBC2 /* WorkedBBS.m */; };
 		3A288A571DFC534D002EBBC2 /* HaveWorkedBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A551DFC534D002EBBC2 /* HaveWorkedBBS.m */; };
@@ -111,10 +111,10 @@
 		3A48EF80214D3BFD0025CE2D /* fastclick_lib.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */; };
 		3A48EF81214D3BFD0025CE2D /* handle_click.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A48EF7F214D3BFD0025CE2D /* handle_click.js */; };
 		3A48EF83214D45490025CE2D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A48EF82214D45480025CE2D /* WebKit.framework */; };
-		3A48EF88214E9FAC0025CE2D /* HybridNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */; };
+		3A48EF88214E9FAC0025CE2D /* BBSNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF86214E9FAC0025CE2D /* BBSNSURLProtocol.m */; };
 		3A48EF89214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */; };
 		3A5A2CD61EBDEA7100B62F96 /* BBSSupportNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A2CD51EBDEA7100B62F96 /* BBSSupportNavigationController.m */; };
-		3A6B4F611EB705A600B9CD79 /* DeviceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B4F601EB705A600B9CD79 /* DeviceName.m */; };
+		3A6B4F611EB705A600B9CD79 /* iOSDeviceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */; };
 		3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A8750C01FBDFC07002757AD /* changeLoginStyle.js */; };
 		3A92CD9C1F2C7D9B00E41573 /* FeiFanBBSApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CD9B1F2C7D9B00E41573 /* FeiFanBBSApi.m */; };
 		3A92CD9F1F2C7E6000E41573 /* FeiFanConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CD9E1F2C7E6000E41573 /* FeiFanConfig.m */; };
@@ -216,9 +216,9 @@
 		2F34CF08A261B408C3A92081 /* BBSApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSApiHelper.h; sourceTree = "<group>"; };
 		2F34CF789D3C14352C95AF73 /* BBSLocalApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSLocalApi.h; sourceTree = "<group>"; };
 		2F34CF920692D4F8881DB9A1 /* BBSBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSBrowser.h; sourceTree = "<group>"; };
-		3A288A491DFAE47F002EBBC2 /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
-		3A288A4A1DFAE47F002EBBC2 /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
-		3A288A4B1DFAE47F002EBBC2 /* DrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerView.xib; sourceTree = "<group>"; };
+		3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideDrawerView.h; sourceTree = "<group>"; };
+		3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideDrawerView.m; sourceTree = "<group>"; };
+		3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideDrawerView.xib; sourceTree = "<group>"; };
 		3A288A4E1DFAF569002EBBC2 /* DrawerViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerViewDelegate.h; sourceTree = "<group>"; };
 		3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = supportForums.json; sourceTree = "<group>"; };
 		3A288A521DFC534D002EBBC2 /* WorkedBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkedBBS.h; sourceTree = "<group>"; };
@@ -374,13 +374,13 @@
 		3A48EF7F214D3BFD0025CE2D /* handle_click.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = handle_click.js; sourceTree = "<group>"; };
 		3A48EF82214D45480025CE2D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3A48EF84214E9FAB0025CE2D /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
-		3A48EF85214E9FAC0025CE2D /* HybridNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridNSURLProtocol.h; sourceTree = "<group>"; };
-		3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridNSURLProtocol.m; sourceTree = "<group>"; };
+		3A48EF85214E9FAC0025CE2D /* BBSNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSNSURLProtocol.h; sourceTree = "<group>"; };
+		3A48EF86214E9FAC0025CE2D /* BBSNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSNSURLProtocol.m; sourceTree = "<group>"; };
 		3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		3A5A2CD41EBDEA7100B62F96 /* BBSSupportNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSSupportNavigationController.h; sourceTree = "<group>"; };
 		3A5A2CD51EBDEA7100B62F96 /* BBSSupportNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSSupportNavigationController.m; sourceTree = "<group>"; };
-		3A6B4F5F1EB705A600B9CD79 /* DeviceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceName.h; sourceTree = "<group>"; };
-		3A6B4F601EB705A600B9CD79 /* DeviceName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceName.m; sourceTree = "<group>"; };
+		3A6B4F5F1EB705A600B9CD79 /* iOSDeviceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSDeviceName.h; sourceTree = "<group>"; };
+		3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSDeviceName.m; sourceTree = "<group>"; };
 		3A8750C01FBDFC07002757AD /* changeLoginStyle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = changeLoginStyle.js; sourceTree = "<group>"; };
 		3A92CD9A1F2C7D9B00E41573 /* FeiFanBBSApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeiFanBBSApi.h; sourceTree = "<group>"; };
 		3A92CD9B1F2C7D9B00E41573 /* FeiFanBBSApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeiFanBBSApi.m; sourceTree = "<group>"; };
@@ -598,14 +598,14 @@
 			path = Chiphell;
 			sourceTree = "<group>";
 		};
-		3ACB5C271FDC268300D5339C /* ApiTest */ = {
+		3ACB5C271FDC268300D5339C /* BBSApiTest */ = {
 			isa = PBXGroup;
 			children = (
 				3A2C3F8A1DDFDFC000576151 /* BBSApiTestViewController.h */,
 				3A2C3F8B1DDFDFC000576151 /* BBSApiTestViewController.m */,
 				3A2C3F8C1DDFDFC000576151 /* ApiTestViewController.xib */,
 			);
-			path = ApiTest;
+			path = BBSApiTest;
 			sourceTree = "<group>";
 		};
 		3ACB5C281FDC269E00D5339C /* Extensions */ = {
@@ -728,13 +728,13 @@
 			path = BBSTableViewCells;
 			sourceTree = "<group>";
 		};
-		3ACB5C2B1FDC271B00D5339C /* Views */ = {
+		3ACB5C2B1FDC271B00D5339C /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
 				3A288A4E1DFAF569002EBBC2 /* DrawerViewDelegate.h */,
-				3A288A491DFAE47F002EBBC2 /* DrawerView.h */,
-				3A288A4A1DFAE47F002EBBC2 /* DrawerView.m */,
-				3A288A4B1DFAE47F002EBBC2 /* DrawerView.xib */,
+				3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */,
+				3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */,
+				3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */,
 				3A288A651DFD8C76002EBBC2 /* HaveLoginForum.xib */,
 				3A2C3F531DDFBFC500576151 /* BBSListHeaderView.h */,
 				3A2C3F541DDFBFC500576151 /* BBSListHeaderView.m */,
@@ -755,7 +755,7 @@
 				4D7F74F01FBEB5FD0049BA46 /* AutoSendBackTabBar.h */,
 				4D7F74F11FBEB5FD0049BA46 /* AutoSendBackTabBar.m */,
 			);
-			path = Views;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		3ACB5C2C1FDC273500D5339C /* BBSCoreData */ = {
@@ -895,8 +895,8 @@
 			children = (
 				3A48EF84214E9FAB0025CE2D /* NSURLProtocol+WKWebVIew.h */,
 				3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */,
-				3A48EF85214E9FAC0025CE2D /* HybridNSURLProtocol.h */,
-				3A48EF86214E9FAC0025CE2D /* HybridNSURLProtocol.m */,
+				3A48EF85214E9FAC0025CE2D /* BBSNSURLProtocol.h */,
+				3A48EF86214E9FAC0025CE2D /* BBSNSURLProtocol.m */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -921,6 +921,15 @@
 				2F34C861EB4DB6A0EFE91943 /* more.html */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		3AE54CAE2386F67600DDA938 /* CommonUtils */ = {
+			isa = PBXGroup;
+			children = (
+				3A6B4F5F1EB705A600B9CD79 /* iOSDeviceName.h */,
+				3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */,
+			);
+			path = CommonUtils;
 			sourceTree = "<group>";
 		};
 		3AEDFA5A2095744C00E93BB0 /* vBulletin */ = {
@@ -996,6 +1005,7 @@
 		4D339D821C31454A0022A6A4 = {
 			isa = PBXGroup;
 			children = (
+				3AE54CAE2386F67600DDA938 /* CommonUtils */,
 				3AEDFA5C2095748100E93BB0 /* BBSPhpWind */,
 				3AEDFA5B2095747100E93BB0 /* BBSDiscuz */,
 				3AEDFA5A2095744C00E93BB0 /* vBulletin */,
@@ -1007,18 +1017,16 @@
 				3ACB5C2E1FDC277500D5339C /* BBSEngines */,
 				3ACB5C2D1FDC275300D5339C /* TranslateData */,
 				3ACB5C2C1FDC273500D5339C /* BBSCoreData */,
-				3ACB5C2B1FDC271B00D5339C /* Views */,
+				3ACB5C2B1FDC271B00D5339C /* CustomViews */,
 				3ACB5C2A1FDC26FD00D5339C /* BBSTableViewCells */,
 				3ACB5C291FDC26C900D5339C /* BBSControllers */,
 				3ACB5C281FDC269E00D5339C /* Extensions */,
-				3ACB5C271FDC268300D5339C /* ApiTest */,
+				3ACB5C271FDC268300D5339C /* BBSApiTest */,
 				3ACB5C211FDC25BE00D5339C /* SupportForums */,
 				3ACB5C201FDC25A600D5339C /* CharUtils */,
 				3A2C3F8F1DDFDFEF00576151 /* Forum.pch */,
 				3A2C3F131DDFB94200576151 /* AppDelegate.h */,
 				3A2C3F141DDFB94200576151 /* AppDelegate.m */,
-				3A6B4F5F1EB705A600B9CD79 /* DeviceName.h */,
-				3A6B4F601EB705A600B9CD79 /* DeviceName.m */,
 				3A92CDAA1F2E119100E41573 /* Forum.entitlements */,
 				3A2C3FEF1DDFE13500576151 /* LaunchScreen.storyboard */,
 				3A2C3FF01DDFE13500576151 /* Main.storyboard */,
@@ -1166,7 +1174,7 @@
 				3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */,
 				4D1B0726204686350013B6A1 /* terms_of_use.html in Resources */,
 				3A2C3F5E1DDFBFC500576151 /* PageHeaderView.xib in Resources */,
-				3A288A4D1DFAE47F002EBBC2 /* DrawerView.xib in Resources */,
+				3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */,
 				C7B59FBEDA751551C16B2A0E /* WillSupportForums.json in Resources */,
 				C7B592195D565E7F41FD734C /* chhlogin.js in Resources */,
 				2F34CEF71A3645A8A7E867A0 /* more.html in Resources */,
@@ -1235,7 +1243,7 @@
 				3A48EF89214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m in Sources */,
 				3A2C3FDC1DDFE0C900576151 /* BBSReportViewController.m in Sources */,
 				3A2C3FDD1DDFE0C900576151 /* BBSSearchViewController.m in Sources */,
-				3A48EF88214E9FAC0025CE2D /* HybridNSURLProtocol.m in Sources */,
+				3A48EF88214E9FAC0025CE2D /* BBSNSURLProtocol.m in Sources */,
 				4D7F74F21FBEB5FD0049BA46 /* AutoSendBackTabBar.m in Sources */,
 				3A430BAC209734FF007D3BCB /* DiscuzMessageTableViewController.m in Sources */,
 				3A2C3FD01DDFE0C900576151 /* BBSBaseStaticTableViewController.m in Sources */,
@@ -1313,7 +1321,7 @@
 				3A2C3FE41DDFE0C900576151 /* BBSTableViewController.m in Sources */,
 				4DF737211DDECC8D00BF1896 /* ViewForumPage.m in Sources */,
 				3A2C3F681DDFC03400576151 /* AutoRelayoutUITextView.m in Sources */,
-				3A288A4C1DFAE47F002EBBC2 /* DrawerView.m in Sources */,
+				3A288A4C1DFAE47F002EBBC2 /* SlideDrawerView.m in Sources */,
 				3A2C3FE91DDFE0C900576151 /* BBSWebViewController.m in Sources */,
 				4DFB34D11DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.m in Sources */,
 				3A2C3FD21DDFE0C900576151 /* BBSFavThreadPostTableViewController.m in Sources */,
@@ -1325,7 +1333,7 @@
 				3A2C3FCF1DDFE0C900576151 /* BBSApiBaseViewController.m in Sources */,
 				3A2C3FD31DDFE0C900576151 /* BBSLoginViewController.m in Sources */,
 				3A2C3F7E1DDFC0CD00576151 /* UIImage+Tint.m in Sources */,
-				3A6B4F611EB705A600B9CD79 /* DeviceName.m in Sources */,
+				3A6B4F611EB705A600B9CD79 /* iOSDeviceName.m in Sources */,
 				3A2C3F6A1DDFC03400576151 /* LeftDrawerItem.m in Sources */,
 				3A92CD9F1F2C7E6000E41573 /* FeiFanConfig.m in Sources */,
 				3A2C3F691DDFC03400576151 /* CommonUtils.m in Sources */,

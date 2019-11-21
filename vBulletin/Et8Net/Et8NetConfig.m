@@ -5,7 +5,7 @@
 //
 
 #import "Et8NetConfig.h"
-#import "DeviceName.h"
+#import "iOSDeviceName.h"
 
 @implementation Et8NetConfig
 
@@ -31,7 +31,7 @@
 }
 
 - (NSString *)signature {
-    NSString *phoneName = [DeviceName deviceNameDetail];
+    NSString *phoneName = [iOSDeviceName deviceName];
     NSString *signature = [NSString stringWithFormat:@"\n\n发自 %@ 使用 CCF客户端", phoneName];
     return signature;
 }

@@ -3,7 +3,7 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "HybridNSURLProtocol.h"
+#import "BBSNSURLProtocol.h"
 #import <UIKit/UIKit.h>
 
 #import "SDImageCache.h"
@@ -17,7 +17,7 @@ static NSString *const localUrl = @"http://mecrm.qa.medlinker.net/public/image?i
 
 static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
-@interface HybridNSURLProtocol () <NSURLSessionDelegate, NSURLConnectionDataDelegate>
+@interface BBSNSURLProtocol () <NSURLSessionDelegate, NSURLConnectionDataDelegate>
 
 //@property(nonnull, strong) NSURLSessionDataTask *task;
 
@@ -27,7 +27,7 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 @end
 
 
-@implementation HybridNSURLProtocol
+@implementation BBSNSURLProtocol
 
 //如果返回YES则进入该自定义加载器进行处理，如果返回NO则不进入该自定义选择器，使用系统默认行为进行处理。
 //YES 处理

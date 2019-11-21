@@ -5,9 +5,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DeviceName : NSObject
-
-+ (NSString* ) deviceNameDetail;
+@interface BBSNSURLProtocol : NSURLProtocol
 
 @end
-

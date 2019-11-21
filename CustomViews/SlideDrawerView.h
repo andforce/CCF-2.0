@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, DrawerIndex) {
     DrawerIndexRight,
 };
 
-@interface DrawerView : UIView {
+@interface SlideDrawerView : UIView {
 
 }
 

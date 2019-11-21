@@ -209,7 +209,7 @@
         if (range.length == 1) {
 
             NSString *s = [message substringWithRange:range];
-            if ([CharUtils isChinese:c]) {
+            if ([CharUtils isCNCharCode:c]) {
                 if (isEng && eng.length != 0) {
                     [contentData appendData:[eng dataForUTF8]];
                     eng = [NSMutableString string];

@@ -3,7 +3,7 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "DrawerView.h"
+#import "SlideDrawerView.h"
 
 #define kEdge 5
 #define kDefaultDrawerRatio 4/5
@@ -20,7 +20,7 @@
 #import "HaveWorkedBBS.h"
 #import "BBSLocalApi.h"
 
-@interface DrawerView () <UITableViewDelegate, UITableViewDataSource> {
+@interface SlideDrawerView () <UITableViewDelegate, UITableViewDataSource> {
 
     UIButton *_drawerMaskView;
 
@@ -38,7 +38,7 @@
 @end
 
 
-@implementation DrawerView
+@implementation SlideDrawerView
 
 @synthesize leftDrawerView = _leftDrawerView;
 @synthesize rightDrawerView = _rightDrawerView;
