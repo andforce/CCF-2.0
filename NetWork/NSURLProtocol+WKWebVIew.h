@@ -1,9 +1,9 @@
 //
-//  NSURLProtocol+WKWebVIew.h
+//
 //  WKWebVIewHybridDemo
 //
-//  Created by shuoyu liu on 2017/1/15.
-//  Copyright © 2017年 shuoyu liu. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -1,12 +1,12 @@
 //
-//  ForumBaseStaticTableViewController.m
 //
-//  Created by 迪远 王 on 16/10/9.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "ForumBaseStaticTableViewController.h"
-#import "LocalForumApi.h"
+#import "BBSLocalApi.h"
 
 @interface ForumBaseStaticTableViewController () {
     BOOL disablePullrefresh;
@@ -59,7 +59,7 @@
 
 - (NSString *)currentForumHost {
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
@@ -85,8 +85,8 @@
 #pragma mark initData
 
 - (void)initData {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    self.forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    self.forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
     self.dataList = [[NSMutableArray alloc] init];
 }
 

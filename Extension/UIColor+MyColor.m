@@ -1,9 +1,9 @@
 //
-//  UIColor+mycolor.m
-//  iOSMaps
 //
-//  Created by 迪远 王 on 15/12/12.
-//  Copyright © 2015年 andforce. All rights reserved.
+//
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "UIColor+MyColor.h"

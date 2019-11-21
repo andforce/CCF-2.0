@@ -1,28 +1,28 @@
 //
 //  AppDelegate.m
 //
-//  Created by WDY on 15/12/28.
-//  Copyright © 2015年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "ForumLoginViewController.h"
+#import "BBSLoginViewController.h"
 
 #import "ForumCoreDataManager.h"
-#import "ApiTestViewController.h"
+#import "BBSApiTestViewController.h"
 #import "NSUserDefaults+Setting.h"
 #import "UIStoryboard+Forum.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "ForumTabBarController.h"
-#import "ForumTableViewController.h"
+#import "BBSTabBarController.h"
+#import "BBSTableViewController.h"
 #import "Forums.h"
-#import "LocalForumApi.h"
+#import "BBSLocalApi.h"
 #import <UserNotifications/UserNotifications.h>
 
-#import "PayManager.h"
+#import "BBSPayManager.h"
 
 #import "HybridNSURLProtocol.h"
-#import "ForumPayUITableViewController.h"
+#import "BBSPayUITableViewController.h"
 
 static BOOL API_DEBUG = NO;
 static int DB_VERSION = 11;
@@ -43,21 +43,16 @@ static BOOL PAY_DEBUG = NO;
     
     [self changeUserAgentForWebView];
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
 
     // 向服务器验证订阅情况
-    PayManager * payManager = [PayManager shareInstance];
+    BBSPayManager * payManager = [BBSPayManager shareInstance];
     [payManager verifyPay:localForumApi.currentProductID with:^(long timeHave) {
 
         if (timeHave == 0){
             [payManager setPayed:FALSE for:localForumApi.currentProductID];
             NSLog(@"AppDelegate --> not payed");
-
-//            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-//            ForumPayUITableViewController *payUiTableViewController = [storyboard instantiateViewControllerWithIdentifier:@"ForumPayUITableViewControllerID"];
-//            [self.window.rootViewController.navigationController pushViewController:payUiTableViewController animated:YES];
-
         } else {
             [payManager setPayed:TRUE for:localForumApi.currentProductID];
             NSLog(@"AppDelegate --> payed success");
@@ -81,7 +76,7 @@ static BOOL PAY_DEBUG = NO;
         NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
         NSLog(@"AppDelegate --> versionCode %@",versionCode);
         
-        ApiTestViewController *testController = [[ApiTestViewController alloc] init];
+        BBSApiTestViewController *testController = [[BBSApiTestViewController alloc] init];
         self.window.rootViewController = testController;
         return YES;
     }
@@ -160,7 +155,7 @@ static BOOL PAY_DEBUG = NO;
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
-- (void)showReloginController:(LocalForumApi *)localForumApi {
+- (void)showReloginController:(BBSLocalApi *)localForumApi {
     NSString *bundleId = [localForumApi bundleIdentifier];
 
     if ([bundleId isEqualToString:@"com.andforce.forums"]) {
@@ -168,7 +163,7 @@ static BOOL PAY_DEBUG = NO;
         self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
     } else {
 
-        id <ForumConfigDelegate> api = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <BBSConfigDelegate> api = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
         NSString *cId = api.loginControllerId;
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId];
 
@@ -339,14 +334,14 @@ static BOOL PAY_DEBUG = NO;
 
 /** 处理shortcutItem */
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     if ([localForumApi isHaveLoginForum]){
         NSString *shortCutItemType = shortcutItem.type;
 
-        ForumTabBarController * controller = (ForumTabBarController *) self.window.rootViewController;
+        BBSTabBarController * controller = (BBSTabBarController *) self.window.rootViewController;
 
         controller.selectedIndex = 2;
-        ForumTableViewController * forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
+        BBSTableViewController * forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
         [forumTableViewController showControllerByShortCutItemType:shortCutItemType];
     }
 }

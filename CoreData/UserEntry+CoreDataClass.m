@@ -1,8 +1,8 @@
 //
-//  UserEntry+CoreDataClass.m
+//
 //  
 //
-//  Created by WDY on 2016/12/7.
+//  Created by Diyuan Wang on 2019/11/21.
 //
 //
 

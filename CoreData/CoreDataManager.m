@@ -1,8 +1,8 @@
 //
 //  CoreDataManager.m
 //
-//  Created by WDY on 16/1/12.
-//  Copyright © 2016年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "CoreDataManager.h"
@@ -233,10 +233,6 @@
     [request setEntity:[NSEntityDescription entityForName:_entry inManagedObjectContext:context]];
     [request setPredicate:predicate];//这里相当于sqlite中的查询条件，具体格式参考苹果文档 https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Predicates/Articles/pCreating.html
     NSError *error = nil;
-    //NSArray *result = [context executeFetchRequest:request error:&error];//这里获取到的是一个数组，你需要取出你要更新的那个obj
-//    for (FormEntry *info in result) {
-//        info.islook = islook;
-//    }
 
     //保存
     if ([context save:&error]) {

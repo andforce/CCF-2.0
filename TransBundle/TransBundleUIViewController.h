@@ -1,23 +1,23 @@
 //
-// Created by WDY on 2016/11/7.
+// Created by Diyuan Wang on 2019/11/12
 // Copyright (c) 2016 andforce. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "TransBundle.h"
-#import "TransBundleDelegate.h"
+#import "TranslateData.h"
+#import "TranslateDataDelegate.h"
 
 @interface TransBundleUIViewController : UIViewController
-@property(nonatomic, strong) id <TransBundleDelegate> transDelegate;
+@property(nonatomic, strong) id <TranslateDataDelegate> transDelegate;
 
-@property(nonatomic, strong) TransBundle *bundle;
+@property(nonatomic, strong) TranslateData *bundle;
 
-- (void)presentViewController:(UIViewController *)viewControllerToPresent withBundle:(TransBundle *)bundle forRootController:(BOOL)forRootController animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
+- (void)presentViewController:(UIViewController *)viewControllerToPresent withBundle:(TranslateData *)bundle forRootController:(BOOL)forRootController animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
 
-- (void)dismissViewControllerAnimated:(BOOL)flag backToViewController:(UIViewController *_Nullable)controller withBundle:(TransBundle *_Nullable)bundle completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
+- (void)dismissViewControllerAnimated:(BOOL)flag backToViewController:(UIViewController *_Nullable)controller withBundle:(TranslateData *_Nullable)bundle completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
 
-- (void)transBundle:(TransBundle *_Nonnull)bundle forController:(UIViewController *_Nullable)controller;
+- (void)transBundle:(TranslateData *_Nonnull)bundle forController:(UIViewController *_Nullable)controller;
 
 @end

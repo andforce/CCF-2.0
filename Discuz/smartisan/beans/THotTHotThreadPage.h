@@ -1,7 +1,7 @@
 //
 //  THotTHotThreadPage.h
 //
-//  Created by   on 2018/4/29
+//  Created by Diyuan Wang on 2019/11/21.
 //  Copyright (c) 2018 __MyCompanyName__. All rights reserved.
 //
 

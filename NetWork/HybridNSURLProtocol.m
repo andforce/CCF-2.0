@@ -2,8 +2,8 @@
 //  HybridNSURLProtocol.m
 //  WKWebVIewHybridDemo
 //
-//  Created by shuoyu liu on 2017/1/16.
-//  Copyright © 2017年 shuoyu liu. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "HybridNSURLProtocol.h"
@@ -51,25 +51,6 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
         return YES;
     }
     return NO;
-
-//    NSLog(@"request.URL.absoluteString = %@", request.URL.absoluteString);
-//    NSString *scheme = [[request URL] scheme];
-//    if (([scheme caseInsensitiveCompare:@"http"] == NSOrderedSame || [scheme caseInsensitiveCompare:@"https"] == NSOrderedSame)) {
-//
-//        //看看是否已经处理过了，防止无限循环
-//        BOOL hasCached = [NSURLProtocol propertyForKey:KHybridNSURLProtocolHKey inRequest:request] != nil;
-//        NSString *hasCachedStr = hasCached ? @"YES" : @"NO";
-//        NSLog(@"canInitWithRequest() request.URL.absoluteString = %@ -> Cached: %@", request.URL.absoluteString, hasCachedStr);
-//
-//        //看看是否已经处理过了，防止无限循环
-//        if (hasCached) {
-//            return NO;
-//        }
-//        return YES;
-//    }
-//
-//    NSLog(@"canInitWithRequest() request.URL.absoluteString = %@ ----> Cached: %@", request.URL.absoluteString, @"NO");
-//    return NO;
 }
 
 + (BOOL)shouldCache:(NSURLRequest *)request {

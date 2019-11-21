@@ -1,19 +1,19 @@
 //
 //  DiscuzMessageTableViewController.m
-//  Forum
 //
-//  Created by 迪远 王 on 2018/4/30.
-//  Copyright © 2018年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "DiscuzMessageTableViewController.h"
-#import "PrivateMessageTableViewCell.h"
-#import "ForumShowPrivateMessageViewController.h"
+#import "BBSMessageTableViewCell.h"
+#import "BBSShowPrivateMessageViewController.h"
 
-#import "ForumUserProfileTableViewController.h"
+#import "BBSUserProfileTableViewController.h"
 #import "UIStoryboard+Forum.h"
-#import "ForumTabBarController.h"
-#import "ForumWebViewController.h"
+#import "BBSTabBarController.h"
+#import "BBSWebViewController.h"
 
 typedef enum {
     PrivateMessage = 0,
@@ -174,8 +174,8 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    static NSString *identifier = @"PrivateMessageTableViewCell";
-    PrivateMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString *identifier = @"BBSMessageTableViewCell";
+    BBSMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 
     cell.indexPath = indexPath;
     cell.delegate = self;
@@ -197,7 +197,7 @@ typedef enum {
     return cell;
 }
 
-- (BOOL)swipeTableCell:(MGSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index
+- (BOOL)swipeTableCell:(SwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index
              direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
 
     NSIndexPath *indexPath = cell.indexPath;
@@ -222,9 +222,9 @@ typedef enum {
 #pragma mark CCFThreadListCellDelegate
 
 - (void)showUserProfile:(NSIndexPath *)indexPath {
-    ForumUserProfileTableViewController *controller = selectSegue.destinationViewController;
+    BBSUserProfileTableViewController *controller = selectSegue.destinationViewController;
     Message *message = self.dataList[(NSUInteger) indexPath.row];
-    TransBundle *bundle = [[TransBundle alloc] init];
+    TranslateData *bundle = [[TranslateData alloc] init];
     [bundle putIntValue:[message.pmAuthorId intValue] forKey:@"UserId"];
     [self transBundle:bundle forController:controller];
 }
@@ -242,9 +242,9 @@ typedef enum {
         if (message.pid && message.ptid) {
 
             UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-            ForumWebViewController *showThreadController = (id) [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
+            BBSWebViewController *showThreadController = (id) [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
             [showThreadController setHidesBottomBarWhenPushed:YES];
-            TransBundle *bundle = [[TransBundle alloc] init];
+            TranslateData *bundle = [[TranslateData alloc] init];
 
             [bundle putStringValue:@"show_for_notice" forKey:@"show_for_notice"];
             [bundle putStringValue:message.ptid forKey:@"show_for_notice_ptid"];
@@ -261,14 +261,14 @@ typedef enum {
 
     if ([sender isKindOfClass:[UITableViewCell class]]) {
 
-        ForumShowPrivateMessageViewController *controller = segue.destinationViewController;
+        BBSShowPrivateMessageViewController *controller = segue.destinationViewController;
         [controller setHidesBottomBarWhenPushed:YES];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
         Message *message = self.dataList[(NSUInteger) indexPath.row];
 
-        TransBundle *bundle = [[TransBundle alloc] init];
+        TranslateData *bundle = [[TranslateData alloc] init];
         [bundle putObjectValue:message forKey:@"TransPrivateMessage"];
         [bundle putIntValue:(int) _messageSegmentedControl.selectedSegmentIndex forKey:@"TransPrivateMessageType"];
 
@@ -283,7 +283,7 @@ typedef enum {
 
 
 - (IBAction)showLeftDrawer:(id)sender {
-    ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
+    BBSTabBarController *controller = (BBSTabBarController *) self.tabBarController;
 
     [controller showLeftDrawer];
 }

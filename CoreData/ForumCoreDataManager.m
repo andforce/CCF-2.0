@@ -1,14 +1,14 @@
 //
-//  ForumCoreDataManager.m
 //
-//  Created by WDY on 16/1/12.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "ForumCoreDataManager.h"
 #import "ForumEntry+CoreDataClass.h"
 #import "AppDelegate.h"
-#import "LocalForumApi.h"
+#import "BBSLocalApi.h"
 
 @implementation ForumCoreDataManager
 
@@ -28,7 +28,7 @@
 - (NSArray<Forum *> *)selectFavForums:(NSArray *)ids {
 
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
+        BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND forumId IN %@", localeForumApi.currentForumHost, ids];
     }];
 
@@ -48,7 +48,7 @@
 
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
+        BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND parentForumId = %d", localeForumApi.currentForumHost, -1];
     }];
 
@@ -74,7 +74,7 @@
 - (NSArray<Forum *> *)selectChildForumsById:(int)forumId {
 
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
-        LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
+        BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND parentForumId = %d", localeForumApi.currentForumHost, forumId];
     }];
 

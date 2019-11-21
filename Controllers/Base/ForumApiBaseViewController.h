@@ -1,17 +1,17 @@
 //
-//  ForumApiBaseViewController.h
 //
-//  Created by 迪远 王 on 16/4/2.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "ForumApiHelper.h"
+#import "BBSApiHelper.h"
 #import "TransBundleUIViewController.h"
 
 @interface ForumApiBaseViewController : TransBundleUIViewController
 
-@property(nonatomic, strong) id <ForumApiDelegate> forumApi;
+@property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 
 - (NSString *)currentForumHost;
 

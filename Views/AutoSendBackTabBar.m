@@ -1,13 +1,13 @@
 //
 //  AutoSendBackTabBar.m
-//  Forum
 //
-//  Created by WDY on 2017/11/17.
-//  Copyright © 2017年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "AutoSendBackTabBar.h"
-#import "ForumTabBarController.h"
+#import "BBSTabBarController.h"
 
 @implementation AutoSendBackTabBar
 
@@ -27,8 +27,8 @@
     [super didMoveToWindow];
     self.clipsToBounds = NO;
 
-    id controller = (ForumTabBarController *) self.superview.nextResponder;
-    if ([controller isKindOfClass:[ForumTabBarController class]]) {
+    id controller = (BBSTabBarController *) self.superview.nextResponder;
+    if ([controller isKindOfClass:[BBSTabBarController class]]) {
         [controller bringLeftDrawerToFront];
     }
 }

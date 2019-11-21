@@ -1,12 +1,12 @@
 //
-//  ForumApiBaseTableViewController.m
 //
-//  Created by 迪远 王 on 16/3/13.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "ForumApiBaseTableViewController.h"
-#import "LocalForumApi.h"
+#import "BBSLocalApi.h"
 
 @interface ForumApiBaseTableViewController () {
     BOOL disablePullrefresh;
@@ -43,7 +43,7 @@
 }
 
 - (BOOL)isNeedHideLeftMenu {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
     return ![bundleId isEqualToString:@"com.andforce.forums"];
 
@@ -62,7 +62,7 @@
 }
 
 - (NSString *)currentForumHost {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
@@ -89,8 +89,8 @@
 
 - (void)initData {
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    self.forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    self.forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
     self.dataList = [[NSMutableArray alloc] init];
 }
 

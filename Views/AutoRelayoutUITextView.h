@@ -1,8 +1,8 @@
 //
 //  AutoRelayoutUITextView.h
 //
-//  Created by WDY on 16/1/8.
-//  Copyright © 2016年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

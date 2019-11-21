@@ -10,13 +10,13 @@
         <!--板块列表-->
         <scene sceneID="ZKb-vl-Dqf">
             <objects>
-                <tableViewController storyboardIdentifier="DRLForumTableViewController" id="ASl-Ek-GKi" customClass="ForumTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DRLForumTableViewController" id="ASl-Ek-GKi" customClass="BBSTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gWF-b7-uhX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DRLForumCell" textLabel="xyf-mX-GWW" style="IBUITableViewCellStyleDefault" id="ru3-zB-I9X" customClass="MGSwipeTableCellWithIndexPath">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DRLForumCell" textLabel="xyf-mX-GWW" style="IBUITableViewCellStyleDefault" id="ru3-zB-I9X" customClass="SwipeTableCellWithIndexPath">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ru3-zB-I9X" id="jMH-j1-isg">
@@ -67,13 +67,13 @@
         <!--站内短信-->
         <scene sceneID="gWe-PG-MSc">
             <objects>
-                <tableViewController storyboardIdentifier="ShowPrivateMessage" title="站内短信" id="21g-L2-eCr" customClass="ForumPrivateMessageTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShowPrivateMessage" title="站内短信" id="21g-L2-eCr" customClass="BBSPrivateMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="119" sectionHeaderHeight="18" sectionFooterHeight="18" id="1sA-lp-kRb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivateMessageTableViewCell" rowHeight="119" id="6dg-Y9-eXc" customClass="PrivateMessageTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BBSMessageTableViewCell" rowHeight="119" id="6dg-Y9-eXc" customClass="BBSMessageTableViewCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="119"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6dg-Y9-eXc" id="fzf-9p-l9N">
@@ -196,13 +196,13 @@
         <!--订阅论坛-->
         <scene sceneID="0Ce-NM-EC5">
             <objects>
-                <tableViewController storyboardIdentifier="ShowFavForum" id="Jit-bj-gGf" customClass="ForumFavFormController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShowFavForum" id="Jit-bj-gGf" customClass="BBSFavFormController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iTX-sQ-xzL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavFormControllerCell" textLabel="82z-53-SRu" style="IBUITableViewCellStyleDefault" id="Xm2-e3-03u" customClass="MGSwipeTableCellWithIndexPath">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavFormControllerCell" textLabel="82z-53-SRu" style="IBUITableViewCellStyleDefault" id="Xm2-e3-03u" customClass="SwipeTableCellWithIndexPath">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xm2-e3-03u" id="pqH-CF-xCE">
@@ -253,13 +253,13 @@
         <!--帖子列表-->
         <scene sceneID="ZSu-6M-hd2">
             <objects>
-                <tableViewController storyboardIdentifier="ThreadList" id="owK-Jl-7fO" customClass="ForumThreadListTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ThreadList" id="owK-Jl-7fO" customClass="BBSThreadListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="W0o-qo-VEi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ThreadListCellShowChildForm" textLabel="JkG-nl-mzU" rowHeight="54" style="IBUITableViewCellStyleDefault" id="TN0-61-EXD" customClass="MGSwipeTableCellWithIndexPath">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ThreadListCellShowChildForm" textLabel="JkG-nl-mzU" rowHeight="54" style="IBUITableViewCellStyleDefault" id="TN0-61-EXD" customClass="SwipeTableCellWithIndexPath">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TN0-61-EXD" id="O4O-1v-6IH">
@@ -279,7 +279,7 @@
                                     <segue destination="afP-Oj-XhI" kind="show" identifier="ShowChildForm" id="G0C-ML-RId"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="nOi-qJ-paI" customClass="ForumThreadListCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="nOi-qJ-paI" customClass="BBSThreadListCell">
                                 <rect key="frame" x="0.0" y="109.33333206176758" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOi-qJ-paI" id="Vz4-ye-5E7">
@@ -429,7 +429,7 @@
         <!--新主题-->
         <scene sceneID="cr2-FS-gXj">
             <objects>
-                <viewController storyboardIdentifier="ShowCreateNewThread" id="pXN-Qw-w0b" customClass="ForumCreateNewThreadViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowCreateNewThread" id="pXN-Qw-w0b" customClass="BBSCreateNewThreadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="syG-fo-xcC"/>
                         <viewControllerLayoutGuide type="bottom" id="MWv-Tg-0b9"/>
@@ -477,7 +477,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="umc-Pe-6dc" customClass="SelectPhotoCollectionViewCell">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="umc-Pe-6dc" customClass="BBSSelectPhotoCollectionViewCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -648,7 +648,7 @@
         <!--高级回帖-->
         <scene sceneID="0ad-k0-Qjn">
             <objects>
-                <viewController id="pPN-ZQ-aHh" customClass="ForumSeniorNewPostViewController" sceneMemberID="viewController">
+                <viewController id="pPN-ZQ-aHh" customClass="BBSSeniorNewPostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Sw-IP-QpZ"/>
                         <viewControllerLayoutGuide type="bottom" id="MHW-I2-8Fb"/>
@@ -673,7 +673,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="7bS-93-Vf4" customClass="SelectPhotoCollectionViewCell">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="7bS-93-Vf4" customClass="BBSSelectPhotoCollectionViewCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -781,7 +781,7 @@
         <!--登录论坛-->
         <scene sceneID="v8j-Ti-el8">
             <objects>
-                <viewController id="aOU-Jb-m64" customClass="ForumLoginViewController" sceneMemberID="viewController">
+                <viewController id="aOU-Jb-m64" customClass="BBSLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WrZ-XJ-YKY"/>
                         <viewControllerLayoutGuide type="bottom" id="oKZ-Vv-1hI"/>
@@ -985,7 +985,7 @@
         <!--Forum Support Navigation Controller-->
         <scene sceneID="Okx-LC-yVb">
             <objects>
-                <navigationController storyboardIdentifier="ShowSupportForums" id="of7-9w-Eye" customClass="ForumSupportNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ShowSupportForums" id="of7-9w-Eye" customClass="BBSSupportNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="DR5-0D-7aZ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1004,7 +1004,7 @@
         <!--Forum Tab Bar Controller-->
         <scene sceneID="nUF-pr-pG4">
             <objects>
-                <tabBarController storyboardIdentifier="ForumTabBarControllerId" id="KZC-NN-lJ7" customClass="ForumTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="ForumTabBarControllerId" id="KZC-NN-lJ7" customClass="BBSTabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" clipsSubviews="YES" contentMode="scaleToFill" translucent="NO" id="l8f-Hy-IeX" customClass="AutoSendBackTabBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1026,7 +1026,7 @@
         <!--主页-->
         <scene sceneID="Rsw-tr-lOi">
             <objects>
-                <navigationController id="gbM-NL-yco" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController id="gbM-NL-yco" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="主页" image="ic_account_balance_18pt" id="ebq-I9-XCO"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Bo8-Gq-c5Y">
@@ -1051,13 +1051,13 @@
         <!--收藏主题-->
         <scene sceneID="B4V-EQ-cMU">
             <objects>
-                <tableViewController id="3SN-sr-Skg" customClass="ForumFavThreadPostTableViewController" sceneMemberID="viewController">
+                <tableViewController id="3SN-sr-Skg" customClass="BBSFavThreadPostTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rs4-qW-nhr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SimpleThreadTableViewCell" rowHeight="97" id="kHn-A9-beJ" customClass="ForumSimpleThreadTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SimpleThreadTableViewCell" rowHeight="97" id="kHn-A9-beJ" customClass="BBSSimpleThreadTableViewCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kHn-A9-beJ" id="KGM-dL-D6k">
@@ -1153,7 +1153,7 @@
         <!--全局设置选项-->
         <scene sceneID="jCf-dU-ha4">
             <objects>
-                <tableViewController id="9se-A7-pwf" customClass="ForumSettingTableViewController" sceneMemberID="viewController">
+                <tableViewController id="9se-A7-pwf" customClass="BBSSettingTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ksl-wi-MPf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1317,13 +1317,13 @@
         <!--我的主题-->
         <scene sceneID="NgB-yq-feA">
             <objects>
-                <tableViewController id="Js1-U2-h0I" customClass="ForumMyThreadTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Js1-U2-h0I" customClass="BBSMyThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Va9-qQ-G4a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="mlQ-qY-TJZ" customClass="ForumSearchResultCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="mlQ-qY-TJZ" customClass="BBSSearchResultCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mlQ-qY-TJZ" id="6DI-YY-teK">
@@ -1429,14 +1429,14 @@
         <!--查看新帖-->
         <scene sceneID="0aj-wj-Ipe">
             <objects>
-                <tableViewController id="vLT-xg-b6G" customClass="ForumShowNewThreadPostTableViewController" sceneMemberID="viewController">
+                <tableViewController id="vLT-xg-b6G" customClass="BBSShowNewThreadPostTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="n6S-NC-xB5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="DVG-eM-DIp" customClass="ForumSearchResultCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="DVG-eM-DIp" customClass="BBSSearchResultCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DVG-eM-DIp" id="QIY-KP-161">
@@ -1553,7 +1553,7 @@
         <!--Forum Search View Controller-->
         <scene sceneID="sf1-2L-Kr0">
             <objects>
-                <tableViewController storyboardIdentifier="SearchForum" id="9ek-Pz-X45" customClass="ForumSearchViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchForum" id="9ek-Pz-X45" customClass="BBSSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Zqh-zN-47Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1580,7 +1580,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="7gX-4U-HVH" customClass="ForumSearchResultCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="7gX-4U-HVH" customClass="BBSSearchResultCell">
                                 <rect key="frame" x="0.0" y="111.33333206176758" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7gX-4U-HVH" id="OHP-pl-OHN">
@@ -1664,7 +1664,7 @@
                                     <segue destination="Bhk-dY-41O" kind="show" identifier="ShowThreadPosts" id="1YC-MX-JNu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZhanNeiSearchViewCell" rowHeight="44" id="jRb-b8-Kk8" customClass="ZhanNeiSearchViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ZhanNeiSearchViewCell" rowHeight="44" id="jRb-b8-Kk8" customClass="BBSZhanNeiSearchViewCell">
                                 <rect key="frame" x="0.0" y="208.33333206176758" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jRb-b8-Kk8" id="nb9-Ay-3yZ">
@@ -1731,7 +1731,7 @@
         <!--我的页面-->
         <scene sceneID="YlG-dB-QZF">
             <objects>
-                <tableViewController id="all-h2-fhh" customClass="ForumMyProfileTableViewController" sceneMemberID="viewController">
+                <tableViewController id="all-h2-fhh" customClass="BBSMyProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="wLl-yk-NnW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1973,7 +1973,7 @@
         <!--短信详情-->
         <scene sceneID="qyp-tv-9VR">
             <objects>
-                <viewController id="Q2o-k5-bi7" customClass="ForumShowPrivateMessageViewController" sceneMemberID="viewController">
+                <viewController id="Q2o-k5-bi7" customClass="BBSShowPrivateMessageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fHL-cE-eHe"/>
                         <viewControllerLayoutGuide type="bottom" id="cgE-DZ-zPn"/>
@@ -2021,13 +2021,13 @@
         <!--子论坛帖-->
         <scene sceneID="wBW-D6-BVd">
             <objects>
-                <tableViewController id="afP-Oj-XhI" customClass="ForumThreadListForChildFormUITableViewController" sceneMemberID="viewController">
+                <tableViewController id="afP-Oj-XhI" customClass="BBSThreadListForChildFormUITableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8fY-Oy-iIQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="gVJ-KP-7d3" customClass="ForumThreadListCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ThreadListCellIdentifier" rowHeight="97" id="gVJ-KP-7d3" customClass="BBSThreadListCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gVJ-KP-7d3" id="Qii-ZC-fKD">
@@ -2170,7 +2170,7 @@
         <!--会员信息-->
         <scene sceneID="Juh-h9-Ttr">
             <objects>
-                <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="ForumUserProfileTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="BBSUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6tN-Pg-gRW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2178,7 +2178,7 @@
                         <sections>
                             <tableViewSection id="sd5-iU-6cK">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="b1N-82-mA8" customClass="ForumProfileTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="b1N-82-mA8" customClass="BBSProfileTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b1N-82-mA8" id="fFV-Dp-QGq">
@@ -2370,7 +2370,7 @@
         <!--发送私信-->
         <scene sceneID="sMo-OX-hpQ">
             <objects>
-                <viewController id="ldC-Z2-cxV" customClass="ForumWritePMViewController" sceneMemberID="viewController">
+                <viewController id="ldC-Z2-cxV" customClass="BBSWritePMViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3eh-Vp-i5q"/>
                         <viewControllerLayoutGuide type="bottom" id="rn0-3p-5Gj"/>
@@ -2461,13 +2461,13 @@
         <!--他的主题-->
         <scene sceneID="kwO-6c-899">
             <objects>
-                <tableViewController id="l3g-AL-GdG" customClass="ForumUserThreadTableViewController" sceneMemberID="viewController">
+                <tableViewController id="l3g-AL-GdG" customClass="BBSUserThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XcW-xB-IIx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="ham-ak-Tdk" customClass="ForumSearchResultCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="97" id="ham-ak-Tdk" customClass="BBSSearchResultCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ham-ak-Tdk" id="7dG-LT-MH5">
@@ -2573,7 +2573,7 @@
         <!--高级回复-->
         <scene sceneID="CKB-b1-PTH">
             <objects>
-                <navigationController storyboardIdentifier="SeniorReplySomeOne" title="高级回复" automaticallyAdjustsScrollViewInsets="NO" id="gBw-i8-805" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SeniorReplySomeOne" title="高级回复" automaticallyAdjustsScrollViewInsets="NO" id="gBw-i8-805" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="WUE-ZV-zcY">
@@ -2595,7 +2595,7 @@
         <!--新主题-->
         <scene sceneID="xBQ-EG-vCf">
             <objects>
-                <navigationController storyboardIdentifier="CreateNewThread" title="新主题" id="VHN-J2-LXw" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CreateNewThread" title="新主题" id="VHN-J2-LXw" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="u2t-T6-8CQ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2619,7 +2619,7 @@
         <!--发送私信-->
         <scene sceneID="pmZ-Qb-ymY">
             <objects>
-                <navigationController storyboardIdentifier="CreatePM" title="发送私信" id="tGS-ab-K6j" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CreatePM" title="发送私信" id="tGS-ab-K6j" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="CXw-Xr-NPb">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2643,7 +2643,7 @@
         <!--订阅-->
         <scene sceneID="ZFS-Y5-Dum">
             <objects>
-                <navigationController id="9aC-0R-oSh" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController id="9aC-0R-oSh" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="订阅" image="ic_grade_18pt" id="Ar3-r8-w2J"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FZ5-qQ-yrM">
@@ -2668,7 +2668,7 @@
         <!--新帖-->
         <scene sceneID="gv2-2h-9zI">
             <objects>
-                <navigationController id="XUg-aO-kWS" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController id="XUg-aO-kWS" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="新帖" image="tab_new_post" id="JFA-s8-q1D"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="69U-37-o0Y">
@@ -2693,7 +2693,7 @@
         <!--消息-->
         <scene sceneID="rPf-XE-vr3">
             <objects>
-                <navigationController storyboardIdentifier="vBulletinNavID" id="4Za-R5-YNS" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="vBulletinNavID" id="4Za-R5-YNS" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="消息" image="tab_message" id="w7A-Zi-YrB"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="THs-Dl-D1w">
@@ -2718,7 +2718,7 @@
         <!--自己-->
         <scene sceneID="uNZ-8U-HL8">
             <objects>
-                <navigationController storyboardIdentifier="MyProfileNavigationController" id="3Jm-yf-8VW" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MyProfileNavigationController" id="3Jm-yf-8VW" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自己" image="ic_perm_identity_18pt" id="gP7-v6-J3m"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="nFA-Ho-k7Z">
@@ -2743,7 +2743,7 @@
         <!--Forum Navigation View Controller-->
         <scene sceneID="Wvp-Pc-RZo">
             <objects>
-                <navigationController storyboardIdentifier="ReportThreadPost" automaticallyAdjustsScrollViewInsets="NO" id="nt7-FE-iY2" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ReportThreadPost" automaticallyAdjustsScrollViewInsets="NO" id="nt7-FE-iY2" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rFV-BX-a3u">
@@ -2765,7 +2765,7 @@
         <!--举报违规-->
         <scene sceneID="ddD-8s-RUr">
             <objects>
-                <viewController id="6JW-h0-SxQ" userLabel="举报违规" customClass="ForumReportViewController" sceneMemberID="viewController">
+                <viewController id="6JW-h0-SxQ" userLabel="举报违规" customClass="BBSReportViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IUz-ip-TnI"/>
                         <viewControllerLayoutGuide type="bottom" id="Ohz-43-jxb"/>
@@ -2814,7 +2814,7 @@
         <!--新主题-->
         <scene sceneID="rFO-ji-g06">
             <objects>
-                <viewController storyboardIdentifier="ShortCutCreateNewThreadController" id="2I1-Ka-zXW" customClass="ForumShortCutCreateNewThreadViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShortCutCreateNewThreadController" id="2I1-Ka-zXW" customClass="BBSShortCutCreateNewThreadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aiN-dL-8W5"/>
                         <viewControllerLayoutGuide type="bottom" id="CXX-8f-KMy"/>
@@ -2876,7 +2876,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="H3I-oH-GZK" customClass="SelectPhotoCollectionViewCell">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectPhotoCollectionViewCell" id="H3I-oH-GZK" customClass="BBSSelectPhotoCollectionViewCell">
                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3005,7 +3005,7 @@
         <!--新主题-->
         <scene sceneID="Z9b-Ej-9l1">
             <objects>
-                <navigationController storyboardIdentifier="ShortCutCreateNewThreadNV" title="新主题" id="FFL-TA-ulF" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ShortCutCreateNewThreadNV" title="新主题" id="FFL-TA-ulF" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Woc-T5-Kk1">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -3029,7 +3029,7 @@
         <!--Forum Navigation View Controller-->
         <scene sceneID="nzi-7A-d6l">
             <objects>
-                <navigationController storyboardIdentifier="LoginForum" id="bNT-Oi-p6L" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginForum" id="bNT-Oi-p6L" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lli-i9-gQ2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3049,7 +3049,7 @@
         <!--登录CHH-->
         <scene sceneID="1P6-uY-0N6">
             <objects>
-                <viewController title="登录CHH" id="Xm3-hM-NnM" customClass="ForumLoginWebViewController" sceneMemberID="viewController">
+                <viewController title="登录CHH" id="Xm3-hM-NnM" customClass="ChiphellLoginWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z0G-C4-DSd"/>
                         <viewControllerLayoutGuide type="bottom" id="0QI-zm-s6m"/>
@@ -3108,7 +3108,7 @@
         <!--Forum Navigation View Controller-->
         <scene sceneID="nOy-6s-CCP">
             <objects>
-                <navigationController storyboardIdentifier="LoginForumWebView" id="jzd-tN-DsW" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginForumWebView" id="jzd-tN-DsW" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="wlK-2h-wHV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3128,7 +3128,7 @@
         <!--登录霏凡-->
         <scene sceneID="xbh-0q-UHe">
             <objects>
-                <viewController title="登录CHH" id="dHI-rl-x13" userLabel="登录霏凡" customClass="CrskyLoginViewController" sceneMemberID="viewController">
+                <viewController title="登录CHH" id="dHI-rl-x13" userLabel="登录霏凡" customClass="FeiFanLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1pw-Rf-xEn"/>
                         <viewControllerLayoutGuide type="bottom" id="Bvh-Rk-o9D"/>
@@ -3187,7 +3187,7 @@
         <!--Forum Navigation View Controller-->
         <scene sceneID="4WR-0B-Fyd">
             <objects>
-                <navigationController storyboardIdentifier="CrskyLoginViewController" id="HdS-ff-Mrp" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CrskyLoginViewController" id="HdS-ff-Mrp" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Qqe-MC-fgx">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3207,7 +3207,7 @@
         <!--帖子详情-->
         <scene sceneID="u3A-LS-EWr">
             <objects>
-                <viewController storyboardIdentifier="ShowThreadDetail" title="帖子详情" id="Bhk-dY-41O" customClass="ForumWebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowThreadDetail" title="帖子详情" id="Bhk-dY-41O" customClass="BBSWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QJl-g4-Iy2"/>
                         <viewControllerLayoutGuide type="bottom" id="8IY-ia-7KQ"/>
@@ -3392,7 +3392,7 @@
         <!--隐私政策-->
         <scene sceneID="C14-6Z-bGy">
             <objects>
-                <viewController id="ed9-WY-c8R" customClass="ForumShowPrivatePolicyUiViewController" sceneMemberID="viewController">
+                <viewController id="ed9-WY-c8R" customClass="BBSShowPrivatePolicyUiViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tx0-D7-GkJ"/>
                         <viewControllerLayoutGuide type="bottom" id="abo-ho-SHy"/>
@@ -3434,7 +3434,7 @@
         <!--购买高级功能-->
         <scene sceneID="9ik-cn-DVu">
             <objects>
-                <tableViewController storyboardIdentifier="ForumPayUITableViewControllerID" id="pEl-o7-5XO" customClass="ForumPayUITableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ForumPayUITableViewControllerID" id="pEl-o7-5XO" customClass="BBSPayUITableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="79Z-m8-2AR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3442,7 +3442,7 @@
                         <sections>
                             <tableViewSection id="92N-TZ-2CY">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="hX1-Ca-J7O" style="IBUITableViewCellStyleDefault" id="h8N-0a-lDV" customClass="BaseFourmTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="hX1-Ca-J7O" style="IBUITableViewCellStyleDefault" id="h8N-0a-lDV" customClass="BaseBBSTableViewCell">
                                         <rect key="frame" x="0.0" y="18" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h8N-0a-lDV" id="csh-FB-0wq">
@@ -3462,7 +3462,7 @@
                                             <segue destination="ed9-WY-c8R" kind="show" identifier="ShowMore" id="cB8-Pd-AFY"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="DmC-tC-eBP" style="IBUITableViewCellStyleDefault" id="cca-yc-lgx" customClass="BaseFourmTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="DmC-tC-eBP" style="IBUITableViewCellStyleDefault" id="cca-yc-lgx" customClass="BaseBBSTableViewCell">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cca-yc-lgx" id="FEM-9v-X9z">
@@ -3482,7 +3482,7 @@
                                             <segue destination="ed9-WY-c8R" kind="show" identifier="ShowPolicy" id="fzn-Te-kIx"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9cC-CG-uDP" style="IBUITableViewCellStyleDefault" id="lOP-yw-Ufv" customClass="BaseFourmTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="9cC-CG-uDP" style="IBUITableViewCellStyleDefault" id="lOP-yw-Ufv" customClass="BaseBBSTableViewCell">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lOP-yw-Ufv" id="4cT-dF-mF6">
@@ -3506,7 +3506,7 @@
                             </tableViewSection>
                             <tableViewSection id="Nel-t1-Nwk">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="54" id="pPo-tC-Rzt" customClass="BaseFourmTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="54" id="pPo-tC-Rzt" customClass="BaseBBSTableViewCell">
                                         <rect key="frame" x="0.0" y="186" width="414" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pPo-tC-Rzt" id="no0-0p-HHT">
@@ -3534,7 +3534,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="sFD-cJ-9JF" customClass="BaseFourmTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="sFD-cJ-9JF" customClass="BaseBBSTableViewCell">
                                         <rect key="frame" x="0.0" y="240" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sFD-cJ-9JF" id="nuP-lH-qer">
@@ -3607,7 +3607,7 @@
         <!--登录锤子-->
         <scene sceneID="gcA-Gu-ia2">
             <objects>
-                <viewController title="登录CHH" id="t3d-LI-J8u" userLabel="登录锤子" customClass="TForumLoginWebViewController" sceneMemberID="viewController">
+                <viewController title="登录CHH" id="t3d-LI-J8u" userLabel="登录锤子" customClass="SmartisanLoginWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rGW-Qm-dBu"/>
                         <viewControllerLayoutGuide type="bottom" id="pdR-4R-Zdh"/>
@@ -3666,7 +3666,7 @@
         <!--Forum Navigation View Controller-->
         <scene sceneID="dkL-aN-heY">
             <objects>
-                <navigationController storyboardIdentifier="TForumLoginWebViewController" id="nKG-PC-gnk" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TForumLoginWebViewController" id="nKG-PC-gnk" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9Uh-xF-fNo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3692,7 +3692,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivateMessageTableViewCell" rowHeight="119" id="RCa-cG-1Qm" customClass="PrivateMessageTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BBSMessageTableViewCell" rowHeight="119" id="RCa-cG-1Qm" customClass="BBSMessageTableViewCell">
                                 <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="119"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RCa-cG-1Qm" id="wKg-ig-vUj">
@@ -3815,7 +3815,7 @@
         <!--消息-->
         <scene sceneID="zZb-24-rYK">
             <objects>
-                <navigationController storyboardIdentifier="DiscuzNavID" id="R1Q-io-yyO" customClass="ForumNavigationViewController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DiscuzNavID" id="R1Q-io-yyO" customClass="BBSNavigationViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="消息" image="tab_message" id="lhJ-o5-gQI"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="mY9-eI-Fqv">
@@ -3840,7 +3840,7 @@
         <!--私信详情-->
         <scene sceneID="h2G-6e-6vv">
             <objects>
-                <viewController id="E10-IZ-8h6" customClass="ForumDiscuzShowPrivateMessageViewController" sceneMemberID="viewController">
+                <viewController id="E10-IZ-8h6" customClass="BBSDiscuzShowPrivateMessageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Xv-Nv-zWb"/>
                         <viewControllerLayoutGuide type="bottom" id="vyV-pR-4Rj"/>

@@ -1,20 +1,20 @@
 //
-//  ForumApiBaseTableViewController.h
 //
-//  Created by 迪远 王 on 16/3/13.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-#import "ForumApiHelper.h"
+#import "BBSApiHelper.h"
 #import "MJRefresh.h"
 
-#import "TranBundleUITableViewController.h"
+#import "TransDataUITableViewController.h"
 
-@interface ForumApiBaseTableViewController : TranBundleUITableViewController
+@interface ForumApiBaseTableViewController : TransDataUITableViewController
 
-@property(nonatomic, strong) id <ForumApiDelegate> forumApi;
+@property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;
 @property(nonatomic, strong) PageNumber *pageNumber;
 

@@ -1,23 +1,23 @@
 //
-//  ForumTableViewController.m
+//
 //  DRL
 //
-//  Created by 迪远 王 on 16/5/21.
-//  Copyright © 2016年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "SupportForumTableViewController.h"
-#import "ForumThreadListTableViewController.h"
-#import "ForumTabBarController.h"
+#import "BBSThreadListTableViewController.h"
+#import "BBSTabBarController.h"
 #import "UIStoryboard+Forum.h"
 #import "SupportForums.h"
 #import "AppDelegate.h"
-#import "LocalForumApi.h"
-#import "PayManager.h"
-#import "ForumSupportNavigationController.h"
+#import "BBSLocalApi.h"
+#import "BBSPayManager.h"
+#import "BBSSupportNavigationController.h"
 
 @interface SupportForumTableViewController () <CAAnimationDelegate> {
-    LocalForumApi *localForumApi;
+    BBSLocalApi *localForumApi;
 }
 
 @end
@@ -27,8 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    localForumApi = [[LocalForumApi alloc] init];
-    self.forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    localForumApi = [[BBSLocalApi alloc] init];
+    self.forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
 
 
     [self.dataList removeAllObjects];
@@ -44,7 +44,7 @@
         } else {
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
             UIViewController *rootViewController = window.rootViewController;
-            if ([rootViewController isKindOfClass:[ForumSupportNavigationController class]]) {
+            if ([rootViewController isKindOfClass:[BBSSupportNavigationController class]]) {
                 self.navigationItem.leftBarButtonItem.image = nil;
                 self.navigationItem.leftBarButtonItem.title = @"";
             } else {
@@ -115,13 +115,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowThreadList"]) {
-        ForumThreadListTableViewController *controller = segue.destinationViewController;
+        BBSThreadListTableViewController *controller = segue.destinationViewController;
 
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         Forum *select = self.dataList[(NSUInteger) path.section];
         Forum *child = select.childForums[(NSUInteger) path.row];
 
-        TransBundle *bundle = [[TransBundle alloc] init];
+        TranslateData *bundle = [[TranslateData alloc] init];
         [bundle putObjectValue:child forKey:@"TransForm"];
         [self transBundle:bundle forController:controller];
 
@@ -130,7 +130,7 @@
 
 - (BOOL)isUserHasLogin:(NSString *)host {
     // 判断是否登录
-    return [[[LocalForumApi alloc] init] isHaveLogin:host];
+    return [[[BBSLocalApi alloc] init] isHaveLogin:host];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -143,7 +143,7 @@
 
         NSURL *url = [NSURL URLWithString:forums.url];
 
-        LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         [localForumApi saveCurrentForumURL:forums.url];
 
         if ([self isUserHasLogin:url.host]) {
@@ -153,29 +153,24 @@
 
         } else {
 
-            id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+            id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
             NSString *cId = forumConfig.loginControllerId;
             [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId withAnim:UIViewAnimationOptionTransitionFlipFromTop];
         }
-    } else {
-//        PayManager *payManager = [PayManager shareInstance];
-//        [payManager payForProductID:@"CCF"];
     }
-
-
 }
 
 
 - (IBAction)showLeftDrawer:(id)sender {
-    ForumTabBarController *controller = (ForumTabBarController *) self.tabBarController;
+    BBSTabBarController *controller = (BBSTabBarController *) self.tabBarController;
 
     [controller showLeftDrawer];
 }
 
 - (IBAction)cancel:(id)sender {
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
     if (![localForumApi isHaveLogin:localForumApi.currentForumHost]) {
         NSArray<Forums *> *loginForums = localForumApi.loginedSupportForums;

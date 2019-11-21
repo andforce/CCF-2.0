@@ -1,16 +1,16 @@
 //
-//  ForumBaseStaticTableViewController.h
 //
-//  Created by 迪远 王 on 16/10/9.
-//  Copyright © 2016年 andforce. All rights reserved.
+//
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumApiHelper.h"
+#import "BBSApiHelper.h"
 #import "MJRefresh.h"
 
 @interface ForumBaseStaticTableViewController : UITableViewController
 
-@property(nonatomic, strong) id <ForumApiDelegate> forumApi;
+@property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;
 @property(nonatomic, assign) int currentPage;
 @property(nonatomic, assign) int totalPage;

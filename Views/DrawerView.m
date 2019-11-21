@@ -1,9 +1,6 @@
 //
-//  LeftDrawerView.m
-//  iOSMaps
-//
-//  Created by WDY on 15/12/8.
-//  Copyright © 2015年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "DrawerView.h"
@@ -17,11 +14,11 @@
 #import <UIImageView+WebCache.h>
 #import "ForumCoreDataManager.h"
 #import "UserEntry+CoreDataProperties.h"
-#import "ForumApiHelper.h"
+#import "BBSApiHelper.h"
 #import "UIStoryboard+Forum.h"
-#import "ForumTabBarController.h"
+#import "BBSTabBarController.h"
 #import "SupportForums.h"
-#import "LocalForumApi.h"
+#import "BBSLocalApi.h"
 
 @interface DrawerView () <UITableViewDelegate, UITableViewDataSource> {
 
@@ -49,8 +46,8 @@
 
 - (void)showUserAvatar {
 
-    LocalForumApi *forumApi = [[LocalForumApi alloc] init];
-    id <ForumConfigDelegate> config = [ForumApiHelper forumConfig:forumApi.currentForumHost];
+    BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
+    id <BBSConfigDelegate> config = [BBSApiHelper forumConfig:forumApi.currentForumHost];
     LoginUser *loginUser = [forumApi getLoginUser:config.forumURL.host];
 
     [self showAvatar:_avatarUIImageView userId:loginUser.userID];
@@ -68,15 +65,15 @@
     }
     NSString *avatarInArray = [avatarCache valueForKey:userId];
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    id <ForumApiDelegate> forumApi = [ForumApiHelper forumApi:localForumApi.currentForumHost];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    id <BBSApiDelegate> forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
 
     if (avatarInArray == nil) {
 
         [forumApi getAvatarWithUserId:userId handler:^(BOOL isSuccess, NSString *avatar) {
 
             if (isSuccess) {
-                LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
+                BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
                 // 存入数据库
                 [coreDateManager insertOneData:^(id src) {
                     UserEntry *user = (UserEntry *) src;
@@ -101,7 +98,7 @@
         }];
     } else {
 
-        id <ForumConfigDelegate> forumConfig = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
+        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];
@@ -152,7 +149,7 @@
 
         coreDateManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         if (cacheUsers == nil) {
-            LocalForumApi *localeForumApi = [[LocalForumApi alloc] init];
+            BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             cacheUsers = (NSMutableArray<UserEntry *> *) [[coreDateManager selectData:^NSPredicate * {
                 return [NSPredicate predicateWithFormat:@"forumHost = %@ AND userID > %d", localeForumApi.currentForumHost, 0];
             }] copy];
@@ -194,7 +191,7 @@
 
     Forums *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     if ([forums.host isEqualToString:[localForumApi currentForumHost]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
@@ -222,15 +219,15 @@
 
     NSURL *url = [NSURL URLWithString:forums.url];
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     [localForumApi saveCurrentForumURL:forums.url];
 
-    LocalForumApi *forumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
 
     [self closeLeftDrawer:^{
         [self showUserAvatar];
         if ([forumApi isHaveLogin:url.host]) {
-            ForumTabBarController *rootViewController = (ForumTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
+            BBSTabBarController *rootViewController = (BBSTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
 
             if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]) {
                 [rootViewController changeMessageUITabController:vBulletin];
@@ -248,7 +245,7 @@
 
 
 - (NSString *)currentForumHost {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     NSString *urlStr = [localForumApi currentForumURL];
     NSURL *url = [NSURL URLWithString:urlStr];
     return url.host;
@@ -435,7 +432,7 @@
     [rootView bringSubviewToFront:self];
 
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     _haveLoginForums = localForumApi.loginedSupportForums;
 
     self.tableView.dataSource = self;
@@ -496,7 +493,7 @@
 - (IBAction)showPayController:(id)sender {
     [self closeLeftDrawer];
 
-    ForumTabBarController *root = (ForumTabBarController *) self.window.rootViewController;
+    BBSTabBarController *root = (BBSTabBarController *) self.window.rootViewController;
 
     UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowPayPage"];
 
@@ -508,7 +505,7 @@
 - (IBAction)showAddForumController:(id)sender {
     [self closeLeftDrawer];
 
-    ForumTabBarController *root = (ForumTabBarController *) self.window.rootViewController;
+    BBSTabBarController *root = (BBSTabBarController *) self.window.rootViewController;
 
 
     UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSetting"];
@@ -522,7 +519,7 @@
 - (IBAction)showMyProfile:(id)sender {
     [self closeLeftDrawer];
 
-    ForumTabBarController *root = (ForumTabBarController *) self.window.rootViewController;
+    BBSTabBarController *root = (BBSTabBarController *) self.window.rootViewController;
     root.selectedIndex = 4;
 }
 

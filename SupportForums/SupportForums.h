@@ -1,7 +1,7 @@
 //
 //  SupportForums.h
 //
-//  Created by   on 2016/12/10
+//  Created by Diyuan Wang on 2019/11/21.
 //  Copyright (c) 2016 __MyCompanyName__. All rights reserved.
 //
 
