@@ -7,7 +7,7 @@
 #import "BBSTableViewController.h"
 #import "BBSCoreDataManager.h"
 #import "BBSThreadListTableViewController.h"
-#import "ForumListHeaderView.h"
+#import "BBSListHeaderView.h"
 #import "XibInflater.h"
 #import "MGSwipeTableCell.h"
 #import "BBSSwipeTableCellWithIndexPath.h"
@@ -104,7 +104,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
-    ForumListHeaderView *headerView = [XibInflater inflateViewByXibName:@"ForumListHeaderView"];
+    BBSListHeaderView *headerView = [XibInflater inflateViewByXibName:@"ForumListHeaderView"];
     Forum *parent = self.dataList[section];
     headerView.textLabel.text = parent.forumName;
     return headerView;

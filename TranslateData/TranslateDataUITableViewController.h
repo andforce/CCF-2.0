@@ -9,15 +9,15 @@
 #import "TranslateData.h"
 #import "TranslateDataDelegate.h"
 
-@interface TransBundleUIViewController : UIViewController
-@property(nonatomic, strong) id <TranslateDataDelegate> transDelegate;
+@interface TranslateDataUITableViewController : UITableViewController
+@property(nonatomic, strong) id <TranslateDataDelegate> delegate;
 
 @property(nonatomic, strong) TranslateData *bundle;
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent withBundle:(TranslateData *)bundle forRootController:(BOOL)forRootController animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
 
-- (void)dismissViewControllerAnimated:(BOOL)flag backToViewController:(UIViewController *_Nullable)controller withBundle:(TranslateData *_Nullable)bundle completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
+- (void)dismissViewControllerAnimated:(BOOL)flag backToViewController:(UIViewController *_Nonnull)controller withBundle:(TranslateData *_Nullable)bundle completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0);
 
-- (void)transBundle:(TranslateData *_Nonnull)bundle forController:(UIViewController *_Nullable)controller;
+- (void)transBundle:(TranslateData *_Nonnull)bundle forController:(UIViewController *_Nonnull)controller;
 
 @end

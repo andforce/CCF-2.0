@@ -5,9 +5,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BBSApiHelper.h"
-#import "TransBundleUIViewController.h"
+#import "TranslateDataUIViewController.h"
 
-@interface BBSApiBaseViewController : TransBundleUIViewController
+@interface BBSApiBaseViewController : TranslateDataUIViewController
 
 @property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 

@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ForumListHeaderView : UIView
+@interface BBSListHeaderView : UIView
 @property(weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end

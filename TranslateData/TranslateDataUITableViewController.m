@@ -3,10 +3,10 @@
 // Copyright (c) 2016 andforce. All rights reserved.
 //
 
-#import "TransBundleUIViewController.h"
+#import "TranslateDataUITableViewController.h"
 
 
-@implementation TransBundleUIViewController {
+@implementation TranslateDataUITableViewController {
 
 }
 
@@ -19,9 +19,9 @@
 
     NSAssert([target respondsToSelector:@selector(transBundle:)], @"目标Controller未实现transBundle:方法");
 
-    self.transDelegate = (id <TranslateDataDelegate>) target;
+    self.delegate = (id <TranslateDataDelegate>) target;
 
-    [self.transDelegate transBundle:bundle];
+    [self.delegate transBundle:bundle];
 
     [self presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
@@ -34,9 +34,9 @@
 
     NSAssert([target respondsToSelector:@selector(transBundle:)], @"目标Controller未实现transBundle:方法");
 
-    self.transDelegate = (id <TranslateDataDelegate>) target;
+    self.delegate = (id <TranslateDataDelegate>) target;
 
-    [self.transDelegate transBundle:bundle];
+    [self.delegate transBundle:bundle];
 
     [self dismissViewControllerAnimated:flag completion:completion];
 }
@@ -49,9 +49,8 @@
 
     NSAssert([target respondsToSelector:@selector(transBundle:)], @"目标Controller未实现transBundle:方法");
 
-    self.transDelegate = (id <TranslateDataDelegate>) target;
+    self.delegate = (id <TranslateDataDelegate>) target;
 
-    [self.transDelegate transBundle:bundle];
+    [self.delegate transBundle:bundle];
 }
-
 @end

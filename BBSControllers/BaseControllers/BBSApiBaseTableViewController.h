@@ -8,9 +8,9 @@
 #import "BBSApiHelper.h"
 #import "MJRefresh.h"
 
-#import "TransDataUITableViewController.h"
+#import "TranslateDataUITableViewController.h"
 
-@interface BBSApiBaseTableViewController : TransDataUITableViewController
+@interface BBSApiBaseTableViewController : TranslateDataUITableViewController
 
 @property(nonatomic, strong) id <BBSApiDelegate> forumApi;
 @property(nonatomic, strong) NSMutableArray *dataList;

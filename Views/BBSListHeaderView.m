@@ -3,9 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ForumListHeaderView.h"
+#import "BBSListHeaderView.h"
 
-@implementation ForumListHeaderView
+@implementation BBSListHeaderView
 
 /*
 // Only override drawRect: if you perform custom drawing.
