@@ -26,7 +26,7 @@
 		2F34CFBB62E848555D9DB610 /* BBSShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* BBSShortCutCreateNewThreadViewController.m */; };
 		3A288A4C1DFAE47F002EBBC2 /* SlideDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */; };
 		3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */; };
-		3A288A501DFC4EAF002EBBC2 /* supportForums.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */; };
+		3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */; };
 		3A288A561DFC534D002EBBC2 /* WorkedBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A531DFC534D002EBBC2 /* WorkedBBS.m */; };
 		3A288A571DFC534D002EBBC2 /* HaveWorkedBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A551DFC534D002EBBC2 /* HaveWorkedBBS.m */; };
 		3A288A5A1DFC544B002EBBC2 /* BBSWorkedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A591DFC544B002EBBC2 /* BBSWorkedTableViewController.m */; };
@@ -166,7 +166,6 @@
 		C7B59B9DABEB94C6EC3B70A4 /* BBSPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B598437592A403475313FA /* BBSPayManager.m */; };
 		C7B59C89FE57387F98A2F727 /* Et8NetHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B5922924FBE1978D345607 /* Et8NetHtmlParser.m */; };
 		C7B59D8E9D44A593D270BE03 /* NSData+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B590FF019B54B2E6BDDE91 /* NSData+UTF8.m */; };
-		C7B59FBEDA751551C16B2A0E /* WillSupportForums.json in Resources */ = {isa = PBXBuildFile; fileRef = C7B5905A537A8FC80DBF00E5 /* WillSupportForums.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,7 +219,7 @@
 		3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideDrawerView.m; sourceTree = "<group>"; };
 		3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideDrawerView.xib; sourceTree = "<group>"; };
 		3A288A4E1DFAF569002EBBC2 /* SlideDrawerViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideDrawerViewDelegate.h; sourceTree = "<group>"; };
-		3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = supportForums.json; sourceTree = "<group>"; };
+		3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bbs_have_support.json; sourceTree = "<group>"; };
 		3A288A521DFC534D002EBBC2 /* WorkedBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkedBBS.h; sourceTree = "<group>"; };
 		3A288A531DFC534D002EBBC2 /* WorkedBBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkedBBS.m; sourceTree = "<group>"; };
 		3A288A541DFC534D002EBBC2 /* HaveWorkedBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaveWorkedBBS.h; sourceTree = "<group>"; };
@@ -468,7 +467,6 @@
 		4DFB34CE1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserEntry+CoreDataProperties.m"; sourceTree = "<group>"; };
 		4DFB34D41DF946D300BD8DD5 /* Et8NetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Et8NetConfig.h; sourceTree = "<group>"; };
 		4DFB34D51DF946D300BD8DD5 /* Et8NetConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Et8NetConfig.m; sourceTree = "<group>"; };
-		C7B5905A537A8FC80DBF00E5 /* WillSupportForums.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WillSupportForums.json; sourceTree = "<group>"; };
 		C7B590FF019B54B2E6BDDE91 /* NSData+UTF8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+UTF8.m"; sourceTree = "<group>"; };
 		C7B5922924FBE1978D345607 /* Et8NetHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Et8NetHtmlParser.m; sourceTree = "<group>"; };
 		C7B59370C7EEC80ACF175D43 /* BBSPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSPayManager.h; sourceTree = "<group>"; };
@@ -534,8 +532,6 @@
 				3A288A531DFC534D002EBBC2 /* WorkedBBS.m */,
 				3A288A541DFC534D002EBBC2 /* HaveWorkedBBS.h */,
 				3A288A551DFC534D002EBBC2 /* HaveWorkedBBS.m */,
-				3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */,
-				C7B5905A537A8FC80DBF00E5 /* WillSupportForums.json */,
 			);
 			path = BBSWorked;
 			sourceTree = "<group>";
@@ -752,14 +748,7 @@
 		3ACB5C2C1FDC273500D5339C /* BBSDatabase */ = {
 			isa = PBXGroup;
 			children = (
-				4DFB34C71DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.h */,
-				4DFB34C81DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.m */,
-				4DFB34C91DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.h */,
-				4DFB34CA1DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m */,
-				4DFB34CB1DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.h */,
-				4DFB34CC1DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.m */,
-				4DFB34CD1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.h */,
-				4DFB34CE1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m */,
+				4D13B5DC2387B16000BBF06D /* Extensions */,
 				3A2C3F351DDFBD2700576151 /* BBSCoreDataManager.h */,
 				3A2C3F361DDFBD2700576151 /* BBSCoreDataManager.m */,
 				3A2C3FEC1DDFE10900576151 /* forum1.xcdatamodeld */,
@@ -904,6 +893,7 @@
 		3ACB5C361FDC281000D5339C /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */,
 				4D1B072020456F1D0013B6A1 /* privacy.html */,
 				4D1B0725204686340013B6A1 /* terms_of_use.html */,
 				3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */,
@@ -1031,6 +1021,21 @@
 				3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */,
 			);
 			path = SlideDrawerView;
+			sourceTree = "<group>";
+		};
+		4D13B5DC2387B16000BBF06D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4DFB34C71DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.h */,
+				4DFB34C81DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.m */,
+				4DFB34C91DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.h */,
+				4DFB34CA1DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m */,
+				4DFB34CB1DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.h */,
+				4DFB34CC1DF82D5E00BD8DD5 /* UserEntry+CoreDataClass.m */,
+				4DFB34CD1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.h */,
+				4DFB34CE1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4D1B07272046AF030013B6A1 /* BaseControllers */ = {
@@ -1209,13 +1214,12 @@
 				3A2C3F191DDFBABD00576151 /* append_post.js in Resources */,
 				3A288A661DFD8C76002EBBC2 /* HaveLoginForum.xib in Resources */,
 				3A2C3FF11DDFE13500576151 /* LaunchScreen.storyboard in Resources */,
-				3A288A501DFC4EAF002EBBC2 /* supportForums.json in Resources */,
+				3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */,
 				3A48EF81214D3BFD0025CE2D /* handle_click.js in Resources */,
 				3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */,
 				4D1B0726204686350013B6A1 /* terms_of_use.html in Resources */,
 				3A2C3F5E1DDFBFC500576151 /* PageHeaderView.xib in Resources */,
 				3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */,
-				C7B59FBEDA751551C16B2A0E /* WillSupportForums.json in Resources */,
 				C7B592195D565E7F41FD734C /* chhlogin.js in Resources */,
 				2F34CEF71A3645A8A7E867A0 /* more.html in Resources */,
 				2F34CE343E0618B3258CBF17 /* login.html in Resources */,
