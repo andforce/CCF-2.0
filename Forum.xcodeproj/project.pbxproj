@@ -134,6 +134,14 @@
 		3AEDFA822095AE5B00E93BB0 /* SmartisanHotList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7D2095AE5B00E93BB0 /* SmartisanHotList.m */; };
 		3AEDFA832095AE5B00E93BB0 /* SmartisanHotPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA7F2095AE5B00E93BB0 /* SmartisanHotPage.m */; };
 		4D0D87251DE40C7900DA9034 /* BBSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D0D87241DE40C7900DA9034 /* BBSNavigationViewController.m */; };
+		4D13B6612387CAA200BBF06D /* Pay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B6602387CAA200BBF06D /* Pay.storyboard */; };
+		4D13B6632387CB3700BBF06D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B6622387CB3700BBF06D /* Login.storyboard */; };
+		4D13B6652387CB9400BBF06D /* SeniorReply.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B6642387CB9400BBF06D /* SeniorReply.storyboard */; };
+		4D13B6672387CBC200BBF06D /* Jubao.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B6662387CBC200BBF06D /* Jubao.storyboard */; };
+		4D13B6692387CC2900BBF06D /* NewThread.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B6682387CC2900BBF06D /* NewThread.storyboard */; };
+		4D13B66B2387CC6F00BBF06D /* ShortCutNewThread.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B66A2387CC6F00BBF06D /* ShortCutNewThread.storyboard */; };
+		4D13B66D2387CCF100BBF06D /* AllBBSSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B66C2387CCF100BBF06D /* AllBBSSetting.storyboard */; };
+		4D13B66F2387CD6500BBF06D /* PrivateMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D13B66E2387CD6500BBF06D /* PrivateMessage.storyboard */; };
 		4D1B072120456F1D0013B6A1 /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B072020456F1D0013B6A1 /* privacy.html */; };
 		4D1B0724204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B0723204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m */; };
 		4D1B0726204686350013B6A1 /* terms_of_use.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B0725204686340013B6A1 /* terms_of_use.html */; };
@@ -416,6 +424,14 @@
 		3AEDFA7F2095AE5B00E93BB0 /* SmartisanHotPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmartisanHotPage.m; sourceTree = "<group>"; };
 		4D0D87231DE40C7900DA9034 /* BBSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSNavigationViewController.h; sourceTree = "<group>"; };
 		4D0D87241DE40C7900DA9034 /* BBSNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSNavigationViewController.m; sourceTree = "<group>"; };
+		4D13B6602387CAA200BBF06D /* Pay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pay.storyboard; sourceTree = "<group>"; };
+		4D13B6622387CB3700BBF06D /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		4D13B6642387CB9400BBF06D /* SeniorReply.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SeniorReply.storyboard; sourceTree = "<group>"; };
+		4D13B6662387CBC200BBF06D /* Jubao.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Jubao.storyboard; sourceTree = "<group>"; };
+		4D13B6682387CC2900BBF06D /* NewThread.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewThread.storyboard; sourceTree = "<group>"; };
+		4D13B66A2387CC6F00BBF06D /* ShortCutNewThread.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortCutNewThread.storyboard; sourceTree = "<group>"; };
+		4D13B66C2387CCF100BBF06D /* AllBBSSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AllBBSSetting.storyboard; sourceTree = "<group>"; };
+		4D13B66E2387CD6500BBF06D /* PrivateMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PrivateMessage.storyboard; sourceTree = "<group>"; };
 		4D1B072020456F1D0013B6A1 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
 		4D1B0722204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSShowPrivatePolicyUiViewController.h; sourceTree = "<group>"; };
 		4D1B0723204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBSShowPrivatePolicyUiViewController.m; sourceTree = "<group>"; };
@@ -1075,6 +1091,14 @@
 				3A92CDAA1F2E119100E41573 /* Forum.entitlements */,
 				3A2C3FEF1DDFE13500576151 /* LaunchScreen.storyboard */,
 				3A2C3FF01DDFE13500576151 /* Main.storyboard */,
+				4D13B66E2387CD6500BBF06D /* PrivateMessage.storyboard */,
+				4D13B66C2387CCF100BBF06D /* AllBBSSetting.storyboard */,
+				4D13B66A2387CC6F00BBF06D /* ShortCutNewThread.storyboard */,
+				4D13B6682387CC2900BBF06D /* NewThread.storyboard */,
+				4D13B6662387CBC200BBF06D /* Jubao.storyboard */,
+				4D13B6642387CB9400BBF06D /* SeniorReply.storyboard */,
+				4D13B6622387CB3700BBF06D /* Login.storyboard */,
+				4D13B6602387CAA200BBF06D /* Pay.storyboard */,
 				3A2C3F0B1DDFB88400576151 /* Assets.xcassets */,
 				3A2C3F111DDFB91F00576151 /* Info.plist */,
 				4D339D8C1C31454A0022A6A4 /* Products */,
@@ -1199,10 +1223,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2C3F211DDFBADA00576151 /* private_message.html in Resources */,
+				4D13B6692387CC2900BBF06D /* NewThread.storyboard in Resources */,
 				3A2C3F5C1DDFBFC500576151 /* ForumListHeaderView.xib in Resources */,
 				3A2C3F1F1DDFBAD000576151 /* post_view.html in Resources */,
+				4D13B66F2387CD6500BBF06D /* PrivateMessage.storyboard in Resources */,
 				3A2C3F8E1DDFDFC000576151 /* ApiTestViewController.xib in Resources */,
 				4D1B072120456F1D0013B6A1 /* privacy.html in Resources */,
+				4D13B6612387CAA200BBF06D /* Pay.storyboard in Resources */,
 				3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */,
 				3A2C3F0E1DDFB8D300576151 /* paperclip.gif in Resources */,
 				3A2C3F0C1DDFB88400576151 /* Assets.xcassets in Resources */,
@@ -1214,6 +1241,10 @@
 				3A2C3F191DDFBABD00576151 /* append_post.js in Resources */,
 				3A288A661DFD8C76002EBBC2 /* HaveLoginForum.xib in Resources */,
 				3A2C3FF11DDFE13500576151 /* LaunchScreen.storyboard in Resources */,
+				4D13B6672387CBC200BBF06D /* Jubao.storyboard in Resources */,
+				4D13B66B2387CC6F00BBF06D /* ShortCutNewThread.storyboard in Resources */,
+				4D13B6652387CB9400BBF06D /* SeniorReply.storyboard in Resources */,
+				4D13B6632387CB3700BBF06D /* Login.storyboard in Resources */,
 				3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */,
 				3A48EF81214D3BFD0025CE2D /* handle_click.js in Resources */,
 				3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */,
@@ -1221,6 +1252,7 @@
 				3A2C3F5E1DDFBFC500576151 /* PageHeaderView.xib in Resources */,
 				3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */,
 				C7B592195D565E7F41FD734C /* chhlogin.js in Resources */,
+				4D13B66D2387CCF100BBF06D /* AllBBSSetting.storyboard in Resources */,
 				2F34CEF71A3645A8A7E867A0 /* more.html in Resources */,
 				2F34CE343E0618B3258CBF17 /* login.html in Resources */,
 			);
