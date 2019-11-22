@@ -98,7 +98,7 @@
 		3A2C3FE81DDFE0C900576151 /* BBSUserThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FC71DDFE0C900576151 /* BBSUserThreadTableViewController.m */; };
 		3A2C3FE91DDFE0C900576151 /* BBSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FC91DDFE0C900576151 /* BBSWebViewController.m */; };
 		3A2C3FEB1DDFE0C900576151 /* BBSWritePMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FCD1DDFE0C900576151 /* BBSWritePMViewController.m */; };
-		3A2C3FEE1DDFE10900576151 /* forum1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FEC1DDFE10900576151 /* forum1.xcdatamodeld */; };
+		3A2C3FEE1DDFE10900576151 /* bbs_db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FEC1DDFE10900576151 /* bbs_db.xcdatamodeld */; };
 		3A2C3FF11DDFE13500576151 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3FEF1DDFE13500576151 /* LaunchScreen.storyboard */; };
 		3A2C3FF21DDFE13500576151 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3FF01DDFE13500576151 /* Main.storyboard */; };
 		3A2C3FFF1DDFE30300576151 /* TranslateDataUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3FF51DDFE30300576151 /* TranslateDataUITableViewController.m */; };
@@ -787,7 +787,7 @@
 				4D13B5DC2387B16000BBF06D /* Extensions */,
 				3A2C3F351DDFBD2700576151 /* BBSCoreDataManager.h */,
 				3A2C3F361DDFBD2700576151 /* BBSCoreDataManager.m */,
-				3A2C3FEC1DDFE10900576151 /* forum1.xcdatamodeld */,
+				3A2C3FEC1DDFE10900576151 /* bbs_db.xcdatamodeld */,
 				3A2C3F2C1DDFBCE800576151 /* BBSDataManager.h */,
 				3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */,
 			);
@@ -1420,7 +1420,7 @@
 				3A288A571DFC534D002EBBC2 /* HaveWorkedBBS.m in Sources */,
 				3A2C3FE31DDFE0C900576151 /* BBSTabBarController.m in Sources */,
 				4DA372A41FC2DFD60094E655 /* BBSZhanNeiSearchViewCell.m in Sources */,
-				3A2C3FEE1DDFE10900576151 /* forum1.xcdatamodeld in Sources */,
+				3A2C3FEE1DDFE10900576151 /* bbs_db.xcdatamodeld in Sources */,
 				3A288A641DFD14D8002EBBC2 /* DreamLandHtmlParser.m in Sources */,
 				3AEDFA802095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m in Sources */,
 				4DFB34D01DF82D5E00BD8DD5 /* ForumEntry+CoreDataProperties.m in Sources */,
@@ -1742,13 +1742,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3A2C3FEC1DDFE10900576151 /* forum1.xcdatamodeld */ = {
+		3A2C3FEC1DDFE10900576151 /* bbs_db.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				3A2C3FED1DDFE10900576151 /* forum1.xcdatamodel */,
 			);
 			currentVersion = 3A2C3FED1DDFE10900576151 /* forum1.xcdatamodel */;
-			path = forum1.xcdatamodeld;
+			path = bbs_db.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

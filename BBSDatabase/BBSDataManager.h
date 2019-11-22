@@ -13,7 +13,7 @@ typedef void(^Operation)(NSManagedObject *target, id src);
 
 typedef void(^InsertOperation)(id src);
 
-typedef NSPredicate *(^Predicate)();
+typedef NSPredicate *(^Predicate)(void);
 
 
 @interface BBSDataManager : NSObject

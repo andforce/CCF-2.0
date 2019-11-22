@@ -44,7 +44,6 @@
 
 - (NSArray<Forum *> *)selectAllForums {
 
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSArray<ForumEntry *> *entrys = [self selectData:^NSPredicate * {
         BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
         return [NSPredicate predicateWithFormat:@"forumHost = %@ AND parentForumId = %d", localeForumApi.currentForumHost, -1];
