@@ -432,6 +432,26 @@
 		4D13B66A2387CC6F00BBF06D /* ShortCutNewThread.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ShortCutNewThread.storyboard; sourceTree = "<group>"; };
 		4D13B66C2387CCF100BBF06D /* AllBBSSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AllBBSSetting.storyboard; sourceTree = "<group>"; };
 		4D13B66E2387CD6500BBF06D /* PrivateMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PrivateMessage.storyboard; sourceTree = "<group>"; };
+		4D13B6712387D43000BBF06D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4D13B6722387D43000BBF06D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D13B6732387D43000BBF06D /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		4D13B6752387D43000BBF06D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4D13B6772387D43000BBF06D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D13B6792387D43000BBF06D /* iForum.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iForum.xcdatamodel; sourceTree = "<group>"; };
+		4D13B67A2387D43000BBF06D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D13B67B2387D43000BBF06D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4D13B67C2387D43000BBF06D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D13B67D2387D43000BBF06D /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		4D13B67F2387D43C00BBF06D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4D13B6802387D43C00BBF06D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D13B6812387D43C00BBF06D /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		4D13B6832387D43C00BBF06D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4D13B6852387D43C00BBF06D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D13B6872387D43C00BBF06D /* iForum.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iForum.xcdatamodel; sourceTree = "<group>"; };
+		4D13B6882387D43C00BBF06D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D13B6892387D43C00BBF06D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4D13B68A2387D43C00BBF06D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D13B68B2387D43C00BBF06D /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		4D1B072020456F1D0013B6A1 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
 		4D1B0722204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSShowPrivatePolicyUiViewController.h; sourceTree = "<group>"; };
 		4D1B0723204572FD0013B6A1 /* BBSShowPrivatePolicyUiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBSShowPrivatePolicyUiViewController.m; sourceTree = "<group>"; };
@@ -1054,6 +1074,42 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		4D13B6702387D43000BBF06D /* iForum */ = {
+			isa = PBXGroup;
+			children = (
+				4D13B6712387D43000BBF06D /* AppDelegate.h */,
+				4D13B6722387D43000BBF06D /* Assets.xcassets */,
+				4D13B6732387D43000BBF06D /* SceneDelegate.m */,
+				4D13B6742387D43000BBF06D /* LaunchScreen.storyboard */,
+				4D13B6762387D43000BBF06D /* Main.storyboard */,
+				4D13B6782387D43000BBF06D /* iForum.xcdatamodeld */,
+				4D13B67A2387D43000BBF06D /* main.m */,
+				4D13B67B2387D43000BBF06D /* AppDelegate.m */,
+				4D13B67C2387D43000BBF06D /* Info.plist */,
+				4D13B67D2387D43000BBF06D /* SceneDelegate.h */,
+			);
+			name = iForum;
+			path = ../tmp/iForum/iForum;
+			sourceTree = "<group>";
+		};
+		4D13B67E2387D43C00BBF06D /* iForum */ = {
+			isa = PBXGroup;
+			children = (
+				4D13B67F2387D43C00BBF06D /* AppDelegate.h */,
+				4D13B6802387D43C00BBF06D /* Assets.xcassets */,
+				4D13B6812387D43C00BBF06D /* SceneDelegate.m */,
+				4D13B6822387D43C00BBF06D /* LaunchScreen.storyboard */,
+				4D13B6842387D43C00BBF06D /* Main.storyboard */,
+				4D13B6862387D43C00BBF06D /* iForum.xcdatamodeld */,
+				4D13B6882387D43C00BBF06D /* main.m */,
+				4D13B6892387D43C00BBF06D /* AppDelegate.m */,
+				4D13B68A2387D43C00BBF06D /* Info.plist */,
+				4D13B68B2387D43C00BBF06D /* SceneDelegate.h */,
+			);
+			name = iForum;
+			path = ../tmp/iForum/iForum;
+			sourceTree = "<group>";
+		};
 		4D1B07272046AF030013B6A1 /* BaseControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,6 +1126,8 @@
 		4D339D821C31454A0022A6A4 = {
 			isa = PBXGroup;
 			children = (
+				4D13B6702387D43000BBF06D /* iForum */,
+				4D13B67E2387D43C00BBF06D /* iForum */,
 				4D13B5D92387A32C00BBF06D /* BBSView */,
 				4D13B5D82387A25800BBF06D /* BBSStyle */,
 				4D13B5D72387A1E400BBF06D /* BBSUtils */,
@@ -1446,6 +1504,41 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		4D13B6742387D43000BBF06D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D13B6752387D43000BBF06D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4D13B6762387D43000BBF06D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D13B6772387D43000BBF06D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4D13B6822387D43C00BBF06D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D13B6832387D43C00BBF06D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4D13B6842387D43C00BBF06D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D13B6852387D43C00BBF06D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		4D339DA31C31454B0022A6A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1656,6 +1749,26 @@
 			);
 			currentVersion = 3A2C3FED1DDFE10900576151 /* forum1.xcdatamodel */;
 			path = forum1.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		4D13B6782387D43000BBF06D /* iForum.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4D13B6792387D43000BBF06D /* iForum.xcdatamodel */,
+			);
+			currentVersion = 4D13B6792387D43000BBF06D /* iForum.xcdatamodel */;
+			path = iForum.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		4D13B6862387D43C00BBF06D /* iForum.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4D13B6872387D43C00BBF06D /* iForum.xcdatamodel */,
+			);
+			currentVersion = 4D13B6872387D43C00BBF06D /* iForum.xcdatamodel */;
+			path = iForum.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
