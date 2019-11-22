@@ -525,7 +525,7 @@
 			path = CharUtils;
 			sourceTree = "<group>";
 		};
-		3ACB5C211FDC25BE00D5339C /* SupportForums */ = {
+		3ACB5C211FDC25BE00D5339C /* BBSWorked */ = {
 			isa = PBXGroup;
 			children = (
 				3A288A581DFC544B002EBBC2 /* BBSWorkedTableViewController.h */,
@@ -537,7 +537,7 @@
 				3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */,
 				C7B5905A537A8FC80DBF00E5 /* WillSupportForums.json */,
 			);
-			path = SupportForums;
+			path = BBSWorked;
 			sourceTree = "<group>";
 		};
 		3ACB5C231FDC262700D5339C /* FeiFan */ = {
@@ -608,7 +608,7 @@
 			path = BBSApiTest;
 			sourceTree = "<group>";
 		};
-		3ACB5C281FDC269E00D5339C /* Extensions */ = {
+		3ACB5C281FDC269E00D5339C /* BBSExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				4DB47C301F4AC73B00A79AC5 /* IGXMLNode+QueryNode.h */,
@@ -633,10 +633,8 @@
 				3A2C3F791DDFC0CD00576151 /* UIView+Corner.m */,
 				C7B590FF019B54B2E6BDDE91 /* NSData+UTF8.m */,
 				C7B59A3EE329F70B4CDE26BE /* NSData+UTF8.h */,
-				2F34C0C48D6A20923716C6EC /* ProgressDialog.m */,
-				2F34CBBCB62F26627BA0E932 /* ProgressDialog.h */,
 			);
-			path = Extensions;
+			path = BBSExtensions;
 			sourceTree = "<group>";
 		};
 		3ACB5C291FDC26C900D5339C /* BBSControllers */ = {
@@ -758,7 +756,7 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		3ACB5C2C1FDC273500D5339C /* BBSCoreData */ = {
+		3ACB5C2C1FDC273500D5339C /* BBSDatabase */ = {
 			isa = PBXGroup;
 			children = (
 				4DFB34C71DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.h */,
@@ -775,10 +773,10 @@
 				3A2C3F2C1DDFBCE800576151 /* BBSDataManager.h */,
 				3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */,
 			);
-			path = BBSCoreData;
+			path = BBSDatabase;
 			sourceTree = "<group>";
 		};
-		3ACB5C2D1FDC275300D5339C /* TranslateData */ = {
+		3ACB5C2D1FDC275300D5339C /* BBSTranslateData */ = {
 			isa = PBXGroup;
 			children = (
 				3A2C3FF41DDFE30300576151 /* TranslateDataUITableViewController.h */,
@@ -793,7 +791,7 @@
 				3A2C40041DDFE3AD00576151 /* TranslateDataTableViewCell.h */,
 				3A2C40051DDFE3AD00576151 /* TranslateDataTableViewCell.m */,
 			);
-			path = TranslateData;
+			path = BBSTranslateData;
 			sourceTree = "<group>";
 		};
 		3ACB5C2E1FDC277500D5339C /* BBSEngines */ = {
@@ -874,7 +872,7 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		3ACB5C331FDC27D200D5339C /* ThreadShowTemplet */ = {
+		3ACB5C331FDC27D200D5339C /* BBSHtml */ = {
 			isa = PBXGroup;
 			children = (
 				3A48EF7E214D3BFD0025CE2D /* fastclick_lib.js */,
@@ -887,10 +885,10 @@
 				3A2C3F161DDFBAB200576151 /* append_post_content.html */,
 				2F34C6547027D475D41B023C /* login.html */,
 			);
-			path = ThreadShowTemplet;
+			path = BBSHtml;
 			sourceTree = "<group>";
 		};
-		3ACB5C341FDC27ED00D5339C /* NetWork */ = {
+		3ACB5C341FDC27ED00D5339C /* BBSNetWork */ = {
 			isa = PBXGroup;
 			children = (
 				3A48EF84214E9FAB0025CE2D /* NSURLProtocol+WKWebVIew.h */,
@@ -898,7 +896,7 @@
 				3A48EF85214E9FAC0025CE2D /* BBSNSURLProtocol.h */,
 				3A48EF86214E9FAC0025CE2D /* BBSNSURLProtocol.m */,
 			);
-			path = NetWork;
+			path = BBSNetWork;
 			sourceTree = "<group>";
 		};
 		3ACB5C351FDC280000D5339C /* PhotoView */ = {
@@ -932,26 +930,26 @@
 			path = CommonUtils;
 			sourceTree = "<group>";
 		};
-		3AEDFA5A2095744C00E93BB0 /* vBulletin */ = {
+		3AEDFA5A2095744C00E93BB0 /* BBSBulletin */ = {
 			isa = PBXGroup;
 			children = (
-				2F34C2A567EB792DCF9E85BD /* vBulletinApiDelegate.h */,
 				3ACB5C251FDC265400D5339C /* Et8Net */,
 				3ACB5C241FDC264100D5339C /* DreamLand */,
+				2F34C2A567EB792DCF9E85BD /* vBulletinApiDelegate.h */,
 				2F34C02E3940F0553AB003DA /* vBulletinConfigDelegate.h */,
 				2F34C63D087B9C331FC76727 /* vBulletinParserDelegate.h */,
 				2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */,
 				2F34C87A20D645FB8D21CFAD /* vBulletinCommonConfig.h */,
 			);
-			path = vBulletin;
+			path = BBSBulletin;
 			sourceTree = "<group>";
 		};
 		3AEDFA5B2095747100E93BB0 /* BBSDiscuz */ = {
 			isa = PBXGroup;
 			children = (
-				2F34C95254DD621AB9345D1B /* DiscuzApiDelegate.h */,
 				3AEDFA5D209577CD00E93BB0 /* Smartisan */,
 				3ACB5C261FDC266B00D5339C /* Chiphell */,
+				2F34C95254DD621AB9345D1B /* DiscuzApiDelegate.h */,
 				3A430BAA209734FF007D3BCB /* DiscuzMessageTableViewController.h */,
 				3A430BAB209734FF007D3BCB /* DiscuzMessageTableViewController.m */,
 				2F34C47539059444139B75DE /* DiscuzConfigDelegate.h */,
@@ -965,8 +963,8 @@
 		3AEDFA5C2095748100E93BB0 /* BBSPhpWind */ = {
 			isa = PBXGroup;
 			children = (
-				2F34CEDE561AF2B8E93A940E /* PhpWindApiDelegate.h */,
 				3ACB5C231FDC262700D5339C /* FeiFan */,
+				2F34CEDE561AF2B8E93A940E /* PhpWindApiDelegate.h */,
 				2F34CCD81990A1C00E06B7AA /* PhpWindConfigDelegage.h */,
 				2F34CDDC3E2FE65DAF5CE145 /* PhpWindParserDelegate.h */,
 			);
@@ -989,6 +987,36 @@
 			path = Smartisan;
 			sourceTree = "<group>";
 		};
+		4D13B5D72387A1E400BBF06D /* BBSUtils */ = {
+			isa = PBXGroup;
+			children = (
+				3ACB5C201FDC25A600D5339C /* CharUtils */,
+				3AE54CAE2386F67600DDA938 /* CommonUtils */,
+			);
+			path = BBSUtils;
+			sourceTree = "<group>";
+		};
+		4D13B5D82387A25800BBF06D /* BBSStyle */ = {
+			isa = PBXGroup;
+			children = (
+				3AEDFA5C2095748100E93BB0 /* BBSPhpWind */,
+				3AEDFA5B2095747100E93BB0 /* BBSDiscuz */,
+				3AEDFA5A2095744C00E93BB0 /* BBSBulletin */,
+			);
+			path = BBSStyle;
+			sourceTree = "<group>";
+		};
+		4D13B5D92387A32C00BBF06D /* BBSView */ = {
+			isa = PBXGroup;
+			children = (
+				2F34C0C48D6A20923716C6EC /* ProgressDialog.m */,
+				2F34CBBCB62F26627BA0E932 /* ProgressDialog.h */,
+				3ACB5C351FDC280000D5339C /* PhotoView */,
+				3ACB5C2B1FDC271B00D5339C /* CustomViews */,
+			);
+			path = BBSView;
+			sourceTree = "<group>";
+		};
 		4D1B07272046AF030013B6A1 /* BaseControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1005,25 +1033,21 @@
 		4D339D821C31454A0022A6A4 = {
 			isa = PBXGroup;
 			children = (
-				3AE54CAE2386F67600DDA938 /* CommonUtils */,
-				3AEDFA5C2095748100E93BB0 /* BBSPhpWind */,
-				3AEDFA5B2095747100E93BB0 /* BBSDiscuz */,
-				3AEDFA5A2095744C00E93BB0 /* vBulletin */,
+				4D13B5D92387A32C00BBF06D /* BBSView */,
+				4D13B5D82387A25800BBF06D /* BBSStyle */,
+				4D13B5D72387A1E400BBF06D /* BBSUtils */,
 				4D8962BD1FDFE0A30015BD9D /* BBSPayment */,
 				3ACB5C361FDC281000D5339C /* SupportFiles */,
-				3ACB5C351FDC280000D5339C /* PhotoView */,
-				3ACB5C341FDC27ED00D5339C /* NetWork */,
-				3ACB5C331FDC27D200D5339C /* ThreadShowTemplet */,
+				3ACB5C341FDC27ED00D5339C /* BBSNetWork */,
+				3ACB5C331FDC27D200D5339C /* BBSHtml */,
 				3ACB5C2E1FDC277500D5339C /* BBSEngines */,
-				3ACB5C2D1FDC275300D5339C /* TranslateData */,
-				3ACB5C2C1FDC273500D5339C /* BBSCoreData */,
-				3ACB5C2B1FDC271B00D5339C /* CustomViews */,
+				3ACB5C2D1FDC275300D5339C /* BBSTranslateData */,
+				3ACB5C2C1FDC273500D5339C /* BBSDatabase */,
 				3ACB5C2A1FDC26FD00D5339C /* BBSTableViewCells */,
 				3ACB5C291FDC26C900D5339C /* BBSControllers */,
-				3ACB5C281FDC269E00D5339C /* Extensions */,
+				3ACB5C281FDC269E00D5339C /* BBSExtensions */,
 				3ACB5C271FDC268300D5339C /* BBSApiTest */,
-				3ACB5C211FDC25BE00D5339C /* SupportForums */,
-				3ACB5C201FDC25A600D5339C /* CharUtils */,
+				3ACB5C211FDC25BE00D5339C /* BBSWorked */,
 				3A2C3F8F1DDFDFEF00576151 /* Forum.pch */,
 				3A2C3F131DDFB94200576151 /* AppDelegate.h */,
 				3A2C3F141DDFB94200576151 /* AppDelegate.m */,
