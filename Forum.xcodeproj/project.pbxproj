@@ -1161,6 +1161,7 @@
 				4D339D881C31454A0022A6A4 /* Frameworks */,
 				4D339D891C31454A0022A6A4 /* Resources */,
 				8E83BD880ACE4B8E047C76D4 /* [CP] Copy Pods Resources */,
+				05DC1CF8049A17344663ACCD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1261,6 +1262,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		05DC1CF8049A17344663ACCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Forum/Pods-Forum-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8E83BD880ACE4B8E047C76D4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1558,7 +1578,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1596,7 +1616,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
