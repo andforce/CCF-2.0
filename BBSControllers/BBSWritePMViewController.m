@@ -17,7 +17,7 @@
     BBSLocalApi *_localForumApi;
     BBSPayManager *_payManager;
 
-    Message *_privateMessage;
+    BBSPrivateMessage *_privateMessage;
 }
 
 @end

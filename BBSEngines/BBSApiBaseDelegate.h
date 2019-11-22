@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Message;
+@class BBSPrivateMessage;
 @class BBSWebViewController;
 @class ViewThreadPage;
 @class User;
@@ -80,7 +80,7 @@ typedef void (^EnterNewThreadCallBack)(NSString *responseHtml, NSString *post_ha
 
 
 // 回复站内短信
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
+- (void)replyPrivateMessage:(BBSPrivateMessage *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler;
 
 // 根据PM ID 显示一条私信内容
 // 0 系统短信   1 正常私信
@@ -89,7 +89,7 @@ typedef void (^EnterNewThreadCallBack)(NSString *responseHtml, NSString *post_ha
 // 发送站内短信
 - (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler;
 
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
+- (void)deletePrivateMessage:(BBSPrivateMessage *)privateMessage withType:(int)type handler:(HandlerWithBool)handler;
 
 // 发表一个新的帖子
 - (void)createNewThreadWithCategory:(NSString *)category

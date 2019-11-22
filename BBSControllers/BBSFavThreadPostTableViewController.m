@@ -29,7 +29,7 @@
 - (void)onPullRefresh {
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> config = [BBSApiHelper forumConfig:forumApi.currentForumHost];
-    LoginUser *user = [forumApi getLoginUser:config.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:config.forumURL.host];
     int userId = [user.userID intValue];
     [self.forumApi listFavoriteThreads:userId withPage:1 handler:^(BOOL isSuccess, ViewForumPage *resultPage) {
 
@@ -50,7 +50,7 @@
     int toLoadPage = currentForumPage == nil ? 1 : currentForumPage.pageNumber.currentPageNumber + 1;
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> config = [BBSApiHelper forumConfig:forumApi.currentForumHost];
-    LoginUser *user = [forumApi getLoginUser:config.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:config.forumURL.host];
     int userId = [user.userID intValue];
     [self.forumApi listFavoriteThreads:userId withPage:toLoadPage handler:^(BOOL isSuccess, ViewForumPage *resultPage) {
 

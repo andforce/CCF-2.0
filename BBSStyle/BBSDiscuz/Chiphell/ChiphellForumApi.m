@@ -260,7 +260,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     NSString *url = [forumConfig searchNewThread:page];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewSearchForumPage *searchForumPage = [forumParser parseSearchPageFromHtml:html];
+            BBSSearchResultPage *searchForumPage = [forumParser parseSearchPageFromHtml:html];
             handler(isSuccess, searchForumPage);
         } else {
             handler(NO, html);
@@ -922,7 +922,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
     [self GET:searchUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewSearchForumPage *page = [forumParser parseZhanNeiSearchPageFromHtml:html type:type];
+            BBSSearchResultPage *page = [forumParser parseZhanNeiSearchPageFromHtml:html type:type];
             handler(YES, page);
         } else {
             handler(NO, html);
@@ -934,8 +934,8 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            ViewMessage *viewMessage = content.viewMessages.firstObject;
+            BBSPrivateMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
+            BBSPrivateMessageDetail *viewMessage = content.viewMessages.firstObject;
 
             if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]) {
                 [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
@@ -979,7 +979,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
 }
 
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
+- (void)replyPrivateMessage:(BBSPrivateMessage *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
     NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=send&pmid=%@&daterange=0&handlekey=pmsend&pmsubmit=yes&inajax=1", privateMessage.pmID];
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -1041,7 +1041,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     }];
 }
 
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
+- (void)deletePrivateMessage:(BBSPrivateMessage *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
 
     [self GET:[forumConfig privateMessage:1] requestCallback:^(BOOL isSuccess, NSString *html) {
 
@@ -1085,7 +1085,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 
     [self GET:searchUrl requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewSearchForumPage *viewSearchForumPage = [forumParser parseZhanNeiSearchPageFromHtml:html type:type];
+            BBSSearchResultPage *viewSearchForumPage = [forumParser parseZhanNeiSearchPageFromHtml:html type:type];
             handler(YES, viewSearchForumPage);
         } else {
             handler(NO, html);

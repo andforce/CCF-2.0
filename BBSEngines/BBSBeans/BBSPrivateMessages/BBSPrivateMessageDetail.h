@@ -8,7 +8,7 @@
 @class User;
 
 
-@interface ViewMessage : NSObject
+@interface BBSPrivateMessageDetail : NSObject
 
 @property(nonatomic, strong) User *pmUserInfo;
 @property(nonatomic, strong) NSString *pmID;

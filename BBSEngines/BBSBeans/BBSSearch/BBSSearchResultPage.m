@@ -3,8 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "LoginUser.h"
+#import "BBSSearchResultPage.h"
 
-@implementation LoginUser
+@implementation BBSSearchResultPage
+
 
 @end

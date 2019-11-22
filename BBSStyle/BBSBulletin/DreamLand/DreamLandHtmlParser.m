@@ -15,13 +15,13 @@
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 #import "CommonUtils.h"
-#import "Message.h"
-#import "ViewMessage.h"
-#import "LoginUser.h"
+#import "BBSPrivateMessage.h"
+#import "BBSPrivateMessageDetail.h"
+#import "BBSUser.h"
 
 @implementation DreamLandHtmlParser {
     BBSLocalApi *localApi;
-    LoginUser *loginUser;
+    BBSUser *loginUser;
 }
 
 - (instancetype)init {
@@ -279,7 +279,7 @@
     return [self parsePrivateMessageFromHtml:html];
 }
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
 
@@ -290,7 +290,7 @@
     }
 
 
-    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
+    BBSSearchResultPage *resultPage = [[BBSSearchResultPage alloc] init];
 
 
     // 总页数 和 当前页数
@@ -357,16 +357,16 @@
     return resultPage;
 }
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
     return nil;
 }
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+    BBSPrivateMessagePage *privateMessage = [[BBSPrivateMessagePage alloc] init];
 
-    ViewMessage *viewMessage = [[ViewMessage alloc] init];
+    BBSPrivateMessageDetail *viewMessage = [[BBSPrivateMessageDetail alloc] init];
     // ===== message content =====
 
     // PM Title
@@ -912,13 +912,13 @@
     page.pageNumber = pageNumber;
 
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
     IGXMLNodeSet *messages = [document queryWithXPath:@"/html/body/table/tr/td/div[2]/div/div/table[2]/tr/td[3]/form[2]/table/tbody[*]/tr"];
     for (IGXMLNode *node in messages) {
         long childCount = (long) [[node children] count];
         if (childCount == 4) {
             // 有4个节点说明是正常的站内短信
-            Message *message = [[Message alloc] init];
+            BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
             IGXMLNodeSet *children = [node children];
             // 1. 是不是未读短信

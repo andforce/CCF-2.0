@@ -9,7 +9,7 @@
 #import "AFImageDownloader.h"
 
 @protocol BBSParserDelegate;
-@class LoginUser;
+@class BBSUser;
 
 @interface BBSBrowser : NSObject
 

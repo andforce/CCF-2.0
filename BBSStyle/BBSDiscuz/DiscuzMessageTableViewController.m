@@ -187,7 +187,7 @@ typedef enum {
     }
 
 
-    Message *message = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
 
     [cell setData:message forIndexPath:indexPath];
 
@@ -200,7 +200,7 @@ typedef enum {
 
     NSIndexPath *indexPath = cell.indexPath;
 
-    Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
     NSInteger delType = _messageSegmentedControl.selectedSegmentIndex;
     [self.forumApi deletePrivateMessage:deleteMessage withType:(int) delType handler:^(BOOL isSuccess, id message) {
         if (isSuccess) {
@@ -221,7 +221,7 @@ typedef enum {
 
 - (void)showUserProfile:(NSIndexPath *)indexPath {
     BBSUserProfileTableViewController *controller = selectSegue.destinationViewController;
-    Message *message = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
     TranslateData *bundle = [[TranslateData alloc] init];
     [bundle putIntValue:[message.pmAuthorId intValue] forKey:@"UserId"];
     [self transBundle:bundle forController:controller];
@@ -235,7 +235,7 @@ typedef enum {
         return YES;
     } else {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        Message *message = self.dataList[(NSUInteger) indexPath.row];
+        BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
 
         if (message.pid && message.ptid) {
 
@@ -264,7 +264,7 @@ typedef enum {
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
-        Message *message = self.dataList[(NSUInteger) indexPath.row];
+        BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
 
         TranslateData *bundle = [[TranslateData alloc] init];
         [bundle putObjectValue:message forKey:@"TransPrivateMessage"];

@@ -7,8 +7,8 @@
 #import "Forum.h"
 #import "ViewThreadPage.h"
 #import "ViewForumPage.h"
-#import "ViewSearchForumPage.h"
-#import "ViewMessagePage.h"
+#import "BBSSearchResultPage.h"
+#import "BBSPrivateMessagePage.h"
 #import "UserProfile.h"
 
 @protocol BBSBaseParserDelegate <NSObject>
@@ -20,11 +20,11 @@
 
 - (ViewForumPage *)parseFavorThreadListFromHtml:(NSString *)html;
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html;
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html;
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type;
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type;
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO;
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO;
 
 - (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId;
 

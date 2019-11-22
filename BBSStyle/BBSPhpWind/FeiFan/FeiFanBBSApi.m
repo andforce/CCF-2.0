@@ -394,7 +394,7 @@
 
     self.browser.requestSerializer.stringEncoding = kCFStringEncodingGB_18030_2000;
     [self.browser POSTWithURLString:forumConfig.search parameters:parameters charset:GBK requestCallback:^(BOOL searchSuccess, NSString *searchResult) {
-        ViewSearchForumPage *page = [forumParser parseSearchPageFromHtml:searchResult];
+        BBSSearchResultPage *page = [forumParser parseSearchPageFromHtml:searchResult];
 
         if (page != nil && page.dataList != nil && page.dataList.count > 0) {
             handler(YES, page);
@@ -409,8 +409,8 @@
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
-            ViewMessage *viewMessage = content.viewMessages.firstObject;
+            BBSPrivateMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
+            BBSPrivateMessageDetail *viewMessage = content.viewMessages.firstObject;
 
             if (![viewMessage.pmUserInfo.userID isEqualToString:@"-1"]) {
                 [self getAvatarWithUserId:viewMessage.pmUserInfo.userID handler:^(BOOL success, id message) {
@@ -437,7 +437,7 @@
                 [formData appendPartWithFormData:[@"write" dataForUTF8] name:@"action"];
                 [formData appendPartWithFormData:[@"2" dataForUTF8] name:@"step"];
                 [formData appendPartWithFormData:[token dataForUTF8] name:@"verify"];
-                LoginUser *touser = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
+                BBSUser *touser = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
                 [formData appendPartWithFormData:[self buildContent:touser.userName] name:@"pwuser"];
                 [formData appendPartWithFormData:[self buildContent:title] name:@"msg_title"];
                 [formData appendPartWithFormData:[@"" dataForUTF8] name:@"font"];
@@ -458,7 +458,7 @@
     }];
 }
 
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
+- (void)replyPrivateMessage:(BBSPrivateMessage *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
     NSString *url = [forumConfig privateReplyWithMessageIdPre:[privateMessage.pmID intValue]];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
@@ -633,7 +633,7 @@
     }];
 }
 
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
+- (void)deletePrivateMessage:(BBSPrivateMessage *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
     NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -764,7 +764,7 @@
                 [userDefault setInteger:newThreadPostSearchId forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_id"]];
             }
             if (isSuccess) {
-                ViewSearchForumPage *sarchPage = [forumParser parseSearchPageFromHtml:html];
+                BBSSearchResultPage *sarchPage = [forumParser parseSearchPageFromHtml:html];
                 handler(isSuccess, sarchPage);
             } else {
                 handler(NO, [forumParser parseErrorMessage:html]);
@@ -786,7 +786,7 @@
 }
 
 - (void)listMyAllThreadsWithPage:(int)page handler:(HandlerWithBool)handler {
-    LoginUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
+    BBSUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
     NSString *url = [forumConfig listUserThreads:user.userID withPage:page];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
@@ -870,7 +870,7 @@
     [self GET:searchedUrl parameters:defparameters requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
 
-            ViewSearchForumPage *viewSearchForumPage = [forumParser parseSearchPageFromHtml:html];
+            BBSSearchResultPage *viewSearchForumPage = [forumParser parseSearchPageFromHtml:html];
 
             if (viewSearchForumPage != nil && viewSearchForumPage.dataList != nil && viewSearchForumPage.dataList.count > 0) {
                 handler(YES, viewSearchForumPage);

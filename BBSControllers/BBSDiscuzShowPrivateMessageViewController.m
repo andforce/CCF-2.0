@@ -15,7 +15,7 @@
 
 @interface BBSDiscuzShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
-    Message *transPrivateMessage;
+    BBSPrivateMessage *transPrivateMessage;
 
     UIStoryboardSegue *selectSegue;
 
@@ -71,13 +71,13 @@
 
         [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmAuthorId intValue] withType:type handler:^(BOOL isSuccess, id message) {
 
-            ViewMessagePage *page = message;
+            BBSPrivateMessagePage *page = message;
             [self.dataList removeAllObjects];
 
             [self.dataList addObjectsFromArray:page.viewMessages];
 
             NSMutableString *content = [NSMutableString string];
-            for (ViewMessage *viewMessage in self.dataList) {
+            for (BBSPrivateMessageDetail *viewMessage in self.dataList) {
 
                 NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
                 [content appendString:postInfo];
@@ -198,14 +198,14 @@
     UINavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"CreatePM"];
 
     TranslateData *bundle = [[TranslateData alloc] init];
-    Message *message = [[Message alloc] init];
+    BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
     message.forumhash = transPrivateMessage.forumhash;
     message.pmAuthorId = transPrivateMessage.pmAuthorId;
     message.pmAuthor = transPrivateMessage.pmAuthor;
     message.pmTitle = transPrivateMessage.pmTitle;
 
     for (int i = self.dataList.count - 1; i >= 0; i--) {
-        ViewMessage *viewMessage = self.dataList[i];
+        BBSPrivateMessageDetail *viewMessage = self.dataList[i];
         if ([viewMessage.pmUserInfo.userID isEqualToString:transPrivateMessage.pmAuthorId]) {
             message.pmID = viewMessage.pmID;
             break;

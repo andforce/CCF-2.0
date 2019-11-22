@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class LoginUser;
+@class BBSUser;
 @class WorkedBBS;
 @class BBSWebViewController;
 
@@ -13,7 +13,7 @@
 @interface BBSLocalApi : NSObject
 
 // 获取当前登录的账户信息
-- (LoginUser *)getLoginUser:(NSString *)host;
+- (BBSUser *)getLoginUser:(NSString *)host;
 
 // 获取当前登录的账户信息
 - (BOOL)isHaveLogin:(NSString *)host;

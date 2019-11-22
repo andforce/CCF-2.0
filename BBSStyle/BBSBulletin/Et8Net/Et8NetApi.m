@@ -196,7 +196,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [parameters setValue:time forKey:@"poststarttime"];
 
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
-    LoginUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
     [parameters setValue:user.userID forKey:@"loggedinuser"];
     [parameters setValue:@"发表主题" forKey:@"sbutton"];
     [parameters setValue:@"1" forKey:@"parseurl"];
@@ -502,7 +502,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [preParameters setValue:@"1" forKey:@"parseurl"];
 
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
-    LoginUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
     [preParameters setValue:user.userID forKey:@"loggedinuser"];
     [preParameters setValue:@"进入高级模式" forKey:@"preview"];
 
@@ -615,7 +615,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     [parameters setValue:poststarttime forKey:@"poststarttime"];
 
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
-    LoginUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
     [parameters setValue:user.userID forKey:@"loggedinuser"];
     [parameters setValue:@"" forKey:@"multiquoteempty"];
     [parameters setValue:@"提交回复" forKey:@"sbutton"];
@@ -845,7 +845,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
                     if (error != nil) {
                         handler(NO, error);
                     } else {
-                        ViewSearchForumPage *page = [forumParser parseSearchPageFromHtml:searchResult];
+                        BBSSearchResultPage *page = [forumParser parseSearchPageFromHtml:searchResult];
                         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
                         [localForumApi saveCookie];
 
@@ -871,7 +871,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:0];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
+            BBSPrivateMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
             handler(YES, content);
         } else {
             handler(NO, html);
@@ -918,7 +918,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
+- (void)replyPrivateMessage:(BBSPrivateMessage *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
     int pmId = [privateMessage.pmID intValue];
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:0];
@@ -1049,7 +1049,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
+- (void)deletePrivateMessage:(BBSPrivateMessage *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
     NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -1141,7 +1141,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
 - (void)listMyAllThreadsWithPage:(int)page handler:(HandlerWithBool)handler {
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
-    LoginUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
+    BBSUser *user = [forumApi getLoginUser:forumConfig.forumURL.host];
     if (user == nil || user.userID == nil) {
         handler(NO, @"未登录");
         return;
@@ -1287,7 +1287,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
             if (error != nil) {
                 handler(NO, error);
             } else {
-                ViewSearchForumPage *viewSearchForumPage = [forumParser parseSearchPageFromHtml:html];
+                BBSSearchResultPage *viewSearchForumPage = [forumParser parseSearchPageFromHtml:html];
 
                 if (viewSearchForumPage != nil && viewSearchForumPage.dataList != nil && viewSearchForumPage.dataList.count > 0) {
                     handler(YES, viewSearchForumPage);

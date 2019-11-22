@@ -9,7 +9,7 @@
 #define kDefaultDrawerRatio 4/5
 #define kMaxMaskAlpha 0.6f
 
-#import "LoginUser.h"
+#import "BBSUser.h"
 
 #import <UIImageView+WebCache.h>
 #import "BBSCoreDataManager.h"
@@ -48,7 +48,7 @@
 
     BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> config = [BBSApiHelper forumConfig:forumApi.currentForumHost];
-    LoginUser *loginUser = [forumApi getLoginUser:config.forumURL.host];
+    BBSUser *loginUser = [forumApi getLoginUser:config.forumURL.host];
 
     [self showAvatar:_avatarUIImageView userId:loginUser.userID];
 

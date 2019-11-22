@@ -3,10 +3,10 @@
 // Copyright (c) 2018 andforce. All rights reserved.
 //
 
-#import "ViewMessage.h"
+#import "BBSPrivateMessageDetail.h"
 
 
-@implementation ViewMessage {
+@implementation BBSPrivateMessageDetail {
 
 }
 @end

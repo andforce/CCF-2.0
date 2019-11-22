@@ -5,8 +5,8 @@
 
 #import "ViewForumPage.h"
 
-@interface ViewSearchForumPage : ViewForumPage
+@interface BBSSearchResultPage : ViewForumPage
 
-@property(nonatomic, strong) NSString *searchid;
+@property(nonatomic, strong) NSString *searchId;
 
 @end

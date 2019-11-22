@@ -19,7 +19,7 @@
     return self;
 }
 
-- (void)setData:(Message *)data {
+- (void)setData:(BBSPrivateMessage *)data {
 
 
     [self.privateMessageTitle setText:data.pmTitle];

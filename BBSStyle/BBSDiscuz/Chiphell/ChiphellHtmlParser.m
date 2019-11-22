@@ -14,15 +14,15 @@
 #import "IGXMLNode+Children.h"
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
-#import "Message.h"
+#import "BBSPrivateMessage.h"
 #import "CommonUtils.h"
 #import "IGXMLNode+QueryNode.h"
-#import "LoginUser.h"
+#import "BBSUser.h"
 
 @implementation ChiphellHtmlParser {
 
     BBSLocalApi *localApi;
-    LoginUser *loginUser;
+    BBSUser *loginUser;
 }
 
 - (instancetype)init {
@@ -322,8 +322,8 @@
     return page;
 }
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
-    ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html {
+    BBSSearchResultPage *page = [[BBSSearchResultPage alloc] init];
 
     NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
 
@@ -411,8 +411,8 @@
     return page;
 }
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
-    ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+    BBSSearchResultPage *page = [[BBSSearchResultPage alloc] init];
 
     NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
 
@@ -465,17 +465,17 @@
     return page;
 }
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     IGXMLNodeSet *pmUlSet = [document queryNodeWithXPath:@"//*[@id=\"pm_ul\"]"].children;
 
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+    BBSPrivateMessagePage *privateMessage = [[BBSPrivateMessagePage alloc] init];
     NSMutableArray *datas = [NSMutableArray array];
     privateMessage.viewMessages = datas;
     for (IGXMLNode *node in pmUlSet) {
-        ViewMessage *viewMessage = [[ViewMessage alloc] init];
+        BBSPrivateMessageDetail *viewMessage = [[BBSPrivateMessageDetail alloc] init];
 
         if (![node.tag isEqualToString:@"dl"]) {
             continue;
@@ -697,10 +697,10 @@
     //forumHash
     NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children) {
 
-        Message *message = [[Message alloc] init];
+        BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
         NSString *newPm = [pmNode attribute:@"class"];
         BOOL isReaded = ![newPm isEqualToString:@"bbda cur1 cl newpm"];
 
@@ -756,9 +756,9 @@
 
     //forumHash
     NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children) {
-        Message *message = [[Message alloc] init];
+        BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
         BOOL isReaded = ![pmNode.html containsString:@"<dd class=\"ntc_body\" style=\"color:#000;font-weight:bold;\">"];
 

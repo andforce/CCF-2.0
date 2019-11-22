@@ -5,7 +5,7 @@
 
 #import <CloudKit/CloudKit.h>
 #import "BBSLocalApi.h"
-#import "LoginUser.h"
+#import "BBSUser.h"
 #import "BBSConfigDelegate.h"
 #import "BBSApiHelper.h"
 #import "AppDelegate.h"
@@ -26,7 +26,7 @@
     return self;
 }
 
-- (LoginUser *)getLoginUserCrsky {
+- (BBSUser *)getLoginUserCrsky {
 
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     if (cookies.count == 0) {
@@ -35,7 +35,7 @@
 
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:@"bbs.crsky.com"];
 
-    LoginUser *user = [[LoginUser alloc] init];
+    BBSUser *user = [[BBSUser alloc] init];
     user.userName = [self userName:@"bbs.crsky.com"];
     if (user.userName == nil || [user.userName isEqualToString:@""]) {
         //[self logout];
@@ -53,7 +53,7 @@
     return user;
 }
 
-- (LoginUser *)getLoginUserSmartisan {
+- (BBSUser *)getLoginUserSmartisan {
 
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     if (cookies.count == 0) {
@@ -62,7 +62,7 @@
 
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:@"bbs.smartisan.com"];
 
-    LoginUser *user = [[LoginUser alloc] init];
+    BBSUser *user = [[BBSUser alloc] init];
     user.userName = [self userName:@"bbs.smartisan.com"];
     if (user.userName == nil || [user.userName isEqualToString:@""]) {
         //[self logout];
@@ -81,7 +81,7 @@
     return user;
 }
 
-- (LoginUser *)getLoginUser:(NSString *)host {
+- (BBSUser *)getLoginUser:(NSString *)host {
     NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     if (cookies.count == 0) {
         return nil;
@@ -96,7 +96,7 @@
     } else if ([host isEqualToString:@"bbs.smartisan.com"]) {
         return [self getLoginUserSmartisan];
     } else {
-        LoginUser *user = [[LoginUser alloc] init];
+        BBSUser *user = [[BBSUser alloc] init];
         user.userName = [self userName:host];
         if (user.userName == nil || [user.userName isEqualToString:@""]) {
             return nil;
@@ -119,7 +119,7 @@
 
 - (BOOL)isHaveLogin:(NSString *)host {
 
-    LoginUser *user = [self getLoginUser:host];
+    BBSUser *user = [self getLoginUser:host];
     if (user == nil) {
         return NO;
     }
@@ -147,7 +147,7 @@
     return NO;
 }
 
-- (void)deleteLoginUser:(LoginUser *)loginUser {
+- (void)deleteLoginUser:(BBSUser *)loginUser {
     NSString *uid = [self.currentForumHost stringByAppendingString:@"-UserId"];
     if (uid != nil) {
         [_userDefaults setValue:@"" forKey:uid];
@@ -176,7 +176,7 @@
         }
     }
 
-    LoginUser *user = [localForumApi getLoginUser:localForumApi.currentForumHost];
+    BBSUser *user = [localForumApi getLoginUser:localForumApi.currentForumHost];
     [self deleteLoginUser:user];
 }
 
@@ -198,7 +198,7 @@
         }
     }
 
-    LoginUser *user = [localForumApi getLoginUser:forumURL.host];
+    BBSUser *user = [localForumApi getLoginUser:forumURL.host];
     [self deleteLoginUser:user];
 }
 

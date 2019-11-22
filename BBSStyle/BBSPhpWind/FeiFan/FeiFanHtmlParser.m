@@ -11,12 +11,12 @@
 #import "NSString+Extensions.h"
 #import "BBSLocalApi.h"
 #import "CommonUtils.h"
-#import "Message.h"
-#import "LoginUser.h"
+#import "BBSPrivateMessage.h"
+#import "BBSUser.h"
 
 @implementation FeiFanHtmlParser {
     BBSLocalApi *localApi;
-    LoginUser *loginUser;
+    BBSUser *loginUser;
 }
 
 
@@ -275,7 +275,7 @@
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
 
     PageNumber *pageNumber = [self parserPageNumber:html];
 
@@ -288,7 +288,7 @@
                 long childCount = (long) [[node children] count];
                 if (childCount == 5) {
                     // 有4个节点说明是正常的站内短信
-                    Message *message = [[Message alloc] init];
+                    BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
                     NSString *msgHtml = node.html;
 
@@ -299,7 +299,7 @@
                     IGXMLNode *title = [node childAt:2];
                     message.pmTitle = title.text.trim;
 
-                    // Message Id
+                    // BBSPrivateMessage Id
                     message.pmID = [msgHtml stringWithRegular:@"(?<=mid=)\\d+"];
 
                     // 3. 发送PM作者
@@ -324,7 +324,7 @@
             long childCount = (long) [[node children] count];
             if (childCount == 5) {
                 // 有4个节点说明是正常的站内短信
-                Message *message = [[Message alloc] init];
+                BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
                 NSString *msgHtml = node.html;
 
@@ -335,7 +335,7 @@
                 IGXMLNode *title = [node childAt:2];
                 message.pmTitle = title.text.trim;
 
-                // Message Id
+                // BBSPrivateMessage Id
                 message.pmID = [msgHtml stringWithRegular:@"(?<=mid=)\\d+"];
 
                 // 3. 发送PM作者
@@ -359,7 +359,7 @@
             long childCount = (long) [[node children] count];
             if (childCount == 5) {
                 // 有4个节点说明是正常的站内短信
-                Message *message = [[Message alloc] init];
+                BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
                 NSString *msgHtml = node.html;
 
@@ -370,7 +370,7 @@
                 IGXMLNode *title = [node childAt:2];
                 message.pmTitle = title.text.trim;
 
-                // Message Id
+                // BBSPrivateMessage Id
                 message.pmID = [msgHtml stringWithRegular:@"(?<=mid=)\\d+"];
 
                 // 3. 发送PM作者
@@ -396,10 +396,10 @@
     return page;
 }
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
+    BBSSearchResultPage *resultPage = [[BBSSearchResultPage alloc] init];
     NSMutableArray<Thread *> *threads = [NSMutableArray array];
 
     IGXMLNodeSet *searchNodeSet = [document queryWithClassName:@"tr3 tac"];
@@ -482,7 +482,7 @@
 
     // search id
     NSString *searchId = [html stringWithRegular:@"(?<=sid=)\\d+"];
-    resultPage.searchid = searchId;
+    resultPage.searchId = searchId;
 
     // page Number
     resultPage.pageNumber = [self parserPageNumber:html];
@@ -491,15 +491,15 @@
     return resultPage;
 }
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
     return nil;
 }
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
 
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+    BBSPrivateMessagePage *privateMessage = [[BBSPrivateMessagePage alloc] init];
 
-    ViewMessage *viewMessage = [[ViewMessage alloc] init];
+    BBSPrivateMessageDetail *viewMessage = [[BBSPrivateMessageDetail alloc] init];
 
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];

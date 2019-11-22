@@ -3,9 +3,9 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "ViewSearchForumPage.h"
+#import "BBSPrivateMessagePage.h"
 
-@implementation ViewSearchForumPage
+@implementation BBSPrivateMessagePage
 
 
 @end

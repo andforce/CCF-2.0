@@ -287,7 +287,7 @@
         return page;
     }
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
 
     PageNumber *pageNumber = [self parserPageNumber:html];
 
@@ -295,12 +295,12 @@
 
     for (IGXMLNode *node in messagesNodeSet) {
 
-        Message *message = [[Message alloc] init];
+        BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
         // 1. 是不是未读短信
         message.isReaded = ![[node attribute:@"class"] containsString:@"newpm"];
 
-        // Message Id
+        // BBSPrivateMessage Id
         message.pmID = [[node attribute:@"id"] stringWithRegular:@"\\d+"];
 
         // 2. 标题
@@ -328,8 +328,8 @@
     return page;
 }
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
-    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html {
+    BBSSearchResultPage *resultPage = [[BBSSearchResultPage alloc] init];
 
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
 
@@ -366,8 +366,8 @@
     return resultPage;
 }
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
-    ViewSearchForumPage *page = [[ViewSearchForumPage alloc] init];
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+    BBSSearchResultPage *page = [[BBSSearchResultPage alloc] init];
 
     NSMutableArray<Thread *> *threadList = [NSMutableArray<Thread *> array];
 
@@ -420,17 +420,17 @@
     return page;
 }
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     IGXMLNodeSet *pmUlSet = [document queryNodeWithXPath:@"//*[@id=\"pm_ul\"]"].children;
 
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+    BBSPrivateMessagePage *privateMessage = [[BBSPrivateMessagePage alloc] init];
     NSMutableArray *datas = [NSMutableArray array];
     privateMessage.viewMessages = datas;
     for (IGXMLNode *node in pmUlSet) {
-        ViewMessage *viewMessage = [[ViewMessage alloc] init];
+        BBSPrivateMessageDetail *viewMessage = [[BBSPrivateMessageDetail alloc] init];
 
         if (![node.tag isEqualToString:@"dl"]) {
             continue;
@@ -661,9 +661,9 @@
     //forumHash
     NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
     for (IGXMLNode *pmNode in pmRootNode.children) {
-        Message *message = [[Message alloc] init];
+        BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
         NSString *newPm = [pmNode attribute:@"class"];
         BOOL isReaded = ![newPm isEqualToString:@"bbda cur1 cl newpm"];
         NSString *pmId = [[pmNode attribute:@"id"] componentsSeparatedByString:@"_"].lastObject;
@@ -708,7 +708,7 @@
         return page;
     }
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
 
     PageNumber *pageNumber = [self parserPageNumber:html];
 
@@ -716,12 +716,12 @@
 
     for (IGXMLNode *node in messagesNodeSet) {
 
-        Message *message = [[Message alloc] init];
+        BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
         // 1. 是不是未读短信
         message.isReaded = ![[node attribute:@"class"] containsString:@"newpm"];
 
-        // Message Id
+        // BBSPrivateMessage Id
         message.pmID = [[node attribute:@"notice"] stringWithRegular:@"\\d+"];
 
         // 2. 标题

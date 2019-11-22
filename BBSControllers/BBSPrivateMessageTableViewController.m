@@ -120,7 +120,7 @@
     cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor lightGrayColor]]];
     cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
 
-    Message *message = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
 
     [cell setData:message forIndexPath:indexPath];
 
@@ -131,7 +131,7 @@
 - (BOOL)swipeTableCell:(BBSSwipeTableCellWithIndexPath *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion {
     NSIndexPath *indexPath = cell.indexPath;
 
-    Message *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *deleteMessage = self.dataList[(NSUInteger) indexPath.row];
     NSInteger delType = _messageSegmentedControl.selectedSegmentIndex;
     [self.forumApi deletePrivateMessage:deleteMessage withType:(int) delType handler:^(BOOL isSuccess, id message) {
         if (isSuccess) {
@@ -152,7 +152,7 @@
 
 - (void)showUserProfile:(NSIndexPath *)indexPath {
     BBSUserProfileTableViewController *controller = selectSegue.destinationViewController;
-    Message *message = self.dataList[(NSUInteger) indexPath.row];
+    BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
     TranslateData *bundle = [[TranslateData alloc] init];
     [bundle putIntValue:[message.pmAuthorId intValue] forKey:@"UserId"];
     [self transBundle:bundle forController:controller];
@@ -170,7 +170,7 @@
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
-        Message *message = self.dataList[(NSUInteger) indexPath.row];
+        BBSPrivateMessage *message = self.dataList[(NSUInteger) indexPath.row];
 
         TranslateData *bundle = [[TranslateData alloc] init];
         [bundle putObjectValue:message forKey:@"TransPrivateMessage"];

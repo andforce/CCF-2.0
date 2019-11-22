@@ -10,7 +10,7 @@
 @interface BBSShowPrivateMessageViewController : BBSApiBaseViewController
 
 
-@property(nonatomic, strong) NSMutableArray<ViewMessagePage *> *dataList;
+@property(nonatomic, strong) NSMutableArray<BBSPrivateMessagePage *> *dataList;
 
 
 - (IBAction)back:(id)sender;

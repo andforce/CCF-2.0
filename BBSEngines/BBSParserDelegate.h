@@ -5,9 +5,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginUser.h"
-#import "Message.h"
-#import "ViewMessagePage.h"
+#import "BBSUser.h"
+#import "BBSPrivateMessage.h"
+#import "BBSPrivateMessagePage.h"
 #import "Post.h"
 #import "User.h"
 #import "Forum.h"
@@ -15,7 +15,7 @@
 #import "UserProfile.h"
 #import "ViewThreadPage.h"
 #import "ViewForumPage.h"
-#import "ViewSearchForumPage.h"
+#import "BBSSearchResultPage.h"
 #import "PageNumber.h"
 
 #import "vBulletinParserDelegate.h"

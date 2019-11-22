@@ -19,7 +19,7 @@
 @implementation Et8NetHtmlParser {
 
     BBSLocalApi *localApi;
-    LoginUser *loginUser;
+    BBSUser *loginUser;
 }
 
 - (instancetype)init {
@@ -287,7 +287,7 @@
     return [self parsePrivateMessageFromHtml:html];
 }
 
-- (ViewSearchForumPage *)parseSearchPageFromHtml:(NSString *)html {
+- (BBSSearchResultPage *)parseSearchPageFromHtml:(NSString *)html {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
     IGXMLNodeSet *searchNodeSet = [document queryWithXPath:@"//*[@id='threadslist']/tr[*]"];
 
@@ -296,7 +296,7 @@
     }
 
 
-    ViewSearchForumPage *resultPage = [[ViewSearchForumPage alloc] init];
+    BBSSearchResultPage *resultPage = [[BBSSearchResultPage alloc] init];
 
     // 1. 结果总条数
     PageNumber *pageNumber = [self parserPageNumber:html];
@@ -357,17 +357,17 @@
         }
     }
 
-    resultPage.searchid = [self parseListMyThreadSearchId:html];
+    resultPage.searchId = [self parseListMyThreadSearchId:html];
     resultPage.dataList = post;
 
     return resultPage;
 }
 
-- (ViewSearchForumPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
+- (BBSSearchResultPage *)parseZhanNeiSearchPageFromHtml:(NSString *)html type:(int)type {
     return nil;
 }
 
-- (ViewMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
+- (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO {
     // 去掉引用inline 的样式设定
     html = [html stringByReplacingOccurrencesOfString:@"<div class=\"smallfont\" style=\"margin-bottom:2px\">引用:</div>" withString:@""];
     html = [html stringByReplacingOccurrencesOfString:@"style=\"margin:20px; margin-top:5px; \"" withString:@"class=\"post-quote\""];
@@ -377,9 +377,9 @@
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
     // message content
-    ViewMessagePage *privateMessage = [[ViewMessagePage alloc] init];
+    BBSPrivateMessagePage *privateMessage = [[BBSPrivateMessagePage alloc] init];
 
-    ViewMessage *viewMessage = [[ViewMessage alloc] init];
+    BBSPrivateMessageDetail *viewMessage = [[BBSPrivateMessageDetail alloc] init];
 
 
     IGXMLNodeSet *contentNodeSet = [document queryWithXPath:@"//*[@id='post_message_']"];
@@ -861,14 +861,14 @@
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    NSMutableArray<Message *> *messagesList = [NSMutableArray array];
+    NSMutableArray<BBSPrivateMessage *> *messagesList = [NSMutableArray array];
 
     IGXMLNodeSet *messages = [document queryWithXPath:@"//*[@id='pmform']/table[*]/tbody[*]/tr"];
     for (IGXMLNode *node in messages) {
         long childCount = (long) [[node children] count];
         if (childCount == 4) {
             // 有4个节点说明是正常的站内短信
-            Message *message = [[Message alloc] init];
+            BBSPrivateMessage *message = [[BBSPrivateMessage alloc] init];
 
             IGXMLNodeSet *children = [node children];
             // 1. 是不是未读短信

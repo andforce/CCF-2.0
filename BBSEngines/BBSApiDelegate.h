@@ -4,9 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginUser.h"
+#import "BBSUser.h"
 #import "ViewForumPage.h"
-#import "ViewSearchForumPage.h"
+#import "BBSSearchResultPage.h"
 #import "BBSConfigDelegate.h"
 #import "Forum.h"
 #import "vBulletinApiDelegate.h"
@@ -15,8 +15,8 @@
 #import "BBSApiBaseDelegate.h"
 
 @class ViewThreadPage;
-@class ViewMessagePage;
-@class Message;
+@class BBSPrivateMessagePage;
+@class BBSPrivateMessage;
 @class BBSWebViewController;
 
 typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);

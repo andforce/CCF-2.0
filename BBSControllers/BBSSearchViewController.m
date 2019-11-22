@@ -28,7 +28,7 @@
 @end
 
 @implementation BBSSearchViewController {
-    ViewSearchForumPage *currentSearchForumPage;
+    BBSSearchResultPage *currentSearchForumPage;
 }
 
 - (void)viewDidLoad {
@@ -106,7 +106,7 @@
 
     int toLoadPage = currentSearchForumPage.pageNumber.currentPageNumber + 1;
     int select = (int) self.segmentedControl.selectedSegmentIndex;
-    [self.forumApi listSearchResultWithSearchId:_searchid keyWord:searchText andPage:toLoadPage type:select handler:^(BOOL isSuccess, ViewSearchForumPage *message) {
+    [self.forumApi listSearchResultWithSearchId:_searchid keyWord:searchText andPage:toLoadPage type:select handler:^(BOOL isSuccess, BBSSearchResultPage *message) {
         [self.tableView.mj_footer endRefreshing];
 
         if (isSuccess) {
@@ -138,12 +138,12 @@
 
     int select = (int) self.segmentedControl.selectedSegmentIndex;
 
-    [self.forumApi searchWithKeyWord:searchText forType:select handler:^(BOOL isSuccess, ViewSearchForumPage *message) {
+    [self.forumApi searchWithKeyWord:searchText forType:select handler:^(BOOL isSuccess, BBSSearchResultPage *message) {
 
         [ProgressDialog dismiss];
 
         if (isSuccess) {
-            _searchid = message.searchid;
+            _searchid = message.searchId;
 
             currentSearchForumPage = message;
 

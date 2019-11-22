@@ -15,7 +15,7 @@
 
 @interface BBSShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
-    Message *transPrivateMessage;
+    BBSPrivateMessage *transPrivateMessage;
 
     UIStoryboardSegue *selectSegue;
 
@@ -71,8 +71,8 @@
 
         [self.forumApi showPrivateMessageContentWithId:[transPrivateMessage.pmID intValue] withType:type handler:^(BOOL isSuccess, id message) {
 
-            ViewMessagePage *content = message;
-            ViewMessage *oneMessage = content.viewMessages.firstObject;
+            BBSPrivateMessagePage *content = message;
+            BBSPrivateMessageDetail *oneMessage = content.viewMessages.firstObject;
 
             NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, oneMessage.pmUserInfo.userID, oneMessage.pmUserInfo.userAvatar,
                                                             oneMessage.pmUserInfo.userName, oneMessage.pmTime, oneMessage.pmContent];
@@ -92,7 +92,7 @@
 - (void)showUserProfile:(NSIndexPath *)indexPath {
 //    BBSUserProfileTableViewController *controller = selectSegue.destinationViewController;
 //
-//    ViewMessagePage *message = self.dataList[(NSUInteger) indexPath.row];
+//    BBSPrivateMessagePage *message = self.dataList[(NSUInteger) indexPath.row];
 //    TransBundle *bundle = [[TransBundle alloc] init];
 //    [bundle putIntValue:[message.pmUserInfo.userID intValue] forKey:@"UserId"];
 //

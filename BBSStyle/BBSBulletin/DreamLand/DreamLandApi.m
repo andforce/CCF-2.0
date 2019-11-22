@@ -193,7 +193,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 
     [parameters setValue:time forKey:@"poststarttime"];
 
-    LoginUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
+    BBSUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
     [parameters setValue:user.userID forKey:@"loggedinuser"];
     [parameters setValue:@"发表主题" forKey:@"sbutton"];
     [parameters setValue:@"1" forKey:@"parseurl"];
@@ -730,7 +730,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
                     } else if ([result containsString:@"本论坛允许的进行两次搜索的时间间隔必须大于 30 秒。"]) {
                         handler(NO, @"本论坛允许的进行两次搜索的时间间隔必须大于 30 秒。");
                     } else {
-                        ViewSearchForumPage *page = [forumParser parseSearchPageFromHtml:result];
+                        BBSSearchResultPage *page = [forumParser parseSearchPageFromHtml:result];
 
                         if (page != nil && page.dataList != nil && page.dataList.count > 0) {
                             handler(YES, page);
@@ -754,7 +754,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:0];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            ViewMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
+            BBSPrivateMessagePage *content = [forumParser parsePrivateMessageContent:html avatarBase:forumConfig.avatarBase noavatar:forumConfig.avatarNo];
             handler(YES, content);
         } else {
             handler(NO, html);
@@ -801,7 +801,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)replyPrivateMessage:(Message *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
+- (void)replyPrivateMessage:(BBSPrivateMessage *)privateMessage andReplyContent:(NSString *)content handler:(HandlerWithBool)handler {
 
     int pmId = [privateMessage.pmID intValue];
     NSString *url = [forumConfig privateShowWithMessageId:pmId withType:0];
@@ -929,7 +929,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)deletePrivateMessage:(Message *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
+- (void)deletePrivateMessage:(BBSPrivateMessage *)privateMessage withType:(int)type handler:(HandlerWithBool)handler {
     NSString *url = [forumConfig deletePrivateWithType:type];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -1064,7 +1064,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
 }
 
 - (void)listMyAllThreadsWithPage:(int)page handler:(HandlerWithBool)handler {
-    LoginUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
+    BBSUser *user = [[[BBSLocalApi alloc] init] getLoginUser:(forumConfig.forumURL.host)];
     if (user == nil || user.userID == nil) {
         handler(NO, @"未登录");
         return;
@@ -1213,7 +1213,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
             } else if ([html containsString:@"本论坛允许的进行两次搜索的时间间隔必须大于 30 秒。"]) {
                 handler(NO, @"本论坛允许的进行两次搜索的时间间隔必须大于 30 秒。");
             } else {
-                ViewSearchForumPage *p = [forumParser parseSearchPageFromHtml:html];
+                BBSSearchResultPage *p = [forumParser parseSearchPageFromHtml:html];
 
                 if (p != nil && p.dataList != nil && p.dataList.count > 0) {
                     handler(YES, p);

@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewForumPage.h"
 
-@class Message;
+@class BBSPrivateMessage;
 
 typedef void (^HandlerWithBool)(BOOL isSuccess, id message);
 
