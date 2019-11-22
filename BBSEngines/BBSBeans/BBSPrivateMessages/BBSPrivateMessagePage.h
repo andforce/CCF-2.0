@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "User.h"
+#import "UserCount.h"
 #import "BBSPrivateMessageDetail.h"
 
 @interface BBSPrivateMessagePage : BBSPrivateMessageDetail

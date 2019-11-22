@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface User : NSObject
+@interface UserCount : NSObject
 
 @property(nonatomic, strong) NSString *userID;          //1. userId
 

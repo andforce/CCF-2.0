@@ -400,7 +400,7 @@
 
 
     // User Info
-    User *pmAuthor = [[User alloc] init];
+    UserCount *pmAuthor = [[UserCount alloc] init];
     IGXMLNode *userInfoNode = [document queryNodeWithXPath:@"//*[@id='post']/tr[1]/td[1]"];
     // 用户名
     NSString *name = [[[userInfoNode childAt:0] childAt:0] text];
@@ -438,9 +438,9 @@
     return privateMessage;
 }
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    UserProfile *profile = [[UserProfile alloc] init];
+    CountProfile *profile = [[CountProfile alloc] init];
     // 用户名
     NSString *userNameXPath = @"//*[@id='username_box']/h1/text()";
     profile.profileName = [[self queryText:document withXPath:userNameXPath] trim];
@@ -629,9 +629,9 @@
 
 
 // private
-- (NSMutableArray<Post *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
+- (NSMutableArray<PostFloor *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
 
-    NSMutableArray<Post *> *posts = [NSMutableArray array];
+    NSMutableArray<PostFloor *> *posts = [NSMutableArray array];
 
     // 发帖内容的 table -> td
     IGXMLNodeSet *postMessages = [document queryWithXPath:@"//*[@id='posts']/div[*]/div/div/div/table/tr[1]/td[2]"];
@@ -642,7 +642,7 @@
 
     for (IGXMLNode *node in postMessages) {
 
-        Post *post = [[Post alloc] init];
+        PostFloor *post = [[PostFloor alloc] init];
 
 
         NSString *postId = [[[node attribute:@"id"] componentsSeparatedByString:@"td_post_"] lastObject];
@@ -729,7 +729,7 @@
         }
         IGXMLNode *nameNode = userInfoNode.firstChild.firstChild;
 
-        User *user = [[User alloc] init];
+        UserCount *user = [[UserCount alloc] init];
 
         NSString *name = nameNode.innerHtml;
         user.userName = name;
@@ -765,7 +765,7 @@
 
         posts[(NSUInteger) postPointer].postUserInfo = user;
 
-        Post *newPost = posts[(NSUInteger) postPointer];
+        PostFloor *newPost = posts[(NSUInteger) postPointer];
         newPost.postUserInfo = user;
         [posts removeObjectAtIndex:(NSUInteger) postPointer];
         [posts insertObject:newPost atIndex:(NSUInteger) postPointer];

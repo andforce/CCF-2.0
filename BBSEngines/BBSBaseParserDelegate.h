@@ -9,7 +9,7 @@
 #import "ViewForumPage.h"
 #import "BBSSearchResultPage.h"
 #import "BBSPrivateMessagePage.h"
-#import "UserProfile.h"
+#import "CountProfile.h"
 
 @protocol BBSBaseParserDelegate <NSObject>
 
@@ -26,7 +26,7 @@
 
 - (BBSPrivateMessagePage *)parsePrivateMessageContent:(NSString *)html avatarBase:(NSString *)avatarBase noavatar:(NSString *)avatarNO;
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId;
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId;
 
 - (NSArray<Forum *> *)parserForums:(NSString *)html forumHost:(NSString *)host;
 

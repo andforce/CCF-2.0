@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserProfile : NSObject
+@interface CountProfile : NSObject
 
 @property(nonatomic, strong) NSString *profileUserId;
 @property(nonatomic, strong) NSString *profileRank;

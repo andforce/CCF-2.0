@@ -145,11 +145,11 @@
 		4DB47C321F4AC73B00A79AC5 /* IGXMLNode+QueryNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB47C311F4AC73B00A79AC5 /* IGXMLNode+QueryNode.m */; };
 		4DEB34C31C47BBE400063CBB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEB34C21C47BBE400063CBB /* AssetsLibrary.framework */; };
 		4DF737061DDECC8500BF1896 /* BBSSearchResultPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737041DDECC8500BF1896 /* BBSSearchResultPage.m */; };
-		4DF737191DDECC8D00BF1896 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737081DDECC8D00BF1896 /* Post.m */; };
-		4DF7371A1DDECC8D00BF1896 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7370A1DDECC8D00BF1896 /* User.m */; };
+		4DF737191DDECC8D00BF1896 /* PostFloor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737081DDECC8D00BF1896 /* PostFloor.m */; };
+		4DF7371A1DDECC8D00BF1896 /* UserCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7370A1DDECC8D00BF1896 /* UserCount.m */; };
 		4DF7371B1DDECC8D00BF1896 /* Forum.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7370C1DDECC8D00BF1896 /* Forum.m */; };
 		4DF7371C1DDECC8D00BF1896 /* Thread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF7370E1DDECC8D00BF1896 /* Thread.m */; };
-		4DF7371D1DDECC8D00BF1896 /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737101DDECC8D00BF1896 /* UserProfile.m */; };
+		4DF7371D1DDECC8D00BF1896 /* CountProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737101DDECC8D00BF1896 /* CountProfile.m */; };
 		4DF737201DDECC8D00BF1896 /* ViewThreadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737161DDECC8D00BF1896 /* ViewThreadPage.m */; };
 		4DF737211DDECC8D00BF1896 /* ViewForumPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737181DDECC8D00BF1896 /* ViewForumPage.m */; };
 		4DF737261DDECC9600BF1896 /* BBSPrivateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF737231DDECC9600BF1896 /* BBSPrivateMessage.m */; };
@@ -219,7 +219,7 @@
 		3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideDrawerView.h; sourceTree = "<group>"; };
 		3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideDrawerView.m; sourceTree = "<group>"; };
 		3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideDrawerView.xib; sourceTree = "<group>"; };
-		3A288A4E1DFAF569002EBBC2 /* DrawerViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerViewDelegate.h; sourceTree = "<group>"; };
+		3A288A4E1DFAF569002EBBC2 /* SlideDrawerViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlideDrawerViewDelegate.h; sourceTree = "<group>"; };
 		3A288A4F1DFC4EAF002EBBC2 /* supportForums.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = supportForums.json; sourceTree = "<group>"; };
 		3A288A521DFC534D002EBBC2 /* WorkedBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkedBBS.h; sourceTree = "<group>"; };
 		3A288A531DFC534D002EBBC2 /* WorkedBBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkedBBS.m; sourceTree = "<group>"; };
@@ -438,16 +438,16 @@
 		4DF736FB1DDECC5000BF1896 /* BBSParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSParserDelegate.h; sourceTree = "<group>"; };
 		4DF737031DDECC8500BF1896 /* BBSSearchResultPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSSearchResultPage.h; sourceTree = "<group>"; };
 		4DF737041DDECC8500BF1896 /* BBSSearchResultPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSSearchResultPage.m; sourceTree = "<group>"; };
-		4DF737071DDECC8D00BF1896 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
-		4DF737081DDECC8D00BF1896 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
-		4DF737091DDECC8D00BF1896 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		4DF7370A1DDECC8D00BF1896 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		4DF737071DDECC8D00BF1896 /* PostFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFloor.h; sourceTree = "<group>"; };
+		4DF737081DDECC8D00BF1896 /* PostFloor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFloor.m; sourceTree = "<group>"; };
+		4DF737091DDECC8D00BF1896 /* UserCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCount.h; sourceTree = "<group>"; };
+		4DF7370A1DDECC8D00BF1896 /* UserCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCount.m; sourceTree = "<group>"; };
 		4DF7370B1DDECC8D00BF1896 /* Forum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forum.h; sourceTree = "<group>"; };
 		4DF7370C1DDECC8D00BF1896 /* Forum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Forum.m; sourceTree = "<group>"; };
 		4DF7370D1DDECC8D00BF1896 /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
 		4DF7370E1DDECC8D00BF1896 /* Thread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thread.m; sourceTree = "<group>"; };
-		4DF7370F1DDECC8D00BF1896 /* UserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfile.h; sourceTree = "<group>"; };
-		4DF737101DDECC8D00BF1896 /* UserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfile.m; sourceTree = "<group>"; };
+		4DF7370F1DDECC8D00BF1896 /* CountProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountProfile.h; sourceTree = "<group>"; };
+		4DF737101DDECC8D00BF1896 /* CountProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountProfile.m; sourceTree = "<group>"; };
 		4DF737151DDECC8D00BF1896 /* ViewThreadPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewThreadPage.h; sourceTree = "<group>"; };
 		4DF737161DDECC8D00BF1896 /* ViewThreadPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewThreadPage.m; sourceTree = "<group>"; };
 		4DF737171DDECC8D00BF1896 /* ViewForumPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewForumPage.h; sourceTree = "<group>"; };
@@ -729,23 +729,16 @@
 		3ACB5C2B1FDC271B00D5339C /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				3A288A4E1DFAF569002EBBC2 /* DrawerViewDelegate.h */,
-				3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */,
-				3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */,
-				3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */,
+				4D13B5DB2387ADBD00BBF06D /* SlideDrawerView */,
+				4D13B5DA2387ADA400BBF06D /* PagerHeaderView */,
 				3A288A651DFD8C76002EBBC2 /* HaveLoginForum.xib */,
 				3A2C3F531DDFBFC500576151 /* BBSListHeaderView.h */,
 				3A2C3F541DDFBFC500576151 /* BBSListHeaderView.m */,
 				3A2C3F551DDFBFC500576151 /* ForumListHeaderView.xib */,
-				3A2C3F561DDFBFC500576151 /* PageHeaderView.h */,
-				3A2C3F571DDFBFC500576151 /* PageHeaderView.m */,
-				3A2C3F581DDFBFC500576151 /* PageHeaderView.xib */,
 				3A2C3F591DDFBFC500576151 /* XibInflater.h */,
 				3A2C3F5A1DDFBFC500576151 /* XibInflater.m */,
 				3A2C3F601DDFC03400576151 /* AutoRelayoutUITextView.h */,
 				3A2C3F611DDFC03400576151 /* AutoRelayoutUITextView.m */,
-				3A2C3F621DDFC03400576151 /* CommonUtils.h */,
-				3A2C3F631DDFC03400576151 /* CommonUtils.m */,
 				3A2C3F641DDFC03400576151 /* LeftDrawerItem.h */,
 				3A2C3F651DDFC03400576151 /* LeftDrawerItem.m */,
 				3A2C3F661DDFC03400576151 /* UIAutoResizeTextView.h */,
@@ -843,16 +836,16 @@
 		3ACB5C311FDC27A800D5339C /* BBSThread */ = {
 			isa = PBXGroup;
 			children = (
-				4DF737071DDECC8D00BF1896 /* Post.h */,
-				4DF737081DDECC8D00BF1896 /* Post.m */,
-				4DF737091DDECC8D00BF1896 /* User.h */,
-				4DF7370A1DDECC8D00BF1896 /* User.m */,
+				4DF737071DDECC8D00BF1896 /* PostFloor.h */,
+				4DF737081DDECC8D00BF1896 /* PostFloor.m */,
+				4DF737091DDECC8D00BF1896 /* UserCount.h */,
+				4DF7370A1DDECC8D00BF1896 /* UserCount.m */,
 				4DF7370B1DDECC8D00BF1896 /* Forum.h */,
 				4DF7370C1DDECC8D00BF1896 /* Forum.m */,
 				4DF7370D1DDECC8D00BF1896 /* Thread.h */,
 				4DF7370E1DDECC8D00BF1896 /* Thread.m */,
-				4DF7370F1DDECC8D00BF1896 /* UserProfile.h */,
-				4DF737101DDECC8D00BF1896 /* UserProfile.m */,
+				4DF7370F1DDECC8D00BF1896 /* CountProfile.h */,
+				4DF737101DDECC8D00BF1896 /* CountProfile.m */,
 				4DF737151DDECC8D00BF1896 /* ViewThreadPage.h */,
 				4DF737161DDECC8D00BF1896 /* ViewThreadPage.m */,
 				4DF737171DDECC8D00BF1896 /* ViewForumPage.h */,
@@ -924,6 +917,8 @@
 		3AE54CAE2386F67600DDA938 /* CommonUtils */ = {
 			isa = PBXGroup;
 			children = (
+				3A2C3F621DDFC03400576151 /* CommonUtils.h */,
+				3A2C3F631DDFC03400576151 /* CommonUtils.m */,
 				3A6B4F5F1EB705A600B9CD79 /* iOSDeviceName.h */,
 				3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */,
 			);
@@ -1015,6 +1010,27 @@
 				3ACB5C2B1FDC271B00D5339C /* CustomViews */,
 			);
 			path = BBSView;
+			sourceTree = "<group>";
+		};
+		4D13B5DA2387ADA400BBF06D /* PagerHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				3A2C3F561DDFBFC500576151 /* PageHeaderView.h */,
+				3A2C3F571DDFBFC500576151 /* PageHeaderView.m */,
+				3A2C3F581DDFBFC500576151 /* PageHeaderView.xib */,
+			);
+			path = PagerHeaderView;
+			sourceTree = "<group>";
+		};
+		4D13B5DB2387ADBD00BBF06D /* SlideDrawerView */ = {
+			isa = PBXGroup;
+			children = (
+				3A288A4E1DFAF569002EBBC2 /* SlideDrawerViewDelegate.h */,
+				3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */,
+				3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */,
+				3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */,
+			);
+			path = SlideDrawerView;
 			sourceTree = "<group>";
 		};
 		4D1B07272046AF030013B6A1 /* BaseControllers */ = {
@@ -1280,7 +1296,7 @@
 				3A2C3F4F1DDFBF5900576151 /* BBSSwipeTableCellWithIndexPath.m in Sources */,
 				4D8C11F21FF0CB23008813C4 /* BBSPayViewController.m in Sources */,
 				3A2C40001DDFE30300576151 /* TranslateDataNavigationController.m in Sources */,
-				4DF7371A1DDECC8D00BF1896 /* User.m in Sources */,
+				4DF7371A1DDECC8D00BF1896 /* UserCount.m in Sources */,
 				3A2C3FDF1DDFE0C900576151 /* BBSSettingTableViewController.m in Sources */,
 				3A2C3F8D1DDFDFC000576151 /* BBSApiTestViewController.m in Sources */,
 				3A2C3FD71DDFE0C900576151 /* BBSMyThreadTableViewController.m in Sources */,
@@ -1301,7 +1317,7 @@
 				3AEDFA632095790500E93BB0 /* SmartisanConfig.m in Sources */,
 				3A2C3F7A1DDFC0CD00576151 /* NSString+Extensions.m in Sources */,
 				3A2C3F871DDFDF9200576151 /* AFHTTPSessionManager+SimpleAction.m in Sources */,
-				4DF7371D1DDECC8D00BF1896 /* UserProfile.m in Sources */,
+				4DF7371D1DDECC8D00BF1896 /* CountProfile.m in Sources */,
 				3A92CDA21F2C7E8500E41573 /* FeiFanHtmlParser.m in Sources */,
 				3A2C3FE11DDFE0C900576151 /* BBSShowPrivateMessageViewController.m in Sources */,
 				3A92CD9C1F2C7D9B00E41573 /* FeiFanBBSApi.m in Sources */,
@@ -1334,7 +1350,7 @@
 				3A288A5A1DFC544B002EBBC2 /* BBSWorkedTableViewController.m in Sources */,
 				4DFB34CF1DF82D5E00BD8DD5 /* ForumEntry+CoreDataClass.m in Sources */,
 				3A2C3FD51DDFE0C900576151 /* BBSMyProfileTableViewController.m in Sources */,
-				4DF737191DDECC8D00BF1896 /* Post.m in Sources */,
+				4DF737191DDECC8D00BF1896 /* PostFloor.m in Sources */,
 				3A2C3FCE1DDFE0C900576151 /* BBSApiBaseTableViewController.m in Sources */,
 				4DF737061DDECC8500BF1896 /* BBSSearchResultPage.m in Sources */,
 				3A288A631DFD14D8002EBBC2 /* DreamLandConfig.m in Sources */,

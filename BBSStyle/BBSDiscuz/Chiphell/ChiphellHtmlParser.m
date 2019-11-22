@@ -90,13 +90,13 @@
 
 
     // 回帖列表
-    NSMutableArray<Post *> *postList = [NSMutableArray array];
+    NSMutableArray<PostFloor *> *postList = [NSMutableArray array];
 
     IGXMLNode *postListNode = [document queryNodeWithXPath:@"//*[@id=\"postlist\"]"];
     for (IGXMLNode *node in postListNode.children) {
         NSString *nodeHtml = node.html.trim;
         if ([nodeHtml hasPrefix:@"<div id=\"post_"]) {
-            Post *post = [[Post alloc] init];
+            PostFloor *post = [[PostFloor alloc] init];
             NSString *postId = [[node attribute:@"id"] componentsSeparatedByString:@"_"][1];
             NSString *loucengQuery = [NSString stringWithFormat:@"//*[@id=\"postnum%@\"]/em", postId];
             IGXMLNode *postLouCengNode = [document queryNodeWithXPath:loucengQuery];
@@ -113,7 +113,7 @@
             }
             NSString *postContent = [document queryNodeWithXPath:contentQuery].html;
             // User Info
-            User *user = [[User alloc] init];
+            UserCount *user = [[UserCount alloc] init];
             // UserId
             //NSString * userQuery = [NSString stringWithFormat:@"//*[@id=\"favatar%@\"]", postId];
             //IGXMLNode * userNode = [document queryNodeWithXPath:userQuery];
@@ -498,7 +498,7 @@
         viewMessage.pmTitle = @"NULL";
 
         // User Info
-        User *pmAuthor = [[User alloc] init];
+        UserCount *pmAuthor = [[UserCount alloc] init];
         // 用户名
         NSString *name = [node childAt:2].firstChild.text.trim;
         pmAuthor.userName = name;
@@ -526,10 +526,10 @@
     return privateMessage;
 }
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    UserProfile *profile = [[UserProfile alloc] init];
+    CountProfile *profile = [[CountProfile alloc] init];
     NSString *profileUserId = userId;
     NSString *profileRank = [[document queryNodeWithXPath:@"//*[@id=\"ct\"]/div/div[2]/div/div[1]/div[2]/ul[1]/li/span/a"] text];
     NSString *profileName = [[[document queryNodeWithXPath:@"//*[@id=\"uhd\"]/div/h2"] text] trim];

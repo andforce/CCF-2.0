@@ -13,7 +13,7 @@
 
 @interface BBSUserProfileTableViewController () <TranslateDataDelegate> {
 
-    UserProfile *userProfile;
+    CountProfile *userProfile;
     int userId;
     UIImage *defaultAvatarImage;
     BBSCoreDataManager *coreDateManager;
@@ -62,7 +62,7 @@
 
 - (void)onPullRefresh {
     NSString *userIdString = [NSString stringWithFormat:@"%d", userId];
-    [self.forumApi showProfileWithUserId:userIdString handler:^(BOOL isSuccess, UserProfile *message) {
+    [self.forumApi showProfileWithUserId:userIdString handler:^(BOOL isSuccess, CountProfile *message) {
         userProfile = message;
 
         [self.tableView.mj_header endRefreshing];
@@ -168,7 +168,7 @@
     if (indexPath.section == 1 && indexPath.row == 1) {
         UINavigationController *controller = (id) [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"CreatePM"];
         TranslateData *bundle = [[TranslateData alloc] init];
-        User *user = [[User alloc] init];
+        UserCount *user = [[UserCount alloc] init];
         user.userID = userProfile.profileUserId;
         user.userName = userProfile.profileName;
 

@@ -3,8 +3,8 @@
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
-#import "UserProfile.h"
+#import "UserCount.h"
 
-@implementation UserProfile
+@implementation UserCount
 
 @end

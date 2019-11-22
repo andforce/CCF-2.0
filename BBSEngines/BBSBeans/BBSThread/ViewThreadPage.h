@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Post.h"
+#import "PostFloor.h"
 #import "PageNumber.h"
 
 @interface ViewThreadPage : NSObject
@@ -12,7 +12,7 @@
 @property(nonatomic, assign) int threadID;                          // 1. ID
 @property(nonatomic, assign) int forumId;                           // 2. 主题所属论坛
 @property(nonatomic, strong) NSString *threadTitle;                 // 3. title
-@property(nonatomic, strong) NSMutableArray<Post *> *postList;      // 4. Posts
+@property(nonatomic, strong) NSMutableArray<PostFloor *> *postList;      // 4. Posts
 @property(nonatomic, strong) NSString *originalHtml;                // 5. orgHtml
 
 @property(nonatomic, strong) PageNumber *pageNumber;                // 6. number

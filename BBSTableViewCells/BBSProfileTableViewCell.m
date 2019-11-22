@@ -15,7 +15,7 @@
 }
 */
 
-- (void)setData:(UserProfile *)data {
+- (void)setData:(CountProfile *)data {
     self.profileRank.text = data.profileRank;
     self.profileUserName.text = data.profileName;
     [self showAvatar:self.profileAvatar userId:data.profileUserId];

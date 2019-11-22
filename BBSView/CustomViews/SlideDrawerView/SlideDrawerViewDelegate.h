@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol DrawerViewDelegate <NSObject>
+@protocol SlideDrawerViewDelegate <NSObject>
 
 @optional
 - (void)leftDrawerDidOpened;

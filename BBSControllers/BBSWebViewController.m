@@ -59,14 +59,14 @@
 
         [self updatePageTitle];
 
-        NSMutableArray<Post *> *posts = threadPage.postList;
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
         NSString *lis = @"";
 
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-        for (Post *post in posts) {
+        for (PostFloor *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
@@ -105,13 +105,13 @@
 
         [self updatePageTitle];
 
-        NSMutableArray<Post *> *posts = threadPage.postList;
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
         NSString *lis = @"";
 
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-        for (Post *post in posts) {
+        for (PostFloor *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
@@ -406,7 +406,7 @@
 
     [self updatePageTitle];
 
-    NSMutableArray<Post *> *posts = threadPage.postList;
+    NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
 
     NSString *lis = @"";
@@ -414,7 +414,7 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-    for (Post *post in posts) {
+    for (PostFloor *post in posts) {
 
         NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
         NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
@@ -514,7 +514,7 @@
 
         [self updatePageTitle];
 
-        NSMutableArray<Post *> *posts = threadPage.postList;
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
 
         NSString *lis = @"";
@@ -522,7 +522,7 @@
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-        for (Post *post in posts) {
+        for (PostFloor *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName, louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
@@ -596,7 +596,7 @@
                 id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
                 for (NSInteger i = currentShowThreadPage.postList.count; i < posts.count; i++) {
-                    Post *post = posts[(NSUInteger) i];
+                    PostFloor *post = posts[(NSUInteger) i];
                     NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
                     NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
 
@@ -630,14 +630,14 @@
 
         [self updatePageTitle];
 
-        NSMutableArray<Post *> *posts = threadPage.postList;
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
         NSString *lis = @"";
 
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
         id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-        for (Post *post in posts) {
+        for (PostFloor *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
             NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
@@ -693,7 +693,7 @@
     }];
 }
 
-- (void)addPostByJSElement:(Post *)post avatar:(NSString *)avatar louceng:(NSString *)louceng {
+- (void)addPostByJSElement:(PostFloor *)post avatar:(NSString *)avatar louceng:(NSString *)louceng {
     NSString *pattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
     NSString *contentPattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post_content" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
     NSString *content = [NSString stringWithFormat:contentPattern, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];

@@ -388,7 +388,7 @@
     viewMessage.pmID = pmId;
 
     // ===== User Info =====
-    User *pmAuthor = [[User alloc] init];
+    UserCount *pmAuthor = [[UserCount alloc] init];
 
     // 用户名
     IGXMLNode *userInfoNode = [document queryNodeWithXPath:@"//*[@id='postmenu_']/a"];
@@ -426,9 +426,9 @@
     return privateMessage;
 }
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
-    UserProfile *profile = [[UserProfile alloc] init];
+    CountProfile *profile = [[CountProfile alloc] init];
     // 用户名
     NSString *userNameXPath = @"/html/body/table/tr/td/div[2]/div/div/table[2]/tr[2]/td/table/tr[1]/td/div[2]";
     profile.profileName = [[[document queryWithXPath:userNameXPath].firstObject text] trim];
@@ -635,9 +635,9 @@
 
 
 // private
-- (NSMutableArray<Post *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
+- (NSMutableArray<PostFloor *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
 
-    NSMutableArray<Post *> *posts = [NSMutableArray array];
+    NSMutableArray<PostFloor *> *posts = [NSMutableArray array];
 
     // 发帖的整个楼层 包含UserInfo 和 发帖内容
     IGXMLNodeSet *postMessages = [document queryWithXPath:@"//*[@id='posts']/div[*]"];
@@ -648,7 +648,7 @@
         IGXMLDocument *postDocument = [[IGHTMLDocument alloc] initWithHTMLString:node.html error:nil];
 
         //======= Post Conent======//
-        Post *post = [[Post alloc] init];
+        PostFloor *post = [[PostFloor alloc] init];
 
         // postId
         IGXMLNode *postIdNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[2]/td[1]/div[1]"].firstObject;
@@ -712,7 +712,7 @@
         post.postContent = postContent;
 
         //=======User Info======//
-        User *userInfo = [[User alloc] init];
+        UserCount *userInfo = [[UserCount alloc] init];
 
         // user name
         NSString *userNameXPath = [NSString stringWithFormat:@"//*[@id='postmenu_%@']/a", postId];

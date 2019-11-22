@@ -13,7 +13,7 @@
 
 
 @interface BBSMyProfileTableViewController () {
-    UserProfile *userProfile;
+    CountProfile *userProfile;
 
     UIImage *defaultAvatarImage;
 
@@ -95,7 +95,7 @@
     id <BBSConfigDelegate> config = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
     NSString *currentUserId = [[[BBSLocalApi alloc] init] getLoginUser:config.forumURL.host].userID;
 
-    [self.forumApi showProfileWithUserId:currentUserId handler:^(BOOL isSuccess, UserProfile *message) {
+    [self.forumApi showProfileWithUserId:currentUserId handler:^(BOOL isSuccess, CountProfile *message) {
 
         [self.tableView.mj_header endRefreshing];
 

@@ -5,12 +5,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class User;
+@class UserCount;
 
 
 @interface BBSPrivateMessageDetail : NSObject
 
-@property(nonatomic, strong) User *pmUserInfo;
+@property(nonatomic, strong) UserCount *pmUserInfo;
 @property(nonatomic, strong) NSString *pmID;
 @property(nonatomic, strong) NSString *pmTitle;
 @property(nonatomic, strong) NSString *pmTime;

@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DrawerViewDelegate.h"
+#import "SlideDrawerViewDelegate.h"
 #import "LeftDrawerItem.h"
 
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, DrawerIndex) {
 
 }
 
-@property(nonatomic, weak) id <DrawerViewDelegate> delegate;
+@property(nonatomic, weak) id <SlideDrawerViewDelegate> delegate;
 
 @property(strong, nonatomic) IBOutlet UIView *leftDrawerView;
 @property(strong, nonatomic) IBOutlet UIView *rightDrawerView;

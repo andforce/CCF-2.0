@@ -8,7 +8,7 @@
 #import "BBSWebViewController.h"
 
 @interface BBSUserThreadTableViewController () <TranslateDataDelegate> {
-    UserProfile *userProfile;
+    CountProfile *userProfile;
 }
 
 @end

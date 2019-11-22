@@ -12,7 +12,7 @@
 
 
 @interface BBSWritePMViewController () <TranslateDataDelegate> {
-    User *_toUser;
+    UserCount *_toUser;
     BOOL isReply;
     BBSLocalApi *_localForumApi;
     BBSPayManager *_payManager;
@@ -31,7 +31,7 @@
         isReply = YES;
         _privateMessage = [bundle getObjectValue:@"toReplyMessage"];
 
-        _toUser = [[User alloc] init];
+        _toUser = [[UserCount alloc] init];
         _toUser.userName = _privateMessage.pmAuthor;
         _toUser.userID = _privateMessage.pmAuthorId;
 

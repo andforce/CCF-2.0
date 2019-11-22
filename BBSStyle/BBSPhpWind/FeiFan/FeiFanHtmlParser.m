@@ -519,7 +519,7 @@
     NSString *content = [NSString stringWithFormat:@"<div style=\"overflow-x: hidden;\">%@</div>", pmContent];
     viewMessage.pmContent = content;
 
-    User *pmAuthor = [[User alloc] init];
+    UserCount *pmAuthor = [[UserCount alloc] init];
     IGXMLNode *authorNode = [[[infoBaseNode childAt:0] childAt:0] childAt:1];
     pmAuthor.userName = authorNode.text.trim;
     pmAuthor.userID = [self userId:authorNode.html];
@@ -533,8 +533,8 @@
     return privateMessage;
 }
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
-    UserProfile *profile = [[UserProfile alloc] init];
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+    CountProfile *profile = [[CountProfile alloc] init];
     // 用户名
     profile.profileName = [html stringWithRegular:@"(?<=<h1 class=\"u-h1\">)\\S+(?=</h1>)"];
 
@@ -685,14 +685,14 @@
 }
 
 // private
-- (NSMutableArray<Post *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
+- (NSMutableArray<PostFloor *> *)parseShowThreadPosts:(IGHTMLDocument *)document {
 
     IGXMLNodeSet *postSetNode = [document queryWithClassName:@"t5 t2"];
 
     NSMutableArray *posts = [NSMutableArray array];
 
     for (IGXMLNode *postNode in postSetNode) {
-        Post *post = [[Post alloc] init];
+        PostFloor *post = [[PostFloor alloc] init];
         // 1. postId
         NSString *pid = [postNode.html stringWithRegular:@"(?<=pid=)\\d+"];
         if (!pid) {
@@ -738,7 +738,7 @@
 
 
         //5. user
-        User *user = [[User alloc] init];
+        UserCount *user = [[UserCount alloc] init];
         //1. userId
         user.userID = [self userId:postNode.html];
 

@@ -7,7 +7,7 @@
 
 #import "WebViewController.h"
 #import "ForumApi.h"
-#import "Post.h"
+#import "PostFloor.h"
 
 #import "ViewThreadPage.h"
 

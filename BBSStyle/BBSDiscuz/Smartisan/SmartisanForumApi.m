@@ -396,7 +396,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     NSString *url = [forumConfig memberWithUserId:userId];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            UserProfile *profile = [forumParser parserProfile:html userId:userId];
+            CountProfile *profile = [forumParser parserProfile:html userId:userId];
             handler(YES, profile);
         } else {
             handler(NO, [forumParser parseErrorMessage:html]);
@@ -1008,7 +1008,7 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
 }
 
 
-- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+- (void)sendPrivateMessageTo:(UserCount *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
     NSString *url = [NSString stringWithFormat:@"https://www.chiphell.com/home.php?mod=spacecp&ac=pm&op=send&touid=%@&inajax=1", user.userID];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {

@@ -54,14 +54,14 @@
     showThreadPage.threadTitle = [locationNode.text trim];
 
     //4. posts
-    NSMutableArray<Post *> *posts = [NSMutableArray array];
+    NSMutableArray<PostFloor *> *posts = [NSMutableArray array];
     IGXMLNode *postListNode = [document queryNodeWithXPath:@"//*[@id=\"postlist\"]"];
 
     for (int i = 2; i < postListNode.childrenCount; ++i) {
         IGXMLNode *postNode = [postListNode childAt:i];
         NSString *postNodeHtml = postNode.html;
 
-        Post *post = [[Post alloc] init];
+        PostFloor *post = [[PostFloor alloc] init];
         // 1. postId
         NSString *postIdStr = [postNode attribute:@"id"];
         if (![postIdStr hasPrefix:@"post_"]) {
@@ -86,7 +86,7 @@
         post.postContent = [NSString stringWithFormat:@"<div class=\"tpc_content\">%@</div>", contentHtml];
 
         //5. user
-        User *user = [[User alloc] init];
+        UserCount *user = [[UserCount alloc] init];
 
         IGXMLNode *userNode = [postNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id='favatar%@']", pid]];
         //1. userId
@@ -453,7 +453,7 @@
         viewMessage.pmTitle = @"NULL";
 
         // User Info
-        User *pmAuthor = [[User alloc] init];
+        UserCount *pmAuthor = [[UserCount alloc] init];
         // 用户名
         NSString *name = [node childAt:2].firstChild.text.trim;
         pmAuthor.userName = name;
@@ -481,10 +481,10 @@
     return privateMessage;
 }
 
-- (UserProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
+- (CountProfile *)parserProfile:(NSString *)html userId:(NSString *)userId {
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-    UserProfile *userProfile = [[UserProfile alloc] init];
+    CountProfile *userProfile = [[CountProfile alloc] init];
     userProfile.profileUserId = userId;
 
     IGXMLNode *info = [document queryNodeWithXPath:@"//*[@id=\"ct\"]/div/div[2]/div/div[1]/div[3]"];

@@ -879,7 +879,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     }];
 }
 
-- (void)sendPrivateMessageTo:(User *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
+- (void)sendPrivateMessageTo:(UserCount *)user andTitle:(NSString *)title andMessage:(NSString *)message handler:(HandlerWithBool)handler {
     NSString *url = forumConfig.privateNewPre;
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
@@ -1307,7 +1307,7 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     NSString *url = [forumConfig memberWithUserId:userId];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
-            UserProfile *profile = [forumParser parserProfile:html userId:userId];
+            CountProfile *profile = [forumParser parserProfile:html userId:userId];
             handler(YES, profile);
         } else {
             handler(NO, @"未知错误");
