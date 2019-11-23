@@ -63,7 +63,7 @@
 - (BOOL)isNeedHideLeftMenu {
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    return ![bundleId isEqualToString:@"com.andforce.forums"];
+    return NO;
 }
 
 #pragma mark UITextFieldDelegate
@@ -199,10 +199,9 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     [localForumApi logout];
     NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
-        [localForumApi clearCurrentForumURL];
-        [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
-    }
+
+    [localForumApi clearCurrentForumURL];
+    [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];
 }
 
 - (void)exitApplication {

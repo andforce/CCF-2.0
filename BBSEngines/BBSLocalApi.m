@@ -91,7 +91,7 @@
 
     NSString *bundleId = [localForumApi bundleIdentifier];
 
-    if ([bundleId isEqualToString:@"com.andforce.Crsky"] || [host isEqualToString:@"bbs.crsky.com"]) {
+    if ([host isEqualToString:@"bbs.crsky.com"]) {
         return [self getLoginUserCrsky];
     } else if ([host isEqualToString:@"bbs.smartisan.com"]) {
         return [self getLoginUserSmartisan];
@@ -331,20 +331,8 @@
 }
 
 - (NSString *)currentForumURL {
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.et8"]) {
-        return @"https://bbs.et8.net/bbs/";
-    } else if ([bundleId isEqualToString:@"com.andforce.DRL"]) {
-        return @"https://dream4ever.org/";
-    } else if ([bundleId isEqualToString:@"com.andforce.Crsky"]) {
-        return @"http://bbs.crsky.com/";
-    } else if ([bundleId isEqualToString:@"com.andforce.CHH"]) {
-        return @"https://www.chiphell.com/";
-    } else {
-        NSString *forumUrl = [_userDefaults valueForKey:@"currentForumURL"];
-        return forumUrl;
-    }
+    NSString *forumUrl = [_userDefaults valueForKey:@"currentForumURL"];
+    return forumUrl;
 }
 
 - (NSString *)currentProductID {

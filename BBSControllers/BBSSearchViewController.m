@@ -89,12 +89,7 @@
 
 - (BOOL)isZhanNeiSearch {
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    NSString *bundleId = [localForumApi bundleIdentifier];
-    if ([bundleId isEqualToString:@"com.andforce.CHH"]) {
-        return YES;
-    } else {
-        return [localForumApi.currentForumHost containsString:@"chiphell"];
-    }
+    return [localForumApi.currentForumHost containsString:@"chiphell"];
 }
 
 - (void)onLoadMore {

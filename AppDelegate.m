@@ -149,18 +149,8 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)showReloginController:(BBSLocalApi *)localForumApi {
-    NSString *bundleId = [localForumApi bundleIdentifier];
-
-    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
-        [localForumApi clearCurrentForumURL];
-        self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
-    } else {
-
-        id <BBSConfigDelegate> api = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-        NSString *cId = api.loginControllerId;
-        [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId];
-
-    }
+    [localForumApi clearCurrentForumURL];
+    self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
 }
 
 
