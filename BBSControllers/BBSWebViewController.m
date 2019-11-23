@@ -25,122 +25,22 @@
 @interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler, WKNavigationDelegate> {
 
     LCActionSheet *_itemActionSheet;
-
     ViewThreadPage *_currentShowThreadPage;
-
     NSMutableDictionary *_pageDic;
-
     int threadID;
     NSString *_threadAuthorName;
-
     int pId;
-
     // showNotice
     NSString *pid;
     NSString *_ptid;
-
     WKWebView *_wkWebView;
-
     WKUserContentController *_contentController;
-
     BOOL shouldScrollEnd;
 }
 
 @end
 
 @implementation BBSWebViewController
-
-- (void)transBundle:(TranslateData *)bundle {
-
-    if ([bundle containsKey:@"Senior_Reply_Callback"]) {
-        ViewThreadPage *threadPage = [bundle getObjectValue:@"Senior_Reply_Callback"];
-
-        _currentShowThreadPage = threadPage;
-
-        [self updatePageTitle];
-
-        NSMutableArray<PostFloor *> *posts = threadPage.postList;
-
-        NSString *postFloors = [self postFloors:posts];
-        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
-        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
-
-        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
-
-        BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-        if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
-            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
-        }
-
-        shouldScrollEnd = YES;
-
-    } else if ([bundle containsKey:@"Simple_Reply_Callback"]) {
-        ViewThreadPage *threadPage = [bundle getObjectValue:@"Simple_Reply_Callback"];
-
-        _currentShowThreadPage = threadPage;
-
-
-        [self updatePageTitle];
-
-        NSMutableArray<PostFloor *> *posts = threadPage.postList;
-
-        NSString *postFloors = [self postFloors:posts];
-        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
-        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
-
-        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
-        if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
-            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
-        }
-
-        shouldScrollEnd = YES;
-    } else if ([bundle containsKey:@"show_for_notice"]) {
-
-        _ptid = [bundle getStringValue:@"show_for_notice_ptid"];
-        pid = [bundle getStringValue:@"show_for_notice_pid"];
-
-
-    } else {
-        threadID = [bundle getIntValue:@"threadID"];
-        pId = [bundle getIntValue:@"pId"];
-
-        _threadAuthorName = [bundle getStringValue:@"threadAuthorName"];
-
-    }
-}
-
-- (NSString *)postFloors:(NSMutableArray<PostFloor *> *)posts {
-    NSString *postFloors = @"";
-
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-
-    for (PostFloor *post in posts) {
-        NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-        NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                        floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-        postFloors = [postFloors stringByAppendingString:postInfo];
-    }
-    return postFloors;
-}
-
-- (NSString *)contentHtml:(BOOL)firstPage title:(NSString *)title postFloors:(NSString *)posts {
-    NSString *titleHtml = @"        <li class=\"post-title\">\n"
-                          "            <div class=\"title\">%@</div>\n"
-                          "        </li>";
-    NSString *titleFormat = firstPage ? [NSString stringWithFormat:titleHtml, title] : @"";
-    NSString *html = [NSString stringWithFormat:THREAD_PAGE, titleFormat, posts, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-    return html;
-}
-
-- (void)updatePageTitle {
-    NSString *title = [NSString stringWithFormat:@"%lu-%lu", (unsigned long) _currentShowThreadPage.pageNumber.currentPageNumber, (unsigned long) _currentShowThreadPage.pageNumber.totalPageNumber];
-    self.pageTitleTextView.text = title;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -195,6 +95,98 @@
     }];
 
     [_wkWebView.scrollView.mj_header beginRefreshing];
+}
+
+- (void)transBundle:(TranslateData *)bundle {
+
+    if ([bundle containsKey:@"Senior_Reply_Callback"]) {
+        ViewThreadPage *threadPage = [bundle getObjectValue:@"Senior_Reply_Callback"];
+
+        _currentShowThreadPage = threadPage;
+
+        [self updatePageTitle];
+
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
+
+        NSString *postFloors = [self postFloors:posts];
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = [self contentThreadPageHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
+
+        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
+
+        BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
+        if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
+            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
+        }
+
+        shouldScrollEnd = YES;
+
+    } else if ([bundle containsKey:@"Simple_Reply_Callback"]) {
+        ViewThreadPage *threadPage = [bundle getObjectValue:@"Simple_Reply_Callback"];
+
+        _currentShowThreadPage = threadPage;
+
+
+        [self updatePageTitle];
+
+        NSMutableArray<PostFloor *> *posts = threadPage.postList;
+
+        NSString *postFloors = [self postFloors:posts];
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = [self contentThreadPageHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
+
+        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
+        if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
+            BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
+            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
+        }
+
+        shouldScrollEnd = YES;
+    } else if ([bundle containsKey:@"show_for_notice"]) {
+
+        _ptid = [bundle getStringValue:@"show_for_notice_ptid"];
+        pid = [bundle getStringValue:@"show_for_notice_pid"];
+
+
+    } else {
+        threadID = [bundle getIntValue:@"threadID"];
+        pId = [bundle getIntValue:@"pId"];
+
+        _threadAuthorName = [bundle getStringValue:@"threadAuthorName"];
+
+    }
+}
+
+- (NSString *)postFloors:(NSMutableArray<PostFloor *> *)posts {
+    NSString *postFloors = @"";
+
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+
+    for (PostFloor *post in posts) {
+        NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
+        NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
+        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
+                                                        floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+        postFloors = [postFloors stringByAppendingString:postInfo];
+    }
+    return postFloors;
+}
+
+- (NSString *)contentThreadPageHtml:(BOOL)firstPage title:(NSString *)title postFloors:(NSString *)posts {
+    NSString *titleHtml = @"        <li class=\"post-title\">\n"
+                          "            <div class=\"title\">%@</div>\n"
+                          "        </li>";
+    NSString *titleFormat = firstPage ? [NSString stringWithFormat:titleHtml, title] : @"";
+    NSString *html = [NSString stringWithFormat:THREAD_PAGE, titleFormat, posts, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+    return html;
+}
+
+- (void)updatePageTitle {
+    NSString *title = [NSString stringWithFormat:@"%lu-%lu", (unsigned long) _currentShowThreadPage.pageNumber.currentPageNumber, (unsigned long) _currentShowThreadPage.pageNumber.totalPageNumber];
+    self.pageTitleTextView.text = title;
 }
 
 #pragma mark WKNavigationDelegate
@@ -383,7 +375,9 @@
 
     NSString *postFloors = [self postFloors:posts];
 
-    NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+    //NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+
+    NSString *html = [self contentThreadPageHtml:YES title:threadPage.threadTitle postFloors:postFloors];
 
     // 缓存当前页面
     _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
@@ -476,7 +470,7 @@
 
         NSString *postFloors = [self postFloors:posts];
         BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
-        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
+        NSString *html = [self contentThreadPageHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
 
         _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
@@ -572,7 +566,7 @@
 
         NSString *postFloors = [self postFloors:posts];
         BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
-        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
+        NSString *html = [self contentThreadPageHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             _pageDic[@(page)] = html;
