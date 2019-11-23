@@ -22,13 +22,13 @@
 
     if ([type isEqualToString:@"ShowTermsOfUse"]) {
         _title = @"使用条款";
-        _html = @"terms_of_use";
+        _html = @"use_terms_content";
     } else if ([type isEqualToString:@"ShowPolicy"]) {
         _title = @"隐私政策";
-        _html = @"privacy";
+        _html = @"privacy_content";
     } else if ([type isEqualToString:@"ShowMore"]) {
         _title = @"了解更多";
-        _html = @"more";
+        _html = @"more_about_content";
     }
 }
 
