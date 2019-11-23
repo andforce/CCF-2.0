@@ -22,7 +22,7 @@
 #import <WebKit/WebKit.h>
 #import <SDWebImage/SDImageCache.h>
 
-@interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler> {
+@interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler, WKNavigationDelegate> {
 
     LCActionSheet *_itemActionSheet;
 
@@ -42,6 +42,8 @@
     WKWebView *_wkWebView;
 
     WKUserContentController *_contentController;
+
+    BOOL shouldScrollEnd;
 }
 
 @end
@@ -73,13 +75,9 @@
             lis = [lis stringByAppendingString:postInfo];
         }
 
-        NSString *html = nil;
-
-        if (threadPage.pageNumber.currentPageNumber <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        }
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = firstPage ? [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK] :
+                [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
         NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
 
@@ -89,7 +87,7 @@
             _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
-        //shouldScrollEnd = YES;
+        shouldScrollEnd = YES;
 
     } else if ([bundle containsKey:@"Simple_Reply_Callback"]) {
         ViewThreadPage *threadPage = [bundle getObjectValue:@"Simple_Reply_Callback"];
@@ -132,7 +130,7 @@
             _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
-        //shouldScrollEnd = YES;
+        shouldScrollEnd = YES;
     } else if ([bundle containsKey:@"show_for_notice"]) {
 
         _ptid = [bundle getStringValue:@"show_for_notice_ptid"];
@@ -185,6 +183,7 @@
 
     _wkWebView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     _wkWebView.backgroundColor = [UIColor whiteColor];
+    _wkWebView.navigationDelegate = self;
 
     [self.view addSubview:_wkWebView];
 
@@ -207,6 +206,16 @@
     [_wkWebView.scrollView.mj_header beginRefreshing];
 }
 
+#pragma mark WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+    NSLog(@"onImageClicked %@",@"didFinishNavigation");
+    if (shouldScrollEnd){
+        CGPoint scrollPoint = CGPointMake(0, _wkWebView.scrollView.contentSize.height);
+        NSString *js = [NSString stringWithFormat:@"window.scrollTo(0,%f)",scrollPoint.y];
+        [_wkWebView evaluateJavaScript:js completionHandler:nil];
+        shouldScrollEnd = NO;
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -801,7 +810,7 @@
     [bundle putObjectValue:_currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
 
     [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
-
+        NSLog(@"");
     }];
 }
 
