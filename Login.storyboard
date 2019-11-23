@@ -274,10 +274,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jql-FN-xDM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOv-kG-Gsv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
@@ -291,17 +287,25 @@
                                     <constraint firstItem="GKa-cL-IIM" firstAttribute="centerX" secondItem="QOv-kG-Gsv" secondAttribute="centerX" id="Lke-zJ-ZO7"/>
                                 </constraints>
                             </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0Q-QQ-d1Z">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="jql-FN-xDM" firstAttribute="height" secondItem="cjI-bK-fXy" secondAttribute="height" id="32A-BA-3JJ"/>
-                            <constraint firstItem="jql-FN-xDM" firstAttribute="centerX" secondItem="cjI-bK-fXy" secondAttribute="centerX" id="3sI-Th-gh8"/>
-                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="centerX" secondItem="jql-FN-xDM" secondAttribute="centerX" id="6Wr-ck-fbY"/>
-                            <constraint firstItem="jql-FN-xDM" firstAttribute="width" secondItem="cjI-bK-fXy" secondAttribute="width" id="Ap6-7U-Voy"/>
-                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="centerY" secondItem="jql-FN-xDM" secondAttribute="centerY" id="dxq-4g-5yk"/>
-                            <constraint firstItem="jql-FN-xDM" firstAttribute="centerY" secondItem="cjI-bK-fXy" secondAttribute="centerY" id="gBd-C5-foZ"/>
-                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="height" secondItem="jql-FN-xDM" secondAttribute="height" id="kuh-FM-ac4"/>
-                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="width" secondItem="jql-FN-xDM" secondAttribute="width" id="oov-TJ-e8j"/>
+                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="trailing" secondItem="g0Q-QQ-d1Z" secondAttribute="trailing" id="69n-8C-KGu"/>
+                            <constraint firstItem="g0Q-QQ-d1Z" firstAttribute="centerY" secondItem="cjI-bK-fXy" secondAttribute="centerY" id="AFT-pT-wFB"/>
+                            <constraint firstItem="g0Q-QQ-d1Z" firstAttribute="centerX" secondItem="cjI-bK-fXy" secondAttribute="centerX" id="IVA-PU-TWH"/>
+                            <constraint firstItem="g0Q-QQ-d1Z" firstAttribute="width" secondItem="cjI-bK-fXy" secondAttribute="width" id="Lmt-cd-A9O"/>
+                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="bottom" secondItem="g0Q-QQ-d1Z" secondAttribute="bottom" id="dTF-dF-eRS"/>
+                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="leading" secondItem="g0Q-QQ-d1Z" secondAttribute="leading" id="kug-TY-YNW"/>
+                            <constraint firstItem="g0Q-QQ-d1Z" firstAttribute="height" secondItem="cjI-bK-fXy" secondAttribute="height" id="n2u-U3-5hd"/>
+                            <constraint firstItem="QOv-kG-Gsv" firstAttribute="top" secondItem="g0Q-QQ-d1Z" secondAttribute="top" id="p0l-Am-fOa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="ixt-RD-2h2">
@@ -314,12 +318,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="maskLoadingView" destination="QOv-kG-Gsv" id="NzI-Oa-df5"/>
-                        <outlet property="webView" destination="jql-FN-xDM" id="LVz-7n-OSA"/>
+                        <outlet property="webView" destination="g0Q-QQ-d1Z" id="wt4-ft-l7z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbj-LN-szW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9094" y="-6610"/>
+            <point key="canvasLocation" x="-9094.2028985507259" y="-6610.0446428571422"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="4WR-0B-Fyd">

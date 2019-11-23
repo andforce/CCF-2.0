@@ -62,10 +62,6 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
 
-    [self getResponseHTML:webView handle:^(NSString *html) {
-
-    }];
-
     NSString *currentURL = webView.URL.absoluteString;
     NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
 

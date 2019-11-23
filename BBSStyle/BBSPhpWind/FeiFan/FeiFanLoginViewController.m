@@ -10,7 +10,7 @@
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
-@interface FeiFanLoginViewController () <UIWebViewDelegate> {
+@interface FeiFanLoginViewController () <WKNavigationDelegate> {
 
 }
 
@@ -20,11 +20,8 @@
 
 
 - (void)viewDidLoad {
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
-    self.webView.scalesPageToFit = NO;
+    self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
@@ -51,57 +48,48 @@
     [localForumApi saveUserName:name forHost:config.forumURL.host];
 }
 
-// private
-- (NSString *)getResponseHTML:(UIWebView *)webView {
-    NSString *lJs = @"document.documentElement.outerHTML";
-    NSString *html = [webView stringByEvaluatingJavaScriptFromString:lJs];
-    return html;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-
-    NSString *html = [self getResponseHTML:webView];
-
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-
-    NSLog(@"CrskyLogin.webViewDidFinishLoad->%@", currentURL);
-
-    // 使用JS注入获取用户输入的密码
-    NSString *userName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('pwuser')[0].value"];
-    NSLog(@"CrskyLogin.userName->%@", userName);
-    if (userName != nil && ![userName isEqualToString:@""]) {
-        // 保存用户名
-        [self saveUserName:userName];
-    }
-
-    // 改变样式
-    NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-
-    [webView stringByEvaluatingJavaScriptFromString:js];
-
-    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-}
-
 - (void)hideMaskView {
     self.maskLoadingView.hidden = YES;
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
+#pragma mark - WKNavigationDelegate
 
-    NSString *html = [self getResponseHTML:webView];
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+
+    NSString *currentURL = webView.URL.absoluteString;
+    NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
+
+    // 使用JS注入获取用户输入的密码
+    [webView evaluateJavaScript:@"document.getElementsByName('pwuser')[0].value" completionHandler:^(id o, NSError *error) {
+        NSString *userName = o;
+
+        NSLog(@"TForumLogin.userName->%@", userName);
+        if (userName != nil && ![userName isEqualToString:@""]) {
+            // 保存用户名
+            [self saveUserName:userName];
+        }
+    }];
+
+    // 改变样式
+    NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+
+    [webView evaluateJavaScript:js completionHandler:nil];
+
+    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 }
 
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *rUrl = navigationAction.request.URL.absoluteString;
+
+    NSURLRequest * request = navigationAction.request;
 
     NSString *urlString = [[request URL] absoluteString];
     NSLog(@"CrskyLogin.shouldStartLoadWithRequest %@ ", urlString);
 
     if ([request.URL.host containsString:@"baidu.com"]) {
-        return NO;
-    }
-
-    if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]) {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
@@ -146,11 +134,10 @@
             }
         }];
 
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
 
-
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (IBAction)cancelLogin:(id)sender {

@@ -6,9 +6,11 @@
 
 #import "BBSApiBaseViewController.h"
 
+#import <WebKit/WebKit.h>
+
 @interface FeiFanLoginViewController : BBSApiBaseViewController
 
-@property(weak, nonatomic) IBOutlet UIWebView *webView;
+@property(weak, nonatomic) IBOutlet WKWebView *webView;
 
 - (IBAction)cancelLogin:(id)sender;
 
