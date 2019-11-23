@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 
-@interface BBSDiscuzShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
+@interface BBSDiscuzShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
     BBSPrivateMessage *transPrivateMessage;
 
@@ -38,10 +38,8 @@
 
     self.dataList = [NSMutableArray array];
 
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
+    self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
     [self.webView setOpaque:NO];
@@ -117,10 +115,12 @@
 }
 
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+#pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-    if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
+    NSURLRequest *request = navigationAction.request;
 
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
 
         NSString *path = request.URL.path;
         if ([path rangeOfString:@"showthread.php"].location != NSNotFound) {
@@ -145,10 +145,10 @@
             [self transBundle:bundle forController:showThreadController];
             [self.navigationController pushViewController:showThreadController animated:YES];
 
-            return NO;
+            decisionHandler(WKNavigationActionPolicyCancel);
         } else {
             [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
-            return NO;
+            decisionHandler(WKNavigationActionPolicyCancel);
         }
     }
 
@@ -168,10 +168,10 @@
 
         [self.navigationController pushViewController:showThreadController animated:YES];
 
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
 
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 #pragma mark Controller跳转
@@ -199,8 +199,8 @@
     message.pmAuthor = transPrivateMessage.pmAuthor;
     message.pmTitle = transPrivateMessage.pmTitle;
 
-    for (int i = self.dataList.count - 1; i >= 0; i--) {
-        BBSPrivateMessageDetail *viewMessage = self.dataList[i];
+    for (int i = (int) (self.dataList.count - 1); i >= 0; i--) {
+        BBSPrivateMessageDetail *viewMessage = self.dataList[(NSUInteger) i];
         if ([viewMessage.pmUserInfo.userID isEqualToString:transPrivateMessage.pmAuthorId]) {
             message.pmID = viewMessage.pmID;
             break;
