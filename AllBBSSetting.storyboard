@@ -45,7 +45,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="添加论坛" id="Q3m-2X-egQ">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="dMy-xS-H9h">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="dMy-xS-H9h">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <action selector="cancel:" destination="2hj-fq-jCt" id="jch-Ro-41c"/>
@@ -222,7 +222,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="全局设置选项" id="Rgi-Rb-bAW">
-                        <barButtonItem key="leftBarButtonItem" image="ic_close_18pt" id="VbH-HO-oMM">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_close_18pt" id="VbH-HO-oMM">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="back:" destination="9se-A7-pwf" id="T4m-U0-iow"/>
@@ -266,8 +266,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_arrow_back_18pt" width="18" height="18"/>
-        <image name="ic_close_18pt" width="18" height="18"/>
+        <image name="bbs_arrow_back_18pt" width="18" height="18"/>
+        <image name="bbs_close_18pt" width="18" height="18"/>
         <image name="ic_perm_identity_18pt" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>

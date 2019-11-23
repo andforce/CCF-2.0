@@ -43,13 +43,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="板块列表" id="FT7-1W-ajH">
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="Qzd-sz-s13">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="Qzd-sz-s13">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="ASl-Ek-GKi" id="CYE-SD-yms"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_search_18pt" id="HuU-Ka-jS5">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="HuU-Ka-jS5">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" identifier="ShowSearchViewController" id="0wo-f6-UjE"/>
@@ -162,7 +162,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Pwi-td-9IN">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="fsZ-jb-Oqa">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="fsZ-jb-Oqa">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="21g-L2-eCr" id="CUB-in-fwT"/>
@@ -177,7 +177,7 @@
                             </segments>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" image="ic_mode_edit_18pt" id="IGF-H1-1Rt">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="IGF-H1-1Rt">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="21g-L2-eCr" id="bH7-wy-efs"/>
@@ -229,13 +229,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="订阅论坛" id="Mhk-pJ-bvf" userLabel="收藏板块">
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="RrR-nQ-VId">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="RrR-nQ-VId">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Jit-bj-gGf" id="O63-EO-qBi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_search_18pt" id="3Zy-hR-gcV">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="3Zy-hR-gcV">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" id="lf3-Ra-lJN"/>
@@ -404,13 +404,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="帖子列表" id="ieL-rG-HqG">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="S79-BI-HIh" userLabel="返回">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="S79-BI-HIh" userLabel="返回">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="owK-Jl-7fO" id="6ys-AC-TeC"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_mode_edit_18pt" id="fP7-pF-d1m" userLabel="新主题">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="fP7-pF-d1m" userLabel="新主题">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="createThread:" destination="owK-Jl-7fO" id="n3s-B0-L83"/>
@@ -496,7 +496,7 @@
                                                                 <constraint firstAttribute="height" constant="22" id="8To-fg-iSn"/>
                                                                 <constraint firstAttribute="width" constant="22" id="qeK-hh-ajx"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_close_18pt"/>
+                                                            <state key="normal" image="bbs_close_18pt"/>
                                                             <connections>
                                                                 <action selector="deleteCurrentImage:" destination="umc-Pe-6dc" eventType="touchUpInside" id="iGc-vF-sjB"/>
                                                             </connections>
@@ -621,7 +621,7 @@
                                     <action selector="createThread:" destination="pXN-Qw-w0b" id="ser-lo-J3w"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_camera_enhance_18pt" id="fNl-Rr-0cc">
+                            <barButtonItem image="bbs_camera_18pt" id="fNl-Rr-0cc">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="pickPhoto:" destination="pXN-Qw-w0b" id="s5r-OQ-0es"/>
@@ -692,7 +692,7 @@
                                                                 <constraint firstAttribute="height" constant="22" id="3kr-hU-xMQ"/>
                                                                 <constraint firstAttribute="width" constant="22" id="dyD-aL-y1e"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_close_18pt"/>
+                                                            <state key="normal" image="bbs_close_18pt"/>
                                                             <connections>
                                                                 <action selector="deleteCurrentImage:" destination="7bS-93-Vf4" eventType="touchUpInside" id="dpX-I3-UhU"/>
                                                             </connections>
@@ -760,7 +760,7 @@
                                     <action selector="sendSeniorMessage:" destination="pPN-ZQ-aHh" id="iYF-SA-EOA"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_camera_enhance_18pt" id="em2-BS-wZ8" userLabel="照片">
+                            <barButtonItem image="bbs_camera_18pt" id="em2-BS-wZ8" userLabel="照片">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="insertPhoto:" destination="pPN-ZQ-aHh" id="dXY-DG-eaE"/>
@@ -970,7 +970,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="添加论坛" id="Q3m-2X-egQ">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="dMy-xS-H9h">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="dMy-xS-H9h">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <action selector="cancel:" destination="2hj-fq-jCt" id="jch-Ro-41c"/>
@@ -1137,7 +1137,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="收藏主题" id="pib-bg-tEZ">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="JW3-tT-s3b">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="JW3-tT-s3b">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="back:" destination="3SN-sr-Skg" id="9mY-bv-6Xf"/>
@@ -1297,7 +1297,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="全局设置选项" id="Rgi-Rb-bAW">
-                        <barButtonItem key="leftBarButtonItem" image="ic_close_18pt" id="VbH-HO-oMM">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_close_18pt" id="VbH-HO-oMM">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="back:" destination="9se-A7-pwf" id="T4m-U0-iow"/>
@@ -1413,7 +1413,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="我的主题" id="ApB-Jy-M5Y">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="odK-lm-cOV" userLabel="返回">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="odK-lm-cOV" userLabel="返回">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Js1-U2-h0I" id="G3G-Oe-9cn"/>
@@ -1527,13 +1527,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="查看新帖" id="PE2-Lx-6xT">
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="d5k-Sr-1mR">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="d5k-Sr-1mR">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="vLT-xg-b6G" id="eoo-2q-2x6"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_search_18pt" id="NVa-5o-hQ4" userLabel="新主题">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="NVa-5o-hQ4" userLabel="新主题">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="createThread:" destination="vLT-xg-b6G" id="m6d-Zp-1jj"/>
@@ -1702,7 +1702,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Vq0-nI-wMk">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="bkF-Sv-dV6" userLabel="返回">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="bkF-Sv-dV6" userLabel="返回">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="9ek-Pz-X45" id="aPj-BR-Vv3"/>
@@ -1949,7 +1949,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我的页面" id="3WX-X4-Rtb">
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="yva-94-8CG">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="yva-94-8CG">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="all-h2-fhh" id="WzS-Zq-RR4"/>
@@ -1997,7 +1997,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="短信详情" id="wzF-Pt-RM5">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="hXz-EX-g4p">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="hXz-EX-g4p">
                             <color key="tintColor" red="0.95026940107345581" green="0.95026940107345581" blue="0.95026940107345581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="Q2o-k5-bi7" id="qa8-aF-7el"/>
@@ -2148,13 +2148,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="子论坛帖" id="KMd-bg-peI">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="HP0-Cl-v7m" userLabel="返回">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="HP0-Cl-v7m" userLabel="返回">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="afP-Oj-XhI" id="3CQ-dn-4m0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_mode_edit_18pt" id="Khg-sG-IvE" userLabel="新主题">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="Khg-sG-IvE" userLabel="新主题">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="createThread:" destination="afP-Oj-XhI" id="saX-pE-8Rc"/>
@@ -2347,7 +2347,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="会员信息" id="hev-uC-DtI">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="Bu2-S9-aJz">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="Bu2-S9-aJz">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="Kd2-6b-uhY" id="4R9-Gj-a7n"/>
@@ -2557,7 +2557,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="他的主题" id="tBn-Rv-HVM">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="cAM-gk-5oY" userLabel="返回">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="cAM-gk-5oY" userLabel="返回">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="l3g-AL-GdG" id="wqf-6M-tFp"/>
@@ -2895,7 +2895,7 @@
                                                                 <constraint firstAttribute="width" constant="22" id="F9r-PB-WPt"/>
                                                                 <constraint firstAttribute="height" constant="22" id="fhO-Bj-Wzb"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_close_18pt"/>
+                                                            <state key="normal" image="bbs_close_18pt"/>
                                                             <connections>
                                                                 <action selector="deleteCurrentImage:" destination="H3I-oH-GZK" eventType="touchUpInside" id="I1R-7j-aaA"/>
                                                             </connections>
@@ -2982,7 +2982,7 @@
                                     <action selector="createThread:" destination="2I1-Ka-zXW" id="60A-3L-m5V"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_camera_enhance_18pt" id="lLL-cn-55P">
+                            <barButtonItem image="bbs_camera_18pt" id="lLL-cn-55P">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="pickPhoto:" destination="2I1-Ka-zXW" id="ebo-tl-tuK"/>
@@ -3333,20 +3333,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="L8q-Ur-XlX">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="rgh-Ih-baO">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="rgh-Ih-baO">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="Bhk-dY-41O" id="5tz-GA-yS0"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="ic_more_horiz_18pt" id="f3g-Vl-i8m">
+                            <barButtonItem image="bbs_more_18pt" id="f3g-Vl-i8m">
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="showMoreAction:" destination="Bhk-dY-41O" id="yiS-u5-1ON"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_loupe_white_18pt" id="rsz-H6-6jr">
+                            <barButtonItem image="bbs_senior_reply_18pt" id="rsz-H6-6jr">
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="reply:" destination="Bhk-dY-41O" id="Th7-Wu-kP8"/>
@@ -3566,7 +3566,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="93l-TC-cdf">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="ic_menu_18pt" id="BSO-iZ-QWW">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="BSO-iZ-QWW">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="29L-7I-Y5q" id="Qfx-ar-rQp"/>
@@ -3581,7 +3581,7 @@
                             </segments>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" image="ic_mode_edit_18pt" id="X4N-Mr-fUW">
+                        <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="X4N-Mr-fUW">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="29L-7I-Y5q" id="cD8-IK-qme"/>
@@ -3649,7 +3649,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="私信详情" id="i6e-c0-82t">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="0wr-w2-X6q">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="0wr-w2-X6q">
                             <color key="tintColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="back:" destination="E10-IZ-8h6" id="YKl-Zs-PQE"/>
@@ -3689,16 +3689,16 @@
     </scenes>
     <resources>
         <image name="ic_account_balance_18pt" width="18" height="18"/>
-        <image name="ic_arrow_back_18pt" width="18" height="18"/>
-        <image name="ic_camera_enhance_18pt" width="18" height="18"/>
-        <image name="ic_close_18pt" width="18" height="18"/>
+        <image name="bbs_arrow_back_18pt" width="18" height="18"/>
+        <image name="bbs_camera_18pt" width="18" height="18"/>
+        <image name="bbs_close_18pt" width="18" height="18"/>
         <image name="ic_grade_18pt" width="18" height="18"/>
-        <image name="ic_loupe_white_18pt" width="18" height="18"/>
-        <image name="ic_menu_18pt" width="18" height="18"/>
-        <image name="ic_mode_edit_18pt" width="18" height="18"/>
-        <image name="ic_more_horiz_18pt" width="18" height="18"/>
+        <image name="bbs_senior_reply_18pt" width="18" height="18"/>
+        <image name="bbs_menu_18pt" width="18" height="18"/>
+        <image name="bbs_write_post_18pt" width="18" height="18"/>
+        <image name="bbs_more_18pt" width="18" height="18"/>
         <image name="ic_perm_identity_18pt" width="18" height="18"/>
-        <image name="ic_search_18pt" width="18" height="18"/>
+        <image name="bbs_search_18pt" width="18" height="18"/>
         <image name="paperclip.gif" width="10" height="13"/>
         <image name="tab_message" width="18" height="18"/>
         <image name="tab_new_post" width="18" height="18"/>

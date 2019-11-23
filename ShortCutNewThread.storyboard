@@ -89,7 +89,7 @@
                                                                 <constraint firstAttribute="width" constant="22" id="F9r-PB-WPt"/>
                                                                 <constraint firstAttribute="height" constant="22" id="fhO-Bj-Wzb"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_close_18pt"/>
+                                                            <state key="normal" image="bbs_close_18pt"/>
                                                             <connections>
                                                                 <action selector="deleteCurrentImage:" destination="H3I-oH-GZK" eventType="touchUpInside" id="I1R-7j-aaA"/>
                                                             </connections>
@@ -176,7 +176,7 @@
                                     <action selector="createThread:" destination="2I1-Ka-zXW" id="60A-3L-m5V"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_camera_enhance_18pt" id="lLL-cn-55P">
+                            <barButtonItem image="bbs_camera_18pt" id="lLL-cn-55P">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="pickPhoto:" destination="2I1-Ka-zXW" id="ebo-tl-tuK"/>
@@ -222,7 +222,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_camera_enhance_18pt" width="18" height="18"/>
-        <image name="ic_close_18pt" width="18" height="18"/>
+        <image name="bbs_camera_18pt" width="18" height="18"/>
+        <image name="bbs_close_18pt" width="18" height="18"/>
     </resources>
 </document>

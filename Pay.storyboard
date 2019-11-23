@@ -32,7 +32,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="隐私政策" id="90y-oV-aO9">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="Bju-TK-la3">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="Bju-TK-la3">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <action selector="close:" destination="ed9-WY-c8R" id="f9O-s8-3Xb"/>
@@ -180,7 +180,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="购买高级功能" id="bDg-wA-Cej">
-                        <barButtonItem key="leftBarButtonItem" image="ic_arrow_back_18pt" id="nep-21-Aev">
+                        <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="nep-21-Aev">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="backOrDismiss:" destination="pEl-o7-5XO" id="x0W-SX-ATo"/>
@@ -222,7 +222,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_arrow_back_18pt" width="18" height="18"/>
+        <image name="bbs_arrow_back_18pt" width="18" height="18"/>
         <image name="ic_perm_identity_18pt" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>

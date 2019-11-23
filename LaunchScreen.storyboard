@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="Pbk-bg-psT">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bbs_big_logo_1024px" translatesAutoresizingMaskIntoConstraints="NO" id="Pbk-bg-psT">
                                 <rect key="frame" x="0.0" y="246" width="414" height="414"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pbk-bg-psT" secondAttribute="height" multiplier="1:1" id="70h-DL-FPR"/>
@@ -39,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon-1024" width="1024" height="1024"/>
+        <image name="bbs_big_logo_1024px" width="1024" height="1024"/>
     </resources>
 </document>

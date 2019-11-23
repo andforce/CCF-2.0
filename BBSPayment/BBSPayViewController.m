@@ -93,9 +93,9 @@
     }
 
     if (self.canBack) {
-        self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"ic_arrow_back_18pt"];
+        self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"bbs_arrow_back_18pt"];
     } else {
-        self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"ic_close_18pt"];
+        self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"bbs_close_18pt"];
     }
 }
 

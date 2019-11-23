@@ -52,7 +52,7 @@
                                                                 <constraint firstAttribute="height" constant="22" id="3kr-hU-xMQ"/>
                                                                 <constraint firstAttribute="width" constant="22" id="dyD-aL-y1e"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_close_18pt"/>
+                                                            <state key="normal" image="bbs_close_18pt"/>
                                                             <connections>
                                                                 <action selector="deleteCurrentImage:" destination="7bS-93-Vf4" eventType="touchUpInside" id="dpX-I3-UhU"/>
                                                             </connections>
@@ -120,7 +120,7 @@
                                     <action selector="sendSeniorMessage:" destination="pPN-ZQ-aHh" id="iYF-SA-EOA"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ic_camera_enhance_18pt" id="em2-BS-wZ8" userLabel="照片">
+                            <barButtonItem image="bbs_camera_18pt" id="em2-BS-wZ8" userLabel="照片">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="insertPhoto:" destination="pPN-ZQ-aHh" id="dXY-DG-eaE"/>
@@ -162,7 +162,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_camera_enhance_18pt" width="18" height="18"/>
-        <image name="ic_close_18pt" width="18" height="18"/>
+        <image name="bbs_camera_18pt" width="18" height="18"/>
+        <image name="bbs_close_18pt" width="18" height="18"/>
     </resources>
 </document>
