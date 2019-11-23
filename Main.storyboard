@@ -62,7 +62,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHN-R0-Foq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3870" y="-3264"/>
+            <point key="canvasLocation" x="-3765" y="-3265"/>
         </scene>
         <!--站内短信-->
         <scene sceneID="gWe-PG-MSc">
@@ -191,7 +191,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wz-HJ-cHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3765" y="-1400"/>
+            <point key="canvasLocation" x="-3765" y="-2524"/>
         </scene>
         <!--订阅论坛-->
         <scene sceneID="0Ce-NM-EC5">
@@ -248,7 +248,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9F-UZ-2ks" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3871" y="-4522"/>
+            <point key="canvasLocation" x="-3765" y="-3926"/>
         </scene>
         <!--帖子列表-->
         <scene sceneID="ZSu-6M-hd2">
@@ -424,7 +424,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDT-8I-6Ma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7015.9420289855079" y="-3939.9456521739135"/>
+            <point key="canvasLocation" x="-501" y="-3543"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="nUF-pr-pG4">
@@ -446,7 +446,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WGP-Wx-ldm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8481" y="-3264"/>
+            <point key="canvasLocation" x="-5996" y="-3265"/>
         </scene>
         <!--主页-->
         <scene sceneID="Rsw-tr-lOi">
@@ -573,7 +573,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7KZ-yH-XHm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1538.4000000000001" y="547.37631184407803"/>
+            <point key="canvasLocation" x="-501" y="-688"/>
         </scene>
         <!--我的主题-->
         <scene sceneID="NgB-yq-feA">
@@ -685,7 +685,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3LA-tW-zvT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1539.1304347826087" y="-1109.5108695652175"/>
+            <point key="canvasLocation" x="-501" y="215"/>
         </scene>
         <!--查看新帖-->
         <scene sceneID="0aj-wj-Ipe">
@@ -809,7 +809,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ak7-N4-q62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3904" y="-5947"/>
+            <point key="canvasLocation" x="-3765" y="-4576"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="sf1-2L-Kr0">
@@ -987,7 +987,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XqI-3M-PxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4056.521739130435" y="-5955.163043478261"/>
+            <point key="canvasLocation" x="-501" y="-4576"/>
         </scene>
         <!--我的页面-->
         <scene sceneID="YlG-dB-QZF">
@@ -1229,7 +1229,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXN-m4-gdm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3814" y="-358"/>
+            <point key="canvasLocation" x="-3765" y="-1848"/>
         </scene>
         <!--短信详情-->
         <scene sceneID="qyp-tv-9VR">
@@ -1280,7 +1280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbS-5S-4ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2939.130434782609" y="-1401.5625"/>
+            <point key="canvasLocation" x="-2930" y="-2525"/>
         </scene>
         <!--子论坛帖-->
         <scene sceneID="wBW-D6-BVd">
@@ -1429,14 +1429,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abh-Ra-rqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8646" y="-3940"/>
+            <point key="canvasLocation" x="2225" y="-3543"/>
         </scene>
         <!--会员信息-->
         <scene sceneID="Juh-h9-Ttr">
             <objects>
                 <tableViewController storyboardIdentifier="ShowUserProfile" id="Kd2-6b-uhY" customClass="BBSUserProfileTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6tN-Pg-gRW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -1629,14 +1629,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISW-8d-bNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1596" y="-2157"/>
+            <point key="canvasLocation" x="-501" y="-2525"/>
         </scene>
         <!--他的主题-->
         <scene sceneID="kwO-6c-899">
             <objects>
                 <tableViewController id="l3g-AL-GdG" customClass="BBSUserThreadTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XcW-xB-IIx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1741,7 +1741,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFy-0V-jDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7105" y="-1961"/>
+            <point key="canvasLocation" x="814" y="-2525"/>
         </scene>
         <!--订阅-->
         <scene sceneID="ZFS-Y5-Dum">
@@ -1766,7 +1766,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="shc-0s-Smh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4642" y="-4522"/>
+            <point key="canvasLocation" x="-4642" y="-3926"/>
         </scene>
         <!--新帖-->
         <scene sceneID="gv2-2h-9zI">
@@ -1791,7 +1791,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seU-nT-8Og" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4641" y="-5948"/>
+            <point key="canvasLocation" x="-4642" y="-4576"/>
         </scene>
         <!--消息-->
         <scene sceneID="rPf-XE-vr3">
@@ -1816,7 +1816,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qC-uw-MUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4622" y="-1400"/>
+            <point key="canvasLocation" x="-4642" y="-2525"/>
         </scene>
         <!--自己-->
         <scene sceneID="uNZ-8U-HL8">
@@ -1841,7 +1841,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aC5-ZQ-26Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4641" y="-357"/>
+            <point key="canvasLocation" x="-4642" y="-1848"/>
         </scene>
         <!--帖子详情-->
         <scene sceneID="u3A-LS-EWr">
@@ -1852,11 +1852,11 @@
                         <viewControllerLayoutGuide type="bottom" id="8IY-ia-7KQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hIX-vk-f6g">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMD-n7-rwN">
-                                <rect key="frame" x="0.0" y="676" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="725" width="414" height="49"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="49" id="DLQ-yY-CCb"/>
@@ -1865,7 +1865,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHy-E2-ooq">
-                                <rect key="frame" x="0.0" y="676" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="725" width="414" height="49"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="页码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRj-dM-RXO">
                                         <rect key="frame" x="118" y="0.0" width="178" height="49"/>
@@ -2002,7 +2002,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYC-WR-8hn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3136" y="-2590"/>
+            <point key="canvasLocation" x="2225" y="-2525"/>
         </scene>
         <!--论坛消息-->
         <scene sceneID="4rh-V5-hLv">
@@ -2131,7 +2131,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g3Y-hn-yna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3765" y="-2289"/>
+            <point key="canvasLocation" x="-1329" y="-1400"/>
         </scene>
         <!--消息-->
         <scene sceneID="zZb-24-rYK">
@@ -2156,7 +2156,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Sm-Jn-CIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4594" y="-2289"/>
+            <point key="canvasLocation" x="-2158" y="-1400"/>
         </scene>
         <!--私信详情-->
         <scene sceneID="h2G-6e-6vv">
@@ -2204,7 +2204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xot-Yu-3Vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2974" y="-2289"/>
+            <point key="canvasLocation" x="-501" y="-1400"/>
         </scene>
         <!--ShowPayPage-->
         <scene sceneID="ZZx-sW-T2P">
@@ -2212,7 +2212,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ShowPayPage" storyboardName="Pay" referencedIdentifier="ShowPayPage" id="tMz-iS-WwB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wcu-3q-r0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6047" y="121"/>
+            <point key="canvasLocation" x="-8699" y="-3893"/>
         </scene>
         <!--ForumPayUITableViewControllerID-->
         <scene sceneID="5b4-8T-1p4">
@@ -2220,7 +2220,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ForumPayUITableViewControllerID" storyboardName="Pay" referencedIdentifier="ForumPayUITableViewControllerID" id="loV-BW-0s6" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEX-J9-hLN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5627" y="121"/>
+            <point key="canvasLocation" x="-8608" y="-3939"/>
         </scene>
         <!--LoginForumWebView-->
         <scene sceneID="HL8-iU-tv7">
@@ -2260,7 +2260,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="SeniorReplySomeOne" storyboardName="SeniorReply" referencedIdentifier="SeniorReplySomeOne" id="TlQ-Ig-HTT" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QY0-Bb-thq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2499" y="-6428"/>
+            <point key="canvasLocation" x="-8666" y="-4217"/>
         </scene>
         <!--ReportThreadPost-->
         <scene sceneID="aeS-ZH-l4i">
@@ -2268,7 +2268,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ReportThreadPost" storyboardName="Jubao" referencedIdentifier="ReportThreadPost" id="G4B-ne-uqt" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cx2-Al-zIa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-338" y="-6714"/>
+            <point key="canvasLocation" x="-8682" y="-4402"/>
         </scene>
         <!--ShowCreateNewThread-->
         <scene sceneID="PtZ-cu-4PI">
@@ -2276,7 +2276,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ShowCreateNewThread" storyboardName="NewThread" referencedIdentifier="ShowCreateNewThread" id="9ca-m8-ztr" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAB-Yy-ahs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-623" y="-6319"/>
+            <point key="canvasLocation" x="-8660" y="-4139"/>
         </scene>
         <!--CreateNewThread-->
         <scene sceneID="BLK-pv-h9H">
@@ -2284,7 +2284,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="CreateNewThread" storyboardName="NewThread" referencedIdentifier="CreateNewThread" id="U1B-zR-GNg" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cPP-dx-ZgU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1438" y="-6319"/>
+            <point key="canvasLocation" x="-8681" y="-3988"/>
         </scene>
         <!--ShortCutCreateNewThreadController-->
         <scene sceneID="4ew-hG-hb4">
@@ -2292,7 +2292,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ShortCutCreateNewThreadController" storyboardName="ShortCutNewThread" referencedIdentifier="ShortCutCreateNewThreadController" id="lWl-DF-Zdv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFW-ah-Eia" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1312" y="-6423"/>
+            <point key="canvasLocation" x="-8596" y="-4337"/>
         </scene>
         <!--ShortCutCreateNewThreadNV-->
         <scene sceneID="1Tn-Sh-NDa">
@@ -2300,7 +2300,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ShortCutCreateNewThreadNV" storyboardName="ShortCutNewThread" referencedIdentifier="ShortCutCreateNewThreadNV" id="hMm-MX-djw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqr-a6-a6n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="-6423"/>
+            <point key="canvasLocation" x="-8631" y="-4284"/>
         </scene>
         <!--ShowSupportForums-->
         <scene sceneID="Efp-Dd-e3b">
@@ -2308,7 +2308,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="ShowSupportForums" storyboardName="AllBBSSetting" referencedIdentifier="ShowSupportForums" id="MhO-pw-eEJ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3r-b6-piy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4384" y="1108"/>
+            <point key="canvasLocation" x="-8670" y="-3834"/>
         </scene>
         <!--ShowSetting-->
         <scene sceneID="b8g-qF-3HL">
@@ -2324,7 +2324,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="CreatePM" storyboardName="PrivateMessage" referencedIdentifier="CreatePM" id="1XN-Ek-6Fu" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Cv-Oh-Qmx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2259" y="-7006"/>
+            <point key="canvasLocation" x="-8720" y="-4067"/>
         </scene>
     </scenes>
     <resources>
@@ -2342,9 +2342,9 @@
         <image name="tab_new_post" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yJT-70-f5u"/>
-        <segue reference="Ysv-Xy-VAF"/>
-        <segue reference="0wo-f6-UjE"/>
-        <segue reference="Klt-aO-3La"/>
+        <segue reference="N1G-Ig-hUe"/>
+        <segue reference="Qkn-xF-ZJG"/>
+        <segue reference="lf3-Ra-lJN"/>
+        <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
 </document>

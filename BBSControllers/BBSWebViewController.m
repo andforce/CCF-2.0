@@ -22,28 +22,26 @@
 #import <WebKit/WebKit.h>
 #import <SDWebImage/SDImageCache.h>
 
-@interface BBSWebViewController () <UIWebViewDelegate, UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler> {
+@interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler> {
 
-    LCActionSheet *itemActionSheet;
+    LCActionSheet *_itemActionSheet;
 
-    ViewThreadPage *currentShowThreadPage;
+    ViewThreadPage *_currentShowThreadPage;
 
-    NSMutableDictionary *pageDic;
+    NSMutableDictionary *_pageDic;
 
     int threadID;
-    NSString *threadAuthorName;
+    NSString *_threadAuthorName;
 
     int pId;
 
-    BOOL shouldScrollEnd;
-
     // showNotice
     NSString *pid;
-    NSString *ptid;
+    NSString *_ptid;
 
-    WKWebView *_webView;
+    WKWebView *_wkWebView;
 
-    WKUserContentController *contentController;
+    WKUserContentController *_contentController;
 }
 
 @end
@@ -55,7 +53,7 @@
     if ([bundle containsKey:@"Senior_Reply_Callback"]) {
         ViewThreadPage *threadPage = [bundle getObjectValue:@"Senior_Reply_Callback"];
 
-        currentShowThreadPage = threadPage;
+        _currentShowThreadPage = threadPage;
 
         [self updatePageTitle];
 
@@ -69,14 +67,10 @@
         for (PostFloor *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-
+                                                            floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
             lis = [lis stringByAppendingString:postInfo];
-
-            //[self addPostByJSElement:post avatar:avatar louceng:louceng];
-
         }
 
         NSString *html = nil;
@@ -87,20 +81,20 @@
             html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
-        NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
+        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
 
         BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
-            pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
+            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
-        shouldScrollEnd = YES;
+        //shouldScrollEnd = YES;
 
     } else if ([bundle containsKey:@"Simple_Reply_Callback"]) {
         ViewThreadPage *threadPage = [bundle getObjectValue:@"Simple_Reply_Callback"];
 
-        currentShowThreadPage = threadPage;
+        _currentShowThreadPage = threadPage;
 
 
         [self updatePageTitle];
@@ -131,17 +125,17 @@
             html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
         }
 
-        NSString *cacheHtml = pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)];
+        NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-            [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
-            pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = html;
+            [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+            _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = html;
         }
 
-        shouldScrollEnd = YES;
+        //shouldScrollEnd = YES;
     } else if ([bundle containsKey:@"show_for_notice"]) {
 
-        ptid = [bundle getStringValue:@"show_for_notice_ptid"];
+        _ptid = [bundle getStringValue:@"show_for_notice_ptid"];
         pid = [bundle getStringValue:@"show_for_notice_pid"];
 
 
@@ -149,13 +143,13 @@
         threadID = [bundle getIntValue:@"threadID"];
         pId = [bundle getIntValue:@"pId"];
 
-        threadAuthorName = [bundle getStringValue:@"threadAuthorName"];
+        _threadAuthorName = [bundle getStringValue:@"threadAuthorName"];
 
     }
 }
 
 - (void)updatePageTitle {
-    NSString *title = [NSString stringWithFormat:@"%lu-%lu", (unsigned long) currentShowThreadPage.pageNumber.currentPageNumber, (unsigned long) currentShowThreadPage.pageNumber.totalPageNumber];
+    NSString *title = [NSString stringWithFormat:@"%lu-%lu", (unsigned long) _currentShowThreadPage.pageNumber.currentPageNumber, (unsigned long) _currentShowThreadPage.pageNumber.totalPageNumber];
     self.pageTitleTextView.text = title;
 }
 
@@ -165,12 +159,12 @@
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
 
-    pageDic = [NSMutableDictionary dictionary];
+    _pageDic = [NSMutableDictionary dictionary];
 
     WKWebViewConfiguration *webViewConfiguration = [[WKWebViewConfiguration alloc] init];
-    contentController = [[WKUserContentController alloc] init];
+    _contentController = [[WKUserContentController alloc] init];
 
-    webViewConfiguration.userContentController = contentController;
+    webViewConfiguration.userContentController = _contentController;
 
 
     CGFloat safeBottom = 0;
@@ -187,69 +181,51 @@
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
     CGRect rectNav = self.navigationController.navigationBar.frame;
 
-    _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, f.size.width, f.size.height - rectStatus.size.height - rectNav.size.height - bottom) configuration:webViewConfiguration];
+    _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, f.size.width, f.size.height - rectStatus.size.height - rectNav.size.height - bottom) configuration:webViewConfiguration];
 
-    _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    _webView.backgroundColor = [UIColor whiteColor];
+    _wkWebView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    _wkWebView.backgroundColor = [UIColor whiteColor];
 
-    [self.view addSubview:_webView];
+    [self.view addSubview:_wkWebView];
 
-    [self.view sendSubviewToBack:_webView];
+    [self.view sendSubviewToBack:_wkWebView];
 
-
-//    [_webView setScalesPageToFit:YES];
-//    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-//    _webView.delegate = self;
-
-    for (UIView *view in [[_webView subviews][0] subviews]) {
-        if ([view isKindOfClass:[UIImageView class]]) {
-            view.hidden = YES;
-        }
-    }
-    [_webView setOpaque:NO];
+    [_wkWebView setOpaque:NO];
 
     // scrollView
-    _webView.scrollView.delegate = self;
+    _wkWebView.scrollView.delegate = self;
 
-    _webView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-
+    _wkWebView.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self showPreviousPageOrRefresh];
-
     }];
 
-
-    _webView.scrollView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-
+    _wkWebView.scrollView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         // 当前页面 == 页面的最大数，只刷新当前页面就可以了
-        [self showNextPageOrRefreshCurrentPage:currentShowThreadPage.pageNumber.currentPageNumber forThreadId:threadID];
-
+        [self showNextPageOrRefreshCurrentPage:_currentShowThreadPage.pageNumber.currentPageNumber forThreadId:threadID];
     }];
 
-    [_webView.scrollView.mj_header beginRefreshing];
+    [_wkWebView.scrollView.mj_header beginRefreshing];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onImageClicked"];
-    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
-    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onAvatarClicked"];
-    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onLinkClicked"];
-    [_webView.configuration.userContentController addScriptMessageHandler:self name:@"onDebug"];
+    [_wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"onImageClicked"];
+    [_wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"onPostMessageClicked"];
+    [_wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"onAvatarClicked"];
+    [_wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"onLinkClicked"];
+    [_wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"onDebug"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
-//    [NSURLProtocol wk_unregisterScheme:@"http"];
-//    [NSURLProtocol wk_unregisterScheme:@"https"];
-
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onImageClicked"];
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onPostMessageClicked"];
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onAvatarClicked"];
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onLinkClicked"];
-    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"onDebug"];
+    [_wkWebView.configuration.userContentController removeScriptMessageHandlerForName:@"onImageClicked"];
+    [_wkWebView.configuration.userContentController removeScriptMessageHandlerForName:@"onPostMessageClicked"];
+    [_wkWebView.configuration.userContentController removeScriptMessageHandlerForName:@"onAvatarClicked"];
+    [_wkWebView.configuration.userContentController removeScriptMessageHandlerForName:@"onLinkClicked"];
+    [_wkWebView.configuration.userContentController removeScriptMessageHandlerForName:@"onDebug"];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
@@ -270,9 +246,8 @@
         [self presentViewController:photosViewController animated:YES completion:nil];
 
     } else if ([message.name isEqualToString:@"onPostMessageClicked"]) {
-        NSLog(@"onPostMessageClicked %@", message.body);
-
         NSURL *url = [NSURL URLWithString:message.body];
+        NSLog(@"onPostMessageClicked %@", url);
 
         NSData *data = [message.body dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *query = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -280,7 +255,7 @@
         int postId = [[query valueForKey:@"postid"] intValue];
         int louCeng = [[query valueForKey:@"postlouceng"] intValue];
 
-        itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
+        _itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
 
             NSLog(@"LCActionSheet click index %ld", (long) buttonIndex);
 
@@ -292,16 +267,16 @@
 
                 TranslateData *bundle = [[TranslateData alloc] init];
 
-                [bundle putIntValue:currentShowThreadPage.forumId forKey:@"FORM_ID"];
+                [bundle putIntValue:_currentShowThreadPage.forumId forKey:@"FORM_ID"];
                 [bundle putIntValue:threadID forKey:@"THREAD_ID"];
                 [bundle putIntValue:postId forKey:@"POST_ID"];
-                NSString *token = currentShowThreadPage.securityToken;
+                NSString *token = _currentShowThreadPage.securityToken;
                 [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
-                [bundle putStringValue:currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
+                [bundle putStringValue:_currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
                 [bundle putStringValue:userName forKey:@"USER_NAME"];
                 [bundle putIntValue:1 forKey:@"IS_QUOTE_REPLY"];
 
-                [bundle putObjectValue:currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
+                [bundle putObjectValue:_currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
 
                 [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
 
@@ -319,9 +294,9 @@
             } else if (buttonIndex == 3) {
                 [self reportThreadPost:postId userName:userName];
             }
-        }                         otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
+        }                          otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
 
-        [itemActionSheet show];
+        [_itemActionSheet show];
 
     } else if ([message.name isEqualToString:@"onAvatarClicked"]) {
         NSLog(@"onAvatarClicked %@", message.body);
@@ -360,8 +335,8 @@
 
 - (void)showPreviousPageOrRefresh {
 
-    if (pid && ptid) {
-        [self.forumApi showThreadWithPTid:ptid pid:pid handler:^(BOOL isSuccess, id message) {
+    if (pid && _ptid) {
+        [self.forumApi showThreadWithPTid:_ptid pid:pid handler:^(BOOL isSuccess, id message) {
             if (!isSuccess) {
                 [self showFailedMessage:message];
                 return;
@@ -377,18 +352,15 @@
                     [self showFailedMessage:message];
                     return;
                 }
-
                 [self showMessage:message];
-
-
             }];
         } else {
-            if (currentShowThreadPage == nil) {
+            if (_currentShowThreadPage == nil) {
                 [self prePage:threadID page:1 withAnim:NO];
-            } else if (currentShowThreadPage.pageNumber.currentPageNumber == 1) {
+            } else if (_currentShowThreadPage.pageNumber.currentPageNumber == 1) {
                 [self prePage:threadID page:1 withAnim:NO];
             } else {
-                int page = currentShowThreadPage.pageNumber.currentPageNumber - 1;
+                int page = _currentShowThreadPage.pageNumber.currentPageNumber - 1;
                 if (page <= 1) {
                     page = 1;
                 }
@@ -401,7 +373,7 @@
 
 - (void)showMessage:(id)message {
     ViewThreadPage *threadPage = message;
-    currentShowThreadPage = threadPage;
+    _currentShowThreadPage = threadPage;
     threadID = threadPage.threadID;
 
     [self updatePageTitle];
@@ -425,14 +397,13 @@
 
     NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, lis, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
-
     // 缓存当前页面
-    pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
+    _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
     BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-    [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+    [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
-    [_webView.scrollView.mj_header endRefreshing];
+    [_wkWebView.scrollView.mj_header endRefreshing];
 
 
     CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
@@ -444,20 +415,19 @@
     [stretchAnimation setDelegate:self];
     [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
     [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+    [_wkWebView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
     CATransition *animation = [CATransition animation];
     [animation setType:kCATransitionPush];
     [animation setSubtype:kCATransitionFromBottom];
     [animation setDuration:0.5f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [[_webView layer] addAnimation:animation forKey:nil];
+    [[_wkWebView layer] addAnimation:animation forKey:nil];
 }
 
 - (void)showFailedMessage:(id)message {
-    [_webView.scrollView.mj_header endRefreshing];
+    [_wkWebView.scrollView.mj_header endRefreshing];
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:message preferredStyle:UIAlertControllerStyleAlert];
-
 
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -483,7 +453,7 @@
 
         if (threadPage.threadTitle == nil) {
 
-            [_webView.scrollView.mj_header endRefreshing];
+            [_wkWebView.scrollView.mj_header endRefreshing];
 
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:@"\n此帖包含乱码无法正确解析，使用浏览器打开？" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -509,7 +479,7 @@
             }];
             return;
         }
-        currentShowThreadPage = threadPage;
+        _currentShowThreadPage = threadPage;
 
 
         [self updatePageTitle];
@@ -541,12 +511,12 @@
         }
 
 
-        pageDic[@(currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
+        _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
 
         BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-        [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+        [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
-        [_webView.scrollView.mj_header endRefreshing];
+        [_wkWebView.scrollView.mj_header endRefreshing];
 
 
         if (anim) {
@@ -562,14 +532,14 @@
 
             [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
             //[_webView setAnchorPoint:CGPointMake(0.0, 1) forView:_webView];
-            [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+            [_wkWebView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
 
             CATransition *animation = [CATransition animation];
             [animation setType:kCATransitionPush];
             [animation setSubtype:kCATransitionFromBottom];
             [animation setDuration:0.5f];
             [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [[_webView layer] addAnimation:animation forKey:nil];
+            [[_wkWebView layer] addAnimation:animation forKey:nil];
         }
 
     }];
@@ -577,7 +547,7 @@
 
 - (void)showNextPageOrRefreshCurrentPage:(int)currentPage forThreadId:(int)threadId {
 
-    if (currentPage < currentShowThreadPage.pageNumber.totalPageNumber) {
+    if (currentPage < _currentShowThreadPage.pageNumber.totalPageNumber) {
         [self showThread:threadId page:currentPage + 1 withAnim:YES];
     } else {
         [self.forumApi showThreadWithId:threadId andPage:currentPage handler:^(BOOL isSuccess, id message) {
@@ -588,14 +558,14 @@
             }
 
             ViewThreadPage *threadPage = message;
-            if (currentShowThreadPage.postList.count < threadPage.postList.count) {
+            if (_currentShowThreadPage.postList.count < threadPage.postList.count) {
 
                 NSMutableArray *posts = threadPage.postList;
 
                 BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
                 id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-                for (NSInteger i = currentShowThreadPage.postList.count; i < posts.count; i++) {
+                for (NSInteger i = _currentShowThreadPage.postList.count; i < posts.count; i++) {
                     PostFloor *post = posts[(NSUInteger) i];
                     NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
                     NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
@@ -604,9 +574,9 @@
 
                 }
 
-                currentShowThreadPage = threadPage;
+                _currentShowThreadPage = threadPage;
             }
-            [_webView.scrollView.mj_footer endRefreshing];
+            [_wkWebView.scrollView.mj_footer endRefreshing];
         }];
     }
 }
@@ -614,7 +584,7 @@
 - (void)showThread:(int)threadId page:(int)page withAnim:(BOOL)anim {
 
 
-    NSString *cacheHtml = pageDic[@(page)];
+    NSString *cacheHtml = _pageDic[@(page)];
 
     [self.forumApi showThreadWithId:threadId andPage:page handler:^(BOOL isSuccess, ViewThreadPage *threadPage) {
 
@@ -626,7 +596,7 @@
             return;
         }
 
-        currentShowThreadPage = threadPage;
+        _currentShowThreadPage = threadPage;
 
         [self updatePageTitle];
 
@@ -640,14 +610,11 @@
         for (PostFloor *post in posts) {
 
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-
+                                                            floor, post.postUserInfo.userID, avatar,
+                                                            post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
             lis = [lis stringByAppendingString:postInfo];
-
-            //[self addPostByJSElement:post avatar:avatar louceng:louceng];
-
         }
 
         NSString *html = nil;
@@ -659,11 +626,11 @@
         }
 
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
-            pageDic[@(page)] = html;
+            _pageDic[@(page)] = html;
         }
 
         BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-        [_webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
+        [_wkWebView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
 
         if (anim) {
             CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
@@ -677,18 +644,17 @@
             [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
 
             [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            //[_webView setAnchorPoint:CGPointMake(0.0, 1) forView:_webView];
-            [_webView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
+            [_wkWebView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
 
             CATransition *animation = [CATransition animation];
             [animation setType:kCATransitionPush];
             [animation setSubtype:kCATransitionFromTop];
             [animation setDuration:0.5f];
             [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            [[_webView layer] addAnimation:animation forKey:nil];
+            [[_wkWebView layer] addAnimation:animation forKey:nil];
         }
 
-        [_webView.scrollView.mj_footer endRefreshing];
+        [_wkWebView.scrollView.mj_footer endRefreshing];
 
     }];
 }
@@ -702,12 +668,8 @@
     NSString *deleteR = [deleteT stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     NSString *deleteLine = [deleteR stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 
-
     NSString *js = [NSString stringWithFormat:pattern, post.postID, post.postID, post.postUserInfo.userName, louceng, deleteLine];
-
-//    [_webView stringByEvaluatingJavaScriptFromString:js];
-
-    [_webView evaluateJavaScript:js completionHandler:nil];
+    [_wkWebView evaluateJavaScript:js completionHandler:nil];
 }
 
 
@@ -744,54 +706,25 @@
     }];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (shouldScrollEnd) {
-        NSInteger height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] intValue];
-        NSString *javascript = [NSString stringWithFormat:@"window.scrollBy(0, %ld);", (long) height];
-        [webView stringByEvaluatingJavaScriptFromString:javascript];
-        shouldScrollEnd = NO;
-    }
-
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    //NSString *urlString = [[request URL] absoluteString];
-
-
-
-
-    if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
-
-
-        if ([self.forumApi openUrlByClient:self request:request]) {
-            return NO;
-        } else {
-            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
-            return NO;
-        }
-    }
-    return YES;
-}
-
 - (void)showChangePageActionSheet:(UIBarButtonItem *)sender {
 
-    if (currentShowThreadPage.pageNumber.totalPageNumber <= 1) {
+    if (_currentShowThreadPage.pageNumber.totalPageNumber <= 1) {
         return;
     }
 
     NSMutableArray<NSString *> *pages = [NSMutableArray array];
-    for (int i = 0; i < currentShowThreadPage.pageNumber.totalPageNumber; i++) {
+    for (int i = 0; i < _currentShowThreadPage.pageNumber.totalPageNumber; i++) {
         NSString *page = [NSString stringWithFormat:@"第 %d 页", i + 1];
         [pages addObject:page];
     }
 
-
-    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择页面" rows:pages initialSelection:currentShowThreadPage.pageNumber.currentPageNumber - 1 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择页面" rows:pages
+                                                                    initialSelection:_currentShowThreadPage.pageNumber.currentPageNumber - 1 doneBlock:
+                    ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
 
         int selectPage = (int) selectedIndex + 1;
 
-        if (selectPage != currentShowThreadPage.pageNumber.currentPageNumber) {
+        if (selectPage != _currentShowThreadPage.pageNumber.currentPageNumber) {
 
             [ProgressDialog showStatus:@"正在切换"];
             [self showThread:threadID page:selectPage withAnim:YES];
@@ -830,7 +763,7 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-    itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
+    _itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
             // 复制贴链接
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -847,9 +780,9 @@
             [self reportThreadPost:nil userName:nil];
         }
 
-    }                         otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
+    } otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
 
-    [itemActionSheet show];
+    [_itemActionSheet show];
 }
 
 - (IBAction)reply:(id)sender {
@@ -858,14 +791,14 @@
     UINavigationController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"SeniorReplySomeOne"];
 
     TranslateData *bundle = [[TranslateData alloc] init];
-    [bundle putIntValue:currentShowThreadPage.forumId forKey:@"FORM_ID"];
+    [bundle putIntValue:_currentShowThreadPage.forumId forKey:@"FORM_ID"];
     [bundle putIntValue:threadID forKey:@"THREAD_ID"];
     [bundle putIntValue:-1 forKey:@"POST_ID"];
 
-    NSString *token = currentShowThreadPage.securityToken;
+    NSString *token = _currentShowThreadPage.securityToken;
     [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
-    [bundle putStringValue:threadAuthorName forKey:@"POST_USER"];
-    [bundle putObjectValue:currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
+    [bundle putStringValue:_threadAuthorName forKey:@"POST_USER"];
+    [bundle putObjectValue:_currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
 
     [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
 
@@ -873,16 +806,16 @@
 }
 
 - (void)killScroll {
-    CGPoint offset = _webView.scrollView.contentOffset;
+    CGPoint offset = _wkWebView.scrollView.contentOffset;
     offset.y -= 1.0;
-    [_webView.scrollView setContentOffset:offset animated:NO];
+    [_wkWebView.scrollView setContentOffset:offset animated:NO];
 }
 
 - (IBAction)firstPage:(id)sender {
     [self killScroll];
 
-    if (1 == currentShowThreadPage.pageNumber.currentPageNumber) {
-        [_webView.scrollView.mj_header beginRefreshing];
+    if (1 == _currentShowThreadPage.pageNumber.currentPageNumber) {
+        [_wkWebView.scrollView.mj_header beginRefreshing];
         return;
     }
 
@@ -893,24 +826,24 @@
 - (IBAction)lastPage:(id)sender {
     [self killScroll];
 
-    if (currentShowThreadPage.pageNumber.totalPageNumber == currentShowThreadPage.pageNumber.currentPageNumber) {
-        [_webView.scrollView.mj_footer beginRefreshing];
+    if (_currentShowThreadPage.pageNumber.totalPageNumber == _currentShowThreadPage.pageNumber.currentPageNumber) {
+        [_wkWebView.scrollView.mj_footer beginRefreshing];
         return;
     }
     [ProgressDialog showStatus:@"正在切换"];
-    [self showThread:threadID page:currentShowThreadPage.pageNumber.totalPageNumber withAnim:YES];
+    [self showThread:threadID page:_currentShowThreadPage.pageNumber.totalPageNumber withAnim:YES];
 }
 
 - (IBAction)previousPage:(id)sender {
     [self killScroll];
 
-    [_webView.scrollView.mj_header beginRefreshing];
+    [_wkWebView.scrollView.mj_header beginRefreshing];
 }
 
 - (IBAction)nextPage:(id)sender {
     [self killScroll];
 
-    [_webView.scrollView.mj_footer beginRefreshing];
+    [_wkWebView.scrollView.mj_footer beginRefreshing];
 }
 
 + (NYTPhotoViewerArrayDataSource *)newTimesBuildingDataSource:(NSArray *)images {
