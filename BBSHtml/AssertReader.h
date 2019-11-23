@@ -32,4 +32,6 @@
 
 + (UIImage *)no_avatar;
 
++ (UIImage *)attachment_flag;
+
 @end

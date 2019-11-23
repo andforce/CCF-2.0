@@ -53,4 +53,8 @@
 + (UIImage *)no_avatar {
     return [UIImage imageNamed:@"no_avatar.jpg"];
 }
+
++ (UIImage *)attachment_flag {
+    return [UIImage imageNamed:@"attachment_flag.png"];
+}
 @end
