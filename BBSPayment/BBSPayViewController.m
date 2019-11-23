@@ -72,10 +72,6 @@
 }
 
 - (BOOL)canBack {
-//    UIViewController * c = self.navigationController.presentingViewController;
-//    return c != nil;
-//    return self.navigationController.topViewController == self;
-
     return self.navigationController.viewControllers.count > 1;
 }
 
@@ -97,11 +93,6 @@
     } else {
         self.navigationItem.leftBarButtonItem.image = [UIImage imageNamed:@"bbs_close_18pt"];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Navigation
