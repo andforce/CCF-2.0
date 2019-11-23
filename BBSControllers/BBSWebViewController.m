@@ -105,14 +105,10 @@
         id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
         for (PostFloor *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
             NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-
+                                                            floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
             lis = [lis stringByAppendingString:postInfo];
-
-            //[self addPostByJSElement:post avatar:avatar louceng:louceng];
-
         }
 
         NSString *html = nil;
@@ -262,7 +258,7 @@
         NSDictionary *query = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         NSString *userName = [[query valueForKey:@"postuser"] replaceUnicode];
         int postId = [[query valueForKey:@"postid"] intValue];
-        int louCeng = [[query valueForKey:@"postlouceng"] intValue];
+        int floor = [[query valueForKey:@"postlouceng"] intValue];
 
         _itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
 
@@ -296,7 +292,7 @@
                 BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
                 id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-                NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:louCeng];
+                NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:floor];
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = postUrl;
                 [ProgressDialog showSuccess:@"复制成功"];
@@ -398,9 +394,9 @@
     for (PostFloor *post in posts) {
 
         NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-        NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+        NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
         NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                        louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+                                                        floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
         lis = [lis stringByAppendingString:postInfo];
     }
 
@@ -503,8 +499,9 @@
 
         for (PostFloor *post in posts) {
             NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName, louceng, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
+            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName, floor,
+                    post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
             lis = [lis stringByAppendingString:postInfo];
         }
 
@@ -577,9 +574,9 @@
                 for (NSInteger i = _currentShowThreadPage.postList.count; i < posts.count; i++) {
                     PostFloor *post = posts[(NSUInteger) i];
                     NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-                    NSString *louceng = [post.postLouCeng stringWithRegular:@"\\d+"];
+                    NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
 
-                    [self addPostByJSElement:post avatar:avatar louceng:louceng];
+                    [self addPostByJSElement:post avatar:avatar louceng:floor];
 
                 }
 
@@ -668,7 +665,7 @@
     }];
 }
 
-- (void)addPostByJSElement:(PostFloor *)post avatar:(NSString *)avatar louceng:(NSString *)louceng {
+- (void)addPostByJSElement:(PostFloor *)post avatar:(NSString *)avatar louceng:(NSString *)floor {
     NSString *pattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
     NSString *contentPattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post_content" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
     NSString *content = [NSString stringWithFormat:contentPattern, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
@@ -677,7 +674,7 @@
     NSString *deleteR = [deleteT stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     NSString *deleteLine = [deleteR stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 
-    NSString *js = [NSString stringWithFormat:pattern, post.postID, post.postID, post.postUserInfo.userName, louceng, deleteLine];
+    NSString *js = [NSString stringWithFormat:pattern, post.postID, post.postID, post.postUserInfo.userName, floor, deleteLine];
     [_wkWebView evaluateJavaScript:js completionHandler:nil];
 }
 

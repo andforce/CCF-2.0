@@ -98,9 +98,9 @@
         if ([nodeHtml hasPrefix:@"<div id=\"post_"]) {
             PostFloor *post = [[PostFloor alloc] init];
             NSString *postId = [[node attribute:@"id"] componentsSeparatedByString:@"_"][1];
-            NSString *loucengQuery = [NSString stringWithFormat:@"//*[@id=\"postnum%@\"]/em", postId];
-            IGXMLNode *postLouCengNode = [document queryNodeWithXPath:loucengQuery];
-            NSString *postLouCeng = [[postLouCengNode text] trim];
+            NSString *floorQuery = [NSString stringWithFormat:@"//*[@id=\"postnum%@\"]/em", postId];
+            IGXMLNode *postFloorNode = [document queryNodeWithXPath:floorQuery];
+            NSString *postFloor = [[postFloorNode text] trim];
             // 发表时间
             NSString *postTimeQuery = [NSString stringWithFormat:@"//*[@id=\"authorposton%@\"]", postId];
             NSString *postTime = [[document queryNodeWithXPath:postTimeQuery] text];//[[[document queryNodeWithXPath:postTimeQuery] text] stringWithRegular:@"\\d+-\\d+\\d+ \\d+:\\d+"];
@@ -142,7 +142,7 @@
 
             post.postContent = postContent;
             post.postID = postId;
-            post.postLouCeng = postLouCeng;
+            post.postLouCeng = postFloor;
             post.postTime = postTime;
             post.postUserInfo = user;
 

@@ -670,14 +670,14 @@
         post.postTime = [CommonUtils timeForShort:time withFormat:@"MM-dd-yyyy, HH:mm"];
         //post.postTime = time;
 
-        // post Louceng
-        IGXMLNode *loucengNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[1]/td[2]"].firstObject;
-        if (loucengNode == nil) {
+        // post Floor
+        IGXMLNode *floorNode = [postDocument queryWithXPath:@"/html/body/div/div/div/div/table/tr[1]/td[2]"].firstObject;
+        if (floorNode == nil) {
             // 很蛋疼，DRL最后一楼，xPath跟前面的楼层不一样
-            loucengNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[1]/td[2]"].firstObject;
+            floorNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[1]/td[2]"].firstObject;
         }
-        NSString *louceng = [[loucengNode text] trim];
-        post.postLouCeng = louceng;
+        NSString *floor = [[floorNode text] trim];
+        post.postLouCeng = floor;
 
 
         // post Content

@@ -693,10 +693,10 @@
         }
 
 
-        NSRange louCengRange = [time.text rangeOfString:@"#\\d+" options:NSRegularExpressionSearch];
+        NSRange floorRange = [time.text rangeOfString:@"#\\d+" options:NSRegularExpressionSearch];
 
-        if (louCengRange.location != NSNotFound) {
-            post.postLouCeng = [time.text substringWithRange:louCengRange];
+        if (floorRange.location != NSNotFound) {
+            post.postLouCeng = [time.text substringWithRange:floorRange];
         }
 
 

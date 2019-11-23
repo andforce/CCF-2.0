@@ -701,11 +701,11 @@
         post.postID = pid;
 
         //2. 楼层
-        NSString *louceng = [postNode.html stringWithRegular:@"(?<=title=\"复制此楼地址\">)\\d+"];
-        if (!louceng) {
-            louceng = @"楼主";
+        NSString *floor = [postNode.html stringWithRegular:@"(?<=title=\"复制此楼地址\">)\\d+"];
+        if (!floor) {
+            floor = @"楼主";
         }
-        post.postLouCeng = louceng;
+        post.postLouCeng = floor;
 
         IGHTMLDocument *contentDoc = [[IGHTMLDocument alloc] initWithHTMLString:postNode.html error:nil];
         //3. time

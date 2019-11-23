@@ -71,8 +71,8 @@
         post.postID = pid;
 
         //2. 楼层
-        NSString *louceng = [postNodeHtml stringWithRegular:@"(?<=<em>)\\d+(?=</em>楼</a>)"];
-        post.postLouCeng = louceng;
+        NSString *floor = [postNodeHtml stringWithRegular:@"(?<=<em>)\\d+(?=</em>楼</a>)"];
+        post.postLouCeng = floor;
 
         //3. time
         IGXMLNode *timeNode = [postNode queryNodeWithXPath:[NSString stringWithFormat:@"//*[@id='authorposton%@']", pid]];
