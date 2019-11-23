@@ -40,7 +40,6 @@
 		3A2C3F171DDFBAB200576151 /* append_post_content.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F161DDFBAB200576151 /* append_post_content.html */; };
 		3A2C3F191DDFBABD00576151 /* append_post.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F181DDFBABD00576151 /* append_post.js */; };
 		3A2C3F1D1DDFBAD000576151 /* post_message.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F1A1DDFBAD000576151 /* post_message.html */; };
-		3A2C3F1E1DDFBAD000576151 /* post_view_notitle.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F1B1DDFBAD000576151 /* post_view_notitle.html */; };
 		3A2C3F1F1DDFBAD000576151 /* post_view.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F1C1DDFBAD000576151 /* post_view.html */; };
 		3A2C3F211DDFBADA00576151 /* private_message.html in Resources */ = {isa = PBXBuildFile; fileRef = 3A2C3F201DDFBADA00576151 /* private_message.html */; };
 		3A2C3F321DDFBCE800576151 /* BBSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C3F2D1DDFBCE800576151 /* BBSDataManager.m */; };
@@ -249,7 +248,6 @@
 		3A2C3F161DDFBAB200576151 /* append_post_content.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = append_post_content.html; sourceTree = "<group>"; };
 		3A2C3F181DDFBABD00576151 /* append_post.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = append_post.js; sourceTree = "<group>"; };
 		3A2C3F1A1DDFBAD000576151 /* post_message.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = post_message.html; sourceTree = "<group>"; };
-		3A2C3F1B1DDFBAD000576151 /* post_view_notitle.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = post_view_notitle.html; sourceTree = "<group>"; };
 		3A2C3F1C1DDFBAD000576151 /* post_view.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = post_view.html; sourceTree = "<group>"; };
 		3A2C3F201DDFBADA00576151 /* private_message.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = private_message.html; sourceTree = "<group>"; };
 		3A2C3F2C1DDFBCE800576151 /* BBSDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSDataManager.h; sourceTree = "<group>"; };
@@ -877,7 +875,6 @@
 				3A48EF7F214D3BFD0025CE2D /* handle_click.js */,
 				3A2C3F201DDFBADA00576151 /* private_message.html */,
 				3A2C3F1A1DDFBAD000576151 /* post_message.html */,
-				3A2C3F1B1DDFBAD000576151 /* post_view_notitle.html */,
 				3A2C3F1C1DDFBAD000576151 /* post_view.html */,
 				3A2C3F181DDFBABD00576151 /* append_post.js */,
 				3A2C3F161DDFBAB200576151 /* append_post_content.html */,
@@ -1236,7 +1233,6 @@
 				3A2C3F0C1DDFB88400576151 /* Assets.xcassets in Resources */,
 				3A48EF80214D3BFD0025CE2D /* fastclick_lib.js in Resources */,
 				3A2C3FF21DDFE13500576151 /* Main.storyboard in Resources */,
-				3A2C3F1E1DDFBAD000576151 /* post_view_notitle.html in Resources */,
 				3A2C3F171DDFBAB200576151 /* append_post_content.html in Resources */,
 				3A2C3F1D1DDFBAD000576151 /* post_message.html in Resources */,
 				3A2C3F191DDFBABD00576151 /* append_post.js in Resources */,

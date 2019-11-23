@@ -61,22 +61,9 @@
 
         NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
-        NSString *postFloors = @"";
-
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-
-        for (PostFloor *post in posts) {
-            NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-            postFloors = [postFloors stringByAppendingString:postInfo];
-        }
-
+        NSString *postFloors = [self postFloors:posts];
         BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
-        NSString *html = firstPage ? [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK] :
-                [NSString stringWithFormat:THREAD_PAGE_NOTITLE, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
         NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
 
@@ -98,25 +85,9 @@
 
         NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
-        NSString *postFloors = @"";
-
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-        for (PostFloor *post in posts) {
-            NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-            postFloors = [postFloors stringByAppendingString:postInfo];
-        }
-
-        NSString *html = nil;
-
-        if (threadPage.pageNumber.currentPageNumber <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        }
+        NSString *postFloors = [self postFloors:posts];
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
         NSString *cacheHtml = _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)];
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
@@ -139,6 +110,31 @@
         _threadAuthorName = [bundle getStringValue:@"threadAuthorName"];
 
     }
+}
+
+- (NSString *)postFloors:(NSMutableArray<PostFloor *> *)posts {
+    NSString *postFloors = @"";
+
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+
+    for (PostFloor *post in posts) {
+        NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
+        NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
+        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
+                                                        floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
+        postFloors = [postFloors stringByAppendingString:postInfo];
+    }
+    return postFloors;
+}
+
+- (NSString *)contentHtml:(BOOL)firstPage title:(NSString *)title postFloors:(NSString *)posts {
+    NSString *titleHtml = @"        <li class=\"post-title\">\n"
+                          "            <div class=\"title\">%@</div>\n"
+                          "        </li>";
+    NSString *titleFormat = firstPage ? [NSString stringWithFormat:titleHtml, title] : @"";
+    NSString *html = [NSString stringWithFormat:THREAD_PAGE, titleFormat, posts, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+    return html;
 }
 
 - (void)updatePageTitle {
@@ -385,18 +381,7 @@
     NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
 
-    NSString *postFloors = @"";
-
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-
-    for (PostFloor *post in posts) {
-        NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-        NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                        floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-        postFloors = [postFloors stringByAppendingString:postInfo];
-    }
+    NSString *postFloors = [self postFloors:posts];
 
     NSString *html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
 
@@ -489,29 +474,9 @@
 
         NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
-
-        NSString *postFloors = @"";
-
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-
-        for (PostFloor *post in posts) {
-            NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName, floor,
-                    post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-            postFloors = [postFloors stringByAppendingString:postInfo];
-        }
-
-        NSString *html = nil;
-
-        if (page <= 1) {
-            NSString *lib = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fastclick_lib" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-            [lib length];
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        }
+        NSString *postFloors = [self postFloors:posts];
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
 
         _pageDic[@(_currentShowThreadPage.pageNumber.currentPageNumber)] = threadPage.originalHtml;
@@ -605,27 +570,9 @@
 
         NSMutableArray<PostFloor *> *posts = threadPage.postList;
 
-        NSString *postFloors = @"";
-
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-
-        for (PostFloor *post in posts) {
-            NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
-            NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-            NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
-                                                            floor, post.postUserInfo.userID, avatar,
-                                                            post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
-            postFloors = [postFloors stringByAppendingString:postInfo];
-        }
-
-        NSString *html = nil;
-
-        if (page <= 1) {
-            html = [NSString stringWithFormat:THREAD_PAGE, threadPage.threadTitle, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        } else {
-            html = [NSString stringWithFormat:THREAD_PAGE_NOTITLE, postFloors, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
-        }
+        NSString *postFloors = [self postFloors:posts];
+        BOOL firstPage = threadPage.pageNumber.currentPageNumber <= 1;
+        NSString *html = [self contentHtml:firstPage title:threadPage.threadTitle postFloors:postFloors];
 
         if (![cacheHtml isEqualToString:threadPage.originalHtml]) {
             _pageDic[@(page)] = html;
