@@ -3,7 +3,7 @@
 //  Forum
 //
 //  Created by 迪远 王 on 2019/11/23.
-//  Copyright © 2019 andforce. All rights reserved.
+//  Copyright © 2019 None. All rights reserved.
 //
 
 #import "AssertReader.h"

@@ -1,6 +1,6 @@
 /**
  * 脚本来源：
- * https://github.com/andforce/fastclick/blob/master/lib/fastclick.js
+ * https://github.com/None/fastclick/blob/master/lib/fastclick.js
  */
 
 /**

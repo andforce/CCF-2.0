@@ -1,6 +1,6 @@
 //
 // Created by Diyuan Wang on 2019/11/12
-// Copyright (c) 2017 andforce. All rights reserved.
+// Copyright (c) 2017 None. All rights reserved.
 //
 
 #import "ChiphellHtmlParser.h"
@@ -46,9 +46,7 @@
     NSString *fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
     NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" (([^<>=\"]*)=\"([^<>=]*)\" )+/>"];
-    //"<img id=\"aimg_\\d+\" aid=\"\\d+\" src=\"\\s*(.*?)\" zoomfile=\"\\s*(.*?)\" file=\"\\s*(.*?)\" class=\"zoom\" onclick=\"\\s*(.*?)\" width=\"\\d+\"( id=\"aimg_\\d+\")( alt=\"\\s*(.*?)\")?( title=\"\\s*(.*?)\")?( w=\"\\d+\")?( inpost=\"1\")?( onmouseover=\"\\s*(.*?)\")?( initialized=\"true\")?( />)?"];
     for (NSString *img in orgImages) {
-
         IGXMLDocument *igxmlDocument = [[IGXMLDocument alloc] initWithXMLString:img error:nil];
         NSString *file = [igxmlDocument attribute:@"file"];
         NSString *newImage = [NSString stringWithFormat:newImagePattern, file];
@@ -77,7 +75,6 @@
     // origin html
     NSString *originHtml = [document queryNodeWithXPath:@"//*[@id=\"postlist\"]"].html;
 
-
     // pageNumber
     PageNumber *pageNumber = [self parserPageNumber:fixImagesHtml];
 
@@ -87,7 +84,6 @@
     showThreadPage.originalHtml = originHtml;
 
     showThreadPage.pageNumber = pageNumber;
-
 
     // 回帖列表
     NSMutableArray<PostFloor *> *postList = [NSMutableArray array];
@@ -103,9 +99,8 @@
             NSString *postFloor = [[postFloorNode text] trim];
             // 发表时间
             NSString *postTimeQuery = [NSString stringWithFormat:@"//*[@id=\"authorposton%@\"]", postId];
-            NSString *postTime = [[document queryNodeWithXPath:postTimeQuery] text];//[[[document queryNodeWithXPath:postTimeQuery] text] stringWithRegular:@"\\d+-\\d+\\d+ \\d+:\\d+"];
+            NSString *postTime = [[document queryNodeWithXPath:postTimeQuery] text];
             // 发表内容
-
             NSString *contentQuery = [NSString stringWithFormat:@"//*[@id=\"pid%@\"]/tr[1]/td[2]/div[2]/div/div[1]", postId];
             if ([nodeHtml containsString:@"<div class=\"typeoption\">"]) {
                 // 说明这是玩家售卖区
@@ -115,8 +110,6 @@
             // User Info
             UserCount *user = [[UserCount alloc] init];
             // UserId
-            //NSString * userQuery = [NSString stringWithFormat:@"//*[@id=\"favatar%@\"]", postId];
-            //IGXMLNode * userNode = [document queryNodeWithXPath:userQuery];
             NSString *idNameQuery = [NSString stringWithFormat:@"//*[@id=\"favatar%@\"]/div[1]/div/a", postId];
             IGXMLNode *idNameNode = [document queryNodeWithXPath:idNameQuery];
             NSString *userId = [[idNameNode attribute:@"href"] stringWithRegular:@"\\d+"];
@@ -602,10 +595,17 @@
         [needInsert addObjectsFromArray:[self flatForm:forum]];
     }
 
-    if ([self isSpecial]) {
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    BOOL special = [loginUser.userName isEqualToString:@"马小甲"];
+
+    NSArray *blackList = @[@"交易区-剁手党和败家党的生产地", @"Chiphell周边产品官方定制区"];
+
+    if (special) {
         NSMutableArray<Forum *> *realNeedInsert = [NSMutableArray array];
         for (Forum *forum in needInsert) {
-            NSArray *blackList = [self blackList];
             if ([blackList containsObject:forum.forumName]) {
                 continue;
             } else {
@@ -803,7 +803,6 @@
 }
 
 - (NSString *)parseSecurityToken:(NSString *)html {
-    //<input type="hidden" name="formhash" value="fc436b99" />
     NSString *forumHashHtml = [html stringWithRegular:@"<input type=\"hidden\" name=\"formhash\" value=\"\\w+\" />" andChild:@"value=\"\\w+\""];
     NSString *forumHash = [[forumHashHtml componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"\"" withString:@""];
     return forumHash;
@@ -819,23 +818,8 @@
 }
 
 - (NSString *)parsePostHash:(NSString *)html {
-    //<input type="hidden" name="formhash" value="142b2f4e" />
     NSString *forumHash = [html stringWithRegular:@"(?<=<input type=\"hidden\" name=\"formhash\" value=\")\\w+(?=\" />)"];
     return forumHash;
-}
-
-static BOOL SPECIAL = YES;
-
-- (BOOL)isSpecial {
-    if (loginUser == nil) {
-        NSString *url = localApi.currentForumHost;
-        loginUser = [localApi getLoginUser:url];
-    }
-    return SPECIAL && [loginUser.userName isEqualToString:@"马小甲"];
-}
-
-- (NSArray *)blackList {
-    return @[@"交易区-剁手党和败家党的生产地", @"Chiphell周边产品官方定制区"];
 }
 
 @end

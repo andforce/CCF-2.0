@@ -1,6 +1,6 @@
 //
 // Created by Diyuan Wang on 2019/11/12
-// Copyright (c) 2016 andforce. All rights reserved.
+// Copyright (c) 2016 None. All rights reserved.
 //
 
 #import "DreamLandHtmlParser.h"
@@ -342,8 +342,16 @@
             searchThread.lastPostTime = [postTime trim];
             searchThread.fromFormName = postBelongForm;
 
-            if ([self isSpecial]) {
-                NSArray *blackList = [self blackList];
+
+            if (loginUser == nil) {
+                NSString *url = localApi.currentForumHost;
+                loginUser = [localApi getLoginUser:url];
+            }
+            BOOL special = [loginUser.userName isEqualToString:@"马小甲"];
+
+            NSArray *blackList = @[@"〖软件会员区〗", @"软件会员区精华", @"〖影视会员区〗", @"DVDR 介绍区", @"连续剧介绍区", @"动漫介绍区", @"影视讨论精华区", @"高清影视", @"〖交易信息〗", @"团购及商业性交易", @"优惠快讯版", @"身份备案", @"Archive", @"争议协调", @"DRL-X 讨论", @"0day warez介绍", @"〖杰出会员评选〗", @"〖羊毛〗", @"〖补档交流区〗", @"Archive", @"〖FTP资源〗", @"DRL-X", @"【论坛工作区】"];
+
+            if (special) {
                 if ([blackList containsObject:postBelongForm]) {
                     continue;
                 }
@@ -500,10 +508,17 @@
         [needInsert addObject:forum];
     }
 
-    if ([self isSpecial]) {
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    BOOL special = [loginUser.userName isEqualToString:@"马小甲"];
+
+    NSArray *blackList = @[@"〖软件会员区〗", @"软件会员区精华", @"〖影视会员区〗", @"DVDR 介绍区", @"连续剧介绍区", @"动漫介绍区", @"影视讨论精华区", @"高清影视", @"〖交易信息〗", @"团购及商业性交易", @"优惠快讯版", @"身份备案", @"Archive", @"争议协调", @"DRL-X 讨论", @"0day warez介绍", @"〖杰出会员评选〗", @"〖羊毛〗", @"〖补档交流区〗", @"Archive", @"〖FTP资源〗", @"DRL-X", @"【论坛工作区】"];
+
+    if (special) {
         NSMutableArray<Forum *> *realMeedInsert = [NSMutableArray array];
         for (Forum *forum in needInsert) {
-            NSArray *blackList = [self blackList];
             if ([blackList containsObject:forum.forumName]) {
                 continue;
             } else {
@@ -1007,18 +1022,6 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
-}
-
-- (BOOL)isSpecial {
-    if (loginUser == nil) {
-        NSString *url = localApi.currentForumHost;
-        loginUser = [localApi getLoginUser:url];
-    }
-    return [loginUser.userName isEqualToString:@"马小甲"];
-}
-
-- (NSArray *)blackList {
-    return @[@"〖软件会员区〗", @"软件会员区精华", @"〖影视会员区〗", @"DVDR 介绍区", @"连续剧介绍区", @"动漫介绍区", @"影视讨论精华区", @"高清影视", @"〖交易信息〗", @"团购及商业性交易", @"优惠快讯版", @"身份备案", @"Archive", @"争议协调", @"DRL-X 讨论", @"0day warez介绍", @"〖杰出会员评选〗", @"〖羊毛〗", @"〖补档交流区〗", @"Archive", @"〖FTP资源〗", @"DRL-X", @"【论坛工作区】"];
 }
 
 @end

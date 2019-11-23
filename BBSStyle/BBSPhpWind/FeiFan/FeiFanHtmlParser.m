@@ -468,8 +468,15 @@
         NSString *forumName = fourumNmaeNode.text.trim;
         thread.fromFormName = forumName;
 
-        if ([self isSpecial]) {
-            NSArray *blackList = [self blackList];
+        if (loginUser == nil) {
+            NSString *url = localApi.currentForumHost;
+            loginUser = [localApi getLoginUser:url];
+        }
+        BOOL special = [loginUser.userName isEqualToString:@"pobaby"];
+
+        NSArray *blackList = @[@"口- 非凡AD区", @"电影资源区", @"口- 虚拟交易", @"剧集资源区", @"口- 谈股论金", @"≮交易交流区≯", @"≮体坛竞猜≯", @"口- 实物交易", @"口- 交易事务", @"口- 苹果专区", @"╃资源专区=-", @"╃交易理财=-", @"娱乐资源区", @"综艺纪录片资源区", @"游戏动漫资源区"];
+
+        if (special) {
             if ([blackList containsObject:forumName]) {
                 continue;
             }
@@ -564,6 +571,14 @@
 
     NSMutableArray<Forum *> *forums = [NSMutableArray array];
 
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    BOOL special = [loginUser.userName isEqualToString:@"pobaby"];
+
+    NSArray *blackList = @[@"口- 非凡AD区", @"电影资源区", @"口- 虚拟交易", @"剧集资源区", @"口- 谈股论金", @"≮交易交流区≯", @"≮体坛竞猜≯", @"口- 实物交易", @"口- 交易事务", @"口- 苹果专区", @"╃资源专区=-", @"╃交易理财=-", @"娱乐资源区", @"综艺纪录片资源区", @"游戏动漫资源区"];
+
     int replaceId = 10000;
     for (IGXMLNode *forumP in topNode.children) {
         Forum *parent = [[Forum alloc] init];
@@ -573,8 +588,7 @@
 
         IGXMLNode *nameTitleNode = [[[forumP childAt:0] childAt:0] childAt:0];
         NSString *name = [[nameTitleNode childAt:nameTitleNode.childrenCount - 1] childAt:0].text;
-        if ([self isSpecial]) {
-            NSArray *blackList = [self blackList];
+        if (special) {
             if ([blackList containsObject:name]) {
                 continue;
             }
@@ -597,8 +611,7 @@
 
                 NSString *forumName = tileNode.text.trim;
 
-                if ([self isSpecial]) {
-                    NSArray *blackList = [self blackList];
+                if (special) {
                     if ([blackList containsObject:forumName]) {
                         continue;
                     }
@@ -837,18 +850,6 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
-}
-
-- (BOOL)isSpecial {
-    if (loginUser == nil) {
-        NSString *url = localApi.currentForumHost;
-        loginUser = [localApi getLoginUser:url];
-    }
-    return [loginUser.userName isEqualToString:@"pobaby"];
-}
-
-- (NSArray *)blackList {
-    return @[@"口- 非凡AD区", @"电影资源区", @"口- 虚拟交易", @"剧集资源区", @"口- 谈股论金", @"≮交易交流区≯", @"≮体坛竞猜≯", @"口- 实物交易", @"口- 交易事务", @"口- 苹果专区", @"╃资源专区=-", @"╃交易理财=-", @"娱乐资源区", @"综艺纪录片资源区", @"游戏动漫资源区"];
 }
 
 @end

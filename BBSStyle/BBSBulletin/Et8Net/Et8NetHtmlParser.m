@@ -1,6 +1,6 @@
 //
 // Created by Diyuan Wang on 2019/11/12
-// Copyright (c) 2016 andforce. All rights reserved.
+// Copyright (c) 2016 None. All rights reserved.
 //
 
 #import "Et8NetHtmlParser.h"
@@ -346,9 +346,17 @@
             searchThread.lastPostTime = [CommonUtils timeForShort:[postTime trim] withFormat:@"yyyy-MM-dd HH:mm:ss"];
             searchThread.fromFormName = postBelongForm;
 
+            if (loginUser == nil) {
+                NSString *url = localApi.currentForumHost;
+                loginUser = [localApi getLoginUser:url];
+            }
+            BOOL special = [loginUser.userName isEqualToString:@"马小甲"];
 
-            if ([self isSpecial]) {
-                NSArray *blackList = [self blackList];
+            NSArray *blackList = @[@"『影视，影评』", @"『影视资源版』", @"预览归档", @"『匿名版』", @"『精品笑话』", @"精典笑话", @"『金融财经』", @"『商品交易版』", @"【充值卡网络服务类】", @"『论坛团购』", @"『 二手闲置 』", @"归档区", @"【交易区版务】",
+                    @"『TorrentCCF版务』", @"『精品音乐』", @"『放心情-热会』", @"交易", @"『 网购指南 』", @"『游戏』", @"『游戏下载』", @"MMORPG游戏分区", @"WebGame游戏分区"];
+
+
+            if (special) {
                 if ([blackList containsObject:postBelongForm]) {
                     continue;
                 }
@@ -496,10 +504,18 @@
         [tmp addObjectsFromArray:[self flatForm:forum]];
     }
 
-    if ([self isSpecial]) {
+    if (loginUser == nil) {
+        NSString *url = localApi.currentForumHost;
+        loginUser = [localApi getLoginUser:url];
+    }
+    BOOL special = [loginUser.userName isEqualToString:@"马小甲"];
+
+    NSArray *blackList = @[@"『影视，影评』", @"『影视资源版』", @"预览归档", @"『匿名版』", @"『精品笑话』", @"精典笑话", @"『金融财经』", @"『商品交易版』", @"【充值卡网络服务类】", @"『论坛团购』", @"『 二手闲置 』", @"归档区", @"【交易区版务】",
+            @"『TorrentCCF版务』", @"『精品音乐』", @"『放心情-热会』", @"交易", @"『 网购指南 』", @"『游戏』", @"『游戏下载』", @"MMORPG游戏分区", @"WebGame游戏分区"];
+
+    if (special) {
         NSMutableArray<Forum *> *needInsert = [NSMutableArray array];
         for (Forum *forum in tmp) {
-            NSArray *blackList = [self blackList];
             if ([blackList containsObject:forum.forumName]) {
                 continue;
             } else {
@@ -669,10 +685,6 @@
         if (attImage) {
 
             NSString *attImageHtml = [attImage html];
-
-            //<a href="attachment.php?attachmentid=725161&amp;stc=1" target="_blank">
-            //<img class="attach" src="attachment.php?attachmentid=725161&amp;stc=1&amp;d=1261896941" onload="if(this.width>screen.width*0.7) {this.width=screen.width*0.7;}" border="0" alt="">
-            //</a>
 
             // 上传的图片，外面包了一层，影响点击事件，
             // 因此要替换成<img src="attachment.php?attachmentid=725161&amp;stc=1" /> 这种形式
@@ -959,22 +971,6 @@
         [resultArray addObjectsFromArray:[self flatForm:childForm]];
     }
     return resultArray;
-}
-
-- (BOOL)isSpecial {
-    if (loginUser == nil) {
-        NSString *url = localApi.currentForumHost;
-        loginUser = [localApi getLoginUser:url];
-    }
-    return [loginUser.userName isEqualToString:@"马小甲"];
-}
-
-- (NSArray *)blackList {
-    if (YES){
-        return @[];
-    }
-    return @[@"『影视，影评』",@"『影视资源版』", @"预览归档", @"『匿名版』", @"『精品笑话』", @"精典笑话", @"『金融财经』", @"『商品交易版』", @"【充值卡网络服务类】", @"『论坛团购』", @"『 二手闲置 』", @"归档区", @"【交易区版务】",
-            @"『TorrentCCF版务』", @"『精品音乐』", @"『放心情-热会』", @"交易", @"『 网购指南 』", @"『游戏』", @"『游戏下载』", @"MMORPG游戏分区", @"WebGame游戏分区"];
 }
 
 @end

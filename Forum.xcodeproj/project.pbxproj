@@ -1177,7 +1177,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1120;
-				ORGANIZATIONNAME = andforce;
+				ORGANIZATIONNAME = None;
 				TargetAttributes = {
 					4D339D8A1C31454A0022A6A4 = {
 						CreatedOnToolsVersion = 7.2;
@@ -1556,7 +1556,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1594,7 +1594,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
