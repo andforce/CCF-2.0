@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 
-@interface BBSShowPrivateMessageViewController () <UIWebViewDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
+@interface BBSShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
     BBSPrivateMessage *transPrivateMessage;
 
@@ -38,10 +38,10 @@
 
     self.dataList = [NSMutableArray array];
 
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
+    //[self.webView setScalesPageToFit:YES];
+    //self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
+    self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
     for (UIView *view in [[self.webView subviews][0] subviews]) {
@@ -121,6 +121,69 @@
 }
 
 
+ #pragma mark - WKNavigationDelegate
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = navigationAction.request;
+    
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
+
+
+        NSString *path = request.URL.path;
+        if ([path rangeOfString:@"showthread.php"].location != NSNotFound) {
+            // 显示帖子
+            NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
+
+            NSString *t = [query valueForKey:@"t"];
+
+
+            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+
+            BBSWebViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
+            TranslateData *bundle = [[TranslateData alloc] init];
+            if (t) {
+                [bundle putIntValue:[t intValue] forKey:@"threadID"];
+            } else {
+                NSString *p = [query valueForKey:@"p"];
+                [bundle putIntValue:[p intValue] forKey:@"pId"];
+            }
+
+
+            [self transBundle:bundle forController:showThreadController];
+            [self.navigationController pushViewController:showThreadController animated:YES];
+
+            decisionHandler(WKNavigationActionPolicyCancel);
+        } else {
+            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+    }
+    
+    if ([request.URL.scheme isEqualToString:@"avatar"]) {
+        NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
+
+        NSString *userid = [query valueForKey:@"userid"];
+
+
+        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+        BBSUserProfileTableViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowUserProfile"];
+
+        TranslateData *bundle = [[TranslateData alloc] init];
+        [bundle putIntValue:[userid intValue] forKey:@"UserId"];
+
+        [self transBundle:bundle forController:showThreadController];
+
+        [self.navigationController pushViewController:showThreadController animated:YES];
+
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void(^)(WKNavigationResponsePolicy))decisionHandler {
+    
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
     if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
@@ -151,7 +214,7 @@
 
             return NO;
         } else {
-            [[UIApplication sharedApplication] openURL:request.URL];
+            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             return NO;
         }
     }

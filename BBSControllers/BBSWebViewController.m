@@ -350,7 +350,7 @@
         if ([self.forumApi openUrlByClient:self request:request]) {
 
         } else {
-            [[UIApplication sharedApplication] openURL:url];
+            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
         }
     } else {
         NSLog(@"didReceiveScriptMessage() >>>:%@, body:%@", message.name, message.body);
@@ -494,7 +494,7 @@
                 id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
                 NSURL *nsurl = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadId] withPage:page]];
-                [[UIApplication sharedApplication] openURL:nsurl];
+                [[UIApplication sharedApplication] openURL:nsurl options:@{} completionHandler:nil];
             }];
 
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -767,8 +767,7 @@
         if ([self.forumApi openUrlByClient:self request:request]) {
             return NO;
         } else {
-            [[UIApplication sharedApplication] openURL:request.URL];
-
+            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             return NO;
         }
     }
@@ -843,7 +842,7 @@
         } else if (buttonIndex == 2) {
             // 在浏览器种查看
             NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
-            [[UIApplication sharedApplication] openURL:url];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         } else if (buttonIndex == 3) {
             [self reportThreadPost:nil userName:nil];
         }

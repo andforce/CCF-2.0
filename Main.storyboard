@@ -1243,18 +1243,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMZ-r6-Xdv">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ6-Nj-xxC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
-                                <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="BMZ-r6-Xdv" secondAttribute="trailing" constant="-20" id="UcG-TW-OJF"/>
-                            <constraint firstItem="cgE-DZ-zPn" firstAttribute="top" secondItem="BMZ-r6-Xdv" secondAttribute="bottom" id="W9j-8F-jBK"/>
-                            <constraint firstItem="BMZ-r6-Xdv" firstAttribute="centerX" secondItem="2A2-Qb-sZc" secondAttribute="centerX" id="ZNI-lj-Fvq"/>
-                            <constraint firstItem="BMZ-r6-Xdv" firstAttribute="top" secondItem="fHL-cE-eHe" secondAttribute="bottom" id="lgQ-zi-niD"/>
-                            <constraint firstItem="BMZ-r6-Xdv" firstAttribute="leading" secondItem="2A2-Qb-sZc" secondAttribute="leadingMargin" constant="-20" id="n9g-Qf-RNl"/>
+                            <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="width" secondItem="2A2-Qb-sZc" secondAttribute="width" id="0hU-81-JVx"/>
+                            <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="centerX" secondItem="2A2-Qb-sZc" secondAttribute="centerX" id="klF-Ef-Anc"/>
+                            <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="centerY" secondItem="2A2-Qb-sZc" secondAttribute="centerY" id="nfM-r3-mhg"/>
+                            <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="height" secondItem="2A2-Qb-sZc" secondAttribute="height" id="nrU-fl-ASi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="短信详情" id="wzF-Pt-RM5">
@@ -1272,12 +1275,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="webView" destination="BMZ-r6-Xdv" id="4bX-3g-oec"/>
+                        <outlet property="webView" destination="ZQ6-Nj-xxC" id="SI6-WO-UOE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbS-5S-4ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2939" y="-1401"/>
+            <point key="canvasLocation" x="-2939.130434782609" y="-1401.5625"/>
         </scene>
         <!--子论坛帖-->
         <scene sceneID="wBW-D6-BVd">

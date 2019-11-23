@@ -152,7 +152,7 @@
 
             return NO;
         } else {
-            [[UIApplication sharedApplication] openURL:request.URL];
+            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             return NO;
         }
     }

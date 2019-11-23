@@ -35,7 +35,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (indexPath.section == 2 && indexPath.row == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/andforce/Forum"]];
+        NSURL *url = [NSURL URLWithString:@"https://github.com/andforce/Forum"];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

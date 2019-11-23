@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import "BBSApiBaseViewController.h"
 
 
@@ -15,7 +16,7 @@
 
 - (IBAction)back:(id)sender;
 
-@property(weak, nonatomic) IBOutlet UIWebView *webView;
+@property(weak, nonatomic) IBOutlet WKWebView *webView;
 
 - (IBAction)replyPM:(id)sender;
 
