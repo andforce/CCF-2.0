@@ -8,7 +8,6 @@
 
 
 @interface BBSWebViewController : BBSApiBaseViewController
-//@property(weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property(nonatomic, strong) UIImageView *animatedFromView;
 
