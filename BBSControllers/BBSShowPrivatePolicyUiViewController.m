@@ -32,9 +32,7 @@
     }
 }
 
-
 - (IBAction)close:(id)sender {
-
     UINavigationController *navigationController = self.navigationController;
     [navigationController popViewControllerAnimated:YES];
 }
@@ -45,23 +43,15 @@
 
     self.navigationItem.title = _title;
 
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
+//    [self.webView setScalesPageToFit:YES];
+//    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    //self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    for (UIView *view in [[self.webView subviews][0] subviews]) {
-        if ([view isKindOfClass:[UIImageView class]]) {
-            view.hidden = YES;
-        }
-    }
     [self.webView setOpaque:NO];
 
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:_html ofType:@"html"];
-    NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    NSURL *url = [[NSURL alloc] initWithString:filePath];
-    [self.webView loadHTMLString:htmlString baseURL:url];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:_html withExtension:@"html"];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)didReceiveMemoryWarning {
