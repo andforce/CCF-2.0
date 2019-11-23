@@ -44,11 +44,6 @@
     self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    for (UIView *view in [[self.webView subviews][0] subviews]) {
-        if ([view isKindOfClass:[UIImageView class]]) {
-            view.hidden = YES;
-        }
-    }
     [self.webView setOpaque:NO];
 
     // scrollView
@@ -180,69 +175,7 @@
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void(^)(WKNavigationResponsePolicy))decisionHandler {
-    
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    if (navigationType == UIWebViewNavigationTypeLinkClicked && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
-
-
-        NSString *path = request.URL.path;
-        if ([path rangeOfString:@"showthread.php"].location != NSNotFound) {
-            // 显示帖子
-            NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
-
-            NSString *t = [query valueForKey:@"t"];
-
-
-            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-
-            BBSWebViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowThreadDetail"];
-            TranslateData *bundle = [[TranslateData alloc] init];
-            if (t) {
-                [bundle putIntValue:[t intValue] forKey:@"threadID"];
-            } else {
-                NSString *p = [query valueForKey:@"p"];
-                [bundle putIntValue:[p intValue] forKey:@"pId"];
-            }
-
-
-            [self transBundle:bundle forController:showThreadController];
-            [self.navigationController pushViewController:showThreadController animated:YES];
-
-            return NO;
-        } else {
-            [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
-            return NO;
-        }
-    }
-
-    if ([request.URL.scheme isEqualToString:@"avatar"]) {
-        NSDictionary *query = [self dictionaryFromQuery:request.URL.query usingEncoding:NSUTF8StringEncoding];
-
-        NSString *userid = [query valueForKey:@"userid"];
-
-
-        UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-        BBSUserProfileTableViewController *showThreadController = [storyboard instantiateViewControllerWithIdentifier:@"ShowUserProfile"];
-
-        TranslateData *bundle = [[TranslateData alloc] init];
-        [bundle putIntValue:[userid intValue] forKey:@"UserId"];
-
-        [self transBundle:bundle forController:showThreadController];
-
-        [self.navigationController pushViewController:showThreadController animated:YES];
-
-        return NO;
-    }
-
-    return YES;
-}
-
 #pragma mark Controller跳转
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if ([segue.identifier isEqualToString:@"ShowUserProfile"]) {
