@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oKZ-Vv-1hI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CQD-JO-ONT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUG-5g-vNr">
@@ -186,13 +188,17 @@
                         <viewControllerLayoutGuide type="bottom" id="0QI-zm-s6m"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="b4G-Jm-n5c">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agY-MJ-sIF">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6C-va-Gs1">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gM-4z-c5Q">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
@@ -209,14 +215,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="centerY" secondItem="agY-MJ-sIF" secondAttribute="centerY" id="9yq-4J-io6"/>
-                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="height" secondItem="agY-MJ-sIF" secondAttribute="height" id="DC4-yY-zAS"/>
-                            <constraint firstItem="agY-MJ-sIF" firstAttribute="centerY" secondItem="b4G-Jm-n5c" secondAttribute="centerY" id="G3R-pH-DtQ"/>
-                            <constraint firstItem="agY-MJ-sIF" firstAttribute="width" secondItem="b4G-Jm-n5c" secondAttribute="width" id="Yo2-n9-jYN"/>
-                            <constraint firstItem="agY-MJ-sIF" firstAttribute="height" secondItem="b4G-Jm-n5c" secondAttribute="height" id="dhm-AO-r92"/>
-                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="width" secondItem="agY-MJ-sIF" secondAttribute="width" id="sfL-Yq-iAo"/>
-                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="centerX" secondItem="agY-MJ-sIF" secondAttribute="centerX" id="u6f-04-erK"/>
-                            <constraint firstItem="agY-MJ-sIF" firstAttribute="centerX" secondItem="b4G-Jm-n5c" secondAttribute="centerX" id="z3t-Dm-htx"/>
+                            <constraint firstItem="q6C-va-Gs1" firstAttribute="centerY" secondItem="b4G-Jm-n5c" secondAttribute="centerY" id="0gl-Yc-oqT"/>
+                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="top" secondItem="b4G-Jm-n5c" secondAttribute="topMargin" id="4Ds-jl-IFT"/>
+                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="leading" secondItem="b4G-Jm-n5c" secondAttribute="leadingMargin" constant="-20" id="BdO-Bq-HGX"/>
+                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="trailing" secondItem="q6C-va-Gs1" secondAttribute="trailing" id="Qfw-1q-SnW"/>
+                            <constraint firstItem="q6C-va-Gs1" firstAttribute="height" secondItem="b4G-Jm-n5c" secondAttribute="height" id="anm-fo-zpv"/>
+                            <constraint firstItem="7gM-4z-c5Q" firstAttribute="bottom" secondItem="q6C-va-Gs1" secondAttribute="bottom" id="iAL-hw-guQ"/>
+                            <constraint firstItem="q6C-va-Gs1" firstAttribute="centerX" secondItem="b4G-Jm-n5c" secondAttribute="centerX" id="s79-ik-aJn"/>
+                            <constraint firstItem="q6C-va-Gs1" firstAttribute="width" secondItem="b4G-Jm-n5c" secondAttribute="width" id="tKg-Vw-BRL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="ykA-Bh-T18">
@@ -229,12 +235,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="maskLoadingView" destination="7gM-4z-c5Q" id="9Qz-2a-E9Y"/>
-                        <outlet property="webView" destination="agY-MJ-sIF" id="Uuh-wJ-zqh"/>
+                        <outlet property="webView" destination="q6C-va-Gs1" id="6MF-lA-5hO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPE-vA-HaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9094" y="-5877"/>
+            <point key="canvasLocation" x="-9094.2028985507259" y="-5877.4553571428569"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="nOy-6s-CCP">
@@ -265,7 +271,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Bvh-Rk-o9D"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cjI-bK-fXy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jql-FN-xDM">
@@ -344,7 +350,7 @@
                         <viewControllerLayoutGuide type="bottom" id="pdR-4R-Zdh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="k2k-yD-XSd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-k4-HJy">

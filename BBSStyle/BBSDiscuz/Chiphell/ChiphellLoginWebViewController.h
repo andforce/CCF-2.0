@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 #import "BBSApiBaseViewController.h"
 
 
 @interface ChiphellLoginWebViewController : BBSApiBaseViewController
 
-@property(weak, nonatomic) IBOutlet UIWebView *webView;
+@property(weak, nonatomic) IBOutlet WKWebView *webView;
 
 - (IBAction)cancelLogin:(id)sender;
 

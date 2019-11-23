@@ -11,13 +11,12 @@
 #import "NSString+Extensions.h"
 
 #import "IGHTMLDocument+QueryNode.h"
-#import "AppDelegate.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
 #define LOG_IN_URL @"https://www.chiphell.com/member.php?mod=logging&action=login&mobile=no&referer=https://www.chiphell.com/forum.php"
 
-@interface ChiphellLoginWebViewController () <UIWebViewDelegate> {
+@interface ChiphellLoginWebViewController () <WKNavigationDelegate> {
 
 }
 
@@ -43,9 +42,9 @@
 
 
     //[self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
+    //self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
+    self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
     [self.webView setOpaque:NO];
@@ -64,87 +63,79 @@
     return ![bundleId isEqualToString:@"com.andforce.forums"];
 }
 
-- (NSString *)getResponseHTML:(UIWebView *)webView {
+- (void)getResponseHTML:(WKWebView *)webView handle:(void (^)(NSString *html))success{
     NSString *lJs = @"document.documentElement.outerHTML";
-    NSString *html = [webView stringByEvaluatingJavaScriptFromString:lJs];
-    return html;
+    [webView evaluateJavaScript:lJs completionHandler:^(id o, NSError *error) {
+        NSString *tmpHtml = o;
+        success(tmpHtml);
+    }];
 }
 
 - (void)hideMaskView {
     self.maskLoadingView.hidden = YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+#pragma mark - WKNavigationDelegate
 
-    NSString *html = [self getResponseHTML:webView];
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
 
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+    NSString *currentURL = webView.URL.absoluteString;
+
     if ([currentURL isEqualToString:LOG_IN_URL]) {
         // 改变样式
         NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"chhlogin" ofType:@"js"]
                                                  encoding:NSUTF8StringEncoding error:nil];
-        [webView stringByEvaluatingJavaScriptFromString:js];
+        [webView evaluateJavaScript:js completionHandler:nil];
 
         [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
     } else if ([currentURL isEqualToString:REFERER]) {
 
-        IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+        [self getResponseHTML:webView handle:^(NSString *html) {
+            NSLog(@">>>>>>>>>>>>>%@", html);
 
-        IGXMLNode *logined = [document queryNodeWithXPath:@"//*[@id=\"um\"]/p[1]/strong"];
-        NSString *userName = [[logined text] trim];
+            IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
 
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-        if (userName != nil && ![userName isEqualToString:@""]) {
-            // 保存Cookie
-            [localForumApi saveCookie];
-            // 保存用户名
-            [localForumApi saveUserName:userName forHost:forumConfig.forumURL.host];
-        }
+            IGXMLNode *logined = [document queryNodeWithXPath:@"//*[@id=\"um\"]/p[1]/strong"];
+            NSString *userName = [[logined text] trim];
 
-        [self.forumApi listAllForums:^(BOOL isSuccess, id msg) {
-            if (isSuccess) {
-                NSMutableArray<Forum *> *needInsert = msg;
-                BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-                // 需要先删除之前的老数据
-                [formManager deleteData:^NSPredicate * {
-                    return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;
-                }];
-
-                BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
-
-                [formManager insertData:needInsert operation:^(NSManagedObject *target, id src) {
-                    ForumEntry *newsInfo = (ForumEntry *) target;
-                    newsInfo.forumId = [src valueForKey:@"forumId"];
-                    newsInfo.forumName = [src valueForKey:@"forumName"];
-                    newsInfo.parentForumId = [src valueForKey:@"parentForumId"];
-                    newsInfo.forumHost = localeForumApi.currentForumHost;
-
-                }];
-
-                UIStoryboard *stortboard = [UIStoryboard mainStoryboard];
-                [stortboard changeRootViewControllerTo:kForumTabBarControllerId];
-
+            BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+            id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+            if (userName != nil && ![userName isEqualToString:@""]) {
+                // 保存Cookie
+                [localForumApi saveCookie];
+                // 保存用户名
+                [localForumApi saveUserName:userName forHost:forumConfig.forumURL.host];
             }
+
+            [self.forumApi listAllForums:^(BOOL isSuccess, id msg) {
+                if (isSuccess) {
+                    NSMutableArray<Forum *> *needInsert = msg;
+                    BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+                    // 需要先删除之前的老数据
+                    [formManager deleteData:^NSPredicate * {
+                        return [NSPredicate predicateWithFormat:@"forumHost = %@", self.currentForumHost];;
+                    }];
+
+                    BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
+
+                    [formManager insertData:needInsert operation:^(NSManagedObject *target, id src) {
+                        ForumEntry *newsInfo = (ForumEntry *) target;
+                        newsInfo.forumId = [src valueForKey:@"forumId"];
+                        newsInfo.forumName = [src valueForKey:@"forumName"];
+                        newsInfo.parentForumId = [src valueForKey:@"parentForumId"];
+                        newsInfo.forumHost = localeForumApi.currentForumHost;
+
+                    }];
+
+                    UIStoryboard *stortboard = [UIStoryboard mainStoryboard];
+                    [stortboard changeRootViewControllerTo:kForumTabBarControllerId];
+
+                }
+            }];
+
         }];
     }
-
-    NSLog(@"ForumLoginWebViewController.webViewDidFinishLoad %@ ", html);
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-
-    NSString *html = [self getResponseHTML:webView];
-    NSLog(@"ForumLoginWebViewController.webViewDidStartLoad %@ ", html);
-}
-
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    NSString *urlString = [[request URL] absoluteString];
-    NSLog(@"ForumLoginWebViewController.shouldStartLoadWithRequest %@ ", urlString);
-    return YES;
 }
 
 - (IBAction)cancelLogin:(id)sender {
@@ -157,23 +148,4 @@
     }
 }
 
-- (void)exitApplication {
-    AppDelegate *app = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    UIWindow *window = app.window;
-
-    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
-    rotationAnimation.delegate = self;
-
-    rotationAnimation.fillMode = kCAFillModeForwards;
-
-    rotationAnimation.removedOnCompletion = NO;
-    //旋转角度
-    rotationAnimation.toValue = @((float) (M_PI / 2));
-    //每次旋转的时间（单位秒）
-    rotationAnimation.duration = 0.5;
-    rotationAnimation.cumulative = YES;
-    //重复旋转的次数，如果你想要无数次，那么设置成MAXFLOAT
-    rotationAnimation.repeatCount = 0;
-    [window.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-}
 @end
