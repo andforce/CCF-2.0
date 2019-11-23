@@ -11,6 +11,8 @@
 #import "UIImage+MultiFormat.h"
 #import <UIImageView+WebCache.h>
 
+#import "AssertReader.h"
+
 static NSString *const sourUrl = @"https://m.baidu.com/static/index/plus/plus_logo.png";
 static NSString *const sourIconUrl = @"http://m.baidu.com/static/search/baiduapp_icon.png";
 static NSString *const localUrl = @"http://mecrm.qa.medlinker.net/public/image?id=57026794&certType=workCertPicUrl&time=1484625241";
@@ -101,8 +103,8 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
         }
     }
 
-    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.gif"].location != NSNotFound) {
-        UIImage *defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
+    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.jpg"].location != NSNotFound) {
+        UIImage *defaultAvatarImage = [AssertReader no_avatar];
         data = UIImageJPEGRepresentation(defaultAvatarImage, 1.f);
     }
 

@@ -595,7 +595,7 @@
     NSString *regular = [NSString stringWithFormat:@"/avatar%@_(\\d+).gif", userId];
     NSString *avatar = [html stringWithRegular:regular];
     if (avatar == nil) {
-        avatar = @"/no_avatar.gif";
+        avatar = @"/no_avatar.jpg";
     }
     //NSLog(@"avatarLink  >> %@", avatar);
     return avatar;
@@ -734,7 +734,7 @@
             avatarNode = [postDocument queryWithXPath:@"/html/body/div/div/div/table/tr[2]/td[1]/div[*]/a/img"].firstObject;
         }
         if (avatarNode == nil) {
-            userInfo.userAvatar = @"/no_avatar.gif";;
+            userInfo.userAvatar = @"/no_avatar.jpg";;
         } else {
             NSString *avatar = [avatarNode attribute:@"src"];
             userInfo.userAvatar = [avatar componentsSeparatedByString:@"customavatars"].lastObject;

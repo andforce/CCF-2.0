@@ -30,4 +30,6 @@
 
 + (NSString *)html_content_template_append_one_post_floor;
 
++ (UIImage *)no_avatar;
+
 @end

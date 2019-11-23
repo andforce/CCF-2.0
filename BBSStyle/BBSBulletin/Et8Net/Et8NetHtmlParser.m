@@ -589,7 +589,7 @@
     NSString *regular = [NSString stringWithFormat:@"/avatar%@_(\\d+).gif", userId];
     NSString *avatar = [html stringWithRegular:regular];
     if (avatar == nil) {
-        avatar = @"/no_avatar.gif";
+        avatar = @"/no_avatar.jpg";
     }
     //NSLog(@"avatarLink  >> %@", avatar);
     return avatar;
@@ -741,7 +741,7 @@
 
         avatarLink = [avatarLink stringWithRegular:@"/avatar(\\d+)_(\\d+).gif"];
         if (avatarLink == nil) {
-            avatarLink = @"/no_avatar.gif";
+            avatarLink = @"/no_avatar.jpg";
         }
 
         //avatarLink = [[avatarLink componentsSeparatedByString:@"/"]lastObject];

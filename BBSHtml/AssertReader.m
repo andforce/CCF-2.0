@@ -50,4 +50,7 @@
     return [self read:@"content_template_one_post_floor.html"];
 }
 
++ (UIImage *)no_avatar {
+    return [UIImage imageNamed:@"no_avatar.jpg"];
+}
 @end

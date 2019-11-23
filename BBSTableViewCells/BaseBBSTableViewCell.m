@@ -9,6 +9,8 @@
 #import <UIImageView+WebCache.h>
 #import "BBSLocalApi.h"
 
+#import "AssertReader.h"
+
 @implementation BaseBBSTableViewCell {
     UIImage *defaultAvatarImage;
 
@@ -36,7 +38,7 @@
 
 - (void)initData {
 
-    defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
+    defaultAvatarImage = [AssertReader no_avatar];
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     _forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];

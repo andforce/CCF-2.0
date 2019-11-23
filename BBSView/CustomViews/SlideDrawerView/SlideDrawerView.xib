@@ -53,7 +53,7 @@
                         <action selector="showPayController:" destination="-1" eventType="touchUpInside" id="ghX-3S-VCQ"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultAvatar.gif" translatesAutoresizingMaskIntoConstraints="NO" id="EMP-9K-WJf">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_avatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="EMP-9K-WJf">
                     <rect key="frame" x="92.5" y="45" width="95" height="95"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="95" id="6Wi-Fr-QB8"/>
@@ -127,6 +127,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="defaultAvatar.gif" width="120" height="120"/>
+        <image name="no_avatar.jpg" width="120" height="120"/>
     </resources>
 </document>

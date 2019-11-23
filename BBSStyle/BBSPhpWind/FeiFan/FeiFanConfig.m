@@ -103,7 +103,7 @@
 }
 
 - (NSString *)avatarNo {
-    return @"/no_avatar.gif";
+    return @"/no_avatar.jpg";
 }
 
 - (NSString *)memberWithUserId:(NSString *)userId {

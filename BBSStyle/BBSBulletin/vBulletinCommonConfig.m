@@ -115,7 +115,7 @@
 }
 
 - (NSString *)avatarNo {
-    return [[self avatarBase] stringByAppendingString:@"/no_avatar.gif"];
+    return [[self avatarBase] stringByAppendingString:@"/no_avatar.jpg"];
 }
 
 - (NSString *)memberWithUserId:(NSString *)userId {

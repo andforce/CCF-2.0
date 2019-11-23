@@ -20,6 +20,8 @@
 #import "HaveWorkedBBS.h"
 #import "BBSLocalApi.h"
 
+#import "AssertReader.h"
+
 @interface SlideDrawerView () <UITableViewDelegate, UITableViewDataSource> {
 
     UIButton *_drawerMaskView;
@@ -135,7 +137,7 @@
 
         [self initMaskView];
 
-        defaultAvatar = [UIImage imageNamed:@"defaultAvatar.gif"];
+        defaultAvatar = [AssertReader no_avatar];
 
         UIScreenEdgePanGestureRecognizer *leftEdgePanRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeftEdgePan:)];
         leftEdgePanRecognizer.edges = UIRectEdgeLeft;

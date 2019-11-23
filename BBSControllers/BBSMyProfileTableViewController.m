@@ -11,6 +11,8 @@
 #import "BBSTabBarController.h"
 #import "BBSLocalApi.h"
 
+#import "AssertReader.h"
+
 
 @interface BBSMyProfileTableViewController () {
     CountProfile *userProfile;
@@ -44,7 +46,7 @@
 
 - (void)initProfileData {
 
-    defaultAvatarImage = [UIImage imageNamed:@"defaultAvatar.gif"];
+    defaultAvatarImage = [AssertReader no_avatar];
 
     avatarCache = [NSMutableDictionary dictionary];
 

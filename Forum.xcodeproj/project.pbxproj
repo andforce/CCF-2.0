@@ -121,9 +121,9 @@
 		3A92CE061F37527800E41573 /* CharUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CE051F37527400E41573 /* CharUtils.m */; };
 		3ABEBF092020C44E00AB67E9 /* CommonCloseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABEBF082020C44E00AB67E9 /* CommonCloseViewController.m */; };
 		3AC36D672389755600082BBA /* AssertReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC36D662389755600082BBA /* AssertReader.m */; };
+		3AC36D692389870E00082BBA /* no_avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AC36D682389870E00082BBA /* no_avatar.jpg */; };
 		3ACFFD341CFA641F000312DC /* BBSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACFFD331CFA641F000312DC /* BBSPhoto.m */; };
 		3AE54CAD23802F7500DDA938 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE54CAC23802F7500DDA938 /* StoreKit.framework */; };
-		3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */; };
 		3AEDFA60209578B400E93BB0 /* SmartisanForumApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA5F209578B400E93BB0 /* SmartisanForumApi.m */; };
 		3AEDFA632095790500E93BB0 /* SmartisanConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA622095790500E93BB0 /* SmartisanConfig.m */; };
 		3AEDFA662095791B00E93BB0 /* SmartisanHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFA652095791B00E93BB0 /* SmartisanHtmlParser.m */; };
@@ -401,10 +401,10 @@
 		3ABEBF082020C44E00AB67E9 /* CommonCloseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonCloseViewController.m; sourceTree = "<group>"; };
 		3AC36D652389755600082BBA /* AssertReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssertReader.h; sourceTree = "<group>"; };
 		3AC36D662389755600082BBA /* AssertReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssertReader.m; sourceTree = "<group>"; };
+		3AC36D682389870E00082BBA /* no_avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no_avatar.jpg; sourceTree = "<group>"; };
 		3ACFFD321CFA641F000312DC /* BBSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSPhoto.h; sourceTree = "<group>"; };
 		3ACFFD331CFA641F000312DC /* BBSPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSPhoto.m; sourceTree = "<group>"; };
 		3AE54CAC23802F7500DDA938 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = defaultAvatar.gif; sourceTree = "<group>"; };
 		3AEDFA5E209578B400E93BB0 /* SmartisanForumApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartisanForumApi.h; sourceTree = "<group>"; };
 		3AEDFA5F209578B400E93BB0 /* SmartisanForumApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartisanForumApi.m; sourceTree = "<group>"; };
 		3AEDFA612095790500E93BB0 /* SmartisanConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartisanConfig.h; sourceTree = "<group>"; };
@@ -908,10 +908,10 @@
 		3ACB5C361FDC281000D5339C /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				3AC36D682389870E00082BBA /* no_avatar.jpg */,
 				3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */,
 				4D1B072020456F1D0013B6A1 /* privacy_content.html */,
 				4D1B0725204686340013B6A1 /* use_terms_content.html */,
-				3AE854B61DF2B0B3000F62E9 /* defaultAvatar.gif */,
 				3A2C40091DE0015C00576151 /* main.m */,
 				3A2C3F0D1DDFB8D300576151 /* paperclip.gif */,
 				2F34C861EB4DB6A0EFE91943 /* more_about_content.html */,
@@ -1244,8 +1244,8 @@
 				4D13B6652387CB9400BBF06D /* SeniorReply.storyboard in Resources */,
 				4D13B6632387CB3700BBF06D /* Login.storyboard in Resources */,
 				3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */,
+				3AC36D692389870E00082BBA /* no_avatar.jpg in Resources */,
 				3A48EF81214D3BFD0025CE2D /* click_event_handler.js in Resources */,
-				3AE854B71DF2B0B3000F62E9 /* defaultAvatar.gif in Resources */,
 				4D1B0726204686350013B6A1 /* use_terms_content.html in Resources */,
 				3A2C3F5E1DDFBFC500576151 /* PageHeaderView.xib in Resources */,
 				3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */,
@@ -1556,7 +1556,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1594,7 +1594,7 @@
 				CODE_SIGN_ENTITLEMENTS = Forum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = RH9H7T7RBU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
