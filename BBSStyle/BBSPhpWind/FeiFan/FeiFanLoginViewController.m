@@ -89,6 +89,7 @@
 
     if ([request.URL.host containsString:@"baidu.com"]) {
         decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     } else if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
@@ -135,6 +136,7 @@
         }];
 
         decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
 
     decisionHandler(WKNavigationActionPolicyAllow);

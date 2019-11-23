@@ -18,6 +18,7 @@
 #import "ProgressDialog.h"
 #import "NYTPhotoViewerArrayDataSource.h"
 #import "NSURLProtocol+WKWebVIew.h"
+#import "AssertReader.h"
 
 #import <WebKit/WebKit.h>
 #import <SDWebImage/SDImageCache.h>
@@ -168,7 +169,7 @@
     for (PostFloor *post in posts) {
         NSString *avatar = [forumConfig avatar:post.postUserInfo.userAvatar];
         NSString *floor = [post.postLouCeng stringWithRegular:@"\\d+"];
-        NSString *postInfo = [NSString stringWithFormat:POST_MESSAGE, post.postID, post.postUserInfo.userName,
+        NSString *postInfo = [NSString stringWithFormat:[AssertReader html_content_template_one_post_floor], post.postID, post.postUserInfo.userName,
                                                         floor, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
         postFloors = [postFloors stringByAppendingString:postInfo];
     }
@@ -180,7 +181,7 @@
                           "            <div class=\"title\">%@</div>\n"
                           "        </li>";
     NSString *titleFormat = firstPage ? [NSString stringWithFormat:titleHtml, title] : @"";
-    NSString *html = [NSString stringWithFormat:THREAD_PAGE, titleFormat, posts, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+    NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], titleFormat, posts, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
     return html;
 }
 
@@ -602,8 +603,8 @@
 }
 
 - (void)addPostByJSElement:(PostFloor *)post avatar:(NSString *)avatar louceng:(NSString *)floor {
-    NSString *pattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    NSString *contentPattern = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"append_post_content" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil];
+    NSString *pattern = [AssertReader js_append_after_post];
+    NSString *contentPattern = [AssertReader html_content_template_append_one_post_floor];
     NSString *content = [NSString stringWithFormat:contentPattern, post.postUserInfo.userID, avatar, post.postUserInfo.userName, post.postLouCeng, post.postTime, post.postContent];
     NSString *deleteEnter = [content stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     NSString *deleteT = [deleteEnter stringByReplacingOccurrencesOfString:@"\t" withString:@""];

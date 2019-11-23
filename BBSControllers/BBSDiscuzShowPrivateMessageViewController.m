@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 
+#import "AssertReader.h"
+
 @interface BBSDiscuzShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
     BBSPrivateMessage *transPrivateMessage;
@@ -72,12 +74,12 @@
             NSMutableString *content = [NSMutableString string];
             for (BBSPrivateMessageDetail *viewMessage in self.dataList) {
 
-                NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
+                NSString *postInfo = [NSString stringWithFormat:[AssertReader html_content_template_message], viewMessage.pmUserInfo.userID, viewMessage.pmUserInfo.userAvatar, viewMessage.pmUserInfo.userName, viewMessage.pmTime, viewMessage.pmContent];
                 [content appendString:postInfo];
             }
 
 
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, @"", content, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], @"", content, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
 
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
@@ -146,9 +148,11 @@
             [self.navigationController pushViewController:showThreadController animated:YES];
 
             decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         } else {
             [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         }
     }
 
@@ -169,6 +173,7 @@
         [self.navigationController pushViewController:showThreadController animated:YES];
 
         decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
 
     decisionHandler(WKNavigationActionPolicyAllow);

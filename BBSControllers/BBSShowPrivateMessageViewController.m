@@ -12,6 +12,7 @@
 #import "UIStoryboard+Forum.h"
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
+#import "AssertReader.h"
 
 @interface BBSShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
@@ -67,10 +68,10 @@
             BBSPrivateMessagePage *content = message;
             BBSPrivateMessageDetail *oneMessage = content.viewMessages.firstObject;
 
-            NSString *postInfo = [NSString stringWithFormat:PRIVATE_MESSAGE, oneMessage.pmUserInfo.userID, oneMessage.pmUserInfo.userAvatar,
+            NSString *postInfo = [NSString stringWithFormat:[AssertReader html_content_template_message], oneMessage.pmUserInfo.userID, oneMessage.pmUserInfo.userAvatar,
                                                             oneMessage.pmUserInfo.userName, oneMessage.pmTime, oneMessage.pmContent];
 
-            NSString *html = [NSString stringWithFormat:THREAD_PAGE, oneMessage.pmTitle, postInfo, JS_FAST_CLICK_LIB, JS_HANDLE_CLICK];
+            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], oneMessage.pmTitle, postInfo, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
 
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
@@ -120,7 +121,6 @@
     
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated && ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"])) {
 
-
         NSString *path = request.URL.path;
         if ([path rangeOfString:@"showthread.php"].location != NSNotFound) {
             // 显示帖子
@@ -145,9 +145,11 @@
             [self.navigationController pushViewController:showThreadController animated:YES];
 
             decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         } else {
             [[UIApplication sharedApplication] openURL:request.URL options:@{} completionHandler:nil];
             decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         }
     }
     
@@ -168,6 +170,7 @@
         [self.navigationController pushViewController:showThreadController animated:YES];
 
         decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
 
     decisionHandler(WKNavigationActionPolicyAllow);

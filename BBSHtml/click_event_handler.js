@@ -1,6 +1,6 @@
 let list = document.getElementById("list");
 
-var touched = false;
+let touched = false;
 
 list.addEventListener("touchstart", function (event) {
     touched = true;
@@ -11,11 +11,7 @@ list.addEventListener("touchstart", function (event) {
     }
 
     if (el){
-
-        // el.style.backgroundColor = '#F1F1F1';
-
         setTimeout(changeBgColor,100);
-
         function changeBgColor() {
             if (touched) {
                 el.style.backgroundColor = '#F1F1F1';
