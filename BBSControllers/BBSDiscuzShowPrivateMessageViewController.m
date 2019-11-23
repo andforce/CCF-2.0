@@ -44,11 +44,6 @@
     self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    for (UIView *view in [[self.webView subviews][0] subviews]) {
-        if ([view isKindOfClass:[UIImageView class]]) {
-            view.hidden = YES;
-        }
-    }
     [self.webView setOpaque:NO];
 
     // scrollView

@@ -353,10 +353,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLi-k4-HJy">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nR7-7R-1RR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U34-Qa-4Td">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
@@ -373,14 +377,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="U34-Qa-4Td" firstAttribute="width" secondItem="nLi-k4-HJy" secondAttribute="width" id="0YL-oU-kfO"/>
-                            <constraint firstItem="U34-Qa-4Td" firstAttribute="height" secondItem="nLi-k4-HJy" secondAttribute="height" id="IaJ-LG-T2m"/>
-                            <constraint firstItem="U34-Qa-4Td" firstAttribute="centerX" secondItem="nLi-k4-HJy" secondAttribute="centerX" id="SAL-6B-Hfm"/>
-                            <constraint firstItem="nLi-k4-HJy" firstAttribute="height" secondItem="k2k-yD-XSd" secondAttribute="height" id="cQr-AH-xwf"/>
-                            <constraint firstItem="nLi-k4-HJy" firstAttribute="centerY" secondItem="k2k-yD-XSd" secondAttribute="centerY" id="hu0-KT-yle"/>
-                            <constraint firstItem="nLi-k4-HJy" firstAttribute="centerX" secondItem="k2k-yD-XSd" secondAttribute="centerX" id="tiN-6A-WEc"/>
-                            <constraint firstItem="U34-Qa-4Td" firstAttribute="centerY" secondItem="nLi-k4-HJy" secondAttribute="centerY" id="w5U-tk-YvZ"/>
-                            <constraint firstItem="nLi-k4-HJy" firstAttribute="width" secondItem="k2k-yD-XSd" secondAttribute="width" id="x1L-HK-0tx"/>
+                            <constraint firstItem="nR7-7R-1RR" firstAttribute="centerY" secondItem="k2k-yD-XSd" secondAttribute="centerY" id="4Mc-Ya-1Z0"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="leading" secondItem="nR7-7R-1RR" secondAttribute="leading" id="CeH-Gp-Gch"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="top" secondItem="nR7-7R-1RR" secondAttribute="top" id="EFz-cX-tLy"/>
+                            <constraint firstItem="nR7-7R-1RR" firstAttribute="height" secondItem="k2k-yD-XSd" secondAttribute="height" id="MMZ-zH-WNA"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="bottom" secondItem="nR7-7R-1RR" secondAttribute="bottom" id="R5E-Du-WkD"/>
+                            <constraint firstItem="U34-Qa-4Td" firstAttribute="trailing" secondItem="nR7-7R-1RR" secondAttribute="trailing" id="f4C-6p-8tL"/>
+                            <constraint firstItem="nR7-7R-1RR" firstAttribute="centerX" secondItem="k2k-yD-XSd" secondAttribute="centerX" id="stk-2u-aiX"/>
+                            <constraint firstItem="nR7-7R-1RR" firstAttribute="width" secondItem="k2k-yD-XSd" secondAttribute="width" id="uCn-8u-pQA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="Odl-iu-cNm">
@@ -393,12 +397,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="maskLoadingView" destination="U34-Qa-4Td" id="S3k-a0-6DO"/>
-                        <outlet property="webView" destination="nLi-k4-HJy" id="mwM-vP-24g"/>
+                        <outlet property="webView" destination="nR7-7R-1RR" id="qSZ-qf-63S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zIX-K8-QfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9094" y="-7400"/>
+            <point key="canvasLocation" x="-9094.2028985507259" y="-7400.2232142857138"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="dkL-aN-heY">

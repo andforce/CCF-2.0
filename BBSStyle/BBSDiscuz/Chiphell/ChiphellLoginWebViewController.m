@@ -41,8 +41,6 @@
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
 
-    //[self.webView setScalesPageToFit:YES];
-    //self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.navigationDelegate = self;
     self.webView.backgroundColor = [UIColor whiteColor];

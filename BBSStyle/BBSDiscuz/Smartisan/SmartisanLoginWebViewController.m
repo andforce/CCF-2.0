@@ -1,5 +1,5 @@
 //
-//  TForumLoginWebViewController.m
+//  SmartisanLoginWebViewController.m
 //  Created by Diyuan Wang on 2019/11/21.
 //  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
@@ -10,18 +10,16 @@
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
-@interface SmartisanLoginWebViewController () <UIWebViewDelegate>
+@interface SmartisanLoginWebViewController () <WKNavigationDelegate>
 
 @end
 
 @implementation SmartisanLoginWebViewController
 
 - (void)viewDidLoad {
-    [self.webView setScalesPageToFit:YES];
-    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.delegate = self;
-    self.webView.scalesPageToFit = NO;
+    self.webView.navigationDelegate = self;
+
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
@@ -48,57 +46,50 @@
     [localForumApi saveUserName:name forHost:config.forumURL.host];
 }
 
-// private
-- (NSString *)getResponseHTML:(UIWebView *)webView {
+- (void)getResponseHTML:(WKWebView *)webView handle:(void (^)(NSString *html))success{
     NSString *lJs = @"document.documentElement.outerHTML";
-    NSString *html = [webView stringByEvaluatingJavaScriptFromString:lJs];
-    return html;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-
-    NSString *html = [self getResponseHTML:webView];
-
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-
-    NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
-
-    // 使用JS注入获取用户输入的密码
-    NSString *userName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('pwuser')[0].value"];
-    NSLog(@"TForumLogin.userName->%@", userName);
-    if (userName != nil && ![userName isEqualToString:@""]) {
-        // 保存用户名
-        [self saveUserName:userName];
-    }
-
-    NSLog(@"TForumLogin.webViewDidFinishLoad %@ ", html);
-
-
-    // 改变样式
-    NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
-
-    [webView stringByEvaluatingJavaScriptFromString:js];
-
-    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+    [webView evaluateJavaScript:lJs completionHandler:^(id o, NSError *error) {
+        NSString *tmpHtml = o;
+        success(tmpHtml);
+    }];
 }
 
 - (void)hideMaskView {
     self.maskLoadingView.hidden = YES;
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
+#pragma mark - WKNavigationDelegate
 
-    NSString *html = [self getResponseHTML:webView];
-    NSLog(@"TForumLogin.webViewDidStartLoad %@ ", html);
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+
+    [self getResponseHTML:webView handle:^(NSString *html) {
+
+    }];
+
+    NSString *currentURL = webView.URL.absoluteString;
+    NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
+
+    // 使用JS注入获取用户输入的密码
+    [webView evaluateJavaScript:@"document.getElementsByName('pwuser')[0].value" completionHandler:^(id o, NSError *error) {
+        NSString *userName = o;
+
+        NSLog(@"TForumLogin.userName->%@", userName);
+        if (userName != nil && ![userName isEqualToString:@""]) {
+            // 保存用户名
+            [self saveUserName:userName];
+        }
+    }];
+
+    // 改变样式
+    NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+
+    [webView evaluateJavaScript:js completionHandler:nil];
+
+    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 }
 
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    NSString *urlString = [[request URL] absoluteString];
-    NSLog(@"TForumLogin.shouldStartLoadWithRequest %@ ", urlString);
-
-    NSString *rUrl = request.URL.absoluteString;
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *rUrl = navigationAction.request.URL.absoluteString;
     if ([rUrl isEqualToString:@"http://bbs.smartisan.com/forum.php"]) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
@@ -142,11 +133,9 @@
             }
         }];
 
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
     }
-
-
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (IBAction)cancelLogin:(id)sender {

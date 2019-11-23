@@ -493,7 +493,6 @@
             [stretchAnimation setBeginTime:CACurrentMediaTime() + 0.35];
 
             [stretchAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            //[_webView setAnchorPoint:CGPointMake(0.0, 1) forView:_webView];
             [_wkWebView.layer addAnimation:stretchAnimation forKey:@"stretchAnimation"];
 
             CATransition *animation = [CATransition animation];

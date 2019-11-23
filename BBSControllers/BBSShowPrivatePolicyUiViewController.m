@@ -43,8 +43,6 @@
 
     self.navigationItem.title = _title;
 
-//    [self.webView setScalesPageToFit:YES];
-//    self.webView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.backgroundColor = [UIColor whiteColor];
 
