@@ -612,7 +612,6 @@
     if (avatar == nil) {
         avatar = @"/no_avatar.jpg";
     }
-    //NSLog(@"avatarLink  >> %@", avatar);
     return avatar;
 }
 
@@ -872,7 +871,6 @@
     NSRange range = [searchText rangeOfString:pattern options:NSRegularExpressionSearch];
 
     if (range.location != NSNotFound) {
-        //NSLog(@"%@", [searchText substringWithRange:range]);
         return [searchText substringWithRange:range];
     }
     return nil;

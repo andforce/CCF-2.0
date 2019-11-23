@@ -186,7 +186,6 @@ static BOOL PAY_DEBUG = NO;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
-
     if (application.applicationState == UIApplicationStateActive) {
         // 转换成一个本地通知，显示到通知栏，你也可以直接显示出一个 alertView，只是那样稍显 aggressive：）
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];

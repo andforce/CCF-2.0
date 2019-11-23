@@ -313,8 +313,6 @@
 
             IGXMLNode *postForNode = [node childAt:2];
 
-            //NSLog(@"--------------------- %ld title: %@", (long) [postForNode children].count, [[postForNode text] trim]);
-
             NSString *postIdNode = [postForNode html];
             NSString *postId = [postIdNode stringWithRegular:@"(?<=id=\"thread_title_)\\d+(?=\")"];
 
@@ -607,7 +605,6 @@
     if (avatar == nil) {
         avatar = @"/no_avatar.jpg";
     }
-    //NSLog(@"avatarLink  >> %@", avatar);
     return avatar;
 }
 
@@ -823,7 +820,6 @@
     NSRange range = [searchText rangeOfString:pattern options:NSRegularExpressionSearch];
 
     if (range.location != NSNotFound) {
-        //NSLog(@"%@", [searchText substringWithRange:range]);
         return [searchText substringWithRange:range];
     }
     return nil;

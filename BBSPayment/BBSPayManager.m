@@ -73,7 +73,6 @@ static BBSPayManager *_instance = nil;
 //        request.delegate = self;
 //        [request start];
 //    } else {
-//        NSLog(@"PayManager --> 应用没有开启内购权限");
 //        [self handleResult:FALSE];
 //    }
 }
@@ -176,8 +175,6 @@ static BBSPayManager *_instance = nil;
     SKProduct *p = nil;
     for (SKProduct *pro in product) {
         NSLog(@"PayManager --> %@", [pro description]);
-        //NSLog(@"PayManager --> %@", [pro localizedTitle]);
-        //NSLog(@"PayManager --> %@", [pro localizedDescription]);
         NSLog(@"PayManager --> %@", [pro price]);
         NSLog(@"PayManager --> %@", [pro productIdentifier]);
 
