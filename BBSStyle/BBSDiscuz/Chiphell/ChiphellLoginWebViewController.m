@@ -13,6 +13,7 @@
 #import "IGHTMLDocument+QueryNode.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
+#import "AssertReader.h"
 
 #define LOG_IN_URL @"https://www.chiphell.com/member.php?mod=logging&action=login&mobile=no&referer=https://www.chiphell.com/forum.php"
 
@@ -81,8 +82,7 @@
 
     if ([currentURL isEqualToString:LOG_IN_URL]) {
         // 改变样式
-        NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"chhlogin" ofType:@"js"]
-                                                 encoding:NSUTF8StringEncoding error:nil];
+        NSString *js = [AssertReader js_chiphell_login];
         [webView evaluateJavaScript:js completionHandler:nil];
 
         [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];

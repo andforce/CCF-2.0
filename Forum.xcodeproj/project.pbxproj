@@ -113,7 +113,7 @@
 		3A48EF89214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A48EF87214E9FAC0025CE2D /* NSURLProtocol+WKWebVIew.m */; };
 		3A5A2CD61EBDEA7100B62F96 /* BBSSupportNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5A2CD51EBDEA7100B62F96 /* BBSSupportNavigationController.m */; };
 		3A6B4F611EB705A600B9CD79 /* iOSDeviceName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */; };
-		3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A8750C01FBDFC07002757AD /* changeLoginStyle.js */; };
+		3A8750C11FBDFC07002757AD /* change_web_login_style.js in Resources */ = {isa = PBXBuildFile; fileRef = 3A8750C01FBDFC07002757AD /* change_web_login_style.js */; };
 		3A92CD9C1F2C7D9B00E41573 /* FeiFanBBSApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CD9B1F2C7D9B00E41573 /* FeiFanBBSApi.m */; };
 		3A92CD9F1F2C7E6000E41573 /* FeiFanConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CD9E1F2C7E6000E41573 /* FeiFanConfig.m */; };
 		3A92CDA21F2C7E8500E41573 /* FeiFanHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92CDA11F2C7E8500E41573 /* FeiFanHtmlParser.m */; };
@@ -168,7 +168,7 @@
 		4DFB34D21DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFB34CE1DF82D5E00BD8DD5 /* UserEntry+CoreDataProperties.m */; };
 		4DFB34D61DF946D300BD8DD5 /* Et8NetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFB34D51DF946D300BD8DD5 /* Et8NetConfig.m */; };
 		757C88B17FCB5AFBB7C0CA0B /* libPods-Forum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA91F0D805959E8525B7BE0D /* libPods-Forum.a */; };
-		C7B592195D565E7F41FD734C /* chhlogin.js in Resources */ = {isa = PBXBuildFile; fileRef = C7B59562B16849BAC8C2CE68 /* chhlogin.js */; };
+		C7B592195D565E7F41FD734C /* chiphell_login.js in Resources */ = {isa = PBXBuildFile; fileRef = C7B59562B16849BAC8C2CE68 /* chiphell_login.js */; };
 		C7B59AE98E801BD822B9F92C /* Et8NetApi.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B593CF20E3E8DCF4B2D83C /* Et8NetApi.m */; };
 		C7B59B9DABEB94C6EC3B70A4 /* BBSPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B598437592A403475313FA /* BBSPayManager.m */; };
 		C7B59C89FE57387F98A2F727 /* Et8NetHtmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B5922924FBE1978D345607 /* Et8NetHtmlParser.m */; };
@@ -385,7 +385,7 @@
 		3A5A2CD51EBDEA7100B62F96 /* BBSSupportNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSSupportNavigationController.m; sourceTree = "<group>"; };
 		3A6B4F5F1EB705A600B9CD79 /* iOSDeviceName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSDeviceName.h; sourceTree = "<group>"; };
 		3A6B4F601EB705A600B9CD79 /* iOSDeviceName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSDeviceName.m; sourceTree = "<group>"; };
-		3A8750C01FBDFC07002757AD /* changeLoginStyle.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = changeLoginStyle.js; sourceTree = "<group>"; };
+		3A8750C01FBDFC07002757AD /* change_web_login_style.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = change_web_login_style.js; sourceTree = "<group>"; };
 		3A92CD9A1F2C7D9B00E41573 /* FeiFanBBSApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeiFanBBSApi.h; sourceTree = "<group>"; };
 		3A92CD9B1F2C7D9B00E41573 /* FeiFanBBSApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeiFanBBSApi.m; sourceTree = "<group>"; };
 		3A92CD9D1F2C7E6000E41573 /* FeiFanConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeiFanConfig.h; sourceTree = "<group>"; };
@@ -486,7 +486,7 @@
 		C7B5922924FBE1978D345607 /* Et8NetHtmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Et8NetHtmlParser.m; sourceTree = "<group>"; };
 		C7B59370C7EEC80ACF175D43 /* BBSPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSPayManager.h; sourceTree = "<group>"; };
 		C7B593CF20E3E8DCF4B2D83C /* Et8NetApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Et8NetApi.m; sourceTree = "<group>"; };
-		C7B59562B16849BAC8C2CE68 /* chhlogin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chhlogin.js; sourceTree = "<group>"; };
+		C7B59562B16849BAC8C2CE68 /* chiphell_login.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chiphell_login.js; sourceTree = "<group>"; };
 		C7B598437592A403475313FA /* BBSPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSPayManager.m; sourceTree = "<group>"; };
 		C7B598A44A0FE5E0B0F59D42 /* Et8NetApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Et8NetApi.h; sourceTree = "<group>"; };
 		C7B59A3EE329F70B4CDE26BE /* NSData+UTF8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+UTF8.h"; sourceTree = "<group>"; };
@@ -562,7 +562,7 @@
 				3A92CDA11F2C7E8500E41573 /* FeiFanHtmlParser.m */,
 				3A92CDA31F2C826B00E41573 /* FeiFanLoginViewController.h */,
 				3A92CDA41F2C826B00E41573 /* FeiFanLoginViewController.m */,
-				3A8750C01FBDFC07002757AD /* changeLoginStyle.js */,
+				3A8750C01FBDFC07002757AD /* change_web_login_style.js */,
 			);
 			path = FeiFan;
 			sourceTree = "<group>";
@@ -604,7 +604,7 @@
 				2F34C36FABA87760B3B5B1B3 /* ChiphellConfig.m */,
 				2F34C8DBF1BAF7284E27B0F6 /* ChiphellHtmlParser.h */,
 				2F34C933EAF9358009F4612F /* ChiphellHtmlParser.m */,
-				C7B59562B16849BAC8C2CE68 /* chhlogin.js */,
+				C7B59562B16849BAC8C2CE68 /* chiphell_login.js */,
 			);
 			path = Chiphell;
 			sourceTree = "<group>";
@@ -1229,7 +1229,7 @@
 				3A2C3F8E1DDFDFC000576151 /* ApiTestViewController.xib in Resources */,
 				4D1B072120456F1D0013B6A1 /* privacy_content.html in Resources */,
 				4D13B6612387CAA200BBF06D /* Pay.storyboard in Resources */,
-				3A8750C11FBDFC07002757AD /* changeLoginStyle.js in Resources */,
+				3A8750C11FBDFC07002757AD /* change_web_login_style.js in Resources */,
 				3A2C3F0E1DDFB8D300576151 /* paperclip.gif in Resources */,
 				3A2C3F0C1DDFB88400576151 /* Assets.xcassets in Resources */,
 				3A48EF80214D3BFD0025CE2D /* click_fast_lib.js in Resources */,
@@ -1249,7 +1249,7 @@
 				4D1B0726204686350013B6A1 /* use_terms_content.html in Resources */,
 				3A2C3F5E1DDFBFC500576151 /* PageHeaderView.xib in Resources */,
 				3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */,
-				C7B592195D565E7F41FD734C /* chhlogin.js in Resources */,
+				C7B592195D565E7F41FD734C /* chiphell_login.js in Resources */,
 				4D13B66D2387CCF100BBF06D /* AllBBSSetting.storyboard in Resources */,
 				2F34CEF71A3645A8A7E867A0 /* more_about_content.html in Resources */,
 			);

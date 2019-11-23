@@ -26,6 +26,14 @@
     return [self read:@"click_event_handler.js"];
 }
 
++ (NSString *)js_chiphell_login {
+    return [self read:@"chiphell_login.js"];
+}
+
++ (NSString *)js_change_web_login_style {
+    return [self read:@"change_web_login_style.js"];
+}
+
 + (NSString *)html_content_template_append_one_post_floor {
     return [self read:@"content_template_append_one_post_floor.html"];
 }

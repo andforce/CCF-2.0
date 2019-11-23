@@ -10,6 +10,8 @@
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
+#import "AssertReader.h"
+
 @interface FeiFanLoginViewController () <WKNavigationDelegate> {
 
 }
@@ -71,7 +73,7 @@
     }];
 
     // 改变样式
-    NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"changeLoginStyle" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    NSString *js = [AssertReader js_change_web_login_style];
 
     [webView evaluateJavaScript:js completionHandler:nil];
 

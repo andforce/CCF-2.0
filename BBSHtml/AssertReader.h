@@ -18,6 +18,10 @@
 
 + (NSString *)js_click_event_handler;
 
++ (NSString *)js_chiphell_login;
+
++ (NSString *)js_change_web_login_style;
+
 + (NSString *)html_content_template_all_post_floors;
 
 + (NSString *)html_content_template_message;
