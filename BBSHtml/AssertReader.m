@@ -55,6 +55,6 @@
 }
 
 + (UIImage *)attachment_flag {
-    return [UIImage imageNamed:@"attachment_flag.png"];
+    return [UIImage imageNamed:@"attachment_flag"];
 }
 @end

@@ -797,7 +797,7 @@
 
 // private 判断是否包含图片
 - (BOOL)isContainsImagesThread:(NSString *)postTitlehtml {
-    return [postTitlehtml containsString:@"images/CCFStyle/misc/attachment_flag.png"];
+    return [postTitlehtml containsString:@"images/CCFStyle/misc/paperclip.gif"];
 }
 
 // private 获取回帖的页数
