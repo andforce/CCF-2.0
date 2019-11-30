@@ -68,6 +68,36 @@
 
 #pragma mark UITextFieldDelegate
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
+    if ([string isEqualToString:@""] || string == nil) {
+        return YES;
+    }
+
+    if (_vCode == textField){
+        char commitChar = (char) [string characterAtIndex:0];
+
+        if (commitChar > 96 && commitChar < 123) {
+
+            //小写变成大写
+
+            NSString *uppercaseString = string.uppercaseString;
+
+            NSString *str1 = [textField.text substringToIndex:range.location];
+
+            NSString *str2 = [textField.text substringFromIndex:range.location];
+
+            textField.text = [NSString stringWithFormat:@"%@%@%@", str1, uppercaseString, str2];
+
+            return NO;
+
+        }
+    }
+
+    return YES;
+
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _userName) {
         [_password becomeFirstResponder];
@@ -85,7 +115,7 @@
     CGRect keyboardFrame;
     [[((NSNotification *) sender) userInfo][UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
 
-    CGRect focusedFrame = _loginbgview.frame;
+    CGRect focusedFrame = _loginBackgroundView.frame;
     int bottom = (int) (focusedFrame.origin.y + CGRectGetHeight(focusedFrame) + self.rootView.frame.origin.y) + 20;
 
     int keyboardTop = (int) (CGRectGetHeight(screenSize) - CGRectGetHeight(keyboardFrame));

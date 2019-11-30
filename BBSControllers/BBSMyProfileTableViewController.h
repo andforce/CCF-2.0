@@ -13,7 +13,7 @@
 @property(weak, nonatomic) IBOutlet UILabel *profileName;
 
 
-@property(weak, nonatomic) IBOutlet UIImageView *prifileAvatar;
+@property(weak, nonatomic) IBOutlet UIImageView *profileAvatar;
 @property(weak, nonatomic) IBOutlet UILabel *profileRank;
 
 

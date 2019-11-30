@@ -12,7 +12,7 @@
 @property(weak, nonatomic) IBOutlet UITextField *userName;
 @property(weak, nonatomic) IBOutlet UITextField *password;
 @property(weak, nonatomic) IBOutlet UITextField *vCode;
-@property(weak, nonatomic) IBOutlet UIView *loginbgview;
+@property(weak, nonatomic) IBOutlet UIView *loginBackgroundView;
 @property(weak, nonatomic) IBOutlet UIView *rootView;
 
 @property(weak, nonatomic) IBOutlet UIImageView *doorImageView;

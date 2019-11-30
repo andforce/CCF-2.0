@@ -104,7 +104,7 @@
         if (isSuccess) {
             userProfile = message;
 
-            [self showAvatar:_prifileAvatar userId:userProfile.profileUserId];
+            [self showAvatar:_profileAvatar userId:userProfile.profileUserId];
             _profileName.text = userProfile.profileName;
             _profileRank.text = userProfile.profileRank;
 

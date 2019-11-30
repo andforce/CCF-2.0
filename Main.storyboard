@@ -1221,7 +1221,7 @@
                         <outlet property="lastLoginTime" destination="EiT-0V-suF" id="RYE-mI-IeX"/>
                         <outlet property="leftMenu" destination="yva-94-8CG" id="a36-p6-pUr"/>
                         <outlet property="postCount" destination="tHd-ny-m5N" id="g9E-gU-4tK"/>
-                        <outlet property="prifileAvatar" destination="tBc-1n-g0a" id="aND-dU-NgF"/>
+                        <outlet property="profileAvatar" destination="tBc-1n-g0a" id="aND-dU-NgF"/>
                         <outlet property="profileName" destination="H9c-TD-LrS" id="PMX-zW-DgA"/>
                         <outlet property="profileRank" destination="4lo-zw-w3r" id="S0D-Rh-WP4"/>
                         <outlet property="registerDate" destination="gDA-ar-y1D" id="Z8p-G8-pep"/>

@@ -148,7 +148,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doorImageView" destination="dds-6x-NuR" id="nG0-fm-SzC"/>
-                        <outlet property="loginbgview" destination="yza-pa-1jS" id="vgJ-NW-Up1"/>
+                        <outlet property="loginBackgroundView" destination="yza-pa-1jS" id="vgJ-NW-Up1"/>
                         <outlet property="password" destination="hSs-76-Cuh" id="OMh-y4-2Hb"/>
                         <outlet property="rootView" destination="JUG-5g-vNr" id="AbU-JV-CD3"/>
                         <outlet property="userName" destination="uaK-mm-Im9" id="ZfY-tH-P8b"/>
