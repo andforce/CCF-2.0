@@ -103,7 +103,8 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
         }
     }
 
-    if (data == nil && [[self.request.URL absoluteString] rangeOfString:@"no_avatar.jpg"].location != NSNotFound) {
+    if (data == nil && ([[self.request.URL absoluteString] rangeOfString:@"no_avatar.gif"].location != NSNotFound ||
+            [[self.request.URL absoluteString] rangeOfString:@"no_avatar.jpg"].location != NSNotFound)) {
         UIImage *defaultAvatarImage = [AssertReader no_avatar];
         data = UIImageJPEGRepresentation(defaultAvatarImage, 1.f);
     }

@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "BBSLocalApi.h"
 #import "AssertReader.h"
+#import "NSURLProtocol+WKWebVIew.h"
 
 @interface BBSShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
@@ -36,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [NSURLProtocol wk_registerScheme:@"http"];
+    [NSURLProtocol wk_registerScheme:@"https"];
 
     self.dataList = [NSMutableArray array];
 
