@@ -30,6 +30,17 @@
     return self;
 }
 
+-(NSString *)resizeSmile:(NSString *)html{
+    //<img src="images/smilies/2019/067.gif" border="0" alt="" title="067" class="inlineimg" />
+    NSArray *smiles = [html arrayWithRegular:@"<img src=\"images/smilies/2019/\\d+.(gif|png)\" border=\"0\" alt"];
+    NSString *fixedHtml = html;
+    for (NSString *smile in smiles) {
+        NSString *resize = [smile stringByReplacingOccurrencesOfString:@"border=\"0\"" withString:@"border=\"0\" style=\"width:40px !important; height:40px !important;\""];
+        fixedHtml = [fixedHtml stringByReplacingOccurrencesOfString:smile withString:resize];
+    }
+    return fixedHtml;
+}
+
 - (ViewThreadPage *)parseShowThreadWithHtml:(NSString *)html {
     // 查找设置了字体的回帖
     NSArray *fontSetString = [html arrayWithRegular:@"<font size=\"\\d+\">"];
@@ -51,9 +62,9 @@
 
         NSString *patterned = [NSString stringWithFormat:httpPattern, fixedHttp, fixedHttp];
         fuxkHttp = [fuxkHttp stringByReplacingOccurrencesOfString:http withString:patterned];
-
     }
 
+    fuxkHttp = [self resizeSmile:fuxkHttp];
 
     IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:fuxkHttp error:nil];
 
