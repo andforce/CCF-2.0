@@ -71,7 +71,12 @@
             NSString *postInfo = [NSString stringWithFormat:[AssertReader html_content_template_message], oneMessage.pmUserInfo.userID, oneMessage.pmUserInfo.userAvatar,
                                                             oneMessage.pmUserInfo.userName, oneMessage.pmTime, oneMessage.pmContent];
 
-            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], oneMessage.pmTitle, postInfo, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
+            NSString *titleHtml = @"        <li class=\"post-title\">\n"
+                                  "            <div class=\"title\">%@</div>\n"
+                                  "        </li>";
+            NSString *titleFormat = [NSString stringWithFormat:titleHtml, oneMessage.pmTitle];
+            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], titleFormat,
+                    postInfo, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
 
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];

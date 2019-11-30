@@ -75,20 +75,12 @@
 }
 
 - (void)fileSizeAtPath:(NSURL *)filePath {
-    //return [self fileSizeAtPathWithString:filePath.path];
-    ALAssetsLibrary *alLibrary = [[ALAssetsLibrary alloc] init];
-    __block long long fileSize = (long long int) 0.0;
 
-    [alLibrary assetForURL:filePath resultBlock:^(ALAsset *asset) {
-        ALAssetRepresentation *representation = [asset defaultRepresentation];
-
-        fileSize = [representation size];
-
-
-        NSLog(@"图片大小:   %lld", fileSize);
-
-    }         failureBlock:nil];
-
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath.path error:&error];
+    id fileSize = fileAttributes[NSFileSize];
+    NSLog(@"图片大小:   %@", fileSize);
 }
 
 
