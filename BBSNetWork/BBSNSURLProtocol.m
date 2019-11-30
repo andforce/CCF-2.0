@@ -14,14 +14,11 @@
 #import "AssertReader.h"
 
 static NSString *const sourUrl = @"https://m.baidu.com/static/index/plus/plus_logo.png";
-static NSString *const sourIconUrl = @"http://m.baidu.com/static/search/baiduapp_icon.png";
 static NSString *const localUrl = @"http://mecrm.qa.medlinker.net/public/image?id=57026794&certType=workCertPicUrl&time=1484625241";
 
 static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
 @interface BBSNSURLProtocol () <NSURLSessionDelegate, NSURLConnectionDataDelegate>
-
-//@property(nonnull, strong) NSURLSessionDataTask *task;
 
 @property(nonatomic, strong) NSURLConnection *connection;
 @property(nonatomic, strong) NSMutableData *responseData;
@@ -64,15 +61,15 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-    NSMutableURLRequest *mutableReqeust = [request mutableCopy];
+    NSMutableURLRequest *mutableRequest = [request mutableCopy];
 
     //request截取重定向
     if ([request.URL.absoluteString isEqualToString:sourUrl]) {
         NSURL *url1 = [NSURL URLWithString:localUrl];
-        mutableReqeust = [NSMutableURLRequest requestWithURL:url1];
+        mutableRequest = [NSMutableURLRequest requestWithURL:url1];
     }
 
-    return mutableReqeust;
+    return mutableRequest;
 }
 
 + (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b {
@@ -120,9 +117,9 @@ static NSString *const KHybridNSURLProtocolHKey = @"KHybridNSURLProtocol";
 
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
-        NSLog(@"---------- ---------- ---------- ---------- ---------- 有缓存直接利用 %@", self.request.URL);
+        NSLog(@"NSURLProtocol: ----->> in cache: %@", self.request.URL);
     } else {
-        NSLog(@"--- --- --- --- --- --- --- --- --- --- --- --- --- --- 没有缓存需要请求 %@", self.request.URL);
+        NSLog(@"NSURLProtocol: ----->> no cache: %@", self.request.URL);
     }
 
     self.connection = [NSURLConnection connectionWithRequest:mutableURLRequest delegate:self];
