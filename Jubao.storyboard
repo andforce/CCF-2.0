@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation View Controller-->
+        <scene sceneID="Wvp-Pc-RZo">
+            <objects>
+                <navigationController storyboardIdentifier="ReportThreadPost" automaticallyAdjustsScrollViewInsets="NO" id="nt7-FE-iY2" customClass="BBSNavigationViewController" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rFV-BX-a3u">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6JW-h0-SxQ" kind="relationship" relationship="rootViewController" id="vJP-sL-IwY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A6w-N5-gCo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-338" y="-6714"/>
+        </scene>
+        <!--举报违规-->
+        <scene sceneID="ddD-8s-RUr">
+            <objects>
+                <viewController id="6JW-h0-SxQ" userLabel="举报违规" customClass="BBSReportViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IUz-ip-TnI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ohz-43-jxb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e9L-2v-D7N">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gb1-CM-e7u" customClass="UIAutoResizeTextView">
+                                <rect key="frame" x="20" y="8" width="374" height="758"/>
+                                <color key="backgroundColor" red="0.94999998809999997" green="0.94999998809999997" blue="0.94999998809999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gb1-CM-e7u" firstAttribute="top" secondItem="IUz-ip-TnI" secondAttribute="bottom" constant="8" id="84F-AG-xsF"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="gb1-CM-e7u" secondAttribute="leading" id="Rfg-Ee-eJh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gb1-CM-e7u" secondAttribute="trailing" id="Yfh-E5-Z3e"/>
+                            <constraint firstItem="Ohz-43-jxb" firstAttribute="top" secondItem="gb1-CM-e7u" secondAttribute="bottom" constant="8" id="a7E-Br-rmu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="举报违规" id="mdu-LS-HPa">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="165-Ys-oZ1">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="back:" destination="6JW-h0-SxQ" id="OaC-w9-fla"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="举报" id="0yT-Np-g5s">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="reportThreadPost:" destination="6JW-h0-SxQ" id="QTf-cm-7eA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="reportMessage" destination="gb1-CM-e7u" id="YGn-rq-bHh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="20c-7Q-KJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="366" y="-6713"/>
+        </scene>
+    </scenes>
+</document>

@@ -22,9 +22,8 @@ target 'Forum' do
 	pod 'FDFullscreenPopGesture', '1.1'		#2018/03/04
 	pod 'SDWebImage', '~>3.7.5'			#2018/03/04
 	pod 'MGSwipeTableCell', '~>1.6.11'		#2018/03/04
-	pod 'AVOSCloud', '~>12.0.4'			#2018/03/04
 	pod 'NYTPhotoViewer', '~> 2.0.0'		#2018/03/04
-    	pod 'AFNetworking', '~> 3.2.0'
+  pod 'AFNetworking', '~> 3.2.1'
 end
     #pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
     #pod 'AVOSCloudIM', '~>4.2.0'

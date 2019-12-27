@@ -1,28 +1,26 @@
 //
-//  AppDelegate.m
-//
-//  Created by WDY on 15/12/28.
-//  Copyright © 2015年 andforce. All rights reserved.
+//  Created by Diyuan Wang on 2019/11/21.
+//  Copyright © 2019年 Diyuan Wang. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "ForumLoginViewController.h"
+#import "BBSLoginViewController.h"
 
-#import "ForumCoreDataManager.h"
-#import "ApiTestViewController.h"
+#import "BBSCoreDataManager.h"
+#import "BBSApiTestViewController.h"
 #import "NSUserDefaults+Setting.h"
 #import "UIStoryboard+Forum.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "ForumTabBarController.h"
-#import "ForumTableViewController.h"
-#import "Forums.h"
-#import "LocalForumApi.h"
+#import "BBSTabBarController.h"
+#import "BBSTableViewController.h"
+#import "WorkedBBS.h"
+#import "BBSLocalApi.h"
 #import <UserNotifications/UserNotifications.h>
 
-#import "ForumPushManager.h"
-#import "PayManager.h"
+#import "BBSPayManager.h"
 
-#import "HybridNSURLProtocol.h"
+#import "BBSNSURLProtocol.h"
+#import "BBSPayUITableViewController.h"
 
 static BOOL API_DEBUG = NO;
 static int DB_VERSION = 11;
@@ -30,7 +28,7 @@ static int DB_VERSION = 11;
 static BOOL PAY_DEBUG = NO;
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate> {
-    ForumPushManager *_pushManager;
+
 }
 @end
 
@@ -39,26 +37,23 @@ static BOOL PAY_DEBUG = NO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [NSURLProtocol registerClass:[HybridNSURLProtocol class]];
+    [NSURLProtocol registerClass:[BBSNSURLProtocol class]];
     
     [self changeUserAgentForWebView];
 
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
-    
-    if (NO && !PAY_DEBUG) {
-        // 向服务器验证订阅情况
-        PayManager * payManager = [PayManager shareInstance];
-        [payManager verifyPay:localForumApi.currentProductID with:^(NSDictionary *response) {
-            
-            if (response == nil || [response[@"status"] intValue] != 0){
-                [payManager setPayed:FALSE for:localForumApi.currentProductID];
-                NSLog(@"not payed");
-            } else {
-                [payManager setPayed:TRUE for:localForumApi.currentProductID];
-                NSLog(@"payed success");
-            }
-        }];
-    }
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+
+    BBSPayManager * payManager = [BBSPayManager shareInstance];
+    [payManager verifyPay:localForumApi.currentProductID with:^(long timeHave) {
+
+        if (timeHave == 0){
+            [payManager setPayed:FALSE for:localForumApi.currentProductID];
+            NSLog(@"AppDelegate --> not payed");
+        } else {
+            [payManager setPayed:TRUE for:localForumApi.currentProductID];
+            NSLog(@"AppDelegate --> payed success");
+        }
+    }];
 
 
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:200 * 1024 * 1024 diskCapacity:1024 * 1024 * 1024 diskPath:nil];
@@ -66,22 +61,16 @@ static BOOL PAY_DEBUG = NO;
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-//    [HPURLProtocol registerURLProtocolIfNeed];
-
-    // 注册LeanCloud的推送服务
-    _pushManager = [[ForumPushManager alloc] initWithNotificationCenterDelegate:self];
-    [_pushManager registerPushManagerWithOptions:launchOptions];
-
     application.applicationIconBadgeNumber = 0;
 
     if (API_DEBUG) {
         NSDictionary *dic = [[NSBundle mainBundle] infoDictionary];
-        NSLog(@"infoDictionary %@",dic);
+        NSLog(@"AppDelegate --> infoDictionary %@",dic);
 
         NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        NSLog(@"versionCode %@",versionCode);
+        NSLog(@"AppDelegate --> versionCode %@",versionCode);
         
-        ApiTestViewController *testController = [[ApiTestViewController alloc] init];
+        BBSApiTestViewController *testController = [[BBSApiTestViewController alloc] init];
         self.window.rootViewController = testController;
         return YES;
     }
@@ -89,7 +78,7 @@ static BOOL PAY_DEBUG = NO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];//Documents目录
 
-    NSLog(@"文件路径: %@", documentsDirectory);
+    NSLog(@"AppDelegate --> 文件路径: %@", documentsDirectory);
 
     // 设置默认数值
     NSUserDefaults *setting = [NSUserDefaults standardUserDefaults];
@@ -102,18 +91,18 @@ static BOOL PAY_DEBUG = NO;
     BOOL isClearDB = NO;
     if ([localForumApi dbVersion] != DB_VERSION) {
         
-        ForumCoreDataManager *formManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeForm];
+        BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
         
         // 清空数据库
         [formManager deleteData];
         
-        ForumCoreDataManager *userManager = [[ForumCoreDataManager alloc] initWithEntryType:EntryTypeUser];
+        BBSCoreDataManager *userManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         [userManager deleteData];
         
         [localForumApi setDBVersion:DB_VERSION];
 
-        NSArray<Forums *> * forums = localForumApi.supportForums;
-        for (Forums * f in forums) {
+        NSArray<WorkedBBS *> * forums = localForumApi.supportForums;
+        for (WorkedBBS * f in forums) {
             [localForumApi logout:f.url];
         }
         
@@ -124,7 +113,7 @@ static BOOL PAY_DEBUG = NO;
     NSString *currentSelectForumHost = localForumApi.currentForumHost;
     if (currentSelectForumHost){
         if (![localForumApi isHaveLogin:localForumApi.currentForumHost]){
-            NSArray<Forums *> * loginForums = localForumApi.loginedSupportForums;
+            NSArray<WorkedBBS *> * loginForums = localForumApi.loginedSupportForums;
             if(loginForums != nil && loginForums.count >0){
                 [localForumApi saveCurrentForumURL:loginForums.firstObject.url];
             }
@@ -143,10 +132,10 @@ static BOOL PAY_DEBUG = NO;
 
 
     if (launchOptions[@"UIApplicationLaunchOptionsShortcutItemKey"] == nil) {
-        NSLog(@"UIApplicationLaunchOptionsShortcutItemKey yes");
+        NSLog(@"AppDelegate --> UIApplicationLaunchOptionsShortcutItemKey yes");
         return YES;
     } else {
-        NSLog(@"UIApplicationLaunchOptionsShortcutItemKey no");
+        NSLog(@"AppDelegate --> UIApplicationLaunchOptionsShortcutItemKey no");
         return NO;
     }
     
@@ -154,56 +143,30 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)changeUserAgentForWebView {
-
 //    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
 //    NSDictionary *dictionary = @{@"UserAgent": newAgent, @"User-Agent":newAgent,@"useragent":newAgent, @"user-agent":newAgent};
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
-- (void)showReloginController:(LocalForumApi *)localForumApi {
-    NSString *bundleId = [localForumApi bundleIdentifier];
-
-    if ([bundleId isEqualToString:@"com.andforce.forums"]) {
-        [localForumApi clearCurrentForumURL];
-        self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
-    } else {
-
-        id <ForumConfigDelegate> api = [ForumApiHelper forumConfig:localForumApi.currentForumHost];
-        NSString *cId = api.loginControllerId;
-        [[UIStoryboard mainStoryboard] changeRootViewControllerTo:cId];
-
-    }
+- (void)showReloginController:(BBSLocalApi *)localForumApi {
+    [localForumApi clearCurrentForumURL];
+    self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
 }
 
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
-    if (/* DISABLES CODE */ (NO)){
-        // 首先要想LeanCloud保存installation
-//        AVInstallation *currentInstallation = [AVInstallation currentInstallation];
-//        [currentInstallation setDeviceTokenFromData:deviceToken];
-//        [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//
-//            if (!succeeded) {
-//                NSLog(@"Error-------> :%@", error);
-//            }
-//
-//        }];
-    } else {
-        // 向系统申请推送服务
-        [_pushManager handleRemoteNotificationsWithDeviceToken:deviceToken];
-    }
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     completionHandler();  // 系统要求执行这个方法
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
     NSDictionary * userInfo = notification.request.content.userInfo;
     if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //从通知界面直接进入应用
@@ -213,7 +176,7 @@ static BOOL PAY_DEBUG = NO;
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-    NSLog(@">>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
+    NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
     NSDictionary * userInfo = notification.request.content.userInfo;
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
 
@@ -223,7 +186,6 @@ static BOOL PAY_DEBUG = NO;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
-
     if (application.applicationState == UIApplicationStateActive) {
         // 转换成一个本地通知，显示到通知栏，你也可以直接显示出一个 alertView，只是那样稍显 aggressive：）
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
@@ -232,9 +194,9 @@ static BOOL PAY_DEBUG = NO;
         localNotification.alertBody = [userInfo[@"aps"] objectForKey:@"alert"];
         localNotification.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification   createLocale");
+        NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification   createLocale");
     } else {
-        NSLog(@">>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification  remote");
+        NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   didReceiveRemoteNotification  remote");
         //[AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
 }
@@ -280,7 +242,7 @@ static BOOL PAY_DEBUG = NO;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.andforce.Forum" in the application's documents directory.
+    // The directory the application uses to store the Core Data store file.
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
@@ -315,7 +277,7 @@ static BOOL PAY_DEBUG = NO;
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"AppDelegate --> Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 
@@ -346,7 +308,7 @@ static BOOL PAY_DEBUG = NO;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            NSLog(@"AppDelegate --> Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -354,14 +316,14 @@ static BOOL PAY_DEBUG = NO;
 
 /** 处理shortcutItem */
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    LocalForumApi *localForumApi = [[LocalForumApi alloc] init];
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     if ([localForumApi isHaveLoginForum]){
         NSString *shortCutItemType = shortcutItem.type;
 
-        ForumTabBarController * controller = (ForumTabBarController *) self.window.rootViewController;
+        BBSTabBarController * controller = (BBSTabBarController *) self.window.rootViewController;
 
         controller.selectedIndex = 2;
-        ForumTableViewController * forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
+        BBSTableViewController * forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
         [forumTableViewController showControllerByShortCutItemType:shortCutItemType];
     }
 }
