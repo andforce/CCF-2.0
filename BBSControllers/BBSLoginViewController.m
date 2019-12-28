@@ -259,8 +259,8 @@
     [window.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 @end
