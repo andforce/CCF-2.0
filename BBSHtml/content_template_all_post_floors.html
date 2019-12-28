@@ -113,8 +113,15 @@
 
         /* 标题相关 */
         .post-title {
-            border-bottom: 1.0px solid #DCDCDC;
+            border-bottom: 1.0px solid;
+            border-bottom-color: #dcdcdc;
             padding: 1px 4px 1px 4px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .post-title {
+                border-bottom-color: #2a2a2a;
+            }
         }
 
         .title {
@@ -189,8 +196,15 @@
         }
 
         .post-message {
-            border-bottom: 1.0px solid #DCDCDC;
+            border-bottom: 1.0px solid;
+            border-bottom-color: #dcdcdc;
             padding: 4px 4px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .post-message {
+                border-bottom-color: #2a2a2a;
+            }
         }
 
         .page .gotoFloor {
