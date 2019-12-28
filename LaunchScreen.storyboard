@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bbs_big_logo_1024px" translatesAutoresizingMaskIntoConstraints="NO" id="Pbk-bg-psT">
-                                <rect key="frame" x="50" y="296" width="314" height="314"/>
+                                <rect key="frame" x="100" y="346" width="214" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pbk-bg-psT" secondAttribute="height" multiplier="1:1" id="70h-DL-FPR"/>
                                 </constraints>
@@ -26,8 +26,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Pbk-bg-psT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2bY-DE-e6j"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Pbk-bg-psT" secondAttribute="leading" constant="-50" id="44s-xw-hfB"/>
-                            <constraint firstItem="Pbk-bg-psT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-50" id="i4X-3t-qOS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="Pbk-bg-psT" secondAttribute="leading" constant="-100" id="44s-xw-hfB"/>
+                            <constraint firstItem="Pbk-bg-psT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-100" id="i4X-3t-qOS"/>
                             <constraint firstItem="Pbk-bg-psT" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="lKP-4l-WKS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

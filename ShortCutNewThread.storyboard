@@ -25,13 +25,13 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kVm-ot-F06">
                                         <rect key="frame" x="16" y="16" width="47" height="44"/>
-                                        <color key="backgroundColor" red="0.94893664119999999" green="0.94907277820000002" blue="0.94890683890000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="jtq-xp-S0c"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                         <state key="normal" title="分类">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="showCategory:" destination="2I1-Ka-zXW" eventType="touchUpInside" id="8vp-KE-unP"/>
@@ -39,13 +39,13 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ju-1o-eTI">
                                         <rect key="frame" x="16" y="68" width="47" height="44"/>
-                                        <color key="backgroundColor" red="0.94893664119999999" green="0.94907277820000002" blue="0.94890683890000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="mcV-tm-HRd"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                         <state key="normal" title="板块">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="showAllForums:" destination="2I1-Ka-zXW" eventType="touchUpInside" id="fvF-kJ-lvB"/>
@@ -53,7 +53,7 @@
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yGy-ug-7CE">
                                         <rect key="frame" x="16" y="120" width="374" height="176"/>
-                                        <color key="backgroundColor" red="0.94893664119999999" green="0.94907277820000002" blue="0.94890683890000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="176" id="oJh-cI-QGq"/>
                                         </constraints>
@@ -62,7 +62,7 @@
                                     </textView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uyF-HC-c6S">
                                         <rect key="frame" x="16" y="312" width="374" height="270"/>
-                                        <color key="backgroundColor" red="0.95426291230000004" green="0.96890050169999997" blue="0.98596578840000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="270" id="B4a-gV-iux"/>
                                         </constraints>
@@ -116,7 +116,7 @@
                                     </collectionView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="标题:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGr-Aa-zTL">
                                         <rect key="frame" x="63" y="16" width="327" height="44"/>
-                                        <color key="backgroundColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="IPs-Rw-Ekm"/>
                                         </constraints>
@@ -125,7 +125,7 @@
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="选择发表的板块" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aeF-iW-FL7" userLabel="板块">
                                         <rect key="frame" x="63" y="68" width="327" height="44"/>
-                                        <color key="backgroundColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="zet-gg-yOi"/>
                                         </constraints>
@@ -133,7 +133,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="aeF-iW-FL7" firstAttribute="leading" secondItem="0ju-1o-eTI" secondAttribute="trailing" id="11n-1j-sBf"/>
                                     <constraint firstItem="yGy-ug-7CE" firstAttribute="top" secondItem="0ju-1o-eTI" secondAttribute="bottom" constant="8" id="6bv-UT-S1k"/>
@@ -157,7 +157,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="MNw-PB-6cN" secondAttribute="trailing" constant="-16" id="APH-t7-4Tu"/>
                             <constraint firstItem="MNw-PB-6cN" firstAttribute="leading" secondItem="LLz-57-vKQ" secondAttribute="leadingMargin" constant="-16" id="E0p-8z-9lr"/>

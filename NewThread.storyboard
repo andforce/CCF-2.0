@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -25,13 +25,13 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgS-Gn-TxU">
                                         <rect key="frame" x="16" y="16" width="89" height="44"/>
-                                        <color key="backgroundColor" red="0.94893664121627808" green="0.94907277822494507" blue="0.94890683889389038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="oKP-h5-KVF"/>
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                         <state key="normal" title="[请选分类]">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="showCategory:" destination="pXN-Qw-w0b" eventType="touchUpInside" id="JLp-hg-Yfn"/>
@@ -39,7 +39,8 @@
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lnk-2g-A1b">
                                         <rect key="frame" x="16" y="122" width="374" height="222"/>
-                                        <color key="backgroundColor" red="0.94893664121627808" green="0.94907277822494507" blue="0.94890683889389038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" name="white_black_dycolor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="222" id="O6t-qF-ehf"/>
                                         </constraints>
@@ -48,7 +49,7 @@
                                     </textView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CrH-wA-AVZ">
                                         <rect key="frame" x="16" y="360" width="374" height="270"/>
-                                        <color key="backgroundColor" red="0.95426291227340698" green="0.96890050172805786" blue="0.9859657883644104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="270" id="Ecy-Sv-htI"/>
                                         </constraints>
@@ -102,7 +103,8 @@
                                     </collectionView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="标题:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G9m-d8-4BV">
                                         <rect key="frame" x="105" y="16" width="285" height="44"/>
-                                        <color key="backgroundColor" red="0.95026940107345581" green="0.95026940107345581" blue="0.95026940107345581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" name="white_black_dycolor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="cJf-bV-OlG"/>
                                         </constraints>
@@ -121,6 +123,7 @@
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Zk-cK-P4D">
                                                 <rect key="frame" x="108" y="8" width="266" height="30"/>
+                                                <color key="tintColor" name="white_black_dycolor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="QJc-EG-cf9"/>
                                                 </constraints>
@@ -146,7 +149,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="1Zk-cK-P4D" secondAttribute="trailing" id="Gg4-Qt-H9V"/>
                                             <constraint firstItem="RbT-mT-VpX" firstAttribute="centerY" secondItem="5iC-bA-ITd" secondAttribute="centerY" id="MxG-LZ-zvM"/>
@@ -159,7 +162,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="G9m-d8-4BV" secondAttribute="trailing" constant="16" id="2mO-19-Ood"/>
                                     <constraint firstAttribute="bottom" secondItem="CrH-wA-AVZ" secondAttribute="bottom" constant="16" id="4Dw-oi-dDi"/>

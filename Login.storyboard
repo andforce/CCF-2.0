@@ -29,6 +29,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaK-mm-Im9">
                                                 <rect key="frame" x="8" y="5" width="318" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" name="white_black_dycolor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="drD-RF-s1u"/>
                                                 </constraints>
@@ -45,7 +46,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSs-76-Cuh">
                                                 <rect key="frame" x="8" y="45" width="318" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" name="white_black_dycolor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="90Q-Vf-DfQ"/>
                                                 </constraints>
@@ -74,6 +75,7 @@
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IMe-Qj-XfW">
                                                 <rect key="frame" x="92" y="93" width="234" height="34"/>
+                                                <color key="tintColor" name="white_black_dycolor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="D9e-Ng-Hlc"/>
                                                 </constraints>
