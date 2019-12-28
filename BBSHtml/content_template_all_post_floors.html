@@ -134,7 +134,7 @@
             color: #333 !Important;
         }
 
-        /* 帖子的引用 */
+        /* CCF帖子的引用 */
         .post-quote {
             background-color: #f6f6f8;
             border: 1.0px solid;
@@ -147,6 +147,29 @@
                 border-color: #262626;
                 background-color: #363636;
             }
+        }
+
+        /*DRL 论坛的引用样式*/
+        #quote_x {
+            font-size: 12px;
+            width: 100%%;
+            background: #f7f7f7;
+            padding: 3px 5px 3px 8px;
+            margin: 0 0 1px;
+            color: #555;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #quote_x {
+                border-color: #262626;
+                background: #363636;
+            }
+        }
+
+        /*CHH*/
+        .quote {
+            padding: 2px;
+            background: #F9F9F9 url(https://www.chiphell.com/static/image/common/icon_quote_s.gif) no-repeat 10px 3px;
         }
 
         .blockquote {
@@ -180,22 +203,6 @@
             padding: 3px 5px 3px 8px;
             margin: 0 0 1px;
             color: #555;
-        }
-
-        /*DRL 论坛的引用样式*/
-        #quote_x {
-            font-size: 12px;
-            width: 100%%;
-            background: #f7f7f7;
-            padding: 3px 5px 3px 8px;
-            margin: 0 0 1px;
-            color: #555;
-        }
-
-        /*CHH*/
-        .quote {
-            padding: 2px;
-            background: #F9F9F9 url(https://www.chiphell.com/static/image/common/icon_quote_s.gif) no-repeat 10px 3px;
         }
 
         .post-message {
