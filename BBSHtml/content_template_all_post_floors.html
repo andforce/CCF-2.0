@@ -134,10 +134,18 @@
             color: #333 !Important;
         }
 
+        /* 帖子的引用 */
         .post-quote {
             background-color: #f6f6f8;
-            border: 1.0px solid #CFCFD1;
+            border: 1.0px solid;
+            border-color: #cfcfd1;
             margin-bottom: 10px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .post-quote {
+                border-color: #2a2a2a;
+            }
         }
 
         @media (prefers-color-scheme: dark) {
