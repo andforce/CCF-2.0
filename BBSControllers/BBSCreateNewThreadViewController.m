@@ -108,6 +108,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (@available(iOS 13.0, *)) {
+        self.subject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
+
     categoryIndex = 0;
 
     // payManager

@@ -57,6 +57,11 @@
     images = [NSMutableArray array];
 
     _createWhichForum.enabled = NO;
+
+    if (@available(iOS 13.0, *)) {
+        self.subject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        self.createWhichForum.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
 }
 
 

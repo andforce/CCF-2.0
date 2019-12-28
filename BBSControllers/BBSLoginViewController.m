@@ -32,6 +32,11 @@
     _password.delegate = self;
     _vCode.delegate = self;
 
+    if (@available(iOS 13.0, *)) {
+        _userName.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        _password.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        _vCode.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
 
     _userName.returnKeyType = UIReturnKeyNext;
     _password.returnKeyType = UIReturnKeyNext;

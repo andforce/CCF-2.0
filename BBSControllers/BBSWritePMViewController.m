@@ -44,6 +44,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (@available(iOS 13.0, *)) {
+        self.toWho.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        self.privateMessageTitle.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
+
     _localForumApi = [[BBSLocalApi alloc] init];
 
     // payManager
