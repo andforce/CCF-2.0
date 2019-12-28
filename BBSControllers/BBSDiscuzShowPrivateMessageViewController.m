@@ -42,7 +42,6 @@
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.navigationDelegate = self;
-    self.webView.backgroundColor = [UIColor whiteColor];
 
     [self.webView setOpaque:NO];
 

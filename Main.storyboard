@@ -1244,9 +1244,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ6-Nj-xxC">
+                            <wkWebView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ6-Nj-xxC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -1856,6 +1855,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <wkWebView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kU-x1-h1y">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="676"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMD-n7-rwN">
                                 <rect key="frame" x="0.0" y="676" width="414" height="49"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1967,7 +1973,11 @@
                             <constraint firstItem="XMD-n7-rwN" firstAttribute="centerX" secondItem="hIX-vk-f6g" secondAttribute="centerX" id="Fbq-m0-71w"/>
                             <constraint firstItem="fHy-E2-ooq" firstAttribute="centerX" secondItem="hIX-vk-f6g" secondAttribute="centerX" id="VPI-RL-jEv"/>
                             <constraint firstItem="fHy-E2-ooq" firstAttribute="leading" secondItem="hIX-vk-f6g" secondAttribute="leadingMargin" constant="-20" id="b8j-eX-cN3"/>
+                            <constraint firstItem="8kU-x1-h1y" firstAttribute="top" secondItem="QJl-g4-Iy2" secondAttribute="bottom" id="cQf-lw-jcl"/>
                             <constraint firstItem="fHy-E2-ooq" firstAttribute="top" secondItem="XMD-n7-rwN" secondAttribute="top" id="dYf-mI-VaZ"/>
+                            <constraint firstItem="8kU-x1-h1y" firstAttribute="centerX" secondItem="hIX-vk-f6g" secondAttribute="centerX" id="e0q-rq-ACo"/>
+                            <constraint firstItem="fHy-E2-ooq" firstAttribute="top" secondItem="8kU-x1-h1y" secondAttribute="bottom" id="gGA-pr-yBA"/>
+                            <constraint firstItem="8kU-x1-h1y" firstAttribute="width" secondItem="hIX-vk-f6g" secondAttribute="width" id="i8F-01-s9b"/>
                             <constraint firstItem="XMD-n7-rwN" firstAttribute="width" secondItem="hIX-vk-f6g" secondAttribute="width" id="uoq-a0-D0n"/>
                             <constraint firstItem="8IY-ia-7KQ" firstAttribute="top" secondItem="XMD-n7-rwN" secondAttribute="bottom" id="vNe-GU-DpF"/>
                         </constraints>
@@ -1995,6 +2005,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="_wkWebView" destination="8kU-x1-h1y" id="aME-0H-8eo"/>
                         <outlet property="bottomView" destination="fHy-E2-ooq" id="vpd-AO-dDf"/>
                         <outlet property="changePageButton" destination="7g6-eE-r0k" id="TNl-y1-o2V"/>
                         <outlet property="pageTitleTextView" destination="iRj-dM-RXO" id="wfA-7X-s05"/>
@@ -2003,7 +2014,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYC-WR-8hn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2225" y="-2525"/>
+            <point key="canvasLocation" x="2224.6376811594205" y="-2525.2232142857142"/>
         </scene>
         <!--论坛消息-->
         <scene sceneID="4rh-V5-hLv">
@@ -2171,16 +2182,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-dp-HOD">
+                            <wkWebView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-dp-HOD">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fW6-dp-HOD" firstAttribute="centerX" secondItem="McP-IC-acE" secondAttribute="centerX" id="0sV-UA-oZW"/>
                             <constraint firstItem="fW6-dp-HOD" firstAttribute="centerY" secondItem="McP-IC-acE" secondAttribute="centerY" id="Ndk-eP-PpV"/>

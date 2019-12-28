@@ -34,9 +34,10 @@
     // showNotice
     NSString *pid;
     NSString *_ptid;
-    WKWebView *_wkWebView;
+    //WKWebView *_wkWebView;
     WKUserContentController *_contentController;
     BOOL shouldScrollEnd;
+    IBOutlet WKWebView *_wkWebView;
 }
 
 @end
@@ -71,17 +72,18 @@
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
     CGRect rectNav = self.navigationController.navigationBar.frame;
 
-    _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, f.size.width, f.size.height - rectStatus.size.height - rectNav.size.height - bottom) configuration:webViewConfiguration];
+    //_wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, f.size.width, f.size.height - rectStatus.size.height - rectNav.size.height - bottom) configuration:webViewConfiguration];
 
     _wkWebView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    _wkWebView.backgroundColor = [UIColor whiteColor];
+//    _wkWebView.backgroundColor = [UIColor whiteColor];
     _wkWebView.navigationDelegate = self;
 
-    [self.view addSubview:_wkWebView];
-
-    [self.view sendSubviewToBack:_wkWebView];
+//    [self.view addSubview:_wkWebView];
+//
+//    [self.view sendSubviewToBack:_wkWebView];
 
     [_wkWebView setOpaque:NO];
+//    _wkWebView.backgroundColor = [UIColor clearColor];
 
     // scrollView
     _wkWebView.scrollView.delegate = self;
