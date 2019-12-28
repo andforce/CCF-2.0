@@ -1954,13 +1954,13 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="bbs_more_18pt" id="f3g-Vl-i8m">
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="white_black_dycolor"/>
                                 <connections>
                                     <action selector="showMoreAction:" destination="Bhk-dY-41O" id="yiS-u5-1ON"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="bbs_senior_reply_18pt" id="rsz-H6-6jr">
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="white_black_dycolor"/>
                                 <connections>
                                     <action selector="reply:" destination="Bhk-dY-41O" id="Th7-Wu-kP8"/>
                                 </connections>
@@ -1971,6 +1971,7 @@
                         <outlet property="_wkWebView" destination="8kU-x1-h1y" id="aME-0H-8eo"/>
                         <outlet property="bottomView" destination="fHy-E2-ooq" id="vpd-AO-dDf"/>
                         <outlet property="changePageButton" destination="7g6-eE-r0k" id="TNl-y1-o2V"/>
+                        <outlet property="moreButton" destination="f3g-Vl-i8m" id="xQM-SC-OYw"/>
                         <outlet property="pageTitleTextView" destination="iRj-dM-RXO" id="wfA-7X-s05"/>
                         <outletCollection property="blurView" destination="fHy-E2-ooq" id="gur-WR-N9b"/>
                     </connections>

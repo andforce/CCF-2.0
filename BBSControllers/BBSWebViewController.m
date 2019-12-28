@@ -8,9 +8,7 @@
 #import <NYTPhotosViewController.h>
 #import <NYTPhotoViewer/NYTPhoto.h>
 #import "BBSPhoto.h"
-#import "LCActionSheet.h"
 #import "UIStoryboard+Forum.h"
-#import "ActionSheetPicker.h"
 #import "NSString+Extensions.h"
 #import "BBSUserProfileTableViewController.h"
 #import "AppDelegate.h"
@@ -23,9 +21,8 @@
 #import <WebKit/WebKit.h>
 #import <SDWebImage/SDImageCache.h>
 
-@interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler, WKNavigationDelegate> {
+@interface BBSWebViewController () <UIScrollViewDelegate, TranslateDataDelegate, CAAnimationDelegate, WKScriptMessageHandler, WKNavigationDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
 
-    LCActionSheet *_itemActionSheet;
     ViewThreadPage *_currentShowThreadPage;
     NSMutableDictionary *_pageDic;
     int threadID;
@@ -38,6 +35,11 @@
     WKUserContentController *_contentController;
     BOOL shouldScrollEnd;
     IBOutlet WKWebView *_wkWebView;
+
+    UIPickerView *_pickerView;
+    IBOutlet UIBarButtonItem *moreButton;
+    
+    int _pickerViewSelectRow;
 }
 
 @end
@@ -250,48 +252,67 @@
         int postId = [[query valueForKey:@"postid"] intValue];
         int floor = [[query valueForKey:@"postlouceng"] intValue];
 
-        _itemActionSheet = [LCActionSheet sheetWithTitle:userName cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
+        // 添加
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:userName message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-            NSLog(@"LCActionSheet click index %ld", (long) buttonIndex);
+        [alertController addAction:[UIAlertAction actionWithTitle:@"引用此楼回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+            UIStoryboard *storyBoard = [UIStoryboard mainStoryboard];
 
-            if (buttonIndex == 1) {
+            UINavigationController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"SeniorReplySomeOne"];
 
-                UIStoryboard *storyBoard = [UIStoryboard mainStoryboard];
+            TranslateData *bundle = [[TranslateData alloc] init];
 
-                UINavigationController *controller = [storyBoard instantiateViewControllerWithIdentifier:@"SeniorReplySomeOne"];
+            [bundle putIntValue:_currentShowThreadPage.forumId forKey:@"FORM_ID"];
+            [bundle putIntValue:threadID forKey:@"THREAD_ID"];
+            [bundle putIntValue:postId forKey:@"POST_ID"];
+            NSString *token = _currentShowThreadPage.securityToken;
+            [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
+            [bundle putStringValue:_currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
+            [bundle putStringValue:userName forKey:@"USER_NAME"];
+            [bundle putIntValue:1 forKey:@"IS_QUOTE_REPLY"];
 
-                TranslateData *bundle = [[TranslateData alloc] init];
+            [bundle putObjectValue:_currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
 
-                [bundle putIntValue:_currentShowThreadPage.forumId forKey:@"FORM_ID"];
-                [bundle putIntValue:threadID forKey:@"THREAD_ID"];
-                [bundle putIntValue:postId forKey:@"POST_ID"];
-                NSString *token = _currentShowThreadPage.securityToken;
-                [bundle putStringValue:token forKey:@"SECURITY_TOKEN"];
-                [bundle putStringValue:_currentShowThreadPage.ajaxLastPost forKey:@"AJAX_LAST_POST"];
-                [bundle putStringValue:userName forKey:@"USER_NAME"];
-                [bundle putIntValue:1 forKey:@"IS_QUOTE_REPLY"];
+            [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
 
-                [bundle putObjectValue:_currentShowThreadPage forKey:@"QUICK_REPLY_THREAD"];
+            }];
 
-                [self presentViewController:controller withBundle:bundle forRootController:YES animated:YES completion:^{
+        }]];
 
-                }];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"复制此楼链接" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
 
-            } else if (buttonIndex == 2) {
+            BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+            id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-                BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-                id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+            NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:floor];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = postUrl;
+            [ProgressDialog showSuccess:@"复制成功"];
 
-                NSString *postUrl = [forumConfig copyThreadUrl:[NSString stringWithFormat:@"%d", threadID] withPostId:[NSString stringWithFormat:@"%d", postId] withPostCout:floor];
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = postUrl;
-                [ProgressDialog showSuccess:@"复制成功"];
-            } else if (buttonIndex == 3) {
-                [self reportThreadPost:postId userName:userName];
-            }
-        }                          otherButtonTitleArray:@[@"引用此楼回复", @"复制此楼链接", @"举报此楼"]];
+        }]];
 
-        [_itemActionSheet show];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"举报此楼" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+
+            [self reportThreadPost:postId userName:userName];
+
+        }]];
+
+        //增加取消按钮；
+
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+
+        }]];
+
+        UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+        if (popover) {
+            popover.sourceView = self.view;
+            popover.sourceRect = self.bottomView.frame;
+            popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        }
+
+        [self presentViewController:alertController animated:true completion:nil];
 
     } else if ([message.name isEqualToString:@"onAvatarClicked"]) {
         NSLog(@"onAvatarClicked %@", message.body);
@@ -651,6 +672,42 @@
     }];
 }
 
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return _currentShowThreadPage.pageNumber.totalPageNumber;
+}
+#pragma mark - delegate
+// 选中某一组的某一行
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    _pickerViewSelectRow = row;
+}
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return  [NSString stringWithFormat:@"第 %d 页", row + 1];
+}
+
+
+- (UIPickerView *)pickerView:(UIAlertController *) controller {
+    CGRect controllerFrame = controller.view.frame;
+    CGRect controllerFrame2 = controller.view.subviews[0].frame;
+    CGRect controllerFrameView = self.view.frame;
+
+    if (!_pickerView) {
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(controllerFrame.origin.x - 8, controllerFrame.origin.y + 16, controllerFrame.size.width - 8, 200)];
+
+        _pickerView.delegate = self;
+        _pickerView.dataSource = self;
+        _pickerView.showsSelectionIndicator = YES;
+    }
+    [_pickerView selectRow:0 inComponent:0 animated:YES];
+
+    return _pickerView;
+
+}
+
 - (void)showChangePageActionSheet:(UIBarButtonItem *)sender {
 
     if (_currentShowThreadPage.pageNumber.totalPageNumber <= 1) {
@@ -663,34 +720,43 @@
         [pages addObject:page];
     }
 
-    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择页面" rows:pages
-                                                                    initialSelection:_currentShowThreadPage.pageNumber.currentPageNumber - 1 doneBlock:
-                    ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
 
-        int selectPage = (int) selectedIndex + 1;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"页码选择" message:@"\n\n\n\n\n\n\n\n" preferredStyle:UIAlertControllerStyleActionSheet];
 
-        if (selectPage != _currentShowThreadPage.pageNumber.currentPageNumber) {
 
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+        if (_pickerViewSelectRow + 1 != _currentShowThreadPage.pageNumber.currentPageNumber) {
             [ProgressDialog showStatus:@"正在切换"];
-            [self showThread:threadID page:selectPage withAnim:YES];
+            [self showThread:threadID page:_pickerViewSelectRow + 1 withAnim:YES];
         }
 
+    }]];
 
-    }                                                                    cancelBlock:^(ActionSheetStringPicker *picker) {
+    UIPickerView *pickerView = [self pickerView:alertController];
+    [alertController.view addSubview:pickerView];
+    [pickerView selectRow:_currentShowThreadPage.pageNumber.currentPageNumber - 1 inComponent:0 animated:NO];
+
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+    if (popover) {
+        popover.sourceView = self.view;
+        popover.sourceRect = self.bottomView.frame;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+        [self presentViewController:alertController animated:true completion:^{
+            CGRect frame = pickerView.frame;
+            CGRect controllerFrame = alertController.view.frame;
+            CGRect newF = CGRectMake(controllerFrame.origin.x, controllerFrame.origin.y, controllerFrame.size.width, controllerFrame.size.height);
+            pickerView.frame = newF;
+        }];
+    } else {
+        [self presentViewController:alertController animated:true completion:nil];
+    }
+
+    //[self presentViewController:alertController animated:true completion:nil];
 
 
-    }                                                                         origin:sender];
-
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
-    cancelItem.title = @"取消";
-    [picker setCancelButton:cancelItem];
-
-    UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
-    queding.title = @"确定";
-    [picker setDoneButton:queding];
-
-
-    [picker showActionSheetPicker];
 }
 
 
@@ -708,26 +774,68 @@
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-    _itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            // 复制贴链接
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//    _itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:nil clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
+//        if (buttonIndex == 1) {
+//            // 复制贴链接
+//            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//
+//            pasteboard.string = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:0];
+//
+//            [ProgressDialog showSuccess:@"复制成功"];
+//
+//        } else if (buttonIndex == 2) {
+//            // 在浏览器种查看
+//            NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
+//            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+//        } else if (buttonIndex == 3) {
+//            [self reportThreadPost:nil userName:nil];
+//        }
+//
+//    } otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
+//
+//    [_itemActionSheet show];
 
-            pasteboard.string = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:0];
 
-            [ProgressDialog showSuccess:@"复制成功"];
+    // 添加
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"当前主题" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-        } else if (buttonIndex == 2) {
-            // 在浏览器种查看
-            NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-        } else if (buttonIndex == 3) {
-            [self reportThreadPost:nil userName:nil];
-        }
+    [alertController addAction:[UIAlertAction actionWithTitle:@"复制帖子链接" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        // 复制贴链接
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
 
-    } otherButtonTitleArray:@[@"复制帖子链接", @"在浏览器中查看", @"举报此主题"]];
+        pasteboard.string = [forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:0];
 
-    [_itemActionSheet show];
+        [ProgressDialog showSuccess:@"复制成功"];
+
+    }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"在浏览器中查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        // 在浏览器种查看
+        NSURL *url = [NSURL URLWithString:[forumConfig showThreadWithThreadId:[NSString stringWithFormat:@"%d", threadID] withPage:1]];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+
+    }]];
+
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"举报此主题" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        [self reportThreadPost:nil userName:nil];
+
+    }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+
+    }]];
+
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+    if (popover) {
+        popover.barButtonItem = self.navigationItem.rightBarButtonItem;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+
+    [self presentViewController:alertController animated:true completion:nil];
+
 }
 
 - (IBAction)reply:(id)sender {
