@@ -6,7 +6,6 @@
 #import "BBSSeniorNewPostViewController.h"
 
 #import "BBSSelectPhotoCollectionViewCell.h"
-#import "LCActionSheet.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "UIImage+Tint.h"
 #import "BBSLocalApi.h"
@@ -234,19 +233,49 @@
 - (IBAction)insertPhoto:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
-    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+//    LCActionSheet *itemActionSheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *_Nonnull actionSheet, NSInteger buttonIndex) {
+//        if (buttonIndex == 1) {
+//            [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+//
+//            [self presentViewController:pickControl animated:YES completion:nil];
+//        } else if (buttonIndex == 2) {
+//            [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
+//
+//            [self presentViewController:pickControl animated:YES completion:nil];
+//        }
+//    }                                        otherButtonTitleArray:@[@"相册", @"拍照"]];
+//
+//    [itemActionSheet show];
 
-            [self presentViewController:pickControl animated:YES completion:nil];
-        } else if (buttonIndex == 2) {
-            [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加图片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-            [self presentViewController:pickControl animated:YES completion:nil];
-        }
-    }                                        otherButtonTitleArray:@[@"相册", @"拍照"]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        [pickControl setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 
-    [itemActionSheet show];
+        [self presentViewController:pickControl animated:YES completion:nil];
+
+    }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        [pickControl setSourceType:UIImagePickerControllerSourceTypeCamera];
+
+        [self presentViewController:pickControl animated:YES completion:nil];
+
+    }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+
+    }]];
+
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+    if (popover) {
+        popover.barButtonItem = self.navigationItem.rightBarButtonItem;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+
+    [self presentViewController:alertController animated:true completion:nil];
 
 }
 

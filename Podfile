@@ -17,7 +17,6 @@ target 'Forum' do
 	pod 'JSONModel', '~> 1.7.0' 			#2018/03/04
 	pod 'MJRefresh', '~> 3.1.15.3'			#2018/03/04
 	pod 'SVProgressHUD', '~> 2.2.5'			#2018/03/04
-	pod 'LCActionSheet', '~>3.5.4'			#2018/03/04
 	pod 'ActionSheetPicker-3.0', '~>2.3.0'		#2018/03/04
 	pod 'FDFullscreenPopGesture', '1.1'		#2018/03/04
 	pod 'SDWebImage', '~>3.7.5'			#2018/03/04
