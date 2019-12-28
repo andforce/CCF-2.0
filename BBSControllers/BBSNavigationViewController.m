@@ -20,9 +20,53 @@
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
-    self.navigationBar.barTintColor = forumConfig.themeColor;
+    UIColor *dyColor = nil;
+
+//    if (@available(iOS 13.0, *)) {
+//        dyColor = [UIColor colorWithDynamicProvider:^UIColor *_Nonnull(UITraitCollection *_Nonnull trainCollection) {
+//            if ([trainCollection userInterfaceStyle] == UIUserInterfaceStyleLight) {
+//                return forumConfig.themeColor;
+//            } else {
+//                return nil;
+//            }
+//        }];
+//    } else {
+//        dyColor = forumConfig.themeColor;
+//    }
+//
+//
+//    self.navigationBar.barTintColor = dyColor;//forumConfig.themeColor;
+
+//    if (@available(iOS 13.0, *)) {
+//        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight){
+//            BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+//            id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+//            self.navigationBar.barTintColor = forumConfig.themeColor;
+//        } else {
+//            self.navigationBar.barTintColor = nil;
+//        }
+//    } else {
+//        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+//        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+//        self.navigationBar.barTintColor = forumConfig.themeColor;
+//    }
 }
 
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+//    if (@available(iOS 13.0, *)) {
+//        if (previousTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark){
+//            BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+//            id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+//            self.navigationBar.barTintColor = forumConfig.themeColor;
+//        } else {
+//            self.navigationBar.barTintColor = nil;
+//        }
+//    } else {
+//        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+//        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+//        self.navigationBar.barTintColor = forumConfig.themeColor;
+//    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

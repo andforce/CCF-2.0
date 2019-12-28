@@ -45,13 +45,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="板块列表" id="FT7-1W-ajH">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="Qzd-sz-s13">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="ASl-Ek-GKi" id="CYE-SD-yms"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="HuU-Ka-jS5">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" identifier="ShowSearchViewController" id="0wo-f6-UjE"/>
                             </connections>
@@ -164,7 +164,7 @@
                     <navigationItem key="navigationItem" id="Pwi-td-9IN">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="fsZ-jb-Oqa">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="21g-L2-eCr" id="CUB-in-fwT"/>
                             </connections>
@@ -179,7 +179,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="IGF-H1-1Rt">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="21g-L2-eCr" id="bH7-wy-efs"/>
                             </connections>
@@ -231,13 +231,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="订阅论坛" id="Mhk-pJ-bvf" userLabel="收藏板块">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="RrR-nQ-VId">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Jit-bj-gGf" id="O63-EO-qBi"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="3Zy-hR-gcV">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" id="lf3-Ra-lJN"/>
                             </connections>
@@ -406,13 +406,13 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="帖子列表" id="ieL-rG-HqG">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="S79-BI-HIh" userLabel="返回">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="owK-Jl-7fO" id="6ys-AC-TeC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="fP7-pF-d1m" userLabel="新主题">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="createThread:" destination="owK-Jl-7fO" id="n3s-B0-L83"/>
                             </connections>
@@ -458,13 +458,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Bo8-Gq-c5Y">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="ASl-Ek-GKi" kind="relationship" relationship="rootViewController" id="wzm-hk-hqz"/>
@@ -564,7 +557,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="收藏主题" id="pib-bg-tEZ">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="JW3-tT-s3b">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="3SN-sr-Skg" id="9mY-bv-6Xf"/>
                             </connections>
@@ -676,7 +669,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="我的主题" id="ApB-Jy-M5Y">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="odK-lm-cOV" userLabel="返回">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Js1-U2-h0I" id="G3G-Oe-9cn"/>
                             </connections>
@@ -790,13 +783,13 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="查看新帖" id="PE2-Lx-6xT">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="d5k-Sr-1mR">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="vLT-xg-b6G" id="eoo-2q-2x6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="NVa-5o-hQ4" userLabel="新主题">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="createThread:" destination="vLT-xg-b6G" id="m6d-Zp-1jj"/>
                                 <segue destination="9ek-Pz-X45" kind="show" id="FiC-V2-LqH"/>
@@ -819,7 +812,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Zqh-zN-47Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="eSv-5V-fLL">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -897,7 +890,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="R1j-Hj-Xwn" firstAttribute="top" secondItem="tLQ-8B-Ztr" secondAttribute="top" id="6je-kC-AJZ"/>
                                         <constraint firstItem="R1j-Hj-Xwn" firstAttribute="leading" secondItem="tLQ-8B-Ztr" secondAttribute="trailing" constant="8" id="84c-VN-Dz8"/>
@@ -916,7 +908,7 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="postAuthor" destination="R1j-Hj-Xwn" id="cvj-fK-Yz5"/>
                                     <outlet property="postAuthorAvatar" destination="tLQ-8B-Ztr" id="xzY-8w-muE"/>
@@ -940,7 +932,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="8Lv-dx-tHw" secondAttribute="bottom" id="cI0-cg-Pk9"/>
                                         <constraint firstItem="8Lv-dx-tHw" firstAttribute="centerY" secondItem="nb9-Ay-3yZ" secondAttribute="centerY" id="ccc-i6-ZcI"/>
@@ -949,7 +940,7 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="threadTitle" destination="8Lv-dx-tHw" id="vMk-EN-IIJ"/>
                                     <segue destination="Bhk-dY-41O" kind="show" identifier="ZhanNeiSearchViewCell" id="wLO-He-BF0"/>
@@ -965,7 +956,7 @@
                     <navigationItem key="navigationItem" id="Vq0-nI-wMk">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="bkF-Sv-dV6" userLabel="返回">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="9ek-Pz-X45" id="aPj-BR-Vv3"/>
                             </connections>
@@ -1212,7 +1203,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="我的页面" id="3WX-X4-Rtb">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="yva-94-8CG">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="all-h2-fhh" id="WzS-Zq-RR4"/>
                             </connections>
@@ -1262,13 +1253,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="短信详情" id="wzF-Pt-RM5">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="hXz-EX-g4p">
-                            <color key="tintColor" red="0.95026940107345581" green="0.95026940107345581" blue="0.95026940107345581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="Q2o-k5-bi7" id="qa8-aF-7el"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="回复" id="LPQ-Yf-SWN">
-                            <color key="tintColor" red="0.95026940107345581" green="0.95026940107345581" blue="0.95026940107345581" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="replyPM:" destination="Q2o-k5-bi7" id="9RS-tj-gVj"/>
                             </connections>
@@ -1413,7 +1404,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="子论坛帖" id="KMd-bg-peI">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="HP0-Cl-v7m" userLabel="返回">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="afP-Oj-XhI" id="3CQ-dn-4m0"/>
                             </connections>
@@ -1465,7 +1456,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="核心会员" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5j-FN-Jsj">
                                                     <rect key="frame" x="68" y="28" width="54" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="会员" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXD-O3-ofH">
@@ -1500,7 +1491,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1520,7 +1511,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1541,7 +1532,7 @@
                                                     <rect key="frame" x="20" y="12.999999999999998" width="65.333333333333329" height="19.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61G-4T-H1F">
@@ -1565,7 +1556,7 @@
                                                     <rect key="frame" x="20" y="12.999999999999998" width="98" height="19.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9OM-MP-iUQ">
@@ -1589,7 +1580,7 @@
                                                     <rect key="frame" x="20" y="12.999999999999998" width="65.333333333333329" height="19.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PWM-fO-SAh">
@@ -1612,7 +1603,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="会员信息" id="hev-uC-DtI">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="Bu2-S9-aJz">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="Kd2-6b-uhY" id="4R9-Gj-a7n"/>
                             </connections>
@@ -1731,7 +1722,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="他的主题" id="tBn-Rv-HVM">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="cAM-gk-5oY" userLabel="返回">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="l3g-AL-GdG" id="wqf-6M-tFp"/>
                             </connections>
@@ -1752,13 +1743,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FZ5-qQ-yrM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Jit-bj-gGf" kind="relationship" relationship="rootViewController" id="Emr-4r-QeM"/>
@@ -1777,13 +1761,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="69U-37-o0Y">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="vLT-xg-b6G" kind="relationship" relationship="rootViewController" id="22m-lH-cky"/>
@@ -1802,13 +1779,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="THs-Dl-D1w">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="21g-L2-eCr" kind="relationship" relationship="rootViewController" id="1wS-xX-hKI"/>
@@ -1827,13 +1797,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="nFA-Ho-k7Z">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="all-h2-fhh" kind="relationship" relationship="rootViewController" id="0mG-7k-7bK"/>
@@ -1982,9 +1945,9 @@
                             <constraint firstItem="8IY-ia-7KQ" firstAttribute="top" secondItem="XMD-n7-rwN" secondAttribute="bottom" id="vNe-GU-DpF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="L8q-Ur-XlX">
+                    <navigationItem key="navigationItem" title="帖子详情" id="L8q-Ur-XlX">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="rgh-Ih-baO">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="Bhk-dY-41O" id="5tz-GA-yS0"/>
                             </connections>
@@ -2115,7 +2078,7 @@
                     <navigationItem key="navigationItem" id="93l-TC-cdf">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="BSO-iZ-QWW">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="29L-7I-Y5q" id="Qfx-ar-rQp"/>
                             </connections>
@@ -2130,7 +2093,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="X4N-Mr-fUW">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="29L-7I-Y5q" id="cD8-IK-qme"/>
                             </connections>
@@ -2154,13 +2117,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="mY9-eI-Fqv">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.1843137255" green="0.27058823529999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="29L-7I-Y5q" kind="relationship" relationship="rootViewController" id="fnV-ls-37S"/>
@@ -2200,13 +2156,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="私信详情" id="i6e-c0-82t">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="0wr-w2-X6q">
-                            <color key="tintColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="back:" destination="E10-IZ-8h6" id="YKl-Zs-PQE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="回复" id="syd-AR-TBu">
-                            <color key="tintColor" red="0.95026940110000002" green="0.95026940110000002" blue="0.95026940110000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="tableview_background_color"/>
                             <connections>
                                 <action selector="replyPM:" destination="E10-IZ-8h6" id="Bkz-b9-ogL"/>
                             </connections>
@@ -2360,9 +2316,9 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="blx-ak-4u5"/>
+        <segue reference="N1G-Ig-hUe"/>
         <segue reference="Ysv-Xy-VAF"/>
-        <segue reference="lf3-Ra-lJN"/>
+        <segue reference="FiC-V2-LqH"/>
         <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
 </document>
