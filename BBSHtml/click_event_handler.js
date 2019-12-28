@@ -14,7 +14,12 @@ list.addEventListener("touchstart", function (event) {
         setTimeout(changeBgColor,100);
         function changeBgColor() {
             if (touched) {
-                el.style.backgroundColor = '#F1F1F1';
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    // dark mode
+                    el.style.backgroundColor = '#212121';
+                } else {
+                    el.style.backgroundColor = '#F1F1F1';
+                }
             }
         }
     }
@@ -100,7 +105,12 @@ list.addEventListener("click", function (event) {
             }
         }
         if (el) {
-            el.style.backgroundColor = '#F1F1F1';
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // dark mode
+                el.style.backgroundColor = '#212121';
+            } else {
+                el.style.backgroundColor = '#F1F1F1';
+            }
 
             setTimeout(changeBgColorClick,150);
 
