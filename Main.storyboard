@@ -434,8 +434,8 @@
                     <tabBar key="tabBar" clipsSubviews="YES" contentMode="scaleToFill" translucent="NO" id="l8f-Hy-IeX" customClass="AutoSendBackTabBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" name="white_black_dycolor"/>
+                        <color key="selectedImageTintColor" name="white_black_dycolor"/>
                     </tabBar>
                     <connections>
                         <segue destination="XUg-aO-kWS" kind="relationship" relationship="viewControllers" id="QfO-Cg-ZKX"/>
@@ -2317,7 +2317,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="N1G-Ig-hUe"/>
-        <segue reference="Ysv-Xy-VAF"/>
+        <segue reference="b8A-CD-rhQ"/>
         <segue reference="FiC-V2-LqH"/>
         <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
