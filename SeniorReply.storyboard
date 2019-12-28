@@ -80,6 +80,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="acq-4R-1JW" userLabel="replyContentView">
                                         <rect key="frame" x="16" y="16" width="374" height="275"/>
                                         <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" name="white_black_dycolor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="275" id="Z7L-4W-SGz"/>
                                         </constraints>

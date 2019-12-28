@@ -32,8 +32,9 @@
     return @"drluserid";
 }
 
+
 - (NSString *)cookieExpTimeKey {
-    return @"IDstack";
+    return @"drluserid";
 }
 
 - (NSString *)signature {

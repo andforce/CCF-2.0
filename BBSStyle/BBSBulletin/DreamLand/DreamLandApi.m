@@ -79,10 +79,10 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
             [self.browser POSTWithURLString:forumConfig.login parameters:parameters charset:UTF_8 requestCallback:^(BOOL success, NSString *string) {
                 if (success) {
 
-                    NSString *userName = [string stringWithRegular:@"<p><strong>.*</strong></p>" andChild:@"，.*。"];
-
-                    userName = [userName substringWithRange:NSMakeRange(1, [userName length] - 2)];
-
+                    NSString *userName = [string stringWithRegular:@"(?<=strong>感谢你的登录，).*(?=。</strong></p>)"];
+                    if (userName == nil) {
+                        userName = [string stringWithRegular:@"(?<=<strong>欢迎回来, ).*(?=.</strong><br />)"];
+                    }
                     if (userName != nil) {
                         // 保存Cookie
                         [localForumApi saveCookie];
@@ -529,8 +529,11 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
         if (isSuccess) {
 
             NSString *quoteString = [forumParser parseQuote:html];
-
-            NSString *replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
+            NSString *replyContent = message;
+            if (quoteString != nil) {
+                replyContent = [NSString stringWithFormat:@"%@ %@", quoteString, message];
+            }
+            
             [self reply:replyContent withImages:images toPostId:postId thread:threadPage handler:handler];
 
         } else {
