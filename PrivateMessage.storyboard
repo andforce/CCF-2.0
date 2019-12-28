@@ -80,13 +80,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="发送私信" id="pDa-5Y-CnW">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="SHf-ul-qv2">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="ldC-Z2-cxV" id="7bt-51-wvj"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="发送" id="uHI-IC-dUA">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="sendPrivateMessage:" destination="ldC-Z2-cxV" id="EwV-gc-Y1o"/>
                             </connections>
