@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiH-3u-ky7">
-                                <rect key="frame" x="0.0" y="41.5" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -29,17 +29,17 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="fiH-3u-ky7" firstAttribute="centerX" secondItem="aXG-Sf-K50" secondAttribute="centerX" id="AAg-5Y-m7u"/>
-                            <constraint firstItem="fiH-3u-ky7" firstAttribute="height" secondItem="aXG-Sf-K50" secondAttribute="height" multiplier="0.897277" id="duc-YU-vEJ"/>
-                            <constraint firstItem="fiH-3u-ky7" firstAttribute="width" secondItem="aXG-Sf-K50" secondAttribute="width" id="hzy-HO-rxn"/>
-                            <constraint firstItem="fiH-3u-ky7" firstAttribute="centerY" secondItem="aXG-Sf-K50" secondAttribute="centerY" id="yPE-Vi-dwD"/>
+                            <constraint firstItem="fiH-3u-ky7" firstAttribute="top" secondItem="Tx0-D7-GkJ" secondAttribute="bottom" id="5aA-Cb-MVK"/>
+                            <constraint firstItem="fiH-3u-ky7" firstAttribute="width" secondItem="aXG-Sf-K50" secondAttribute="width" id="HpK-yY-SMK"/>
+                            <constraint firstItem="abo-ho-SHy" firstAttribute="top" secondItem="fiH-3u-ky7" secondAttribute="bottom" id="qZP-Ro-KlP"/>
+                            <constraint firstItem="fiH-3u-ky7" firstAttribute="centerX" secondItem="aXG-Sf-K50" secondAttribute="centerX" id="vFe-Ec-D7q"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="隐私政策" id="90y-oV-aO9">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="Bju-TK-la3">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="close:" destination="ed9-WY-c8R" id="f9O-s8-3Xb"/>
                             </connections>

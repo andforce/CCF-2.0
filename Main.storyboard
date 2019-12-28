@@ -198,13 +198,13 @@
         <scene sceneID="0Ce-NM-EC5">
             <objects>
                 <tableViewController storyboardIdentifier="ShowFavForum" id="Jit-bj-gGf" customClass="BBSFavFormController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iTX-sQ-xzL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="iTX-sQ-xzL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavFormControllerCell" textLabel="82z-53-SRu" style="IBUITableViewCellStyleDefault" id="Xm2-e3-03u" customClass="BBSSwipeTableCellWithIndexPath">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xm2-e3-03u" id="pqH-CF-xCE">
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
@@ -2316,9 +2316,9 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="N1G-Ig-hUe"/>
-        <segue reference="b8A-CD-rhQ"/>
-        <segue reference="FiC-V2-LqH"/>
+        <segue reference="blx-ak-4u5"/>
+        <segue reference="Ysv-Xy-VAF"/>
+        <segue reference="lf3-Ra-lJN"/>
         <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
 </document>
