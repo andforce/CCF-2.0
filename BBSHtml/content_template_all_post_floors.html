@@ -144,13 +144,8 @@
 
         @media (prefers-color-scheme: dark) {
             .post-quote {
-                border-color: #2a2a2a;
-            }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .post-quote {
-                background-color: #262626;
+                border-color: #262626;
+                background-color: #363636;
             }
         }
 
@@ -255,7 +250,7 @@
             -webkit-margin-end: 2px;
             -webkit-padding-before: 0.35em;
             -webkit-padding-start: 0.75em;
-            -webkit-padding-end: 0.75em;
+            -webkit-padding-end: 0.1em;
             -webkit-padding-after: 0.625em;
             border-image-source: initial;
             border-image-slice: initial;
@@ -263,9 +258,15 @@
             border-image-outset: initial;
             border-image-repeat: initial;
             min-width: -webkit-min-content;
-            border-width: 2px;
+            border-width: 1px;
             border-style: groove;
             border-color: threedface;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .fieldset {
+                border-color: #2a2a2a;
+            }
         }
 
         .pre {
@@ -340,10 +341,22 @@
             text-decoration: none;
         }
 
+        @media (prefers-color-scheme: dark) {
+            a:link {
+                color: #8A8A8A;
+            }
+        }
+
         /* 未被访问的链接 */
         a:visited {
             color: #000000;
             text-decoration: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            a:visited {
+                color: #8A8A8A;
+            }
         }
 
         /* 已被访问的链接 */
@@ -351,9 +364,21 @@
             color: #000000;
         }
 
+        @media (prefers-color-scheme: dark) {
+            a:hover {
+                color: #8A8A8A;
+            }
+        }
+
         /* 鼠标指针移动到链接上 */
         a:active {
             color: #000000;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            a:active {
+                color: #8A8A8A;
+            }
         }
 
         /* 正在被点击的链接 */
