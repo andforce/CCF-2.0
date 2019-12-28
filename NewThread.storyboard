@@ -191,14 +191,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="新主题" id="2Au-sw-TiE">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="AD8-yx-S7E">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="pXN-Qw-w0b" id="6QI-qf-qnC"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="创建" id="K3L-Lq-1FW">
-                                <color key="tintColor" name="tableview_background_color"/>
+                                <color key="tintColor" name="white_black_dycolor"/>
                                 <connections>
                                     <action selector="createThread:" destination="pXN-Qw-w0b" id="ser-lo-J3w"/>
                                 </connections>
@@ -248,7 +248,7 @@
     <resources>
         <image name="bbs_camera_18pt" width="18" height="18"/>
         <image name="bbs_close_18pt" width="18" height="18"/>
-        <namedColor name="tableview_background_color">
+        <namedColor name="white_black_dycolor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>

@@ -45,13 +45,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="板块列表" id="FT7-1W-ajH">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="Qzd-sz-s13">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="ASl-Ek-GKi" id="CYE-SD-yms"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="HuU-Ka-jS5">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" identifier="ShowSearchViewController" id="0wo-f6-UjE"/>
                             </connections>
@@ -164,7 +164,7 @@
                     <navigationItem key="navigationItem" id="Pwi-td-9IN">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="fsZ-jb-Oqa">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="21g-L2-eCr" id="CUB-in-fwT"/>
                             </connections>
@@ -179,7 +179,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="IGF-H1-1Rt">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="21g-L2-eCr" id="bH7-wy-efs"/>
                             </connections>
@@ -231,13 +231,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="订阅论坛" id="Mhk-pJ-bvf" userLabel="收藏板块">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="RrR-nQ-VId">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Jit-bj-gGf" id="O63-EO-qBi"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="3Zy-hR-gcV">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <segue destination="9ek-Pz-X45" kind="show" id="lf3-Ra-lJN"/>
                             </connections>
@@ -406,13 +406,13 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="帖子列表" id="ieL-rG-HqG">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="S79-BI-HIh" userLabel="返回">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="owK-Jl-7fO" id="6ys-AC-TeC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="fP7-pF-d1m" userLabel="新主题">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="createThread:" destination="owK-Jl-7fO" id="n3s-B0-L83"/>
                             </connections>
@@ -557,7 +557,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="收藏主题" id="pib-bg-tEZ">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="JW3-tT-s3b">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="3SN-sr-Skg" id="9mY-bv-6Xf"/>
                             </connections>
@@ -669,7 +669,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="我的主题" id="ApB-Jy-M5Y">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="odK-lm-cOV" userLabel="返回">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="Js1-U2-h0I" id="G3G-Oe-9cn"/>
                             </connections>
@@ -783,13 +783,13 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="查看新帖" id="PE2-Lx-6xT">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="d5k-Sr-1mR">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="vLT-xg-b6G" id="eoo-2q-2x6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bbs_search_18pt" id="NVa-5o-hQ4" userLabel="新主题">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="createThread:" destination="vLT-xg-b6G" id="m6d-Zp-1jj"/>
                                 <segue destination="9ek-Pz-X45" kind="show" id="FiC-V2-LqH"/>
@@ -956,7 +956,7 @@
                     <navigationItem key="navigationItem" id="Vq0-nI-wMk">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="bkF-Sv-dV6" userLabel="返回">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="9ek-Pz-X45" id="aPj-BR-Vv3"/>
                             </connections>
@@ -1203,7 +1203,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="我的页面" id="3WX-X4-Rtb">
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="yva-94-8CG">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="all-h2-fhh" id="WzS-Zq-RR4"/>
                             </connections>
@@ -1253,13 +1253,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="短信详情" id="wzF-Pt-RM5">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="hXz-EX-g4p">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="Q2o-k5-bi7" id="qa8-aF-7el"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="回复" id="LPQ-Yf-SWN">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="replyPM:" destination="Q2o-k5-bi7" id="9RS-tj-gVj"/>
                             </connections>
@@ -1404,7 +1404,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="子论坛帖" id="KMd-bg-peI">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="HP0-Cl-v7m" userLabel="返回">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="afP-Oj-XhI" id="3CQ-dn-4m0"/>
                             </connections>
@@ -1603,7 +1603,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="会员信息" id="hev-uC-DtI">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="Bu2-S9-aJz">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="Kd2-6b-uhY" id="4R9-Gj-a7n"/>
                             </connections>
@@ -1722,7 +1722,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="他的主题" id="tBn-Rv-HVM">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="cAM-gk-5oY" userLabel="返回">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="l3g-AL-GdG" id="wqf-6M-tFp"/>
                             </connections>
@@ -1849,7 +1849,7 @@
                                             <constraint firstAttribute="width" constant="46" id="u5m-AX-KEj"/>
                                         </constraints>
                                         <state key="normal" title="|&lt;">
-                                            <color key="titleColor" name="tableview_background_color"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="firstPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="hnT-k6-SOV"/>
@@ -1861,7 +1861,7 @@
                                             <constraint firstAttribute="width" constant="46" id="aZH-ga-ObR"/>
                                         </constraints>
                                         <state key="normal" title="&lt;">
-                                            <color key="titleColor" name="tableview_background_color"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="previousPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="ZiL-E7-5nr"/>
@@ -1873,7 +1873,7 @@
                                             <constraint firstAttribute="width" constant="46" id="PKw-yB-zbK"/>
                                         </constraints>
                                         <state key="normal" title="&gt;|">
-                                            <color key="titleColor" name="tableview_background_color"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="lastPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="Epj-e0-dXw"/>
@@ -1885,7 +1885,7 @@
                                             <constraint firstAttribute="width" constant="46" id="sTh-f1-tfm"/>
                                         </constraints>
                                         <state key="normal" title="&gt;">
-                                            <color key="titleColor" name="tableview_background_color"/>
+                                            <color key="titleColor" name="white_black_dycolor"/>
                                         </state>
                                         <connections>
                                             <action selector="nextPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="cBr-aY-cFl"/>
@@ -1947,7 +1947,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="帖子详情" id="L8q-Ur-XlX">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="rgh-Ih-baO">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="Bhk-dY-41O" id="5tz-GA-yS0"/>
                             </connections>
@@ -2078,7 +2078,7 @@
                     <navigationItem key="navigationItem" id="93l-TC-cdf">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bbs_menu_18pt" id="BSO-iZ-QWW">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="showLeftDrawer:" destination="29L-7I-Y5q" id="Qfx-ar-rQp"/>
                             </connections>
@@ -2093,7 +2093,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="bbs_write_post_18pt" id="X4N-Mr-fUW">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="writePrivateMessage:" destination="29L-7I-Y5q" id="cD8-IK-qme"/>
                             </connections>
@@ -2156,13 +2156,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="私信详情" id="i6e-c0-82t">
                         <barButtonItem key="leftBarButtonItem" image="bbs_arrow_back_18pt" id="0wr-w2-X6q">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="E10-IZ-8h6" id="YKl-Zs-PQE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="回复" id="syd-AR-TBu">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="replyPM:" destination="E10-IZ-8h6" id="Bkz-b9-ogL"/>
                             </connections>
@@ -2311,7 +2311,7 @@
         <image name="bbs_senior_reply_18pt" width="18" height="18"/>
         <image name="bbs_write_post_18pt" width="18" height="18"/>
         <image name="tab_message" width="18" height="18"/>
-        <namedColor name="tableview_background_color">
+        <namedColor name="white_black_dycolor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>

@@ -55,13 +55,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="举报违规" id="mdu-LS-HPa">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="165-Ys-oZ1">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="back:" destination="6JW-h0-SxQ" id="OaC-w9-fla"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="举报" id="0yT-Np-g5s">
-                            <color key="tintColor" name="tableview_background_color"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="reportThreadPost:" destination="6JW-h0-SxQ" id="QTf-cm-7eA"/>
                             </connections>
@@ -77,7 +77,7 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="tableview_background_color">
+        <namedColor name="white_black_dycolor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
