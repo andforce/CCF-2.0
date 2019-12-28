@@ -58,10 +58,10 @@
 
     _createWhichForum.enabled = NO;
 
-    if (@available(iOS 13.0, *)) {
-        self.subject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        self.createWhichForum.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-    }
+//    if (@available(iOS 13.0, *)) {
+//        self.subject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//        self.createWhichForum.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//    }
 }
 
 

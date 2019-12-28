@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,7 +28,7 @@
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="用户名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uaK-mm-Im9">
                                                 <rect key="frame" x="8" y="5" width="318" height="40"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="drD-RF-s1u"/>
                                                 </constraints>
@@ -43,7 +44,8 @@
                                             </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSs-76-Cuh">
                                                 <rect key="frame" x="8" y="45" width="318" height="40"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="90Q-Vf-DfQ"/>
                                                 </constraints>
@@ -79,7 +81,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="hPh-tW-yBO" firstAttribute="centerX" secondItem="dds-6x-NuR" secondAttribute="centerX" id="0Az-Up-c3C"/>
                                             <constraint firstItem="hSs-76-Cuh" firstAttribute="leading" secondItem="yza-pa-1jS" secondAttribute="leading" constant="8" id="0w0-Cg-nX9"/>
@@ -114,7 +116,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="yza-pa-1jS" secondAttribute="trailing" constant="40" id="4UG-sH-hI2"/>
@@ -134,13 +136,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="AeT-oe-oTD">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="k3p-T1-Ycq">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="cancelLogin:" destination="aOU-Jb-m64" id="dNe-hP-N4Y"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="确定" id="BAF-Pm-omh">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="login:" destination="aOU-Jb-m64" id="PgW-dN-orT"/>
                             </connections>
@@ -166,10 +168,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lli-i9-gQ2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.182504952" green="0.27161902189999998" blue="0.5104238391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="aOU-Jb-m64" kind="relationship" relationship="rootViewController" id="wGb-cm-cKT"/>
@@ -227,7 +225,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="ykA-Bh-T18">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="1NX-0r-BtV">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="cancelLogin:" destination="Xm3-hM-NnM" id="Hxv-Gi-oj5"/>
                             </connections>
@@ -249,10 +247,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="wlK-2h-wHV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.182504952" green="0.27161902189999998" blue="0.5104238391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Xm3-hM-NnM" kind="relationship" relationship="rootViewController" id="iGm-tE-L1f"/>
@@ -310,7 +304,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="ixt-RD-2h2">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="HDs-Xo-yHX">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="cancelLogin:" destination="dHI-rl-x13" id="ebf-uB-Sc9"/>
                             </connections>
@@ -332,10 +326,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Qqe-MC-fgx">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.182504952" green="0.27161902189999998" blue="0.5104238391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="dHI-rl-x13" kind="relationship" relationship="rootViewController" id="nWF-Bf-MRg"/>
@@ -393,7 +383,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="登录论坛" id="Odl-iu-cNm">
                         <barButtonItem key="leftBarButtonItem" title="取消" id="alC-V8-Ele">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" name="white_black_dycolor"/>
                             <connections>
                                 <action selector="cancelLogin:" destination="t3d-LI-J8u" id="GsP-Jm-CSS"/>
                             </connections>
@@ -415,10 +405,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9Uh-xF-fNo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.182504952" green="0.27161902189999998" blue="0.5104238391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="t3d-LI-J8u" kind="relationship" relationship="rootViewController" id="V5e-jz-CPx"/>
@@ -429,4 +415,9 @@
             <point key="canvasLocation" x="-10223" y="-7400"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="white_black_dycolor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
 </document>

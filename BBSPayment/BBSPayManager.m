@@ -82,6 +82,7 @@ static BBSPayManager *_instance = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL isPayed = [defaults boolForKey:productID];
     return isPayed;
+//    return YES;
 }
 
 - (void)setPayed:(BOOL)payed for:(NSString *)productID {

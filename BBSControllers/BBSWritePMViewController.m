@@ -44,10 +44,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(iOS 13.0, *)) {
-        self.toWho.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        self.privateMessageTitle.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-    }
+//    if (@available(iOS 13.0, *)) {
+//        self.toWho.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//        self.privateMessageTitle.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//    }
 
     _localForumApi = [[BBSLocalApi alloc] init];
 
@@ -55,10 +55,12 @@
     _payManager = [BBSPayManager shareInstance];
 
     if (isReply) {
+        self.toWho.enabled = NO;
         self.toWho.text = _toUser.userName;
         self.privateMessageTitle.text = [NSString stringWithFormat:@"回复：%@", _privateMessage.pmTitle];
         [self.privateMessageContent becomeFirstResponder];
     } else {
+        self.toWho.enabled = YES;
         if (_toUser != nil) {
             self.toWho.text = _toUser.userName;
             [self.privateMessageTitle becomeFirstResponder];
@@ -67,7 +69,7 @@
         }
     }
 
-    self.toWho.enabled = NO;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

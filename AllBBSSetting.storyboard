@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -67,9 +67,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="DR5-0D-7aZ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="2hj-fq-jCt" kind="relationship" relationship="rootViewController" id="8Rx-uC-wIb"/>
@@ -274,6 +271,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tJd-yI-EGE"/>
+        <segue reference="8Rx-uC-wIb"/>
     </inferredMetricsTieBreakers>
 </document>

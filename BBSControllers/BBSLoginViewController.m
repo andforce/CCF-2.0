@@ -32,11 +32,11 @@
     _password.delegate = self;
     _vCode.delegate = self;
 
-    if (@available(iOS 13.0, *)) {
-        _userName.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        _password.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        _vCode.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-    }
+//    if (@available(iOS 13.0, *)) {
+//        _userName.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//        _password.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//        _vCode.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+//    }
 
     _userName.returnKeyType = UIReturnKeyNext;
     _password.returnKeyType = UIReturnKeyNext;
@@ -51,7 +51,7 @@
 
     id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
-    self.rootView.backgroundColor = forumConfig.themeColor;
+//    self.rootView.backgroundColor = forumConfig.themeColor;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
