@@ -644,7 +644,7 @@
 
 - (void)setUpRightDrawer {
 
-    _rightDrawerView.backgroundColor = [UIColor whiteColor];
+//    _rightDrawerView.backgroundColor = [UIColor whiteColor];
 
     _rightDrawerView.layer.shadowColor = [[UIColor blackColor] CGColor];
     // 阴影的透明度
@@ -667,7 +667,7 @@
 - (void)setUpLeftDrawer {
 
 
-    _leftDrawerView.backgroundColor = [UIColor whiteColor];
+//    _leftDrawerView.backgroundColor = [UIColor whiteColor];
 
     _leftDrawerView.layer.shadowColor = [[UIColor blackColor] CGColor];
     // 阴影的透明度
