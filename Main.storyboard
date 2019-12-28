@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1245,14 +1246,14 @@
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ6-Nj-xxC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="width" secondItem="2A2-Qb-sZc" secondAttribute="width" id="0hU-81-JVx"/>
                             <constraint firstItem="ZQ6-Nj-xxC" firstAttribute="centerX" secondItem="2A2-Qb-sZc" secondAttribute="centerX" id="klF-Ef-Anc"/>
@@ -1879,7 +1880,7 @@
                                             <constraint firstAttribute="width" constant="46" id="u5m-AX-KEj"/>
                                         </constraints>
                                         <state key="normal" title="|&lt;">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" name="tableview_background_color"/>
                                         </state>
                                         <connections>
                                             <action selector="firstPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="hnT-k6-SOV"/>
@@ -1891,7 +1892,7 @@
                                             <constraint firstAttribute="width" constant="46" id="aZH-ga-ObR"/>
                                         </constraints>
                                         <state key="normal" title="&lt;">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" name="tableview_background_color"/>
                                         </state>
                                         <connections>
                                             <action selector="previousPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="ZiL-E7-5nr"/>
@@ -1903,7 +1904,7 @@
                                             <constraint firstAttribute="width" constant="46" id="PKw-yB-zbK"/>
                                         </constraints>
                                         <state key="normal" title="&gt;|">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" name="tableview_background_color"/>
                                         </state>
                                         <connections>
                                             <action selector="lastPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="Epj-e0-dXw"/>
@@ -1915,7 +1916,7 @@
                                             <constraint firstAttribute="width" constant="46" id="sTh-f1-tfm"/>
                                         </constraints>
                                         <state key="normal" title="&gt;">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" name="tableview_background_color"/>
                                         </state>
                                         <connections>
                                             <action selector="nextPage:" destination="Bhk-dY-41O" eventType="touchUpInside" id="cBr-aY-cFl"/>
@@ -1960,7 +1961,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="fHy-E2-ooq" secondAttribute="trailing" constant="-20" id="BRt-jl-AGO"/>
                             <constraint firstItem="XMD-n7-rwN" firstAttribute="centerX" secondItem="hIX-vk-f6g" secondAttribute="centerX" id="Fbq-m0-71w"/>
@@ -2344,11 +2345,14 @@
         <image name="bbs_senior_reply_18pt" width="18" height="18"/>
         <image name="bbs_write_post_18pt" width="18" height="18"/>
         <image name="tab_message" width="18" height="18"/>
+        <namedColor name="tableview_background_color">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="blx-ak-4u5"/>
         <segue reference="Ysv-Xy-VAF"/>
-        <segue reference="0wo-f6-UjE"/>
-        <segue reference="Klt-aO-3La"/>
+        <segue reference="lf3-Ra-lJN"/>
+        <segue reference="BtX-d5-2Dd"/>
     </inferredMetricsTieBreakers>
 </document>
