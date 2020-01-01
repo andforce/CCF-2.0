@@ -18,27 +18,6 @@
 
 @implementation BBSTabBarController
 
-- (void)changeMessageUITabController:(ForumType)forumType {
-
-    UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-    BBSNavigationViewController *controller = (BBSNavigationViewController *)
-            (forumType == Discuz ? [storyboard finControllerById:@"DiscuzNavID"] : [storyboard finControllerById:@"vBulletinNavID"]);
-
-    NSMutableArray *withDiscuzControllers = [NSMutableArray new];
-
-    NSArray *currentControllers = self.viewControllers;
-
-    for (NSUInteger i = 0; i < currentControllers.count; i++) {
-        if (i == 3) {
-            [withDiscuzControllers addObject:controller];
-        } else {
-            [withDiscuzControllers addObject:currentControllers[i]];
-        }
-    }
-
-    self.viewControllers = [withDiscuzControllers copy];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -53,6 +32,41 @@
     } else {
         [self changeMessageUITabController:vBulletin];
     }
+}
+
+- (void)changeMessageUITabController:(ForumType)forumType {
+
+    UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+    BBSNavigationViewController *controller = (BBSNavigationViewController *)
+            (forumType == Discuz ? [storyboard finControllerById:@"DiscuzNavID"] : [storyboard finControllerById:@"vBulletinNavID"]);
+
+    NSMutableArray *withDiscuzControllers = [NSMutableArray new];
+
+    NSArray *currentControllers = self.viewControllers;
+
+    if (currentControllers.count == 5){
+        for (NSUInteger i = 0; i < currentControllers.count; i++) {
+            if (i == 3) {
+                [withDiscuzControllers addObject:controller];
+            } else {
+                [withDiscuzControllers addObject:currentControllers[i]];
+            }
+        }
+    } else {
+        for (NSUInteger i = 0; i < currentControllers.count; i++) {
+            if (forumType == Discuz){
+                if (i == 0 || i == 1 || i == 2 || i == 4 || i == 5){
+                    [withDiscuzControllers addObject:currentControllers[i]];
+                }
+            } else {
+                if (i == 0 || i == 1 || i == 2 || i == 3 || i == 5){
+                    [withDiscuzControllers addObject:currentControllers[i]];
+                }
+            }
+        }
+    }
+
+    self.viewControllers = [withDiscuzControllers copy];
 }
 
 - (BOOL)isNeedHideLeftMenu {

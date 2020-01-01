@@ -442,7 +442,8 @@
                         <segue destination="9aC-0R-oSh" kind="relationship" relationship="viewControllers" id="GvV-ZU-KbY"/>
                         <segue destination="gbM-NL-yco" kind="relationship" relationship="viewControllers" id="han-Xn-LCF"/>
                         <segue destination="4Za-R5-YNS" kind="relationship" relationship="viewControllers" id="v6u-FJ-c6f"/>
-                        <segue destination="3Jm-yf-8VW" kind="relationship" relationship="viewControllers" id="qFR-bN-gSK"/>
+                        <segue destination="R1Q-io-yyO" kind="relationship" relationship="viewControllers" id="G2m-M9-JOs"/>
+                        <segue destination="3Jm-yf-8VW" kind="relationship" relationship="viewControllers" id="KPC-do-yRp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WGP-Wx-ldm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1221,7 +1222,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FXN-m4-gdm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3765" y="-1848"/>
+            <point key="canvasLocation" x="-3765" y="-1014"/>
         </scene>
         <!--短信详情-->
         <scene sceneID="qyp-tv-9VR">
@@ -1804,7 +1805,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aC5-ZQ-26Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4642" y="-1848"/>
+            <point key="canvasLocation" x="-4642" y="-1014"/>
         </scene>
         <!--帖子详情-->
         <scene sceneID="u3A-LS-EWr">
@@ -1985,7 +1986,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ShowDiscuzMessage" title="站内短信" id="29L-7I-Y5q" userLabel="论坛消息" customClass="DiscuzMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="119" sectionHeaderHeight="18" sectionFooterHeight="18" id="PmG-Qw-dYn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -2107,13 +2108,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g3Y-hn-yna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1329" y="-1400"/>
+            <point key="canvasLocation" x="-3765" y="-1771"/>
         </scene>
         <!--消息-->
         <scene sceneID="zZb-24-rYK">
             <objects>
                 <navigationController storyboardIdentifier="DiscuzNavID" id="R1Q-io-yyO" customClass="BBSNavigationViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="消息" image="tab_message" id="lhJ-o5-gQI"/>
+                    <tabBarItem key="tabBarItem" title="消息" image="bbs_bottom_message_18pt" id="lhJ-o5-gQI"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="mY9-eI-Fqv">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2125,7 +2126,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Sm-Jn-CIz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2158" y="-1400"/>
+            <point key="canvasLocation" x="-4642" y="-1771"/>
         </scene>
         <!--私信详情-->
         <scene sceneID="h2G-6e-6vv">
@@ -2136,11 +2137,11 @@
                         <viewControllerLayoutGuide type="bottom" id="vyV-pR-4Rj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="McP-IC-acE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-dp-HOD">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -2175,7 +2176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xot-Yu-3Vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-501.44927536231887" y="-1400.2232142857142"/>
+            <point key="canvasLocation" x="-2930" y="-1771"/>
         </scene>
         <!--ShowPayPage-->
         <scene sceneID="ZZx-sW-T2P">
@@ -2311,14 +2312,13 @@
         <image name="bbs_search_18pt" width="18" height="18"/>
         <image name="bbs_senior_reply_18pt" width="18" height="18"/>
         <image name="bbs_write_post_18pt" width="18" height="18"/>
-        <image name="tab_message" width="18" height="18"/>
         <namedColor name="white_black_dycolor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="blx-ak-4u5"/>
-        <segue reference="b8A-CD-rhQ"/>
+        <segue reference="Qkn-xF-ZJG"/>
         <segue reference="0wo-f6-UjE"/>
         <segue reference="Klt-aO-3La"/>
     </inferredMetricsTieBreakers>
