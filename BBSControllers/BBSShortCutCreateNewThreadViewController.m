@@ -5,7 +5,6 @@
 
 #import "BBSShortCutCreateNewThreadViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "ActionSheetStringPicker.h"
 #import "AFNetworking.h"
 #import "UIImage+Tint.h"
 #import "BBSLocalApi.h"
@@ -13,7 +12,7 @@
 
 @interface BBSShortCutCreateNewThreadViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
         UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
-        DeleteDelegate, TranslateDataDelegate, UIScrollViewDelegate> {
+        DeleteDelegate, TranslateDataDelegate, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
 
 
     id <BBSApiDelegate> _forumApi;
@@ -21,6 +20,11 @@
     UIImagePickerController *pickControl;
     NSMutableArray<UIImage *> *images;
     Forum *createForum;
+
+    UIPickerView *_pickerView;
+    int _pickerViewSelectRow;
+
+    NSMutableArray<NSString *> *forumNames;
 }
 
 @end
@@ -35,6 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    forumNames = [NSMutableArray array];
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     _forumApi = [BBSApiHelper forumApi:localForumApi.currentForumHost];
@@ -279,6 +285,29 @@
 
 }
 
+- (UIPickerView *)pickerView:(UIAlertController *) controller {
+    CGRect controllerFrame = controller.view.frame;
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(controllerFrame.origin.x - 8, controllerFrame.origin.y + 16, controllerFrame.size.width - 8, 200)];
+
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    _pickerView.showsSelectionIndicator = YES;
+    [_pickerView selectRow:0 inComponent:0 animated:YES];
+
+    return _pickerView;
+
+}
+
+#pragma mark - delegate
+// 选中某一组的某一行
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    _pickerViewSelectRow = row;
+}
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return forumNames[row];
+}
+
 - (IBAction)showAllForums:(id)sender {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     [_forumApi listAllForums:^(BOOL isSuccess, id message) {
@@ -286,7 +315,7 @@
 
         NSMutableArray<Forum *> *canCreateThreadFrums = [NSMutableArray array];
 
-        NSMutableArray<NSString *> *forumNames = [NSMutableArray array];
+        [forumNames removeAllObjects];
 
         for (Forum *forum in all) {
             if (forum.parentForumId != -1) {
@@ -295,27 +324,61 @@
             }
         }
 
-        ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择板块" rows:forumNames initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择板块"
+                message:@"\n\n\n\n\n\n\n\n" preferredStyle:UIAlertControllerStyleActionSheet];
 
-            self.createWhichForum.text = forumNames[(NSUInteger) selectedIndex];
-            createForum = canCreateThreadFrums[(NSUInteger) selectedIndex];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+
+            self.createWhichForum.text = forumNames[(NSUInteger) _pickerViewSelectRow];
+            createForum = canCreateThreadFrums[(NSUInteger) _pickerViewSelectRow];
 
             forumId = createForum.forumId;
 
-        }                                                                    cancelBlock:^(ActionSheetStringPicker *picker) {
+        }]];
 
-        }                                                                         origin:sender];
+        UIPickerView *pickerView = [self pickerView:alertController];
+        [alertController.view addSubview:pickerView];
 
-        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
-        cancelItem.title = @"取消";
-        [picker setCancelButton:cancelItem];
+        UIPopoverPresentationController *popover = alertController.popoverPresentationController;
 
-        UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
-        queding.title = @"确定";
-        [picker setDoneButton:queding];
+        if (popover) {
+            popover.sourceView = self.view;
+            popover.sourceRect = self.view.frame;
+            popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
+            [self presentViewController:alertController animated:true completion:^{
+                CGRect frame = pickerView.frame;
+                CGRect controllerFrame = alertController.view.frame;
+                CGRect newF = CGRectMake(controllerFrame.origin.x, controllerFrame.origin.y, controllerFrame.size.width, controllerFrame.size.height);
+                pickerView.frame = newF;
+            }];
+        } else {
+            [self presentViewController:alertController animated:true completion:nil];
+        }
 
-        [picker showActionSheetPicker];
+//        ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择板块" rows:forumNames initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+//
+//            self.createWhichForum.text = forumNames[(NSUInteger) selectedIndex];
+//            createForum = canCreateThreadFrums[(NSUInteger) selectedIndex];
+//
+//            forumId = createForum.forumId;
+//
+//        } cancelBlock:^(ActionSheetStringPicker *picker) {
+//
+//        } origin:sender];
+//
+//        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
+//        cancelItem.title = @"取消";
+//        [picker setCancelButton:cancelItem];
+//
+//        UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
+//        queding.title = @"确定";
+//        [picker setDoneButton:queding];
+//
+//
+//        [picker showActionSheetPicker];
 
     }];
 
@@ -323,25 +386,72 @@
 
 - (IBAction)showCategory:(UIButton *)sender {
 
+    NSArray *categorys = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
+    [forumNames removeAllObjects];
+
+    [forumNames addObjectsFromArray:categorys];
+
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
-    NSArray *categorys = @[@"【分享】", @"【推荐】", @"【求助】", @"【注意】", @"【ＣＸ】", @"【高兴】", @"【难过】", @"【转帖】", @"【原创】", @"【讨论】"];
-    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择分类" rows:categorys initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-        self.subject.text = [NSString stringWithFormat:@"%@%@", categorys[(NSUInteger) selectedIndex], self.subject.text];
-
-    }                                                                    cancelBlock:^(ActionSheetStringPicker *picker) {
-
-    }                                                                         origin:sender];
-
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
-    cancelItem.title = @"取消";
-    [picker setCancelButton:cancelItem];
-
-    UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
-    queding.title = @"确定";
-    [picker setDoneButton:queding];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择分类"
+                                                                             message:@"\n\n\n\n\n\n\n\n" preferredStyle:UIAlertControllerStyleActionSheet];
 
 
-    [picker showActionSheetPicker];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+
+
+        self.subject.text = [NSString stringWithFormat:@"%@%@", categorys[(NSUInteger) _pickerViewSelectRow], self.subject.text];
+
+    }]];
+
+    UIPickerView *pickerView = [self pickerView:alertController];
+    [alertController.view addSubview:pickerView];
+
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+    if (popover) {
+        popover.sourceView = self.view;
+        popover.sourceRect = self.view.frame;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+        [self presentViewController:alertController animated:true completion:^{
+            CGRect frame = pickerView.frame;
+            CGRect controllerFrame = alertController.view.frame;
+            CGRect newF = CGRectMake(controllerFrame.origin.x, controllerFrame.origin.y, controllerFrame.size.width, controllerFrame.size.height);
+            pickerView.frame = newF;
+        }];
+    } else {
+        [self presentViewController:alertController animated:true completion:nil];
+    }
+
+
+//    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择分类" rows:categorys
+//            initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+//
+//        self.subject.text = [NSString stringWithFormat:@"%@%@", categorys[(NSUInteger) selectedIndex], self.subject.text];
+//
+//    }                                                                    cancelBlock:^(ActionSheetStringPicker *picker) {
+//
+//    }                                                                         origin:sender];
+//
+//    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
+//    cancelItem.title = @"取消";
+//    [picker setCancelButton:cancelItem];
+//
+//    UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
+//    queding.title = @"确定";
+//    [picker setDoneButton:queding];
+//
+//
+//    [picker showActionSheetPicker];
 }
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return forumNames.count;
+}
+
 @end

@@ -36,9 +36,9 @@
     BOOL shouldScrollEnd;
     IBOutlet WKWebView *_wkWebView;
 
-    UIPickerView *_pickerView;
     IBOutlet UIBarButtonItem *moreButton;
-    
+
+    UIPickerView *_pickerView;
     int _pickerViewSelectRow;
 }
 
@@ -692,9 +692,6 @@
 
 - (UIPickerView *)pickerView:(UIAlertController *) controller {
     CGRect controllerFrame = controller.view.frame;
-    CGRect controllerFrame2 = controller.view.subviews[0].frame;
-    CGRect controllerFrameView = self.view.frame;
-
     if (!_pickerView) {
         _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(controllerFrame.origin.x - 8, controllerFrame.origin.y + 16, controllerFrame.size.width - 8, 200)];
 
@@ -735,7 +732,6 @@
 
     UIPickerView *pickerView = [self pickerView:alertController];
     [alertController.view addSubview:pickerView];
-    [pickerView selectRow:_currentShowThreadPage.pageNumber.currentPageNumber - 1 inComponent:0 animated:NO];
 
     UIPopoverPresentationController *popover = alertController.popoverPresentationController;
 
@@ -753,10 +749,6 @@
     } else {
         [self presentViewController:alertController animated:true completion:nil];
     }
-
-    //[self presentViewController:alertController animated:true completion:nil];
-
-
 }
 
 

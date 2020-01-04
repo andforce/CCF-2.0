@@ -7,7 +7,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AFNetworking/AFImageDownloader.h>
 
-#import "ActionSheetStringPicker.h"
 #import "UIImage+Tint.h"
 #import "BBSLocalApi.h"
 #import "BBSPayManager.h"
@@ -18,7 +17,7 @@
 
 @interface BBSCreateNewThreadViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
         UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,
-        DeleteDelegate, TranslateDataDelegate, UIScrollViewDelegate> {
+        DeleteDelegate, TranslateDataDelegate, UIScrollViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
 
 
     id <BBSApiDelegate> _forumApi;
@@ -44,6 +43,9 @@
     IBOutlet UIImageView *vCodeImgV;
     IBOutlet NSLayoutConstraint *vCodeHeight;
     IBOutlet NSLayoutConstraint *vCodeTVHeight;
+
+    UIPickerView *_pickerView;
+    int _pickerViewSelectRow;
 }
 
 @end
@@ -483,33 +485,101 @@
 
 }
 
+- (UIPickerView *)pickerView:(UIAlertController *) controller {
+    CGRect controllerFrame = controller.view.frame;
+    if (!_pickerView) {
+        _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(controllerFrame.origin.x - 8, controllerFrame.origin.y + 16, controllerFrame.size.width - 8, 200)];
+
+        _pickerView.delegate = self;
+        _pickerView.dataSource = self;
+        _pickerView.showsSelectionIndicator = YES;
+    }
+    [_pickerView selectRow:0 inComponent:0 animated:YES];
+
+    return _pickerView;
+
+}
+
 - (IBAction)showCategory:(UIButton *)sender {
 
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
     NSArray *types = _typeidList.allKeys;
 
-    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择分类"
-                                                                                rows:types
-                                                                    initialSelection:categoryIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+//    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:@"选择分类"
+//                                                                                rows:types
+//                                                                    initialSelection:categoryIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+//
+//                self.category.titleLabel.text = types[(NSUInteger) selectedIndex];
+//                categoryIndex = selectedIndex;
 
-                self.category.titleLabel.text = types[(NSUInteger) selectedIndex];
-                categoryIndex = selectedIndex;
+//
+//            }                                                            cancelBlock:^(ActionSheetStringPicker *picker) {
+//
+//            }                                                                 origin:sender];
+//
+//    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
+//    cancelItem.title = @"取消";
+//    [picker setCancelButton:cancelItem];
+//
+//    UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
+//    queding.title = @"确定";
+//    [picker setDoneButton:queding];
+//
+//
+//    [picker showActionSheetPicker];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择分类"
+                                                                             message:@"\n\n\n\n\n\n\n\n" preferredStyle:UIAlertControllerStyleActionSheet];
 
 
-            }                                                            cancelBlock:^(ActionSheetStringPicker *picker) {
-
-            }                                                                 origin:sender];
-
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] init];
-    cancelItem.title = @"取消";
-    [picker setCancelButton:cancelItem];
-
-    UIBarButtonItem *queding = [[UIBarButtonItem alloc] init];
-    queding.title = @"确定";
-    [picker setDoneButton:queding];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
 
 
-    [picker showActionSheetPicker];
+        self.category.titleLabel.text = types[(NSUInteger) _pickerViewSelectRow];
+        categoryIndex = _pickerViewSelectRow;
+
+
+    }]];
+
+    UIPickerView *pickerView = [self pickerView:alertController];
+    [alertController.view addSubview:pickerView];
+
+    UIPopoverPresentationController *popover = alertController.popoverPresentationController;
+
+    if (popover) {
+        popover.sourceView = self.view;
+        popover.sourceRect = self.view.frame;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+        [self presentViewController:alertController animated:true completion:^{
+            CGRect frame = pickerView.frame;
+            CGRect controllerFrame = alertController.view.frame;
+            CGRect newF = CGRectMake(controllerFrame.origin.x, controllerFrame.origin.y, controllerFrame.size.width, controllerFrame.size.height);
+            pickerView.frame = newF;
+        }];
+    } else {
+        [self presentViewController:alertController animated:true completion:nil];
+    }
+
 }
+
+#pragma mark - delegate
+// 选中某一组的某一行
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    _pickerViewSelectRow = row;
+}
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return _typeidList.allKeys[row];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return _typeidList.allKeys.count;
+}
+
 @end
