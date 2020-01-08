@@ -22,7 +22,10 @@
 }
 
 + (NSString *)platformDetailString:(NSString *)platform {
-    
+
+    //参考型号
+    //https://www.theiphonewiki.com/wiki/Models
+
     // iPhone
     if ([platform isEqualToString:@"iPhone1,1"]) return @"iPhone 2G";
     if ([platform isEqualToString:@"iPhone1,2"]) return @"iPhone 3G";
