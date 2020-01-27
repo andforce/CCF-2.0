@@ -23,7 +23,7 @@
             callback(YES, encodeStr);
         } else {
             NSString *orgHtml = [responseObject utf8String];
-            NSString *html = [orgHtml replaceUnicode];
+            NSString *html = orgHtml;//[orgHtml replaceUnicode];
             if (html == nil) {
                 callback(YES, orgHtml);
             } else {
@@ -46,7 +46,7 @@
             callback(YES, encodeStr);
         } else {
             NSString *orgHtml = [responseObject utf8String];
-            NSString *html = [orgHtml replaceUnicode];
+            NSString *html = orgHtml;//[orgHtml replaceUnicode];
 
             if (html == nil) {
                 callback(YES, orgHtml);
@@ -74,7 +74,7 @@
             callback(YES, encodeStr);
         } else {
             NSString *orgHtml = [responseObject utf8String];
-            NSString *html = [orgHtml replaceUnicode];
+            NSString *html = orgHtml;//[orgHtml replaceUnicode];
 
             if (html == nil) {
                 callback(YES, orgHtml);
