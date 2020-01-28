@@ -61,7 +61,7 @@
     // 保存Cookie
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     [localForumApi saveCookie];
-    
+
     NSString *currentURL = webView.URL.absoluteString;
     NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
     

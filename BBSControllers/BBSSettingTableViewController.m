@@ -34,7 +34,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath.section == 2 && indexPath.row == 1) {
+    if (indexPath.section == 2 && indexPath.row == 0) {
         NSURL *url = [NSURL URLWithString:@"https://github.com/andforce/Forum"];
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }

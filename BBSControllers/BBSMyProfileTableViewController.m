@@ -194,7 +194,7 @@
         NSString *id = forumConfig.loginControllerId;
         [[UIStoryboard mainStoryboard] changeRootViewControllerTo:id];
 
-    } else if(indexPath.section == 3 && indexPath.row == 1){
+    } else if(indexPath.section == 4 && indexPath.row == 0){
         UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowPayPage"];
 
         [self presentViewController:controller animated:YES completion:^{
