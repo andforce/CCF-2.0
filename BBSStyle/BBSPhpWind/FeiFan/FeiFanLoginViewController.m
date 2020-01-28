@@ -30,7 +30,7 @@
     NSDictionary *dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://bbs.crsky.com/login.php"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.crskybbs.org/login.php"]]];
 
     if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
@@ -92,7 +92,7 @@
     if ([request.URL.host containsString:@"baidu.com"]) {
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
-    } else if ([request.URL.absoluteString isEqualToString:@"http://bbs.crsky.com/index.php"]) {
+    } else if ([request.URL.absoluteString isEqualToString:@"http://www.crskybbs.org/index.php"]) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
@@ -105,8 +105,8 @@
 
             if (isSuccess) {
 
-                [localForumApi saveUserId:userId forHost:@"bbs.crsky.com"];
-                [localForumApi saveUserName:userName forHost:@"bbs.crsky.com"];
+                [localForumApi saveUserId:userId forHost:@"crskybbs.org"];
+                [localForumApi saveUserName:userName forHost:@"www.crskybbs.org"];
 
                 [self.forumApi listAllForums:^(BOOL success, id msg) {
                     if (success) {

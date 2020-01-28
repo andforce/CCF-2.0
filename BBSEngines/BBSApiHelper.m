@@ -22,7 +22,7 @@ typedef id (^Runnable)(NSString *bundle, NSString *host);
 
 #define CCF_HOST @"bbs.et8.net"
 #define DRL_HOST @"dream4ever.org"
-#define CRSKY_HOST @"bbs.crsky.com"
+#define CRSKY_HOST @"www.crskybbs.org"
 #define CHIPHELL_HOST @"www.chiphell.com"
 #define SMARTISAN @"bbs.smartisan.com"
 

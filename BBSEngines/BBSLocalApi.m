@@ -33,15 +33,15 @@
         return nil;
     }
 
-    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:@"bbs.crsky.com"];
+    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:@"www.crskybbs.org"];
 
     BBSUser *user = [[BBSUser alloc] init];
-    user.userName = [self userName:@"bbs.crsky.com"];
+    user.userName = [self userName:@"www.crskybbs.org"];
     if (user.userName == nil || [user.userName isEqualToString:@""]) {
         //[self logout];
         return nil;
     }
-    user.userID = [self userId:@"bbs.crsky.com"];
+    user.userID = [self userId:@"www.crskybbs.org"];
 
     for (int i = 0; i < cookies.count; i++) {
         NSHTTPCookie *cookie = cookies[(NSUInteger) i];
@@ -91,7 +91,7 @@
 
     NSString *bundleId = [localForumApi bundleIdentifier];
 
-    if ([host isEqualToString:@"bbs.crsky.com"]) {
+    if ([host isEqualToString:@"www.crskybbs.org"]) {
         return [self getLoginUserCrsky];
     } else if ([host isEqualToString:@"bbs.smartisan.com"]) {
         return [self getLoginUserSmartisan];

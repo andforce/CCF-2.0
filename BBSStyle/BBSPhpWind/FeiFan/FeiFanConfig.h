@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 #import "BBSConfigDelegate.h"
 
-#define BBS_HOST @"http://bbs.crsky.com/"
+#define BBS_HOST @"http://www.crskybbs.org//"
 
 #define ARCHIVE BBS_HOST@"index.php?skinco=wind"
 
