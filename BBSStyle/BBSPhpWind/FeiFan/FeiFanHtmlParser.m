@@ -679,7 +679,7 @@
     if ([src hasPrefix:@"http"]) {
         return src;
     } else {
-        return [@"http://www.crskybbs.org/" stringByAppendingString:src];
+        return [@"http://crskybbs.org/" stringByAppendingString:src];
     }
 }
 
@@ -765,7 +765,7 @@
         NSString *avatar = [userAvatarNode attribute:@"src"].trim;
         if (avatar) {
             if (![avatar hasPrefix:@"http"]) {
-                avatar = [@"http://www.crskybbs.org/" stringByAppendingString:avatar];
+                avatar = [@"http://crskybbs.org/" stringByAppendingString:avatar];
             }
         }
         user.userAvatar = avatar;

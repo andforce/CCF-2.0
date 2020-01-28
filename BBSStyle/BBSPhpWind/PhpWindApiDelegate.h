@@ -14,4 +14,6 @@ typedef void (^UserInfoHandler)(BOOL isSuccess, id userName, id userId);
 
 - (void)fetchUserInfo:(UserInfoHandler)handler;
 
+- (void)fetchUserInfo:(NSString *)html handler: (UserInfoHandler)handler;
+
 @end

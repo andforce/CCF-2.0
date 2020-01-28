@@ -30,7 +30,7 @@
     NSDictionary *dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.crskybbs.org/login.php"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://crskybbs.org/login.php"]]];
 
     if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
@@ -38,8 +38,8 @@
 }
 
 - (BOOL)isNeedHideLeftMenu {
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    NSString *bundleId = [localForumApi bundleIdentifier];
+    //BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    //NSString *bundleId = [localForumApi bundleIdentifier];
     return NO;
 }
 
@@ -58,55 +58,30 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
 
+    // 保存Cookie
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    [localForumApi saveCookie];
+    
     NSString *currentURL = webView.URL.absoluteString;
     NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
-
-    // 使用JS注入获取用户输入的密码
-    [webView evaluateJavaScript:@"document.getElementsByName('pwuser')[0].value" completionHandler:^(id o, NSError *error) {
-        NSString *userName = o;
-
-        NSLog(@"TForumLogin.userName->%@", userName);
-        if (userName != nil && ![userName isEqualToString:@""]) {
-            // 保存用户名
-            [self saveUserName:userName];
-        }
-    }];
-
-    // 改变样式
-    NSString *js = [AssertReader js_change_web_login_style];
-
-    [webView evaluateJavaScript:js completionHandler:nil];
-
-    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
-}
-
-
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSString *rUrl = navigationAction.request.URL.absoluteString;
-
-    NSURLRequest * request = navigationAction.request;
-
-    NSString *urlString = [[request URL] absoluteString];
-    NSLog(@"CrskyLogin.shouldStartLoadWithRequest %@ ", urlString);
-
-    if ([request.URL.host containsString:@"baidu.com"]) {
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    } else if ([request.URL.absoluteString isEqualToString:@"http://www.crskybbs.org/index.php"]) {
+    
+    NSString *urlString = webView.URL.absoluteString;
+    
+    if ([currentURL isEqualToString:@"http://crskybbs.org/index.php"]) {
         BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
         // 保存Cookie
         [localForumApi saveCookie];
+        
+        [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id o, NSError *error) {
+            NSString *html = o;
+            NSLog(@"TForumLogin.userName->%@", html);
 
-        [self.forumApi fetchUserInfo:^(BOOL isSuccess, NSString *userName, NSString *userId) {
-
-            NSLog(@"CrskyLogin.shouldStartLoadWithRequest, fetchUserInfo %@ ", urlString);
-
-            if (isSuccess) {
+            [self.forumApi fetchUserInfo:html handler:^(BOOL isSuccess, id userName, id userId) {
 
                 [localForumApi saveUserId:userId forHost:@"crskybbs.org"];
-                [localForumApi saveUserName:userName forHost:@"www.crskybbs.org"];
+                [localForumApi saveUserName:userName forHost:@"crskybbs.org"];
 
                 [self.forumApi listAllForums:^(BOOL success, id msg) {
                     if (success) {
@@ -133,20 +108,67 @@
 
                     }
                 }];
-
-            }
+            }];
         }];
 
+//        [self.forumApi fetchUserInfo:^(BOOL isSuccess, NSString *userName, NSString *userId) {
+//
+//            NSLog(@"CrskyLogin.shouldStartLoadWithRequest, fetchUserInfo %@ ", urlString);
+//
+//            if (isSuccess) {
+//
+//
+//
+//            }
+//        }];
+    } else {
+//        // 使用JS注入获取用户输入的密码
+//        [webView evaluateJavaScript:@"document.getElementsByName('pwuser')[0].value" completionHandler:^(id o, NSError *error) {
+//            NSString *userName = o;
+//
+//            NSLog(@"TForumLogin.userName->%@", userName);
+//            if (userName != nil && ![userName isEqualToString:@""]) {
+//                // 保存用户名
+//                [self saveUserName:userName];
+//            }
+//        }];
+//
+//        // 改变样式
+//        NSString *js = [AssertReader js_change_web_login_style];
+//
+//        [webView evaluateJavaScript:js completionHandler:nil];
+    }
+    
+
+
+
+    [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
+}
+
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    //NSString *rUrl = navigationAction.request.URL.absoluteString;
+
+    NSURLRequest * request = navigationAction.request;
+
+    NSString *urlString = [[request URL] absoluteString];
+    NSLog(@"CrskyLogin.shouldStartLoadWithRequest %@ ", urlString);
+
+    if ([request.URL.host containsString:@"baidu.com"]) {
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
+    
+    // 保存Cookie
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    [localForumApi saveCookie];
 
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (IBAction)cancelLogin:(id)sender {
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    NSString *bundleId = [localForumApi bundleIdentifier];
+    //NSString *bundleId = [localForumApi bundleIdentifier];
 
     [localForumApi clearCurrentForumURL];
     [[UIStoryboard mainStoryboard] changeRootViewControllerTo:@"ShowSupportForums" withAnim:UIViewAnimationOptionTransitionFlipFromTop];

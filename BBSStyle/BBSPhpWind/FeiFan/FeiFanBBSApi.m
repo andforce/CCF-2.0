@@ -88,9 +88,23 @@
     }];
 }
 
+- (void)fetchUserInfo:(NSString *)html handler:(UserInfoHandler)handler {
+    if (html){
+        IGHTMLDocument *document = [[IGHTMLDocument alloc] initWithHTMLString:html error:nil];
+
+        IGXMLNode *nameNode = [document queryNodeWithXPath:@"//*[@id=\"user-login\"]/a[1]"];
+
+        NSString *name = nameNode.text.trim;
+        NSString *uid = [html stringWithRegular:@"(?<=UID: )\\d+"];
+        handler(YES, name, uid);
+    } else {
+        handler(NO, @"", @"html is null");
+    }
+}
+
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
 
-    NSString *url = [NSString stringWithFormat:@"http://www.crskybbs.org/post.php?fid=%d", forumId];
+    NSString *url = [NSString stringWithFormat:@"http://crskybbs.org/post.php?fid=%d", forumId];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
@@ -597,7 +611,7 @@
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
 
-    NSString *url = @"http://www.crskybbs.org/u.php?action=favor";
+    NSString *url = @"http://crskybbs.org/u.php?action=favor";
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
@@ -656,7 +670,7 @@
             }
             [parameters setValue:@"del" forKey:@"action"];
 
-            [self.browser POSTWithURLString:@"http://www.crskybbs.org/message.php" parameters:parameters charset:GBK requestCallback:^(BOOL success, NSString *result) {
+            [self.browser POSTWithURLString:@"http://crskybbs.org/message.php" parameters:parameters charset:GBK requestCallback:^(BOOL success, NSString *result) {
                 handler(success, result);
             }];
 
