@@ -472,7 +472,7 @@
             NSString *url = localApi.currentForumHost;
             loginUser = [localApi getLoginUser:url];
         }
-        BOOL special = [loginUser.userName isEqualToString:@"pobaby"];
+        BOOL special = [loginUser.userName isEqualToString:@"飛鴻"];
 
         NSArray *blackList = @[@"口- 非凡AD区", @"电影资源区", @"口- 虚拟交易", @"剧集资源区", @"口- 谈股论金", @"≮交易交流区≯", @"≮体坛竞猜≯", @"口- 实物交易", @"口- 交易事务", @"口- 苹果专区", @"╃资源专区=-", @"╃交易理财=-", @"娱乐资源区", @"综艺纪录片资源区", @"游戏动漫资源区"];
 
@@ -575,7 +575,7 @@
         NSString *url = localApi.currentForumHost;
         loginUser = [localApi getLoginUser:url];
     }
-    BOOL special = [loginUser.userName isEqualToString:@"pobaby"];
+    BOOL special = [loginUser.userName isEqualToString:@"飛鴻"];
 
     NSArray *blackList = @[@"口- 非凡AD区", @"电影资源区", @"口- 虚拟交易", @"剧集资源区", @"口- 谈股论金", @"≮交易交流区≯", @"≮体坛竞猜≯", @"口- 实物交易", @"口- 交易事务", @"口- 苹果专区", @"╃资源专区=-", @"╃交易理财=-", @"娱乐资源区", @"综艺纪录片资源区", @"游戏动漫资源区"];
 
@@ -745,7 +745,7 @@
 
             post.postContent = [NSString stringWithFormat:@"<div class=\"tpc_content\">%@</div>", [content copy]];
         } else {
-            post.postContent = @"错误请联系开发者：pobaby";
+            post.postContent = @"错误请联系开发者：飛鴻";
         }
 
 
