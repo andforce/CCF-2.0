@@ -51,6 +51,9 @@
 // 查看新帖
 - (NSString *)searchNewThread:(int)page;
 
+// 查看新帖
+- (NSString *)searchNewThreadDaily:(int)page;
+
 // 回复主题帖子
 - (NSString *)replyWithThreadId:(int)threadId forForumId:(int)forumId replyPostId:(int)postId;
 

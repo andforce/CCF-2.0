@@ -86,6 +86,10 @@
     return [NSString stringWithFormat:@"%@search.php?do=getnew", _forumURL.absoluteString];
 }
 
+- (NSString *)searchNewThreadDaily:(int)page {
+    return [NSString stringWithFormat:@"%@search.php?do=getdaily", _forumURL.absoluteString];
+}
+
 - (NSString *)replyWithThreadId:(int)threadId forForumId:(int)forumId replyPostId:(int)postId {
     return [NSString stringWithFormat:@"%@newreply.php?do=postreply&t=%d", _forumURL.absoluteString, threadId];
 }

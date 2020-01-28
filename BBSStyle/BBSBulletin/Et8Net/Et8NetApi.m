@@ -1112,14 +1112,26 @@ typedef void (^CallBack)(NSString *token, NSString *hash, NSString *time);
     if (page == 1 && (searchId == 0 || spaceTime > 30)) {
 
         [self GET:[forumConfig searchNewThread:page] requestCallback:^(BOOL isSuccess, NSString *html) {
+
             if (isSuccess) {
-                NSUInteger newThreadPostSearchId = (NSUInteger) [[forumParser parseListMyThreadSearchId:html] integerValue];
-                [userDefault setInteger:timeStamp forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_time"]];
-                [userDefault setInteger:newThreadPostSearchId forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_id"]];
-            }
-            if (isSuccess) {
-                ViewForumPage *sarchPage = [forumParser parseSearchPageFromHtml:html];
-                handler(isSuccess, sarchPage);
+                ViewForumPage *getNewPage = [forumParser parseSearchPageFromHtml:html];
+                if (getNewPage == nil){
+                    [self GET:[forumConfig searchNewThreadDaily:page] requestCallback:^(BOOL isSuccess, NSString *html) {
+                        ViewForumPage *dailyOage = [forumParser parseSearchPageFromHtml:html];
+                        if (isSuccess){
+                            NSUInteger newThreadPostSearchId = (NSUInteger) [[forumParser parseListMyThreadSearchId:html] integerValue];
+                            [userDefault setInteger:timeStamp forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_time"]];
+                            [userDefault setInteger:newThreadPostSearchId forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_id"]];
+                        }
+                        handler(isSuccess, dailyOage);
+                    }];
+                } else {
+                    NSUInteger newThreadPostSearchId = (NSUInteger) [[forumParser parseListMyThreadSearchId:html] integerValue];
+                    [userDefault setInteger:timeStamp forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_time"]];
+                    [userDefault setInteger:newThreadPostSearchId forKey:[forumConfig.forumURL.host stringByAppendingString:@"-search_id"]];
+                    handler(isSuccess, getNewPage);
+                }
+
             } else {
                 handler(NO, html);
             }
