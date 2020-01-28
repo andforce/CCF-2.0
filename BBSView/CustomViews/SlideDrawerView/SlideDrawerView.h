@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, DrawerIndex) {
 @property(strong, nonatomic) IBOutlet UIView *leftDrawerView;
 @property(strong, nonatomic) IBOutlet UIView *rightDrawerView;
 @property(weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *settingTableView;
 
 
 @property(nonatomic, assign) BOOL leftDrawerOpened;

@@ -35,7 +35,10 @@
     UIImage *defaultAvatarImage;
     NSMutableDictionary *avatarCache;
     NSMutableArray<UserEntry *> *cacheUsers;
+
+    NSArray *settingNames;
 }
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *settingLayout;
 
 @end
 
@@ -179,7 +182,13 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _haveLoginForums.count;
+    if ([tableView isEqual:self.tableView]) {
+        return _haveLoginForums.count;
+    } else if ([tableView isEqual:self.settingTableView]){
+        return 3;
+    }
+    
+    return 0;
 }
 
 
@@ -187,28 +196,55 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"HaveLoginForum" owner:self options:nil];
+    if ([tableView isEqual:self.tableView]) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"HaveLoginForum" owner:self options:nil];
 
-    UITableViewCell *cell = nib.lastObject;
+        UITableViewCell *cell = nib.lastObject;
 
-    WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
+        WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    if ([forums.host isEqualToString:[localForumApi currentForumHost]]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+        if ([forums.host isEqualToString:[localForumApi currentForumHost]]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+
+        cell.textLabel.text = forums.name;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        
+        cell.detailTextLabel.text = forums.host;
+
+        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
+        [cell setSeparatorInset:edgeInsets];
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        return cell;
+    } else if ([tableView isEqual:self.settingTableView]){
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LeftSettingItem" owner:self options:nil];
+
+        UITableViewCell *cell = nib.lastObject;
+
+        //WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
+
+        cell.textLabel.text = settingNames[(NSUInteger) indexPath.row];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0];
+
+        UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
+        [cell setSeparatorInset:edgeInsets];
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        
+        return cell;
     }
 
-    cell.textLabel.text = forums.name;
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    
-    cell.detailTextLabel.text = forums.host;
+    return nil;
+}
 
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
-    [cell setSeparatorInset:edgeInsets];
-    [cell setLayoutMargins:UIEdgeInsetsZero];
-    return cell;
+- (CGFloat)getSafeAreaBottom{
+    if (@available(iOS 11.0, *)) {
+        return self.safeAreaInsets.bottom;//34
+    } else {
+        return 0.0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -216,33 +252,55 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
+    if ([tableView isEqual:self.tableView]) {
+        WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
 
-    WorkedBBS *forums = _haveLoginForums[(NSUInteger) indexPath.row];
+        NSURL *url = [NSURL URLWithString:forums.url];
 
-    NSURL *url = [NSURL URLWithString:forums.url];
+        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+        [localForumApi saveCurrentForumURL:forums.url];
 
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    [localForumApi saveCurrentForumURL:forums.url];
+        BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
 
-    BBSLocalApi *forumApi = [[BBSLocalApi alloc] init];
+        [self closeLeftDrawer:^{
+            [self showUserAvatar];
+            if ([forumApi isHaveLogin:url.host]) {
+                BBSTabBarController *rootViewController = (BBSTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
 
-    [self closeLeftDrawer:^{
-        [self showUserAvatar];
-        if ([forumApi isHaveLogin:url.host]) {
-            BBSTabBarController *rootViewController = (BBSTabBarController *) [[UIStoryboard mainStoryboard] finControllerById:@"ForumTabBarControllerId"];
-
-            if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]) {
-                [rootViewController changeMessageUITabController:vBulletin];
-            } else {
-                [rootViewController changeMessageUITabController:Discuz];
+                if ([url.host isEqualToString:@"bbs.smartisan.com"] || [localForumApi.currentForumHost containsString:@"chiphell.com"]) {
+                    [rootViewController changeMessageUITabController:vBulletin];
+                } else {
+                    [rootViewController changeMessageUITabController:Discuz];
+                }
+                rootViewController.selectedIndex = 2;
+                UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
+                [storyboard changeRootViewControllerToController:rootViewController withAnim:UIViewAnimationOptionTransitionFlipFromRight];
             }
-            rootViewController.selectedIndex = 2;
-            UIStoryboard *storyboard = [UIStoryboard mainStoryboard];
-            [storyboard changeRootViewControllerToController:rootViewController withAnim:UIViewAnimationOptionTransitionFlipFromRight];
+        }];
+    } else if ([tableView isEqual:self.settingTableView]){
+        if (indexPath.row == 0){
+            [self closeLeftDrawer];
+
+            BBSTabBarController *root = (BBSTabBarController *) self.window.rootViewController;
+
+
+            UIViewController *controller = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
+
+
+            [root presentViewController:controller animated:YES completion:^{
+
+            }];
+        } else if (indexPath.row == 1){
+            [self showPayController:nil];
+        } else if (indexPath.row == 2){
+            [self showAddForumController:nil];
         }
-    }];
+    }
+
+
 
 
 }
@@ -258,6 +316,8 @@
 - (id)initWithDrawerType:(DrawerViewType)drawerType andXib:(NSString *)name {
     if (self = [super init]) {
 
+        settingNames = @[@"添加论坛", @"解锁高级功能", @"全局设置"];
+        
         // 和 xib 绑定
         [[NSBundle mainBundle] loadNibNamed:name owner:self options:nil];
 
@@ -439,8 +499,24 @@
     self.tableView.delegate = self;
     self.tableView.scrollsToTop = NO;
 
+    self.settingTableView.dataSource = self;
+    self.settingTableView.delegate = self;
+    self.settingTableView.scrollsToTop = NO;
+    
+    [NSLayoutConstraint constraintWithItem:self.settingTableView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
 
+    UIEdgeInsets insets = self.superview.safeAreaInsets;
+      NSLog(@"self.view - insets - %@", NSStringFromUIEdgeInsets(insets));
+    
+    CGRect layoutFrame = self.superview.safeAreaLayoutGuide.layoutFrame;
+    NSLog(@"self.view - layoutFrame - %@", NSStringFromCGRect(layoutFrame));
+    
+    CGRect frame = self.superview.frame;
+    NSLog(@"self.view - frame - %@", NSStringFromCGRect(frame));
+    
+    NSLog(@"self.view -》〉》 insets - %f", [self getSafeAreaBottom]);
 }
+
 
 
 - (void)openLeftDrawer:(Done)done {
@@ -468,6 +544,14 @@
 }
 
 - (void)openLeftDrawer {
+    NSLog(@"self.view -》〉》 insets - %f", [self getSafeAreaBottom]);
+    
+    if ([self getSafeAreaBottom] == 0) {
+        _settingLayout.constant = 196 - 34;
+    } else {
+        _settingLayout.constant = 196;
+    }
+    
     if (_leftDrawerView != nil && _leftDrawerEnadbled && !_leftDrawerOpened) {
         [self showLeftDrawerWithAdim:_leftDrawerView];
     }

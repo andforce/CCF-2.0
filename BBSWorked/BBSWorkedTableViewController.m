@@ -56,8 +56,16 @@
 
 }
 
+//- (BOOL)canBack {
+//    return self.presentingViewController != nil;
+//}
+
 - (BOOL)canBack {
-    return self.presentingViewController != nil;
+//    UIViewController * c = self.navigationController.presentingViewController;
+//    return c != nil;
+//    return self.navigationController.topViewController == self;
+
+    return self.navigationController.viewControllers.count > 1;
 }
 
 - (BOOL)setPullRefresh:(BOOL)enable {

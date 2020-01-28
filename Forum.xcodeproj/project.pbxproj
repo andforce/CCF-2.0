@@ -23,6 +23,7 @@
 		2F34CF6094B6C2397FB0FE5C /* BBSDiscuzShowPrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34C8996C973B366700F031 /* BBSDiscuzShowPrivateMessageViewController.m */; };
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* BBSShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* BBSShortCutCreateNewThreadViewController.m */; };
+		3A14C7E123E083A500D963ED /* LeftSettingItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A14C7E023E083A500D963ED /* LeftSettingItem.xib */; };
 		3A288A4C1DFAE47F002EBBC2 /* SlideDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */; };
 		3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */; };
 		3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */; };
@@ -219,6 +220,7 @@
 		2F34CF08A261B408C3A92081 /* BBSApiHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSApiHelper.h; sourceTree = "<group>"; };
 		2F34CF789D3C14352C95AF73 /* BBSLocalApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSLocalApi.h; sourceTree = "<group>"; };
 		2F34CF920692D4F8881DB9A1 /* BBSBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSBrowser.h; sourceTree = "<group>"; };
+		3A14C7E023E083A500D963ED /* LeftSettingItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftSettingItem.xib; sourceTree = "<group>"; };
 		3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideDrawerView.h; sourceTree = "<group>"; };
 		3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideDrawerView.m; sourceTree = "<group>"; };
 		3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideDrawerView.xib; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 				4D13B5DB2387ADBD00BBF06D /* SlideDrawerView */,
 				4D13B5DA2387ADA400BBF06D /* PagerHeaderView */,
 				3A288A651DFD8C76002EBBC2 /* HaveLoginForum.xib */,
+				3A14C7E023E083A500D963ED /* LeftSettingItem.xib */,
 				3A2C3F531DDFBFC500576151 /* BBSListHeaderView.h */,
 				3A2C3F541DDFBFC500576151 /* BBSListHeaderView.m */,
 				3A2C3F551DDFBFC500576151 /* ForumListHeaderView.xib */,
@@ -1235,6 +1238,7 @@
 				4D13B6672387CBC200BBF06D /* Jubao.storyboard in Resources */,
 				4D13B66B2387CC6F00BBF06D /* ShortCutNewThread.storyboard in Resources */,
 				4D13B6652387CB9400BBF06D /* SeniorReply.storyboard in Resources */,
+				3A14C7E123E083A500D963ED /* LeftSettingItem.xib in Resources */,
 				4D13B6632387CB3700BBF06D /* Login.storyboard in Resources */,
 				3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */,
 				3A48EF81214D3BFD0025CE2D /* click_event_handler.js in Resources */,
