@@ -124,7 +124,10 @@
     }
     NSString *avatarInArray = [avatarCache valueForKey:userId];
 
-    if (avatarInArray == nil) {
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
+    
+    if (avatarInArray == nil || [avatarInArray isEqualToString:forumConfig.avatarNo]) {
 
         [self.forumApi getAvatarWithUserId:userId handler:^(BOOL isSuccess, NSString *avatar) {
 
@@ -153,9 +156,6 @@
 
         }];
     } else {
-
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-        id <BBSConfigDelegate> forumConfig = [BBSApiHelper forumConfig:localForumApi.currentForumHost];
 
         if ([avatarInArray isEqualToString:forumConfig.avatarNo]) {
             [avatarImageView setImage:defaultAvatarImage];

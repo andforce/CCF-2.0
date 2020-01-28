@@ -201,6 +201,8 @@
     }
 
     cell.textLabel.text = forums.name;
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    
     cell.detailTextLabel.text = forums.host;
 
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 16, 0, 16);
