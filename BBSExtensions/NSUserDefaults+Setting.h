@@ -18,4 +18,8 @@
 
 - (BOOL)isTopThreadPostCanShow;
 
+- (int)fontSize;
+
+- (void)setFontSize:(int)size;
+
 @end

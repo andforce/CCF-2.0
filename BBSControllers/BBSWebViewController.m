@@ -17,6 +17,7 @@
 #import "NYTPhotoViewerArrayDataSource.h"
 #import "NSURLProtocol+WKWebVIew.h"
 #import "AssertReader.h"
+#import "NSUserDefaults+Setting.h"
 
 #import <WebKit/WebKit.h>
 #import <SDWebImage/SDImageCache.h>
@@ -185,7 +186,11 @@
                           "            <div class=\"title\">%@</div>\n"
                           "        </li>";
     NSString *titleFormat = firstPage ? [NSString stringWithFormat:titleHtml, title] : @"";
-    NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], titleFormat, posts, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
+    int fontSize = [[NSUserDefaults standardUserDefaults] fontSize];
+    NSString *fontSizeStr = [NSString stringWithFormat:@"%d", fontSize];
+    NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors],
+            fontSizeStr, fontSizeStr, fontSizeStr,
+            titleFormat, posts, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
     return html;
 }
 
@@ -197,6 +202,9 @@
 #pragma mark WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     NSLog(@"onImageClicked %@",@"didFinishNavigation");
+        
+    //[webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '120%'" completionHandler:nil];
+    
     if (shouldScrollEnd){
         CGPoint scrollPoint = CGPointMake(0, _wkWebView.scrollView.contentSize.height);
         NSString *js = [NSString stringWithFormat:@"window.scrollTo(0,%f)",scrollPoint.y];

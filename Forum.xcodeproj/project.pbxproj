@@ -24,6 +24,7 @@
 		2F34CF633CBD962E14A1B45B /* vBulletinCommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CEE0F1D8FC6BD84A3D2B /* vBulletinCommonConfig.m */; };
 		2F34CFBB62E848555D9DB610 /* BBSShortCutCreateNewThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34CA129BA2D7ADF167E05D /* BBSShortCutCreateNewThreadViewController.m */; };
 		3A14C7E123E083A500D963ED /* LeftSettingItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A14C7E023E083A500D963ED /* LeftSettingItem.xib */; };
+		3A14C7E423E11CEB00D963ED /* BBSFontSizeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14C7E323E11CEB00D963ED /* BBSFontSizeTableViewController.m */; };
 		3A288A4C1DFAE47F002EBBC2 /* SlideDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */; };
 		3A288A4D1DFAE47F002EBBC2 /* SlideDrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */; };
 		3A288A501DFC4EAF002EBBC2 /* bbs_have_support.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A288A4F1DFC4EAF002EBBC2 /* bbs_have_support.json */; };
@@ -221,6 +222,8 @@
 		2F34CF789D3C14352C95AF73 /* BBSLocalApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSLocalApi.h; sourceTree = "<group>"; };
 		2F34CF920692D4F8881DB9A1 /* BBSBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSBrowser.h; sourceTree = "<group>"; };
 		3A14C7E023E083A500D963ED /* LeftSettingItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeftSettingItem.xib; sourceTree = "<group>"; };
+		3A14C7E223E11CEB00D963ED /* BBSFontSizeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSFontSizeTableViewController.h; sourceTree = "<group>"; };
+		3A14C7E323E11CEB00D963ED /* BBSFontSizeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBSFontSizeTableViewController.m; sourceTree = "<group>"; };
 		3A288A491DFAE47F002EBBC2 /* SlideDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideDrawerView.h; sourceTree = "<group>"; };
 		3A288A4A1DFAE47F002EBBC2 /* SlideDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideDrawerView.m; sourceTree = "<group>"; };
 		3A288A4B1DFAE47F002EBBC2 /* SlideDrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideDrawerView.xib; sourceTree = "<group>"; };
@@ -717,6 +720,8 @@
 				3ABEBF082020C44E00AB67E9 /* CommonCloseViewController.m */,
 				2F34C8996C973B366700F031 /* BBSDiscuzShowPrivateMessageViewController.m */,
 				2F34CEBE6FC385BE63D4D640 /* BBSDiscuzShowPrivateMessageViewController.h */,
+				3A14C7E223E11CEB00D963ED /* BBSFontSizeTableViewController.h */,
+				3A14C7E323E11CEB00D963ED /* BBSFontSizeTableViewController.m */,
 			);
 			path = BBSControllers;
 			sourceTree = "<group>";
@@ -1356,6 +1361,7 @@
 				3A2C3FE31DDFE0C900576151 /* BBSTabBarController.m in Sources */,
 				4DA372A41FC2DFD60094E655 /* BBSZhanNeiSearchViewCell.m in Sources */,
 				3A2C3FEE1DDFE10900576151 /* bbs_db.xcdatamodeld in Sources */,
+				3A14C7E423E11CEB00D963ED /* BBSFontSizeTableViewController.m in Sources */,
 				3A288A641DFD14D8002EBBC2 /* DreamLandHtmlParser.m in Sources */,
 				3AEDFA802095AE5B00E93BB0 /* SmartisanHotTHotThreadPage.m in Sources */,
 				3AC36D672389755600082BBA /* AssertReader.m in Sources */,

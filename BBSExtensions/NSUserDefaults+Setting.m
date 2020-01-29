@@ -11,12 +11,12 @@
 
 - (void)setSignature:(BOOL)enable {
 
-    NSNumber *value = enable ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
+    NSNumber *value = enable ? @1 : @0;
     [self setValue:value forKey:kSIGNATURE];
 }
 
 - (void)setTopThreadPost:(BOOL)show {
-    NSNumber *value = show ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
+    NSNumber *value = show ? @1 : @0;
     [self setValue:value forKey:kTOP_THREAD];
 }
 
@@ -30,4 +30,18 @@
     NSNumber *value = [self valueForKey:kTOP_THREAD];
     return [value intValue] == 1;
 }
+
+- (int)fontSize {
+    NSInteger size = [self integerForKey:@"font_size"];
+    if (size < 100){
+        return 100;
+    }
+    return size;
+}
+
+- (void)setFontSize:(int)size {
+    [self setValue:@(size) forKey:@"font_size"];
+}
+
+
 @end

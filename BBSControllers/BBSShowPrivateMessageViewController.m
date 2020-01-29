@@ -14,6 +14,7 @@
 #import "BBSLocalApi.h"
 #import "AssertReader.h"
 #import "NSURLProtocol+WKWebVIew.h"
+#import "NSUserDefaults+Setting.h"
 
 @interface BBSShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
@@ -77,8 +78,11 @@
                                   "            <div class=\"title\">%@</div>\n"
                                   "        </li>";
             NSString *titleFormat = [NSString stringWithFormat:titleHtml, oneMessage.pmTitle];
-            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], titleFormat,
-                    postInfo, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
+            int fontSize = [[NSUserDefaults standardUserDefaults] fontSize];
+            NSString *fontSizeStr = [NSString stringWithFormat:@"%d", fontSize];
+            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors],
+                    fontSizeStr, fontSizeStr, fontSizeStr,
+                    titleFormat, postInfo, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
 
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];

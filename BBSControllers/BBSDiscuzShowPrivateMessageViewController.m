@@ -14,6 +14,7 @@
 #import "BBSLocalApi.h"
 
 #import "AssertReader.h"
+#import "NSUserDefaults+Setting.h"
 
 @interface BBSDiscuzShowPrivateMessageViewController () <WKNavigationDelegate, UIScrollViewDelegate, TranslateDataDelegate> {
 
@@ -77,8 +78,12 @@
                 [content appendString:postInfo];
             }
 
+            int fontSize = [[NSUserDefaults standardUserDefaults] fontSize];
+            NSString *fontSizeStr = [NSString stringWithFormat:@"%d", fontSize];
 
-            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors], @"", content, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
+            NSString *html = [NSString stringWithFormat:[AssertReader html_content_template_all_post_floors],
+                    fontSizeStr, fontSizeStr, fontSizeStr,
+                    @"", content, [AssertReader js_click_fast_lib], [AssertReader js_click_event_handler]];
 
             BBSLocalApi *localeForumApi = [[BBSLocalApi alloc] init];
             [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:localeForumApi.currentForumBaseUrl]];
