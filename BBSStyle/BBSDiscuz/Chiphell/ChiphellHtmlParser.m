@@ -45,7 +45,7 @@
 
     NSString *fixImagesHtml = html;
     NSString *newImagePattern = @"<img src=\"%@\" />";
-    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" (([^<>=\"]*)=\"([^<>=]*)\" )+/>"];
+    NSArray *orgImages = [fixImagesHtml arrayWithRegular:@"<img id=\"aimg_\\d+\" (([^<>=\"]*)=\"([^<>=]*)\" )+ ?\\/>"];
     for (NSString *img in orgImages) {
         IGXMLDocument *igxmlDocument = [[IGXMLDocument alloc] initWithXMLString:img error:nil];
         NSString *file = [igxmlDocument attribute:@"file"];
