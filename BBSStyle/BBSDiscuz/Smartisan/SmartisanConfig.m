@@ -16,7 +16,6 @@
     return self;
 }
 
-
 #pragma mark ForumCommonConfigDelegate
 
 - (UIColor *)themeColor {

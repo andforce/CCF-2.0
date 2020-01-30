@@ -104,7 +104,7 @@
 
 - (void)enterCreateThreadPageFetchInfo:(int)forumId :(EnterNewThreadCallBack)callback {
 
-    NSString *url = [NSString stringWithFormat:@"http://crskybbs.org/post.php?fid=%d", forumId];
+    NSString *url = [forumConfig.forumURL.absoluteString stringByAppendingFormat:@"post.php?fid=%d", forumId];
 
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
 
@@ -611,7 +611,8 @@
 
 - (void)unFavoriteThreadWithId:(NSString *)threadPostId handler:(HandlerWithBool)handler {
 
-    NSString *url = @"http://crskybbs.org/u.php?action=favor";
+
+    NSString *url = [forumConfig.forumURL.absoluteString stringByAppendingString: @"u.php?action=favor"];
     [self GET:url requestCallback:^(BOOL isSuccess, NSString *html) {
         if (isSuccess) {
             NSString *token = [forumParser parseSecurityToken:html];
@@ -670,7 +671,8 @@
             }
             [parameters setValue:@"del" forKey:@"action"];
 
-            [self.browser POSTWithURLString:@"http://crskybbs.org/message.php" parameters:parameters charset:GBK requestCallback:^(BOOL success, NSString *result) {
+            NSString *messageUrl = [forumConfig.forumURL.absoluteString stringByAppendingString:@"message.php"];
+            [self.browser POSTWithURLString:messageUrl parameters:parameters charset:GBK requestCallback:^(BOOL success, NSString *result) {
                 handler(success, result);
             }];
 

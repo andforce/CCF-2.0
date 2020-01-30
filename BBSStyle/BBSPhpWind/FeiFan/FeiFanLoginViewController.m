@@ -38,10 +38,12 @@
         NSLog(@"WKNavigationDelegate evaluateJavaScript -> %@", oldAgent);
 
     }];
-    
-    
 
-    NSURL *url = [NSURL URLWithString:@"http://crskybbs.org/login.php"];
+
+
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    NSString *loginUrl = [localForumApi.currentForumURL stringByAppendingString:@"login.php"];
+    NSURL *url = [NSURL URLWithString:loginUrl];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
 
     [request setValue:@"" forHTTPHeaderField:@"Cookie"];
@@ -83,9 +85,9 @@
     NSLog(@"TForumLogin.webViewDidFinishLoad->%@", currentURL);
     
     NSString *urlString = webView.URL.absoluteString;
-    
-    if ([currentURL isEqualToString:@"http://crskybbs.org/index.php"]) {
-        BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+
+    NSString *index = [localForumApi.currentForumURL stringByAppendingString:@"index.php"];
+    if ([currentURL isEqualToString:index]) {
 
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
         // 保存Cookie
