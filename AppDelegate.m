@@ -20,14 +20,13 @@
 #import "BBSPayManager.h"
 
 #import "BBSNSURLProtocol.h"
-#import "BBSPayUITableViewController.h"
 
 static BOOL API_DEBUG = NO;
-static int DB_VERSION = 11;
+static int DB_VERSION = 12;
 
 static BOOL PAY_DEBUG = NO;
 
-@interface AppDelegate ()<UNUserNotificationCenterDelegate> {
+@interface AppDelegate () <UNUserNotificationCenterDelegate> {
 
 }
 @end
@@ -38,15 +37,13 @@ static BOOL PAY_DEBUG = NO;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [NSURLProtocol registerClass:[BBSNSURLProtocol class]];
-    
-    [self changeUserAgentForWebView];
 
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
 
-    BBSPayManager * payManager = [BBSPayManager shareInstance];
+    BBSPayManager *payManager = [BBSPayManager shareInstance];
     [payManager verifyPay:localForumApi.currentProductID with:^(long timeHave) {
 
-        if (timeHave == 0){
+        if (timeHave == 0) {
             [payManager setPayed:FALSE for:localForumApi.currentProductID];
             NSLog(@"AppDelegate --> not payed");
         } else {
@@ -65,11 +62,11 @@ static BOOL PAY_DEBUG = NO;
 
     if (API_DEBUG) {
         NSDictionary *dic = [[NSBundle mainBundle] infoDictionary];
-        NSLog(@"AppDelegate --> infoDictionary %@",dic);
+        NSLog(@"AppDelegate --> infoDictionary %@", dic);
 
         NSString *versionCode = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-        NSLog(@"AppDelegate --> versionCode %@",versionCode);
-        
+        NSLog(@"AppDelegate --> versionCode %@", versionCode);
+
         BBSApiTestViewController *testController = [[BBSApiTestViewController alloc] init];
         self.window.rootViewController = testController;
         return YES;
@@ -90,43 +87,39 @@ static BOOL PAY_DEBUG = NO;
     // 检查数据库
     BOOL isClearDB = NO;
     if ([localForumApi dbVersion] != DB_VERSION) {
-        
+
         BBSCoreDataManager *formManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeForm];
-        
+
         // 清空数据库
         [formManager deleteData];
-        
+
         BBSCoreDataManager *userManager = [[BBSCoreDataManager alloc] initWithEntryType:EntryTypeUser];
         [userManager deleteData];
-        
+
         [localForumApi setDBVersion:DB_VERSION];
 
-        NSArray<WorkedBBS *> * forums = localForumApi.supportForums;
-        for (WorkedBBS * f in forums) {
+        NSArray<WorkedBBS *> *forums = localForumApi.supportForums;
+        for (WorkedBBS *f in forums) {
             [localForumApi logout:f.url];
         }
-        
+
         isClearDB = YES;
     }
-    
+
     // 检查登录情况
     NSString *currentSelectForumHost = localForumApi.currentForumHost;
-    if (currentSelectForumHost){
-        if (![localForumApi isHaveLogin:localForumApi.currentForumHost]){
-            NSArray<WorkedBBS *> * loginForums = localForumApi.loginedSupportForums;
-            if(loginForums != nil && loginForums.count >0){
+    if (currentSelectForumHost) {
+        if (![localForumApi isHaveLogin:localForumApi.currentForumHost]) {
+            NSArray<WorkedBBS *> *loginForums = localForumApi.loginedSupportForums;
+            if (loginForums != nil && loginForums.count > 0) {
                 [localForumApi saveCurrentForumURL:loginForums.firstObject.url];
             }
         }
-
         // 判断是否登录
         if (![localForumApi isHaveLoginForum] || isClearDB) {
-
             [self showReloginController:localForumApi];
-
         }
     } else {
-        
         [self showReloginController:localForumApi];
     }
 
@@ -138,14 +131,8 @@ static BOOL PAY_DEBUG = NO;
         NSLog(@"AppDelegate --> UIApplicationLaunchOptionsShortcutItemKey no");
         return NO;
     }
-    
-    return YES;
-}
 
-- (void)changeUserAgentForWebView {
-//    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
-//    NSDictionary *dictionary = @{@"UserAgent": newAgent, @"User-Agent":newAgent,@"useragent":newAgent, @"user-agent":newAgent};
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    return YES;
 }
 
 - (void)showReloginController:(BBSLocalApi *)localForumApi {
@@ -153,32 +140,30 @@ static BOOL PAY_DEBUG = NO;
     self.window.rootViewController = [[UIStoryboard mainStoryboard] finControllerById:@"ShowSupportForums"];
 }
 
-
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   didReceiveNotificationResponse");
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
     completionHandler();  // 系统要求执行这个方法
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
     NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   openSettingsForNotification");
-    NSDictionary * userInfo = notification.request.content.userInfo;
+    NSDictionary *userInfo = notification.request.content.userInfo;
     if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //从通知界面直接进入应用
-    }else{
+    } else {
         //从通知设置界面进入应用
     }
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     NSLog(@"AppDelegate --> >>>>>>>>>>>>>>>>>>>>>>   userNotificationCenter   willPresentNotification");
-    NSDictionary * userInfo = notification.request.content.userInfo;
-    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    NSDictionary *userInfo = notification.request.content.userInfo;
+    if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
 
     }
     completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有 Badge、Sound、Alert 三种类型可以选择设置
@@ -317,13 +302,13 @@ static BOOL PAY_DEBUG = NO;
 /** 处理shortcutItem */
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    if ([localForumApi isHaveLoginForum]){
+    if ([localForumApi isHaveLoginForum]) {
         NSString *shortCutItemType = shortcutItem.type;
 
-        BBSTabBarController * controller = (BBSTabBarController *) self.window.rootViewController;
+        BBSTabBarController *controller = (BBSTabBarController *) self.window.rootViewController;
 
         controller.selectedIndex = 2;
-        BBSTableViewController * forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
+        BBSTableViewController *forumTableViewController = controller.selectedViewController.childViewControllers.firstObject;
         [forumTableViewController showControllerByShortCutItemType:shortCutItemType];
     }
 }

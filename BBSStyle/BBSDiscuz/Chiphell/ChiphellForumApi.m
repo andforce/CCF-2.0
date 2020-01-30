@@ -16,6 +16,8 @@
 #import "NSString+Extensions.h"
 #import "IGXMLNode+Children.h"
 
+#import "Forum.pch"
+
 typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttime);
 
 @implementation ChiphellForumApi {
@@ -837,15 +839,11 @@ typedef void (^CallBack)(NSString *token, NSString *forumHash, NSString *posttim
     [request setValue:cookie forHTTPHeaderField:@"cookie"];
 
     [request setValue:@"max-age=0" forHTTPHeaderField:@"cache-control"];
-    //[request setValue:@"https://www.chiphell.com" forHTTPHeaderField:@"origin"];
     [request setValue:@"1" forHTTPHeaderField:@"upgrade-insecure-requests"];
-    //[request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" forHTTPHeaderField:@"user-agent"];
     [request setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" forHTTPHeaderField:@"accept"];
     [request setValue:@"1" forHTTPHeaderField:@"dnt"];
     [request setValue:@"gzip, deflate, br" forHTTPHeaderField:@"accept-encoding"];
     [request setValue:@"zh-CN,zh;q=0.9,en;q=0.8" forHTTPHeaderField:@"accept-language"];
-    //[request setValue:@"https://www.chiphell.com/forum.php?mod=post&action=newthread&fid=201" forHTTPHeaderField:@"referer"];
-
 
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request setValue:contentType forHTTPHeaderField:@"content-Type"];

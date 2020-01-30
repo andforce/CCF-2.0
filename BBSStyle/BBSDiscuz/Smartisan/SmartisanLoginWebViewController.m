@@ -12,6 +12,8 @@
 
 #import "AssertReader.h"
 
+#import "Forum.pch"
+
 @interface SmartisanLoginWebViewController () <WKNavigationDelegate>
 
 @end
@@ -25,7 +27,7 @@
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
-    NSDictionary *dictionary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
+    NSDictionary *dictionary = @{@"UserAgent": ForumUserAgent};
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://account.smartisan.com/#/v2/login?return_url=http:%2F%2Fbbs.smartisan.com%2Fforum.php"]]];

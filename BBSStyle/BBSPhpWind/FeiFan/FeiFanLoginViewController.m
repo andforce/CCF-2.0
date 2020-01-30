@@ -10,8 +10,7 @@
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
 
-#import "AssertReader.h"
-
+#import "Forum.pch"
 @interface FeiFanLoginViewController () <WKNavigationDelegate> {
 
 }
@@ -27,10 +26,26 @@
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.webView setOpaque:NO];
 
-    NSDictionary *dictionnary = @{@"UserAgent": @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"};
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+    NSDictionary *userAgent = @{@"UserAgent": ForumUserAgent};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userAgent];
 
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://crskybbs.org/login.php"]]];
+
+    __weak typeof(self) weakSelf = self;
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id _Nullable agent, NSError *_Nullable error) {
+        NSString *oldAgent = agent;
+        // 给User-Agent添加额外的信息
+        weakSelf.webView.customUserAgent = ForumUserAgent;
+        NSLog(@"WKNavigationDelegate evaluateJavaScript -> %@", oldAgent);
+
+    }];
+    
+    
+
+    NSURL *url = [NSURL URLWithString:@"http://crskybbs.org/login.php"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+
+    [request setValue:@"" forHTTPHeaderField:@"Cookie"];
+    [self.webView loadRequest:request];
 
     if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
@@ -58,6 +73,8 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
 
+    NSLog(@"WKNavigationDelegate -> %@", @"didFinishNavigation");
+
     // 保存Cookie
     BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
     [localForumApi saveCookie];
@@ -73,6 +90,8 @@
         NSLog(@"CrskyLogin.shouldStartLoadWithRequest, Enter index.php %@ ", urlString);
         // 保存Cookie
         [localForumApi saveCookie];
+        
+        //[NSThread sleepForTimeInterval:2.0];
         
         [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id o, NSError *error) {
             NSString *html = o;
@@ -148,7 +167,7 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     //NSString *rUrl = navigationAction.request.URL.absoluteString;
-
+    NSLog(@"WKNavigationDelegate -> %@", @"decidePolicyForNavigationAction");
     NSURLRequest * request = navigationAction.request;
 
     NSString *urlString = [[request URL] absoluteString];
@@ -158,12 +177,18 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-    
-    // 保存Cookie
-    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
-    [localForumApi saveCookie];
 
     decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    NSLog(@"WKNavigationDelegate -> %@", @"decidePolicyForNavigationResponse");
+
+    // 保存Cookie
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    [localForumApi saveCookiesForResponse:(NSHTTPURLResponse *) navigationResponse.response];
+
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 - (IBAction)cancelLogin:(id)sender {

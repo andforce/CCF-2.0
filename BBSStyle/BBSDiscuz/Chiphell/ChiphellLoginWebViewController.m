@@ -13,7 +13,8 @@
 #import "IGHTMLDocument+QueryNode.h"
 #import "UIStoryboard+Forum.h"
 #import "BBSLocalApi.h"
-#import "AssertReader.h"
+
+#import "Forum.pch"
 
 #define LOG_IN_URL @"https://www.chiphell.com/member.php?mod=logging&action=login&mobile=no&referer=https://www.chiphell.com/forum.php"
 
@@ -30,17 +31,6 @@
 }
 
 - (void)viewDidLoad {
-//    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-//    NSLog(@"old agent :%@", oldAgent);
-//
-//    //add my info to the new agent
-//    NSString *newAgent = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36";
-//    NSLog(@"new agent :%@", newAgent);
-//
-//    //regist the new agent
-//    NSDictionary *dictionary = @{@"UserAgent": newAgent};
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.navigationDelegate = self;
@@ -48,8 +38,21 @@
 
     [self.webView setOpaque:NO];
 
+    __weak typeof(self) weakSelf = self;
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id _Nullable agent, NSError *_Nullable error) {
+        // 给User-Agent添加额外的信息
+        weakSelf.webView.customUserAgent = ForumUserAgent;
+
+        NSLog(@"WKNavigationDelegate evaluateJavaScript -> %@", agent);
+
+    }];
+
     REFERER = [LOG_IN_URL stringWithRegular:@"(?<=referer=).*"];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LOG_IN_URL]]];
+
+    NSURL *url = [NSURL URLWithString:LOG_IN_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [request setValue:@"" forHTTPHeaderField:@"Cookie"];
+    [self.webView loadRequest:request];
 
     if ([self isNeedHideLeftMenu]) {
         self.navigationItem.leftBarButtonItem = nil;
@@ -62,7 +65,7 @@
     return NO;
 }
 
-- (void)getResponseHTML:(WKWebView *)webView handle:(void (^)(NSString *html))success{
+- (void)getResponseHTML:(WKWebView *)webView handle:(void (^)(NSString *html))success {
     NSString *lJs = @"document.documentElement.outerHTML";
     [webView evaluateJavaScript:lJs completionHandler:^(id o, NSError *error) {
         NSString *tmpHtml = o;
@@ -82,8 +85,8 @@
 
     if ([currentURL isEqualToString:LOG_IN_URL]) {
         // 改变样式
-        NSString *js = [AssertReader js_chiphell_login];
-        [webView evaluateJavaScript:js completionHandler:nil];
+//        NSString *js = [AssertReader js_chiphell_login];
+//        [webView evaluateJavaScript:js completionHandler:nil];
 
         [self performSelector:@selector(hideMaskView) withObject:nil/*可传任意类型参数*/ afterDelay:1.0];
 
@@ -134,6 +137,16 @@
 
         }];
     }
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    NSLog(@"WKNavigationDelegate -> %@", @"decidePolicyForNavigationResponse");
+
+    // 保存Cookie
+    BBSLocalApi *localForumApi = [[BBSLocalApi alloc] init];
+    [localForumApi saveCookiesForResponse:(NSHTTPURLResponse *) navigationResponse.response];
+
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 - (IBAction)cancelLogin:(id)sender {

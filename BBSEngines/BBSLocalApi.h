@@ -44,6 +44,8 @@
 
 - (void)saveCookie;
 
+- (void)saveCookiesForResponse:(NSHTTPURLResponse *)response;
+
 - (void)clearCookie;
 
 - (void)saveFavFormIds:(NSArray *)ids;

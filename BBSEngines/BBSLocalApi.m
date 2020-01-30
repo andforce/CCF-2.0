@@ -191,6 +191,11 @@
 
     //NSURL *url = forumConfig.forumURL;
     if (forumURL) {
+        NSArray *cookiesArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        for (NSHTTPCookie *cookie in cookiesArray) {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+        }
+
         NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:forumURL];
         for (int i = 0; i < [cookies count]; i++) {
             NSHTTPCookie *cookie = (NSHTTPCookie *) cookies[(NSUInteger) i];
@@ -278,6 +283,13 @@
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:cookies];
     NSString *currentHost = [self currentForumHost];
     [_userDefaults setObject:data forKey:[currentHost stringByAppendingString:@"-Cookies"]];
+}
+
+- (void)saveCookiesForResponse:(NSHTTPURLResponse *)response {
+    NSArray<NSHTTPCookie *> * cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:response.URL];
+    for (NSHTTPCookie *cookie in cookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
 }
 
 - (void)clearCookie {
