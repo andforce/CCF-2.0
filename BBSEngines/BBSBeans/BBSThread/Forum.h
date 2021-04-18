@@ -14,4 +14,5 @@
 
 @property(nonatomic, strong) NSArray<Forum *> *childForums;
 
+- (NSString *)description;
 @end
